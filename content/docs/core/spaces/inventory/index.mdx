@@ -1,0 +1,94 @@
+---
+title: Inventory
+description: Assets, Domains & Ressourcen im Space – Grundlage für Risiko, Controls und Nachweise
+---
+
+Das **Inventory** ist die fundierende Ressource eines jeden **Space**. Hier erfassen und verwalten Teams ihre **Assets**, **Domains** und weitere Ressourcen – vollständig **isoliert pro Space**.  
+Viele Kopexa-Features bauen direkt auf dem Inventory auf (Risiken, Kontrollen, Evidences, Issues).
+
+> **Scope:** Inventory gehört zum Space (siehe [Spaces](../index.mdx)). Zentrale SSO-Domains verwaltest du auf **Organization**-Ebene (siehe [Domains](../../organization/domains.mdx)).
+
+---
+
+## Warum Inventory?
+
+- **Single Source of Truth:** Einheitlicher Bestand (Assets, Domains, Services) als Ausgangspunkt für Risiko- und Compliance-Arbeit.  
+- **Isolation & Compliance:** Trennung pro Space unterstützt ISO 27001, NIS2, DSGVO & TISAX.  
+- **Verknüpfbar:** Assets verbinden sich mit **Risks**, **Controls**, **Documents/Evidence** und **Issues**.
+
+---
+
+## Asset-Typen
+
+Kopexa liefert einen praxistauglichen Satz an **Asset-Typen** (erweiterbar):
+
+- **application** – Geschäftsanwendungen, interne Tools, SaaS-Applikationen  
+- **infrastructure** – Server, Cluster, Netzkomponenten, DB-Instanzen  
+- **physical** – Geräte/Hardware (z. B. Laptops, Netzwerkswitches)  
+- **data** – Datenbestände, Datasets, Datenbanken, Storage  
+- **service** – Technische Services/Plattformen (z. B. CI/CD, Messaging)  
+- **other** – Alles, was nicht in obige Kategorien passt
+
+> **People:** Personendaten werden in Kopexa nicht mehr als Asset geführt, sondern in einer eigenen **People-Entity** im Inventory-Kontext verwaltet. Dies erlaubt spezifische Onboarding-Prozesse, Richtlinien und Zuweisungen, bleibt aber logisch Teil des Inventory-Bereichs.
+
+> **Hinweis:** *Internet-Domains* im Inventory sind **operativ** (z. B. `example.com` für Angriffsoberfläche, Subdomain-Scanning, Zertifikate).  
+> **SSO-Domains** für Login/Zuordnung verwaltest du auf **Organization-Ebene** (siehe [Domains](../../organization/domains.mdx)).
+
+---
+
+## Asset-Modell (Überblick)
+
+Typische Attribute eines Assets:
+
+- **ID, Name** – eindeutige Identifikation  
+- **Typ (Kind)** – siehe Asset-Typen oben  
+- **Status** – z. B. aktiv, außer Betrieb, ausgemustert  
+- **Klassifikation** – Vertraulichkeit, Kritikalität, Sensitivität  
+- **Metadaten** – strukturierte Zusatzinfos (frei definierbar)  
+- **Business Units** – Zuordnung zu Organisationseinheiten  
+- **Owner** – fachlich/technisch Verantwortliche  
+- **Beziehungen** – Verweise auf Vendors, Risks, Controls, Documents/Evidence
+
+Speziell bei **data-Assets**:  
+Ein strukturiertes Retention-Feld (Aufbewahrungsdauer & Kommentar) dokumentiert gesetzliche oder interne Anforderungen.  
+
+---
+
+## Domains im Inventory
+
+**Internet-Domains** werden als eigene Inventory-Objekte geführt, z. B. für:
+
+- Subdomain-Discovery und DNS-Hygiene  
+- Zertifikatsüberwachung  
+- Angriffsoberflächen-Scanning  
+
+Sie können mit **Risks**, **Issues** (Maßnahmen) und **Documents/Evidence** (Nachweise) verknüpft werden.
+
+---
+
+## Beziehungen zu anderen Modulen
+
+- **Risks:** Risiken werden häufig **an Assets** bewertet und mit **Controls** verknüpft.  
+- **Catalogs & Controls:** Kontrollen adressieren Anforderungen (ISO, DSGVO, TISAX) und referenzieren relevante Assets.  
+- **Documents & Evidence:** Policies, Verfahren und Nachweise verweisen auf betroffene Assets.  
+- **Vendors:** Drittsysteme/Provider, die Assets betreiben/hosten, können verknüpft werden.  
+- **Issues & Task Board:** Abgeleitete Maßnahmen aus Asset-Bewertungen oder Scans.
+
+---
+
+## Datenhaltung & Sicherheit
+
+- **Isolation pro Space:** Daten und Dateien eines Spaces sind logisch getrennt.  
+- **Dedizierte Buckets pro Space:** Dateien werden je Space in eigenen Object-Storage-Buckets abgelegt, mit identischer **Verschlüsselungs- und Retention-Strategie** wie unter [Security](../../security.mdx) beschrieben.  
+- **EU-Hosting:** Datenhaltung ausschließlich in Paris und Frankfurt bei OVH, mit SSE-OMK, regelmäßigen Backups (2-stündlich, 30 Tage + 30 Tage Glacier).
+
+---
+
+## Best Practices
+
+- **Inventory zuerst pflegen:** Saubere Asset-Daten sind Voraussetzung für wirksames Risiko- und Kontrollmanagement.  
+- **Eigentümer benennen:** Für jedes Asset Owner definieren (fachlich & technisch).  
+- **Klassifikation nutzen:** Vertraulichkeit/Kritikalität pflegen – treibt Risiko, Controls und Priorisierung.  
+- **Retention setzen:** Für *data*-Assets Aufbewahrungsfristen und Begründungen dokumentieren.  
+- **Domains trennen:** SSO-Domain (Org) vs. Internet-Domain (Space) klar unterscheiden.  
+- **Rezertifizierung:** Regelmäßige Überprüfung von Beständen, Eigentümern und Klassifikationen.

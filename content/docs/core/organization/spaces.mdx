@@ -1,0 +1,47 @@
+---
+title: Spaces
+description: Eigenständige Arbeitsumgebungen in Kopexa und deren Nutzen
+---
+
+**Spaces** sind eigenständige, mandantenfähige Arbeitsumgebungen innerhalb einer [Organization](./index.mdx).  
+Sie bilden die operative Ebene in Kopexa, in der Compliance-, Sicherheits- und Risikomanagement-Prozesse tatsächlich umgesetzt werden.
+
+## Was sind Spaces?
+
+- **Isolation & Mandantenfähigkeit:** Jeder Space ist logisch von anderen Spaces getrennt und verfügt über eigene Daten, Benutzerzuweisungen und Berechtigungen.
+- **Eigene Module & Daten:** In einem Space arbeiten Sie mit allen relevanten Kopexa-Modulen wie:
+  - **Inventory:** Assets (Anwendungen, Infrastruktur, Daten, Services), Domains und weitere Ressourcen  
+  - **Vendors:** Verwaltung und Bewertung von Dienstleistern und Lieferanten  
+  - **Risks:** Risikomanagement, Bewertung, Verknüpfung mit Kontrollen und Maßnahmen  
+  - **Catalogs & Controls:** Nutzung von Frameworks, Kontrollkatalogen und Compliance-Standards (z. B. ISO 27001, DSGVO, TISAX)  
+  - **Documents & Evidence:** Richtlinien, Nachweise und Dokumentenmanagement  
+  - **Issues & Task Board:** Maßnahmen- und Aufgabenmanagement für Findings, Audits oder Projekte  
+
+Jeder Space kann individuell konfiguriert und unabhängig von anderen betrieben werden. Dies ermöglicht eine saubere Trennung nach Abteilungen, Tochtergesellschaften oder Projekten.
+
+## Warum die Trennung zwischen Organization und Spaces?
+
+Wir haben diese Architektur bewusst gewählt, um folgende Ziele zu erreichen:
+
+- **Skalierbarkeit:** Egal ob Start-up, KMU oder Enterprise – Spaces erlauben es, mit einer klaren Trennung zu wachsen.  
+- **Sicherheits- & Compliance-Anforderungen:** Trennung von Daten und Berechtigungen erleichtert die Einhaltung von Standards wie ISO 27001, NIS2 und DSGVO.  
+- **Flexibilität:** Jede Business Unit, Abteilung oder ein Projekt kann einen eigenen Space nutzen, ohne dass andere Bereiche betroffen sind.  
+- **Zentrale Steuerung, dezentrale Umsetzung:**  
+  - Zentrale Verwaltung von Benutzern, SSO und Domains auf [Organization-Ebene](./organization.mdx)  
+  - Operative Arbeit und Umsetzung innerhalb einzelner Spaces  
+
+## Zugriff und Navigation
+
+- Spaces sind unter der URL-Struktur **`/o/{organization_id}/spaces`** erreichbar.  
+- Einzelne Spaces können direkt über **`/s/{space_id}`** geöffnet werden.  
+- Kopexa blendet immer nur die kontextrelevanten Inhalte des aktuellen Spaces ein.  
+
+## Weiterführende Links
+
+- [Organization](./organization.mdx) – Zentrale Verwaltung von Benutzern, Domains und Lizenzen  
+- [Domains](./domains.mdx) – Zentrale Verwaltung der SSO-Domains auf Organisationsebene  
+- [Security](./security.mdx) – Sicherheits- und OWASP-Prinzipien in Kopexa (folgt)  
+
+---
+
+Mit Spaces bietet Kopexa eine flexible und sichere Struktur, um Compliance und Informationssicherheit **mandantenfähig** und **skalierbar** zu organisieren.

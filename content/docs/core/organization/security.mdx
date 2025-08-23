@@ -1,0 +1,76 @@
+---
+title: Security
+description: Sicherheitsprinzipien, Architektur und OWASP-konforme Maßnahmen in Kopexa
+---
+
+
+Kopexa wurde nach dem Prinzip **Security by Design** entwickelt. Sicherheit ist für uns kein Premium-Feature, sondern ein Grundrecht – unabhängig von Unternehmensgröße oder Tarif.
+
+## Unsere Sicherheitsprinzipien
+
+- **OWASP-konform:** Wir orientieren uns am [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/).
+- **Zero Trust:** Jeder Zugriff wird authentifiziert und autorisiert, kein implizites Vertrauen.
+- **Least Privilege:** Berechtigungen werden strikt nach dem Prinzip minimaler Rechte vergeben.
+- **Security by Default:** Sicherheitsfunktionen wie SAML/OIDC-SSO und MFA sind von Anfang an verfügbar.
+
+## Features und Standards
+
+- **SSO für alle:** Jede [Organization](./organization.mdx), unabhängig vom Tarif, kann [SAML](./domains.mdx) und OIDC nutzen. Security ist bei uns kein Enterprise-Add-on.
+- **MFA-Unterstützung:** Unterstützung für Multi-Faktor-Authentifizierung über externe IdPs.
+- **Domänen-Verifizierung:** Schutz vor Account Takeover und Phishing durch zentrale Domainverwaltung.
+- **Ende-zu-Ende-Verschlüsselung:** Alle Daten werden im Transit (TLS) und im Ruhezustand (at rest) verschlüsselt.
+- **Audit Logging & Monitoring:** Kritische Aktionen und Anmeldeereignisse werden nachvollziehbar protokolliert.
+
+## Architektur & Datenhandling
+
+Wir betreiben eine moderne, sichere EU-basierte Infrastruktur:
+
+- **PostgreSQL-Datenbanken:**
+  - Betrieb als verschlüsseltes CloudNativePG-Cluster.
+  - Datenhaltung ausschließlich in der EU (Paris & Frankfurt) über [OVHcloud](https://www.ovhcloud.com/de/).
+  - Speicherverschlüsselung per **SSE-OMK (Server-Side Encryption mit eigenen Managed Keys)**.
+
+- **Backups & Retention:**
+  - Vollbackups alle 2 Stunden.
+  - Kontinuierliche **WAL-Backups** (Write Ahead Log) für Point-in-Time-Recovery.
+  - **30 Tage Retention** für Vollbackups + **weitere 30 Tage Glacier-Archiv** für Desaster-Recovery.
+
+- **Dateien & Object Storage:**
+  - Kunden-Dateien werden pro [Space](./spaces.mdx) in isolierten, dedizierten Object-Storage-Buckets abgelegt.
+  - Selbe Verschlüsselungs- und Retention-Strategie wie für Datenbanken.
+  - Isolation auf Space-Ebene erhöht Compliance und Mandantentrennung.
+
+Diese Architektur kombiniert Sicherheit, Compliance und Ausfallsicherheit – auch für KMUs.
+
+## Zugriffs- und Berechtigungsmodell
+
+Kopexa nutzt ein **Relationship-based Access Control (ReBAC)**-Modell, implementiert mit [OpenFGA](https://openfga.dev/):
+
+- **Granulare Berechtigungen:** Zugriff basiert nicht nur auf Rollen, sondern auch auf Beziehungen und Kontext (z. B. „Benutzer ist Editor des Dokuments im Space“).
+- **Mandantenfähigkeit:** Klare Trennung und Isolation zwischen Organizations und Spaces.
+- **Dynamische Policies:** Feingranulare Regeln wie „Benutzer darf nur Evidences sehen, die zu seinen Assets gehören“.
+- **Auditierbarkeit:** Jede Zugriffsentscheidung ist nachvollziehbar und protokollierbar.
+- **OWASP ASVS-konform:** Effektive Abwehr von Broken Access Control (OWASP A01).
+
+## Bedrohungsmodelle & OWASP Bezug
+
+Wir adressieren Risiken aus [OWASP Top 10](https://owasp.org/www-project-top-ten/) und ASVS aktiv:
+
+- **A01 Broken Access Control:** ReBAC mit OpenFGA, konsequente Berechtigungsprüfungen.
+- **A02 Cryptographic Failures:** Aktuelle TLS-Versionen, sichere Cipher Suites, geprüfte Kryptobibliotheken.
+- **A07 Identification & Authentication Failures:** Starke Authentifizierung über SSO, MFA und sichere Session-Handling.
+- **A10 SSRF & Injection:** Validierte Ausgänge/Requests und Eingaben, Härtung von APIs.
+
+## Compliance & Standards
+
+Kopexa erleichtert die Einhaltung von Standards wie **ISO 27001**, **DSGVO**, **DORA**, **NIS2** und **TISAX**, indem wir selbst nach diesen Prinzipien handeln:
+
+- **Datenschutz by Design:** DSGVO-konforme Verarbeitung und minimal notwendige Datenerhebung.
+- **Security Testing:** Regelmäßige Penetrationstests und Code Audits.
+- **Vulnerability Disclosure:** Geplanter Responsible-Disclosure-Prozess (inkl. `security.txt`) für externe Sicherheitsmeldungen.
+
+## Weiterführende Links
+
+- [Domains](./domains.mdx) – SSO, Domain-Verifizierung und Benutzerzuordnung  
+- [Organization](./organization.mdx) – Zentrale Verwaltung von Benutzern, SSO und Lizenzen  
+- [Spaces](./spaces.mdx) – Mandantenfähige Arbeitsumgebungen und Isolation

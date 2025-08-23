@@ -1,0 +1,55 @@
+---
+title: Spaces
+description: Mandantenfähige Arbeitsumgebungen in Kopexa – Isolation, Module und Best Practices
+---
+
+**Spaces** sind eigenständige, mandantenfähige Arbeitsumgebungen innerhalb einer [Organization](../organization/index.mdx).  
+Sie bilden die **operative Ebene** für Compliance, Risiko, Security und Dokumentation – mit **vollständig isolierten Daten**, eigenen Berechtigungen und Konfigurationen.
+
+## Warum Spaces?
+
+- **Isolation & Sicherheit:** Strikte Trennung von Daten, Benutzerzuweisungen und Berechtigungen zwischen Teams, BUs oder Tochtergesellschaften.
+- **Compliance by Design:** Erleichtert Anforderungen aus ISO 27001, NIS2, DSGVO, DORA und TISAX durch klare Scope-Abgrenzung.
+- **Skalierbarkeit:** Von KMU bis Enterprise – Spaces wachsen unabhängig voneinander.
+- **Dezentrale Umsetzung:** Zentrale Steuerung auf Org-Ebene (SSO, Domains, Lizenzen), Umsetzung im jeweiligen Space.
+
+## Module im Space
+
+Jeder Space verfügt über eigene, isolierte Domänenobjekte und Workflows:
+
+- **Inventory:** Assets (Applications, Infrastructure, Data, Services), Domains und weitere Ressourcen.  
+- **Vendors:** Lieferantenmanagement inkl. Bewertungen, Maßnahmen und Evidences.  
+- **Risks:** Risikoerfassung, Bewertung, Link zu Controls & Maßnahmen.  
+- **Catalogs & Controls:** Nutzung und Konfiguration von Frameworks/Katalogen auf Space-Ebene.  
+- **Documents & Evidence:** Richtlinien, Nachweise, Versionierung und Freigaben.  
+- **Issues & Task Board:** Work Items/Finding-Management (Kanban-ähnlich) für Maßnahmen und Audits.
+
+## Navigation & URLs
+
+- **Übersicht aller Spaces:** `**/spaces**`  
+- **Direkter Zugriff auf einen Space:** `**/s/{space_id}**`  
+Die UI zeigt stets den **aktiven Kontext** (Space) und blendet nur relevante Inhalte ein.
+
+## Berechtigungen (ReBAC)
+
+Zugriff in Spaces erfolgt über **ReBAC** (Relationship-based Access Control) mit OpenFGA.  
+Beispielsweise: *User → Space-Mitgliedschaft → Ressourcenzugriff (Asset/Document/Evidence)*.  
+Siehe [Security](../organization/security.mdx) für Details zu OpenFGA/OWASP.
+
+## Daten & Storage
+
+- **Datenisolation pro Space** in der Datenbank.  
+- **Dateien** je Space in **dedizierten Object-Storage-Buckets** mit identischer Verschlüsselungs- & Retention-Strategie wie beschrieben in [Security](../security.mdx).
+
+## Best Practices
+
+- **One Space per BU/Projekt:** Saubere Scopes, klarer Verantwortungsbereich.  
+- **Least Privilege:** Rollen/Mitgliedschaften minimal halten; regelmäßige Rezertifizierung.  
+- **Kataloge bewusst wählen:** Nur benötigte Frameworks/Controls aktivieren.  
+- **Dokumente versionieren:** Freigabeprozesse nutzen; Evidences sauber referenzieren.
+
+## Weiterführende Links
+
+- [Organization](../organization.mdx) – Zentrale Verwaltung von Benutzern, Domains, Lizenzen  
+- [Domains](../domains.mdx) – SSO, Domain-Verifizierung und Benutzerzuordnung  
+- [Security](../security.mdx) – OWASP, Architektur, ReBAC (OpenFGA)

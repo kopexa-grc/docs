@@ -1,0 +1,34 @@
+---
+title: Organization
+description: Einführung in Organizations und ihre Beziehung zu Spaces in Kopexa
+---
+
+Eine **Organization** ist die oberste Mandanten-Ebene in Kopexa. Sie repräsentiert Ihr Unternehmen und bündelt zentrale Verwaltungsfunktionen für alle zugehörigen Spaces.
+
+Innerhalb einer Organization werden u. a. folgende Aufgaben erfüllt:
+
+- **Benutzerverwaltung:** Alle Benutzer Ihrer Kopexa-Umgebung werden auf Organisationsebene verwaltet. Sie können dort angelegt und anschließend einzelnen Spaces zugewiesen werden.
+- **Domains & SSO:** Hinterlegen und verwalten Sie zentrale Einstellungen wie Domains, Identity Provider und Single-Sign-On (SSO), um eine einheitliche Authentifizierung und Autorisierung sicherzustellen.
+- **Lizenz & Abrechnung:** Auf Organization-Ebene wird Ihre Lizenz sowie das Abrechnungsmodell (Free, Lite, Pro, Enterprise) gesteuert.
+
+## Beziehung zu Spaces
+
+Unterhalb einer Organization befinden sich **Spaces** – eigenständige Arbeitsumgebungen (Sub-Tenants), in denen die eigentliche Compliance- und Sicherheitsarbeit stattfindet.  
+Jeder Space hat vollständig isolierte Daten und Funktionen, u. a.:
+
+- **Inventory:** Verwaltung von Assets (Anwendungen, Infrastruktur, Daten, Services), Domains und weiteren Ressourcen.
+- **Vendors:** Lieferanten- und Dienstleistermanagement inkl. Risiko- und Compliance-Bewertung.
+- **Risks:** Erfassung und Bewertung von Risiken sowie Verknüpfung mit Kontrollen und Maßnahmen.
+- **Catalogs & Controls:** Nutzung und Zuweisung von Standards, Kontrollkatalogen und Frameworks (z. B. ISO 27001, DSGVO, TISAX) auf Space-Ebene.
+- **Documents & Evidence:** Verwaltung und Versionierung von Richtlinien, Nachweisen und weiteren Dokumenten.
+- **Issues & Task Board:** Maßnahmen- und Aufgabenmanagement (ähnlich einem Kanban-Board) für Work Items, Findings oder Audits.
+
+Spaces sind damit die operative Ebene in Kopexa. Sie ermöglichen eine saubere Trennung zwischen unterschiedlichen Abteilungen, Projekten oder Tochtergesellschaften, während zentrale Benutzer- und SSO-Verwaltung weiterhin auf Organisationsebene erfolgt.
+
+### Zugriff und Navigation
+
+- **Organizations:** `/o/{organization_id}`
+- **Spaces:** `/s/{space_id}`
+
+Die Navigation zeigt stets den aktuell aktiven Kontext (Organization oder Space) und blendet nur die jeweils relevanten Inhalte ein.
+

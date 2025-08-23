@@ -1,0 +1,103 @@
+---
+title: People
+description: Personen im Space – Import, Verwaltung und verknüpfte Accounts (Entra, Figma, GitHub u. a.)
+---
+
+**People** repräsentieren Personen im Kontext eines **Space** – z. B. Mitarbeitende, Werkvertragskräfte oder Partner.  
+Sie sind **kein Asset-Typ**, sondern eine eigene Entität innerhalb des Inventory-Kontexts, mit Fokus auf **Identitäten, Accounts, Onboarding** und **Policy-Beziehungen**.
+
+> **Scope:** People gehören zum Space (siehe [Spaces](../index.mdx)).  
+> Zentrale **SSO-Domains** verwaltest du auf **Organization-Ebene** (siehe [Domains](../../organization/domains.mdx)).
+
+---
+
+## Was kann ich mit People machen?
+
+- **Import & Sync** von Personen aus externen Quellen (z. B. **Microsoft Entra ID**).  
+- **Verknüpfte Accounts** pflegen (z. B. **Figma**, **GitHub**, weitere Business-Apps).  
+- **Onboarding-Aufgaben** zuweisen (z. B. Richtlinien lesen, Agent installieren).  
+- **Policy-Acknowledgements** und Nachweise (Evidence) dokumentieren.  
+- **Zuweisungen/Beziehungen** zu Assets, Vendors, Risks, Controls und Issues herstellen.
+
+**Navigation:**  
+- People im Space: `/s/{space_id}/people`
+
+---
+
+## Import & Synchronisation
+
+- **Entra (Azure AD)**: Personen können über den Entra-Connector importiert werden.  
+  Typische Datenpunkte: Name, E-Mail, Abteilung/Gruppe, Status.  
+- **Manuelle Pflege:** Ergänzungen/Korrekturen direkt in Kopexa.  
+- **Konfliktbehandlung:** Beim Import werden vorhandene Einträge anhand stabiler Identifikatoren abgeglichen, um Duplikate zu vermeiden.
+
+> Hinweis: Die **Anmeldung** (SSO) richtet sich nach der Org-weiten IdP-/Domain-Konfiguration. People im Space sind für Governance & Operations – nicht für die zentrale Login-Verwaltung.
+
+---
+
+## Accounts (verknüpfte Dienste)
+
+Jede Person kann **mehrere Accounts** besitzen, z. B.:
+
+- **Entra Account** (primäre Identität/Directory)  
+- **Figma Account** (Design)  
+- **GitHub Account** (Engineering)  
+- Weitere SaaS-/Line-of-Business-Accounts
+
+**Ziele der Account-Verwaltung:**
+- **Transparenz:** Wer hat wo Zugriff?  
+- **Rezertifizierung:** Regelmäßige Prüfungen, ob Zugriffe noch erforderlich sind.  
+- **Compliance-Nachweise:** Dokumentation von Entzug/Änderung (Evidence).
+
+> Best Practice: Lege **eindeutige externe IDs** (z. B. `figma_user_id`, `github_username`) ab, um Audits und Entzug zu vereinfachen.
+
+---
+
+## Status & Lifecycle
+
+Typische Personen- und Account-Status:
+
+**Lifecycle-Ereignisse** (Beispiele):
+- **Onboarding:** Aufgabenpaket (Richtlinien lesen, Tools, MFA-Hinweise)  
+- **Role/Team-Wechsel:** Zugriffe anpassen, Policy-Re-acknowledgement  
+- **Offboarding:** Zugriffe entziehen, Geräte/Accounts überführen, Evidence erstellen
+
+---
+
+## Beziehungen zu anderen Modulen
+
+- **Assets:** Zuweisung von Geräten/Applikationen/Services an Personen; relevante Verantwortlichkeiten und Eintritt/Austritt.  
+- **Vendors:** Personen als Kontaktrollen; Zuordnung in Assessments oder Due-Diligence-Prozessen.  
+- **Risks:** Personenbezogene Risiken (z. B. übermäßige Rechte) dokumentieren und Maßnahmen ableiten.  
+- **Catalogs & Controls:** Zuweisung von Kontrollen (z. B. Rezertifizierungs-Intervalle, Least-Privilege).  
+- **Documents & Evidence:** Policy-Acknowledgements, Schulungsnachweise, Offboarding-Evidences.  
+- **Issues & Task Board:** Aufgaben aus On-/Offboarding, Rezertifizierungen, Audit-Findings.
+
+---
+
+## Berechtigungen (ReBAC)
+
+Zugriffe werden über **ReBAC** mit **OpenFGA** gesteuert (siehe [Security](../../organization/security.mdx)):
+
+- Sichtbarkeit und Bearbeitung von People hängt von **Beziehungen** (z. B. Space-Mitgliedschaft, Rolle) ab.  
+- Feingranulare Regeln möglich, z. B.: *„HR-Rolle darf Personendaten sehen/bearbeiten, aber keine technischen Accounts löschen.“*
+
+---
+
+## Sicherheit & Datenschutz
+
+- **Datenminimierung:** Speichere nur, was für Governance/Compliance erforderlich ist.  
+- **Trennung pro Space:** People-Daten sind **Space-isoliert**.  
+- **Verschlüsselung & Backups:** Siehe [Security](../../organization/security.mdx) (SSE-OMK, 2-stündliche Backups, 30 d + 30 d Glacier).  
+- **Protokollierung:** Relevante Änderungen (z. B. Account-Entzug) werden auditiert.
+
+---
+
+## Best Practices
+
+- **Primäre Identität festlegen:** Entra (oder zentraler IdP) als „Source of Truth“.  
+- **Kontinuierliche Rezertifizierung:** Regelmäßig prüfen, ob Accounts & Rollen noch nötig sind.  
+- **Automatisierung nutzen:** On-/Offboarding-Tasks standardisieren; Evidences automatisch erfassen.  
+- **Trennung beachten:** SSO-/Domains auf Org-Ebene verwalten, People-Operationen im Space halten.  
+- **Least Privilege:** Nur notwendige Informationen/Operationen pro Rolle freigeben.
+
