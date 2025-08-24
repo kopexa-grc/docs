@@ -1,6 +1,6 @@
 {
 	"name": "docs",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"build": "next build",
@@ -39,5 +39,5 @@
 		"tailwindcss": "^4.1.12",
 		"typescript": "^5.9.2"
 	},
-    "packageManager": "pnpm@9.15.9"
+	"packageManager": "pnpm@9.15.9"
 }
