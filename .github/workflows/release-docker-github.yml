@@ -1,8 +1,17 @@
 name: Publish
+
 on:
-  push:
-    tags:
-      - 'v*.*.*'
+  workflow_call:
+    inputs:
+      IS_PRERELEASE:
+        description: "Whether this is a prerelease (affects latest tag)"
+        required: false
+        type: boolean
+        default: false
+    outputs:
+      VERSION:
+        description: release version
+        value: ${{ jobs.build.outputs.VERSION }}
 
 env:
   REGISTRY: ghcr.io
@@ -79,7 +88,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=semver,pattern={{major}}
             # Only tag as 'latest' for stable releases (not prereleases)
-            type=raw,value=latest,enable=true
+            type=raw,value=latest,enable=${{ !inputs.IS_PRERELEASE  }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
