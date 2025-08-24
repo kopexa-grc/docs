@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { BookIcon } from "lucide-react";
+import { AppWindow } from "lucide-react";
 import { i18n } from "./i18n";
 
 /**
@@ -32,9 +32,9 @@ export function baseOptions(_locale: string): BaseLayoutProps {
 		// see https://fumadocs.dev/docs/ui/navigation/links
 		links: [
 			{
-				icon: <BookIcon />,
-				text: "Blog",
-				url: "/blog",
+				icon: <AppWindow />,
+				text: "App",
+				url: "https://app.kopexa.com",
 				// secondary items will be displayed differently on navbar
 				secondary: true,
 			},
