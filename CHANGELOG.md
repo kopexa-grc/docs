@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/kopexa-grc/docs/compare/v1.1.0...v1.1.1) (2025-08-24)
+
+
+### Bug Fixes
+
+* public dir ([8bbfd98](https://github.com/kopexa-grc/docs/commit/8bbfd98f9f3e2d8268fe9f9b27f01de9cd76b191))
+
 ## [1.1.0](https://github.com/kopexa-grc/docs/compare/v1.0.0...v1.1.0) (2025-08-24)
 
 
