@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/kopexa-grc/docs/compare/v1.0.0...v1.1.0) (2025-08-24)
+
+
+### Features
+
+* streamline Dockerfile stages and improve dependency installation process ([c92c6c0](https://github.com/kopexa-grc/docs/commit/c92c6c00d65a13ea5f250cc07a28c13159deda86))
+
 ## 1.0.0 (2025-08-24)
 
 
