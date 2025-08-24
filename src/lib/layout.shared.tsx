@@ -9,6 +9,7 @@ import { i18n } from "./i18n";
  * Home Layout: app/(home)/layout.tsx
  * Docs Layout: app/docs/layout.tsx
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function baseOptions(_locale: string): BaseLayoutProps {
 	return {
 		i18n,

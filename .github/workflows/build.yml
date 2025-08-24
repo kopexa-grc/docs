@@ -1,0 +1,17 @@
+name: Build Docs
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build Docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Build & Cache Web Binaries
+        uses: ./.github/actions/cache-build-web
+        id: cache-build-web

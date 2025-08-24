@@ -1,0 +1,49 @@
+name: Build & Cache Web App
+
+on:
+  workflow_dispatch:
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Cache Build
+      uses: actions/cache@v3
+      id: cache-build
+      env:
+        cache-name: prod-build
+        key-1: ${{ hashFiles('pnpm-lock.yaml') }}
+        key-2: ${{ hashFiles('src/**/**.[jt]s', 'src/**/**.[jt]sx', '!**/node_modules') }}
+      with:
+        path: |
+          ${{ github.workspace }}/.next
+          **/dist/**
+        key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.key-1 }}-${{ env.key-2 }}
+
+    - name: Set Cache Hit Status
+      run: echo "cache-hit=${{ steps.cache-build.outputs.cache-hit }}" >> "$GITHUB_OUTPUT"
+      shell: bash
+
+    - name: Setup Node.js 23.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: 23.x
+      if: steps.cache-build.outputs.cache-hit != 'true'
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      if: steps.cache-build.outputs.cache-hit != 'true'
+
+    - name: Install dependencies
+      run: pnpm install --config.platform=linux --config.architecture=x64
+      if: steps.cache-build.outputs.cache-hit != 'true'
+      shell: bash
+
+    - run: pnpm build
+      if: steps.cache-build.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        TURBO_TOKEN: ${{ inputs.turbo_token }}
+        TURBO_TEAM: ${{ inputs.turbo_team }}
