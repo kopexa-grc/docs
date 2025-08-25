@@ -1,4 +1,10 @@
 {
 	"title": "Spaces",
-	"root": false
+	"root": false,
+    "pages": [
+        "---Compliance---",
+        "risks",
+        "---Organisation---",
+        "inventory"
+    ]
 }
