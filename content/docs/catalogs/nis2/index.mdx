@@ -1,0 +1,155 @@
+---
+title: NIS2-Richtlinie
+description: Umsetzung der EU NIS2-Anforderungen und Controls in Kopexa
+---
+
+Die **NIS2-Richtlinie (EU 2022/2555)** verschärft die Anforderungen an Cybersicherheit für Unternehmen aus kritischen und wichtigen Sektoren in der EU.  
+Sie löst NIS1 ab und muss bis Oktober 2024 in nationales Recht umgesetzt werden.
+
+## Wer ist betroffen?
+
+- **Betroffene Sektoren:** Energie, Transport, Gesundheit, Digitalanbieter, öffentliche Verwaltung, u.v.m.
+- **Kategorien:** 
+  - *Essential Entities* (kritisch, >250 MA oder Umsatz >50 Mio €)
+  - *Important Entities* (wichtig, KMU bestimmter Sektoren)
+- **Pflichten:** Risiko-Management, technische/organisatorische Sicherheitsmaßnahmen, Meldepflichten.
+- **Fristen:** 
+  - Umsetzung in nationales Recht: [17.10.2024](https://www.openkritis.de/it-sicherheitsgesetz/nis2-umsetzung-gesetz-cybersicherheit.html)  
+  - Erstes Compliance-Audit: je nach Land 2025/26
+
+## Kernanforderungen von NIS2
+
+NIS2 definiert 10 Themenfelder (Art. 21 NIS2). Die wichtigsten:
+
+1. **Governance & Policies**  
+2. **Risikomanagement & Security Measures**  
+3. **Incident Response & Reporting** (Meldung binnen 24h/72h)  
+4. **Business Continuity & DRP**  
+5. **Supply-Chain Security**  
+6. **Zugriffsmanagement & MFA**  
+7. **Schulung & Awareness**  
+8. **Logging, Monitoring & Audits**  
+9. **Kryptografie & Verschlüsselung**  
+10. **Kontinuierliche Verbesserung (PDCA)**
+
+---
+
+## Mapping NIS2 → Kopexa
+
+| NIS2-Anforderung | Kopexa-Modul/Funktion |
+|------------------|-----------------------|
+| Sicherheitsrichtlinien & Management-Zuständigkeit | Dokumente (Policies) + Review-Zyklus + Owner |
+| Risikoanalyse & Behandlung | Risiko-Modul + Risiko-Matrix + Controls + Work Items |
+| Incident Handling (24h/72h Meldung) | Incident-Module + Vorfallsregister (Work Items) |
+| BC/DR-Plan & Backup | Dokument + Work Items + Controls (Backup-Test) |
+| Lieferkettensicherheit | Vendor-Assets + Risikobewertung + Nachweise |
+| Zugriffsmanagement & MFA | Asset-Modul + Access-Policy + MFA-Control |
+| Awareness & Schulungen | Dokument (Policy) + Trainings-Modul + Evidenz |
+| Kontinuierliche Überwachung | Audit-Work Items + Control-Reviews + Reports |
+
+---
+
+## Policy-Lifecycle (Mermaid Diagramm)
+
+<Mermaid chart={`
+graph TD
+    A[Bedarf identifizieren] --> B[Policy Entwurf]
+    B --> C[Stakeholder Review & Genehmigung]
+    C --> D[Veröffentlichung & Schulung]
+    D --> E[Implementierung & Monitoring]
+    E --> F[Review & Verbesserung]
+    F -->|Veraltet| B
+    style A fill:#f1f5f9,stroke:#94a3b8
+    style B fill:#eef2ff,stroke:#6366f1
+    style C fill:#fff7ed,stroke:#fb923c
+    style D fill:#ecfdf5,stroke:#34d399
+    style E fill:#e0f2fe,stroke:#38bdf8
+    style F fill:#f5f3ff,stroke:#a78bfa
+`} />
+
+---
+
+## PDCA-Zyklus für NIS2
+
+<Mermaid chart={`
+graph LR
+    P[Plan] --> D[Do]
+    D --> C[Check]
+    C --> A[Act]
+    A --> P
+    style P fill:#eef2ff,stroke:#6366f1
+    style D fill:#ecfdf5,stroke:#34d399
+    style C fill:#fff7ed,stroke:#fb923c
+    style A fill:#f5f3ff,stroke:#a78bfa
+`} />
+
+- **Plan:** Policies, Risikoanalyse, Controls planen
+- **Do:** Maßnahmen implementieren
+- **Check:** Monitoring, Audits, Tests
+- **Act:** Anpassung & Verbesserung
+
+---
+
+## Praktische Umsetzung mit Kopexa (Beispiele)
+
+### Sicherheitsrichtlinien
+- Erfasse **InfoSec-Policy** als Dokument
+- Owner: CISO, Review jährlich
+- Verknüpfe mit Assets (z. B. Cloud-Plattform) und Controls (z. B. Zugriffskontrolle)
+
+### Risikomanagement
+- Risiken ins Modul eintragen
+- Bewertungs-Skalen (Impact × Likelihood)
+- Maßnahmen als Work Items, z. B. „MFA einführen“
+
+### Incident Response
+- IR-Plan als Dokument
+- Meldungspflicht 24h: Work Item „Incident gemeldet“
+- Evidenz: Incident-Report PDF
+
+### Lieferkettensicherheit
+- Vendor Assets anlegen (AWS, MS Azure)
+- Nachweise (ISO-Zertifikat) hochladen
+- Jährliche Vendor-Review Work Items
+
+---
+
+## Checkliste: NIS2-Pflichtdokumente
+
+- Informationssicherheitsleitlinie
+- Risikoanalyse-Prozess
+- Incident-Response-Plan
+- BC/DR-Plan
+- Awareness- & Schulungsrichtlinie
+- Access-Control-Policy
+- Vendor-Security-Policy
+- Audit-/Review-Protokolle
+
+> Alle als Dokumente + verknüpfte Evidenzen in Kopexa abbilden.
+
+---
+
+## Audit & Nachweispflichten
+
+- **Meldepflicht:** 24h Frühwarnung, 72h Meldung mit Details
+- **Dokumentation:** alle Policies, Tests, Incidents
+- **Aufbewahrung:** Audit-Logs & Nachweise revisionssicher
+
+Kopexa bietet hierfür:
+- Versionierung aller Dokumente
+- Audit-Trail (Wer hat was wann geändert)
+- Reports für Audits (Export als PDF)
+
+---
+
+## Weiterführende Links
+
+- [EU NIS2 Richtlinientext](https://eur-lex.europa.eu/eli/dir/2022/2555)  
+- [ENISA NIS2 Leitfäden](https://www.enisa.europa.eu/topics/nis-directive)  
+- [BSI NIS2 Infos](https://www.bsi.bund.de/NIS2)  
+- [Kopexa Plattform](https://kopexa.com/platform/overview)
+
+---
+
+> **Hinweis:** NIS2-Controls sind in Kopexa bereits als Framework verfügbar.  
+> Du kannst sie aktivieren und mit bestehenden Prozessen mappen.

@@ -1,0 +1,164 @@
+---
+title: NIS2-Richtlinie – Anforderungen & Umsetzung mit Kopexa
+description: Überblick über NIS2-Dokumentationspflichten und wie du diese in Kopexa abbildest
+---
+
+# NIS2-Richtlinie: Anforderungen und Umsetzung mit Kopexa
+
+Die **NIS2-Richtlinie** (EU 2022/2555) verpflichtet Unternehmen aus kritischen Sektoren, ihre Cybersicherheit deutlich zu verbessern.  
+Insbesondere müssen sie eine Reihe von **Sicherheitsrichtlinien, Plänen und Prozessen** einführen – von der Informationssicherheits-Policy über das Risikomanagement bis hin zu Incident-Response- und Business-Continuity-Plänen.  
+
+Alle diese Anforderungen müssen **dokumentiert und nachweisbar** umgesetzt werden, da Aufsichtsbehörden die Einhaltung in Audits prüfen.  
+Eine systematische Dokumentation ist also nicht nur für die **Compliance und Auditfestigkeit** entscheidend, sondern erhöht auch real die Sicherheit, weil Verantwortlichkeiten geklärt und Maßnahmen regelmäßig überprüft werden.
+
+Im Folgenden geben wir einen Überblick über die wichtigsten NIS2-Anforderungen an Policies und Dokumentation – und zeigen, **wie du diese mit Kopexa abbilden kannst**.  
+Kopexa unterstützt NIS2 direkt mit **vordefinierten Kontrollkatalogen** und Funktionen für ein **revisionssicheres ISMS**.
+
+---
+
+## Sicherheitsrichtlinien und Governance
+
+NIS2 verlangt **formalisierte Sicherheitsrichtlinien**.  
+Dazu zählen u. a.:
+
+- Informationssicherheitsleitlinie (IT-Security-Policy)
+- Policies für Risikoanalyse, Zugriffssteuerung, Kryptografie, Personal Security
+
+Diese Richtlinien müssen von der Geschäftsleitung **genehmigt** werden (Management-Verantwortung) und allen Mitarbeitern bekannt sein.
+
+**Umsetzung in Kopexa:**  
+- Erstelle Policies im **Dokumenten-Modul** (Rich-Text oder Datei).  
+- Versionierung & Freigabe-Workflow sorgen für Nachvollziehbarkeit.  
+- Definiere **Owner** und **Reviewzyklen** (z. B. jährliche Überprüfung).  
+- Verknüpfe Policies mit **Assets, Kontrollen, Risiken** und NIS2-Anforderungen.  
+
+So entsteht eine **GRC-Verknüpfung**, mit der du im Audit sofort nachweisen kannst, welche interne Policy welche NIS2-Vorgabe abdeckt.
+
+---
+
+## Risikomanagement und -bewertung
+
+Ein **systematisches Risikomanagement** ist Kern von NIS2:
+
+- Identifiziere & bewerte **Cyber-Risiken** regelmäßig.
+- Dokumentiere Risikoanalyse, -bewertung, -behandlung.
+- Pflege ein **Risikoregister** (inkl. Eintrittswahrscheinlichkeit × Auswirkung).
+
+**Umsetzung in Kopexa:**
+
+- Nutze das integrierte **Risiko-Modul**.  
+- Erstelle Risiken mit Bewertung (Impact, Likelihood) → automatische **Risikostufe**.  
+- Verknüpfe Risiken mit **Assets & Kontrollen**.  
+- Plane **Maßnahmen als Work Items** und tracke Fortschritt.  
+- Nutze **Reviewzyklen** für Neubewertung und Audit-Trail.
+
+---
+
+## Incident Response (Vorfallsmanagement)
+
+NIS2 fordert:
+
+- Einen dokumentierten **Incident-Response-Plan** (Rollen, Meldewege, Abläufe).
+- **Fristen** zur Meldung und klare Verantwortlichkeiten.
+- **Tests & Übungen** (Tabletop, Simulationen).
+- Führen eines **Vorfalls-Logs**.
+
+**Umsetzung in Kopexa:**
+
+- Lege deinen Incident-Response-Plan als **Dokument** mit Reviewzyklus ab.  
+- Erfasse Vorfälle als **Work Items** oder eigenes Asset („Security Incident“).  
+- Verknüpfe **Evidenzen** (Berichte, Logs).  
+- Plane **regelmäßige Drills** als Aufgaben, dokumentiere Ergebnisse.
+
+---
+
+## Business Continuity & Notfallplanung
+
+NIS2 verlangt:
+
+- **BCP & DR-Plan** (Business Continuity / Disaster Recovery).  
+- Szenarien: Ausfälle, Cyberangriffe, Krisenmanagement.
+- **Backup-Strategien & Wiederherstellungstests** (regelmäßig!).
+
+**Umsetzung in Kopexa:**
+
+- Dokumentiere BCP/DR-Pläne im **Dokumenten-Modul**.  
+- Weise **Owner & Prüfzyklen** zu.  
+- Plane **Tests/Übungen** als Work Items, mit Nachweis der Durchführung.  
+- Lege **Kontrollen** für Backups & Tests an, inkl. Evidenz (z. B. Logs).
+
+---
+
+## Zugriffs- und Berechtigungsmanagement
+
+Anforderungen nach NIS2:
+
+- **Access-Control-Policy** (On-/Offboarding, Least Privilege, MFA).
+- Regelmäßige **Rechte-Audits**.
+- Übersicht aller **Assets & Zugriffsrechte**.
+
+**Umsetzung in Kopexa:**
+
+- Dokumentiere Access-Policy als **Dokument**.  
+- Nutze das **Asset-Modul** für Systeme, Owner, Zugriffsrechte.  
+- Plane **regelmäßige Review-Tasks** (z. B. „Quartalsweise Rechteprüfung“).  
+- Lege **Kontrollen** an (z. B. „MFA für alle Admin-Accounts“) mit Evidenz.
+
+---
+
+## Lieferanten- und Supply-Chain-Sicherheit
+
+NIS2 fordert:
+
+- **Sicherheitsanforderungen an Lieferanten** vertraglich festhalten.
+- **Bewertung & Monitoring** der Anbieter (Zertifikate, PenTests).
+- Dokumentation & Risikoeinschätzung pro Lieferant.
+
+**Umsetzung in Kopexa:**
+
+- Erfasse Lieferanten im **Vendor-/Asset-Modul**.  
+- Klassifiziere Kritikalität, verknüpfe **Nachweise** (ISO-Zertifikate).  
+- Plane **regelmäßige Assessments** als Work Items.  
+- Lege **Lieferanten-Kontrollen** im NIS2-Framework an.
+
+---
+
+## Schulungen & Awareness
+
+NIS2 betont: **Menschen sind ein Sicherheitsfaktor.**
+
+- Jährliche **Security Awareness Trainings** (alle Mitarbeiter).
+- Spezielle Schulungen für **Management & Admins**.
+- **Nachweis der Teilnahme** dokumentieren.
+
+**Umsetzung in Kopexa:**
+
+- Dokumentiere Awareness-Policy.  
+- Plane Trainings als **Work Items**.  
+- Hänge **Evidenzen** (Teilnehmerlisten, Reports) an.  
+- Verknüpfe Trainings mit **Kontrollen** (z. B. „Jährliche Awareness-Schulung durchgeführt“).
+
+---
+
+## Kontinuierliche Überprüfung & Verbesserung
+
+NIS2 verlangt einen **PDCA-Zyklus** (Plan-Do-Check-Act):
+
+- Regelmäßige **Audits & Selbstbewertungen**.
+- Dokumentation von **Prüfberichten & Verbesserungen**.
+
+**Umsetzung in Kopexa:**
+
+- Plane wiederkehrende **Compliance-Reviews** als Work Items.  
+- Bewerte **Kontrollen** und dokumentiere Evidenz.  
+- Nutze Auditberichte als Nachweise.
+
+---
+
+## Weiterführende Links
+
+- [EU-Richtlinientext NIS2](https://eur-lex.europa.eu/eli/dir/2022/2555)  
+- [ENISA – NIS2 Implementation Guidelines](https://www.enisa.europa.eu/topics/nis-directive)  
+- [BSI – NIS2 Themenseite](https://www.bsi.bund.de/NIS2)  
+- [Kopexa Plattformübersicht](https://kopexa.com/platform/overview)
+
