@@ -1,45 +1,79 @@
-# docs
+# Kopexa Docs
 
-This is a Next.js application generated with
-[Create Fumadocs](https://github.com/fuma-nama/fumadocs).
+The Kopexa documentation site built with Next.js (App Router), Fumadocs, TypeScript, and Tailwind CSS.
 
-Run development server:
+- Website: http://kopexa.com
+- Documentation: https://docs.kopexa.com
+
+## Quick start
+
+Development server:
 
 ```bash
-npm run dev
-# or
+pnpm install
 pnpm dev
-# or
-yarn dev
 ```
 
-Open http://localhost:3000 with your browser to see the result.
+Open http://localhost:3000 to view the site.
 
-## Explore
+## Project structure
 
-In the project, you can see:
+- `src/app/(home)`: Landing and marketing pages
+- `src/app/[lang]/docs`: Documentation routes (Fumadocs)
+- `content/`: MD/MDX content for the docs
+- `src/components/`: UI components for the docs site
+- `src/lib/`: Shared utilities (i18n, layout, sources)
 
-- `lib/source.ts`: Code for content source adapter, [`loader()`](https://fumadocs.dev/docs/headless/source-api) provides the interface to access your content.
-- `lib/layout.shared.tsx`: Shared options for layouts, optional but preferred to keep.
+Key files:
 
-| Route                     | Description                                            |
-| ------------------------- | ------------------------------------------------------ |
-| `app/(home)`              | The route group for your landing page and other pages. |
-| `app/docs`                | The documentation layout and pages.                    |
-| `app/api/search/route.ts` | The Route Handler for search.                          |
+- `source.config.ts`: Fumadocs source + schema
+- `src/lib/layout.shared.tsx`: Shared layout options (links, nav)
+- `src/app/api/search/route.ts`: Search API
+- `src/app/api/healthz/route.ts`: Liveness probe (Kubernetes)
+- `src/app/api/readyz/route.ts`: Readiness probe (Kubernetes)
 
-### Fumadocs MDX
+## Docker
 
-A `source.config.ts` config file has been included, you can customise different options like frontmatter schema.
+This repo includes a production-ready Dockerfile using Next.js standalone output.
 
-Read the [Introduction](https://fumadocs.dev/docs/mdx) for further details.
+Build locally:
 
-## Learn More
+```bash
+docker build -t ghcr.io/<owner>/<repo>:dev .
+```
 
-To learn more about Next.js and Fumadocs, take a look at the following
-resources:
+Run the container:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-- [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
+```bash
+docker run --rm -p 3000:3000 ghcr.io/<owner>/<repo>:dev
+```
+
+The container listens on port 3000 and binds to 0.0.0.0. Entry command runs `node server.js` produced by Next.js standalone build.
+
+## CI/CD
+
+- Releases are prepared via Release Please (semantic versioning).
+- PR validation runs lint and build checks.
+- Optional Docker image build/push to GHCR can be enabled in CI.
+
+## Contributing
+
+We welcome fixes and improvements to keep docs accurate and helpful. For larger changes, please open an issue or draft PR first.
+
+## Credits (FOSS)
+
+Kopexa Docs are powered by:
+
+- Next.js (App Router) — https://nextjs.org/
+- Fumadocs — https://fumadocs.dev/
+- React — https://react.dev/
+- TypeScript — https://www.typescriptlang.org/
+- Tailwind CSS — https://tailwindcss.com/
+- Lucide Icons — https://lucide.dev/
+
+Thanks to the FOSS community for making this stack possible.
+
+## License
+
+- Code (application, components, config): [MIT License](./LICENSE)
+- Content under `./content/`: Proprietary — see [content/LICENSE](./content/LICENSE)
