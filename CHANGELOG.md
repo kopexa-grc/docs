@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.6.0](https://github.com/kopexa-grc/docs/compare/v1.5.0...v1.6.0) (2025-08-25)
+
+
+### Features
+
+* add assessment and reviews documentation for risk management ([9ed475d](https://github.com/kopexa-grc/docs/commit/9ed475db7620dff4516fae53e57401a44197ed12))
+* add Mermaid component for rendering diagrams and update MDX configuration ([996cca9](https://github.com/kopexa-grc/docs/commit/996cca939dca3253b02e2409d6493570014ff710))
+* update meta.json to include pages for compliance and organisation ([f2812bb](https://github.com/kopexa-grc/docs/commit/f2812bba6080b9e43182613cdd3e5892c7fdff91))
+
 ## [1.5.0](https://github.com/kopexa-grc/docs/compare/v1.4.0...v1.5.0) (2025-08-25)
 
 
