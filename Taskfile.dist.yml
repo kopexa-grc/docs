@@ -1,0 +1,73 @@
+version: "3"
+
+vars:
+  # Overridable via CLI or environment (e.g., `task docker:build IMAGE_TAG=1.2.3`)
+  REGISTRY: '{{ .REGISTRY | default "ghcr.io" }}'
+  GITHUB_REPOSITORY: '{{ .GITHUB_REPOSITORY | default "kopexa-grc/docs" }}' # owner/repo
+  IMAGE_NAME: "{{ .IMAGE_NAME | default .GITHUB_REPOSITORY }}"
+  IMAGE_TAG: '{{ .IMAGE_TAG | default "dev" }}'
+  DOCKERFILE: '{{ .DOCKERFILE | default "./Dockerfile" }}'
+  CONTEXT: '{{ .CONTEXT | default "." }}'
+  IMAGE: '{{ printf "%s/%s:%s" .REGISTRY .IMAGE_NAME .IMAGE_TAG }}'
+
+tasks:
+  install:
+    desc: Install dependencies
+    cmds:
+      - pnpm install
+
+  dev:
+    desc: Start development server
+    deps: [install]
+    cmds:
+      - pnpm dev
+
+  build:
+    desc: Production build
+    deps: [install]
+    cmds:
+      - pnpm build
+
+  start:
+    desc: Start production server (after build)
+    deps: [build]
+    cmds:
+      - pnpm start
+
+  lint:
+    desc: Run Biome lint
+    deps: [install]
+    cmds:
+      - pnpm lint
+
+  format:
+    desc: Format with Biome
+    cmds:
+      - pnpm format
+
+  typecheck:
+    desc: TypeScript type-check (no emit)
+    deps: [install]
+    cmds:
+      - pnpm -s tsc --noEmit
+
+  ci:
+    desc: CI helper (lint + build)
+    cmds:
+      - task: lint
+      - task: build
+
+  docker:build:
+    desc: Build Docker image
+    cmds:
+      - docker build -t {{.IMAGE}} -f {{.DOCKERFILE}} {{.CONTEXT}}
+
+  docker:run:
+    desc: Run Docker image on port 3000
+    cmds:
+      - docker run --rm -p 3000:3000 {{.IMAGE}}
+
+  docker:push:
+    desc: Push Docker image to registry
+    cmds:
+      - docker push {{.IMAGE}}
