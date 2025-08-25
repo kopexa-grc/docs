@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.7.0](https://github.com/kopexa-grc/docs/compare/v1.6.0...v1.7.0) (2025-08-25)
+
+
+### Features
+
+* add comprehensive documentation for document management, including creation, review processes, and governance ([5c9beb3](https://github.com/kopexa-grc/docs/commit/5c9beb372863f6001e6aca33ed3f6e211ae00ac3))
+* add documentation for GDPR, ISO 27001, NIS2, and TISAX, including compliance requirements and Kopexa implementation ([f9d90c7](https://github.com/kopexa-grc/docs/commit/f9d90c749ecaca3c73fa806943018da719c02482))
+* add Icon component for generating image responses with metadata ([21a7a5b](https://github.com/kopexa-grc/docs/commit/21a7a5bfd9822a7dec303d511a31e34af9518e2f))
+
 ## [1.6.0](https://github.com/kopexa-grc/docs/compare/v1.5.0...v1.6.0) (2025-08-25)
 
 
