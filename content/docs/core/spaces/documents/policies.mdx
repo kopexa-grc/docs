@@ -1,0 +1,131 @@
+---
+title: Policies & Richtlinien
+description: Grundlagen, Lebenszyklus, gesetzliche Anforderungen und Best Practices für Policies in Kopexa
+---
+
+Policies und Verfahren sind das **Rückgrat** jeder Organisation. Sie geben den Rahmen für Entscheidungen vor, steuern Verhalten und sichern die **Compliance** mit Gesetzen und Standards.  
+In Kopexa werden Policies als **Dokumente** verwaltet – mit Versionierung, Freigabe-Workflow, Mapping auf Risiken und Kontrollen sowie regelmäßigen Reviewzyklen.
+
+## Was sind Policies und Procedures?
+
+- **Policies:** formelle Richtlinien, die Ziele, Prinzipien und Regeln definieren (das *Was* und *Warum*).
+- **Procedures:** konkrete Anweisungen, wie Policies umzusetzen sind (das *Wie*).
+
+Gemeinsam sorgen sie für **Konsistenz**, **Verantwortlichkeit** und **Nachweisfähigkeit**.
+
+## Warum sind Policies wichtig?
+
+- **Compliance:** Erfüllung gesetzlicher und normativer Vorgaben (z. B. DSGVO, ISO 27001, NIS2, TISAX).
+- **Risikominderung:** Leitlinien für Verhalten und Prozesse verringern Sicherheits- und Rechtsrisiken.
+- **Verantwortlichkeit & Transparenz:** Klare Vorgaben wer was darf und muss.
+- **Schulung & Awareness:** Policies sind Basis für Schulungen und Mitarbeiterkommunikation.
+- **Audits:** Ohne dokumentierte und freigegebene Policies kein Zertifikat.
+
+## Typen von Policies (Auswahl)
+
+Organisationen entwickeln je nach Branche und Reifegrad verschiedene Policies. Häufige Beispiele:
+
+- **Informationssicherheitsrichtlinie (ISMS-Policy)**  
+- **Acceptable Use / Akzeptable Nutzung** (IT-Systeme, Daten)  
+- **Zugriffs- und Berechtigungsrichtlinie** (Onboarding/Offboarding, MFA)  
+- **Datenschutz & Data Retention Policy**  
+- **Incident Response / Notfallhandbuch**  
+- **Business Continuity & Disaster Recovery Policy**  
+- **Change- & Patch-Management**  
+- **Remote Work & BYOD Policy**  
+- **Social Media Policy**  
+- **Confidentiality / Geheimhaltung**  
+- **Lieferanten- und IT-Vendor-Management Policy**  
+- **Log Management Policy**  
+- **Data Classification & Encryption Policy**  
+
+<Callout>
+In Kopexa findest du Mustertexte für gängige Policies.
+</Callout>
+
+
+## Gesetzlich empfohlene / erforderliche Policies
+
+Je nach Land und Branche sind einige Policies verpflichtend oder dringend angeraten:
+
+- **Privacy Policy / Datenschutzerklärung** (rechtlich in vielen Jurisdiktionen vorgeschrieben)  
+- **Health & Safety / Arbeitsschutz**  
+- **Equal Opportunity / Antidiskriminierung**  
+- **Bribery & Anti-Corruption / Antikorruption**  
+- **Disciplinary & Grievance Procedures**  
+- **IT Security / Security Policy**  
+
+<Callout type="warning" title="Wichtig">
+Dies ist keine Rechtsberatung. Prüfe gemeinsam mit Rechtsabteilung/DSB, welche Policies in deinem Markt vorgeschrieben sind.
+</Callout>
+
+---
+
+## Policy Lifecycle
+
+Ein effektiver Policy-Lebenszyklus besteht aus mehreren Phasen:
+
+<Mermaid
+chart={`
+graph TD
+    A["Bedarf identifizieren<br/>(Risiko, Audit, Gesetz)"] --> B[Entwurf erstellen]
+    B --> C[Stakeholder-Input & Review]
+    C --> D[Genehmigung durch Management/Legal]
+    D --> E[Veröffentlichung & Kommunikation]
+    E --> F[Implementierung & Schulung]
+    F --> G[Monitoring & Durchsetzung]
+    G --> H[Review & Aktualisierung]
+    H -->|veraltet| B
+    D --> I[Verknüpfung in Kopexa:<br/>Assets, Risks, Controls, Evidence]
+`}
+ />
+
+### Phasen im Detail:
+1. **Entwicklung:** Bedarf ermitteln (Risiken, neue Anforderungen), Entwurf erstellen.
+2. **Freigabe:** Stakeholder (Management, Legal, Compliance, IT) einbinden und genehmigen.
+3. **Kommunikation:** Policy allen relevanten Personen zugänglich machen.
+4. **Implementierung:** Prozesse und Systeme entsprechend ausrichten, Training durchführen.
+5. **Durchsetzung:** Technologie und Kontrollen nutzen, um Policy einzuhalten (z. B. Passwort-Policy technisch erzwingen).
+6. **Monitoring:** Compliance regelmäßig prüfen (Audits, Assessments).
+7. **Review:** Policies regelmäßig überprüfen (jährlich/halbjährlich) und bei Bedarf aktualisieren oder zurückziehen.
+
+---
+
+## Best Practices für Policies
+
+- **Klare Ziele & Scope:** Wer ist betroffen? Was soll erreicht werden?
+- **Gesetzliche Anforderungen beachten:** DSGVO, ISO, branchenspezifische Normen.
+- **Stakeholder einbeziehen:** Management, IT, HR, Compliance.
+- **Konsequenzen definieren:** Sanktionen bei Verstößen klar beschreiben.
+- **Technische Durchsetzung:** Policies soweit möglich automatisiert enforce’n.
+- **Dokumentieren & Nachweis:** Freigaben und Reviews in Kopexa versioniert festhalten.
+- **Reviewzyklen planen:** [Mapping & Zyklen](./mapping.mdx) nutzen, um Aktualität sicherzustellen.
+
+
+## Fragen beim Erstellen einer Security Policy
+
+Einige Leitfragen helfen beim Zuschnitt:
+
+- Wer ist Owner und Reviewer dieser Policy?
+- Welche Gesetze/Standards gelten (z. B. DSGVO, HIPAA, NIS2, ISO)?
+- Welche Systeme/Daten sind betroffen? Wer darf darauf zugreifen?
+- Wie und wann wird Zugriff überprüft?
+- Wie werden Verstöße gemeldet und sanktioniert?
+- Wie oft wird die Policy überprüft? Wer ist verantwortlich?
+
+## Policies in Kopexa
+
+In Kopexa legst du Policies im [Dokumentenmodul](./index.mdx) an:
+
+- Rich-Text (empfohlen) oder Datei-Upload
+- Review- und Freigabeprozess (Audit-Trail)
+- Mapping auf Risiken, Kontrollen, Lieferanten, Assets
+- Reviewzyklen und automatische Rezertifizierung
+
+Damit hast du **ein lebendes Policy-Management-System**, das Auditoren jederzeit den Nachweis liefert.
+
+## Weiterführende Inhalte
+
+- [Dokumentenmodul (Warum & Wofür)](./index.mdx)
+- [Review & Mapping](./review.mdx)
+- [Risiken & Evidence](../risks/index.mdx)

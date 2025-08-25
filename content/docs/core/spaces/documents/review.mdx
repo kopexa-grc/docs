@@ -1,0 +1,98 @@
+---
+title: Review & Freigabeprozess
+description: Wie Dokumente in Kopexa geprüft, genehmigt und veröffentlicht werden
+---
+
+Ein zentrales Ziel von Kopexa ist es, **Governance und Auditfähigkeit** zu gewährleisten.  
+Dafür gibt es einen klaren **Review- und Freigabeprozess** für alle Dokumente.
+
+## Warum ein Reviewprozess?
+
+- **Auditnachweis:** Prüfer wollen sehen, dass Policies **formell freigegeben** und regelmäßig überprüft werden.
+- **Governance:** Klare Trennung zwischen **Entwurf (Draft)** und **veröffentlichten (Published)** Versionen.
+- **Transparenz:** Jede Änderung wird versioniert und mit einem **Genehmigungs-Trail** versehen.
+- **Qualität:** Policies werden durch mehrere Augenpaare geprüft, bevor sie verbindlich sind.
+
+## Status-Lifecycle
+
+Jedes Dokument durchläuft folgende Stati:
+
+1. **Entwurf (Draft):**  
+   - Inhalt wird erstellt/bearbeitet.
+   - Kollaborative Bearbeitung möglich (Rich Text Editor).
+   - Noch **nicht** verbindlich.
+
+2. **Zur Überprüfung eingereicht:**  
+   - Draft wird für Review markiert.
+   - **Prüfer** (Reviewer) werden zugewiesen.
+   - Reviewer erhalten eine Benachrichtigung.
+
+3. **Genehmigt / Veröffentlicht:**  
+   - Reviewer haben das Dokument geprüft und freigegeben.
+   - Der Draft wird zur **Published-Version**.
+   - Audit-Trail vermerkt **wer, wann und was** genehmigt hat.
+
+4. **Änderungen angefordert:**  
+   - Reviewer können Änderungen fordern.
+   - Draft bleibt im Bearbeitungsstatus und wird nach Anpassung erneut eingereicht.
+
+<Mermaid
+  chart={`
+graph TD
+    D[Entwurf] -->|Einreichen| R[Zur Überprüfung eingereicht]
+    R -->|Genehmigen| P[Veröffentlicht]
+    R -->|Änderungen anfordern| D
+    P -->|Neue Version starten| ND[Neuer Draft]
+    P -->|Reviewzyklus fällig| RC[Review fällig]
+    RC --> ND
+    P -->|Deprecate / Archivieren| A[Archiviert]
+    P --> M[Mapping: Owner, BU, Assets, Controls, Risiken, Lieferanten]
+
+    %% Styling
+    style D fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style R fill:#fff7ed,stroke:#fb923c,stroke-width:1px
+    style P fill:#ecfdf5,stroke:#34d399,stroke-width:1px
+    style ND fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style RC fill:#e0f2fe,stroke:#38bdf8,stroke-width:1px
+    style A fill:#f5f3ff,stroke:#a78bfa,stroke-width:1px
+    style M fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px
+`}
+/>
+
+
+## Rollen & Verantwortlichkeiten
+
+- **Author:** Erstellt und bearbeitet Drafts.
+- **Reviewer:** Prüft Inhalt, kann freigeben oder Änderungen anfordern.
+- **Owner:** Fachlich verantwortliche Person für das Dokument (z. B. ISB).
+
+> **Best Practice:** Jeder freigegebene Policy-Draft sollte mindestens einen Reviewer und einen Owner haben.
+
+## Audit-Trail & Versionierung
+
+- **Jede Version** (Draft & Published) wird revisionssicher gespeichert.
+- Alte Versionen bleiben für Audits sichtbar.
+- Alle Genehmigungen und Kommentare werden protokolliert.
+
+## Published-Dokumente
+
+Nach Freigabe wird ein Dokument als **„Published“** geführt:
+
+- Kann **gemappt** werden (Assets, Kontrollen, Risiken, Lieferanten).
+- Kann in Audits als **Evidence** genutzt werden.
+- Unterliegt einem **Reviewzyklus** (siehe [Mapping & Zyklen](./mapping.mdx)).
+
+## Beispiel: Review in der Praxis
+
+1. Draft: „Informationssicherheitsleitlinie“ erstellt.
+2. Reviewer (ISB) weist Feedback zu Wortlaut aus.
+3. Änderungen übernommen, erneut eingereicht.
+4. ISB genehmigt, Status auf **Veröffentlicht**.
+5. Mapping zu Assets, Controls und jährlicher Reviewzyklus gesetzt.
+
+
+## Verwandte Themen
+
+- [Dokument anlegen](./create.mdx)
+- [Mapping & Reviewzyklen](./mapping.mdx)
+- [Warum Dokumente mehr sind als Uploads](./index.mdx)

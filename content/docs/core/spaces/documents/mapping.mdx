@@ -1,0 +1,117 @@
+---
+title: Mapping & Reviewzyklen
+description: Wie Dokumente in Kopexa mit Assets, Risiken, Kontrollen und Lieferanten verknüpft werden und regelmäßige Reviews geplant werden
+---
+
+Nach Veröffentlichung wird ein Dokument **ins ISMS eingebettet**.  
+Das bedeutet: **Verantwortlichkeiten setzen, Verknüpfungen herstellen, Reviewzyklen planen.**
+
+## Warum Mapping & Governance?
+
+- **Kontext herstellen:** Ein Dokument ohne Bezug zu Assets/Risiken bleibt isoliert.  
+  Auditoren wollen sehen, **wie Policies wirken und wofür sie gelten**.
+- **Nachweisführung:** Mapping zu Controls und Risiken zeigt, welche Anforderungen abgedeckt werden.
+- **Verantwortlichkeiten:** Jede Policy braucht einen fachlich Verantwortlichen.
+
+## Mapping: Verknüpfungen herstellen
+
+In der Published-Ansicht eines Dokuments kannst du folgende Relationen setzen:
+
+- **Verantwortliche (Owner):** Wer ist fachlich für Inhalt & Pflege verantwortlich?
+- **Business Units:** Welche Abteilungen/Org-Einheiten sind betroffen?
+- **Assets:** Auf welche Systeme oder Daten bezieht sich das Dokument?
+- **Kontrollen (Controls):** Welche Maßnahmen/Nachweise deckt das Dokument ab?
+- **Risiken:** Welche Risiken werden adressiert?
+- **Lieferanten (Vendors):** Falls z. B. AVVs oder Supplier-Policies betroffen sind.
+
+<Mermaid
+  chart={`
+graph TD
+    P[Veröffentlichtes Dokument] --> M[Mapping setzen]
+    M --> O[Owner]
+    M --> BU[Business Units]
+    M --> AS[Assets]
+    M --> CO[Kontrollen]
+    M --> RI[Risiken]
+    M --> VE[Lieferanten]
+    P -.-> EV[Als Evidence in Audits nutzen]
+
+    %% Reviewzyklus
+    P --> RC[Reviewzyklus: Intervall, Nächste Überprüfung, Reviewer]
+    RC --> RF[Review fällig]
+    RF --> ND[Neuer Draft starten]
+    ND --> RW[Review & Freigabeprozess]
+    RW --> P
+
+    %% Styling
+    style P fill:#ecfdf5,stroke:#34d399,stroke-width:1px
+    style M fill:#f1f5f9,stroke:#94a3b8,stroke-width:1px
+    style O fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style BU fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style AS fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style CO fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style RI fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style VE fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style EV fill:#fff7ed,stroke:#fb923c,stroke-width:1px,stroke-dasharray: 5 3
+    style RC fill:#e0f2fe,stroke:#38bdf8,stroke-width:1px
+    style RF fill:#e0f2fe,stroke:#38bdf8,stroke-width:1px
+    style ND fill:#eef2ff,stroke:#6366f1,stroke-width:1px
+    style RW fill:#fff7ed,stroke:#fb923c,stroke-width:1px
+`}
+/>
+
+
+> **Best Practice:** Jede Policy sollte mindestens einem Owner, einer BU und passenden Controls zugeordnet sein.
+
+## Reviewzyklen planen
+
+Policies müssen regelmäßig überprüft werden – Inhalte können veralten.  
+In Kopexa kannst du **Reviewintervalle direkt am Dokument setzen**:
+
+- **Intervall:** z. B. jährlich, halbjährlich, quartalsweise.
+- **Nächste Überprüfung:** automatisch berechnet.
+- **Reviewer:** wer überprüft die Policy?
+- **Letzte Überprüfung:** Historie sichtbar.
+
+Falls beim Review Änderungen notwendig sind:  
+- Neue Draft-Version starten.  
+- Erneut durch Review-Workflow führen.
+
+
+---
+
+## Beispiel: Review & Mapping
+
+1. Published-Dokument „ISMS Policy“:
+   - Owner: ISB
+   - BU: Management
+   - Assets: Cloud-Cluster, GitHub
+   - Controls: ISO 27001 A.5.1 Policies for Information Security
+   - Risiken: „Unklare Sicherheitsrichtlinien“
+
+2. Reviewzyklus: jährlich, Reviewer = ISB  
+3. Bei Review festgestellt: Inhalte veraltet → Draft V2 gestartet, neu freigegeben.
+
+---
+
+## Warum ist das auditrelevant?
+
+- **ISO 27001 & TISAX:** verlangen dokumentierte Policies **mit Nachweis**, dass sie aktuell sind.
+- **DSGVO:** verlangt **nachweisbare technische und organisatorische Maßnahmen (TOMs)**.
+- **BCM/DRP:** Notfallhandbücher müssen **regelmäßig geprüft** werden.
+
+---
+
+## Best Practices
+
+- Mapping möglichst vollständig pflegen (Owner, Assets, Controls, Risiken).
+- Reviewzyklen realistisch festlegen (nicht zu lang, nicht zu kurz).
+- Änderungen und Reviews dokumentieren (Audit-Trail).
+
+---
+
+## Verwandte Themen
+
+- [Review & Freigabeprozess](./review.mdx)
+- [Risiken & Evidence](../risks/index.mdx)
+- [Warum Dokumente mehr sind als Uploads](./index.mdx)
