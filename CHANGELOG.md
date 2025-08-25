@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/kopexa-grc/docs/compare/v1.2.0...v1.3.0) (2025-08-25)
+
+
+### Features
+
+* add LICENSE files for code and content ([ce36141](https://github.com/kopexa-grc/docs/commit/ce3614141a407683cdb3aafca175fd5f444af375))
+
 ## [1.2.0](https://github.com/kopexa-grc/docs/compare/v1.1.1...v1.2.0) (2025-08-25)
 
 
