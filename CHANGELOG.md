@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.4.0](https://github.com/kopexa-grc/docs/compare/v1.3.0...v1.4.0) (2025-08-25)
+
+
+### Features
+
+* add LegalFooter component and legal links for compliance ([197be13](https://github.com/kopexa-grc/docs/commit/197be13e0924b6833c50c055536da33712366423))
+* add Taskfile for managing development and Docker tasks ([76bb98a](https://github.com/kopexa-grc/docs/commit/76bb98a5d669aa230292f423d4a09fe10c096016))
+
 ## [1.3.0](https://github.com/kopexa-grc/docs/compare/v1.2.0...v1.3.0) (2025-08-25)
 
 
