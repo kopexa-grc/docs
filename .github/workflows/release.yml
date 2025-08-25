@@ -18,3 +18,12 @@ jobs:
     secrets: inherit
     with:
       IS_PRERELEASE: ${{ github.event.release.prerelease }}
+
+  devops-release:
+    name: Push Tag to DevOps
+    uses: ./.github/workflows/release-cd.yml
+    secrets: inherit
+    needs:
+      - docker-build
+    with:
+      VERSION: ${{ needs.docker-build.outputs.VERSION }}

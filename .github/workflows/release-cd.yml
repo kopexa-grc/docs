@@ -1,0 +1,57 @@
+name: Release CD Version
+
+on:
+  workflow_call:
+    inputs:
+      VERSION:
+        description: "The version of the Helm chart to release"
+        required: true
+        type: string
+
+env:
+    OPS_REPO: kopexa-grc/envs
+    IMAGE_NAME: ghcr.io/kopexa-grc/docs
+    DOCKER_PLATFORM: linux/amd64
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Validate input version
+        env:
+          INPUT_VERSION: ${{ inputs.VERSION }}
+        run: |
+          set -euo pipefail
+          # Validate input version format (expects clean semver without 'v' prefix)
+          if [[ ! "$INPUT_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.-]+)?(\+[a-zA-Z0-9.-]+)?$ ]]; then
+            echo "❌ Error: Invalid version format. Must be clean semver (e.g., 1.2.3, 1.2.3-alpha)"
+            echo "Expected: clean version without 'v' prefix"
+            echo "Provided: $INPUT_VERSION"
+            exit 1
+          fi
+
+          # Store validated version in environment variable
+          echo "VERSION<<EOF" >> $GITHUB_ENV
+          echo "$INPUT_VERSION"
+          
+      - name: Trigger GitOps Update (dev)
+        uses: peter-evans/repository-dispatch@v3
+        with:
+          token: ${{ secrets.KOPEXA_CLOUD_REPO_ACCESS_TOKEN }}
+          repository: ${{ env.OPS_REPO }}
+          event-type: update-docs-image
+          client-payload: '{"image": "${{ env.IMAGE_NAME }}:${{ inputs.VERSION }}", "environment": "platform-iac"}'
