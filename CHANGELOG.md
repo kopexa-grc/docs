@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/kopexa-grc/docs/compare/v1.1.1...v1.2.0) (2025-08-25)
+
+
+### Features
+
+* add health check endpoints for API readiness and health status ([8bce436](https://github.com/kopexa-grc/docs/commit/8bce4364eba243f66e7bddcbb0c309b45cde6e17))
+
 ## [1.1.1](https://github.com/kopexa-grc/docs/compare/v1.1.0...v1.1.1) (2025-08-24)
 
 
