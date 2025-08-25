@@ -39,7 +39,7 @@ jobs:
           fi
 
           # Store validated version in environment variable
-          echo "VERSION<<EOF" >> $GITHUB_ENV
+          echo "VERSION=$INPUT_VERSION" >> "$GITHUB_ENV"
           echo "$INPUT_VERSION"
           
       - name: Trigger GitOps Update (dev)

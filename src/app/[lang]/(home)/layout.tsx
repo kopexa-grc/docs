@@ -1,5 +1,6 @@
 import { HomeLayout } from "fumadocs-ui/layouts/home";
 import type { ReactNode } from "react";
+import { LegalFooter } from "@/components/LegalFooter";
 import { baseOptions } from "@/lib/layout.shared";
 
 export default async function Layout({
@@ -11,5 +12,10 @@ export default async function Layout({
 }) {
 	const { lang } = await params;
 
-	return <HomeLayout {...baseOptions(lang)}>{children}</HomeLayout>;
+	return (
+		<HomeLayout {...baseOptions(lang)}>
+			{children}
+			<LegalFooter lang={lang} />
+		</HomeLayout>
+	);
 }

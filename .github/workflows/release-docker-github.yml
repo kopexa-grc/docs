@@ -11,7 +11,7 @@ on:
     outputs:
       VERSION:
         description: release version
-        value: ${{ jobs.build.outputs.VERSION }}
+        value: ${{ jobs.publish.outputs.VERSION }}
 
 env:
   REGISTRY: ghcr.io
@@ -26,6 +26,9 @@ jobs:
         contents: read
         packages: write
         id-token: write
+
+    outputs:
+      VERSION: ${{ steps.extract_release_tag.outputs.VERSION }}
     steps:
       - name: Harden the runner (Audit all outbound calls)
         uses: step-security/harden-runner@0634a2670c59f64b4a01f0f96f84700a4088b9f0 # v2.12.0
