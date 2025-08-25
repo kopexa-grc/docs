@@ -69,6 +69,9 @@ RUN chmod 644 ./package.json
 COPY --from=builder /app/.next/static ./.next/static
 RUN chown -R nextjs:nextjs ./.next/static && chmod -R 755 ./.next/static
 
+COPY --from=builder /app/content ./content
+RUN chown -R nextjs:nextjs ./content && chmod -R 755 ./content
+
 # We have no public yet
 # COPY --from=builder /app/public ./public
 # RUN chown -R nextjs:nextjs ./public && chmod -R 755 ./public
