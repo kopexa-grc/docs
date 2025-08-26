@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.10.0](https://github.com/kopexa-grc/docs/compare/v1.9.0...v1.10.0) (2025-08-26)
+
+
+### Features
+
+* add GitHub and Microsoft 365 integration documentation and permissions details ([fca7366](https://github.com/kopexa-grc/docs/commit/fca7366a5e3c4892d40a87f0509ad5e28b2a034d))
+
 ## [1.9.0](https://github.com/kopexa-grc/docs/compare/v1.8.0...v1.9.0) (2025-08-26)
 
 
