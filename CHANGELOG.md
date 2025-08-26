@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.0](https://github.com/kopexa-grc/docs/compare/v1.7.0...v1.8.0) (2025-08-26)
+
+
+### Features
+
+* add search toggle component and sidebar implementation ([982f30a](https://github.com/kopexa-grc/docs/commit/982f30a3f338c8e580fd1c639841d864dd6346e1))
+* enhance PR workflow with auto-merge for Dependabot and update home page content ([a279931](https://github.com/kopexa-grc/docs/commit/a2799318acca4af74efb85f7ba40ad41303b43d4))
+
 ## [1.7.0](https://github.com/kopexa-grc/docs/compare/v1.6.0...v1.7.0) (2025-08-25)
 
 
