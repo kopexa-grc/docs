@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.9.0](https://github.com/kopexa-grc/docs/compare/v1.8.0...v1.9.0) (2025-08-26)
+
+
+### Features
+
+* add comprehensive vendor management documentation and images for better guidance ([36864f4](https://github.com/kopexa-grc/docs/commit/36864f4e662ab9d06d59c842569261f5a160f906))
+
 ## [1.8.0](https://github.com/kopexa-grc/docs/compare/v1.7.0...v1.8.0) (2025-08-26)
 
 
