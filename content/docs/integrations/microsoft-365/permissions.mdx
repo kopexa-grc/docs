@@ -1,0 +1,56 @@
+---
+title: Berechtigungen
+description: Welche Entra ID Graph-API-Berechtigungen benötigt Kopexa und wofür werden sie genutzt?
+---
+
+## Berechtigungen & Scopes – Microsoft 365 / Entra ID
+
+Beim Einrichten der Microsoft 365 / Entra ID Integration siehst du eine Liste von Berechtigungen, die Kopexa anfordert.  
+Diese Berechtigungen sind **ausschließlich lesend (read-only)** und dienen dem **automatisierten Abruf von Compliance-relevanten Daten**.  
+
+Kopexa führt **keine Änderungen** in deinem Entra ID-Tenant durch, schreibt keine Werte zurück und hat **keine administrativen Schreibrechte**.
+
+## Angefragte Scopes und deren Zweck
+
+Folgende Graph-API-Scopes werden abgefragt, um typische Compliance-Nachweise abzubilden.  
+Hier einige Beispiele:
+
+- **`Read all audit log data`** – Abruf von Audit Logs (z. B. Anmelde- und Admin-Protokolle) als Evidenz für Kontrollen wie „Zugriffe werden protokolliert und überwacht“.
+- **`Read Microsoft Intune device configuration and policies`** – Übersicht über Gerätekonfiguration und Mobile-Device-Policies (für Mobile Security / BYOD-Nachweise).
+- **`Read directory data` & `Read identity providers`** – Auslesen von Benutzern, Gruppen, Domänen und Identity-Provider-Konfiguration (z. B. um MFA-Abdeckung und Rollenmodelle zu belegen).
+- **`Read your organization's policies` & `Read conditional access policies`** – Abruf von Richtlinien und Conditional-Access-Regeln (z. B. MFA-Pflicht, Zugriffssteuerung).
+- **`Read consent and permission grant policies`** – Überblick, welche Apps/Integrationen Berechtigungen haben (Supply-Chain-Risiko & Drittanbieterbewertung).
+- **`Read your organization's security actions` & `Read security events`** – Security-Alerts und Reaktionen abrufen (für Incident-Management und Lessons Learned).
+- **`Have full control of all site collections`** *(optional)* – Metadaten zu SharePoint/OneDrive-Sites auslesen, z. B. Datenlokationen und Verantwortliche (keine Datei-Inhalte!).
+- **`Sign in and read user profile`** – Technischer Basis-Scope für den Graph-Zugriff und User-Identifizierung.
+
+<Callout title="Warum werden diese Berechtigungen benötigt?">
+Frameworks wie **NIS2**, **ISO 27001** oder **TISAX®** verlangen Nachweise über Benutzerverwaltung, MFA, Zugriffskontrollen, Subprozessoren und Security Events.  
+Durch diese Scopes kann Kopexa relevante Daten automatisiert abrufen und in deinem ISMS/DSMS bereitstellen – ohne manuelle Screenshots oder Excel-Listen.
+</Callout>
+
+## Datennutzung & Datenschutz
+
+- Alle abgerufenen Daten werden **verschlüsselt gespeichert** und **Space-isoliert verarbeitet**.
+- Kopexa nutzt die Daten ausschließlich **read-only** für Compliance-Zwecke (z. B. zur Erstellung von Reports, Evidenzen und Risikoanalysen).
+- **Kein Export an Dritte** ohne dein Zutun: Du behältst jederzeit die Kontrolle, wann und mit wem Daten geteilt werden.
+- **Widerruf jederzeit möglich**: Du kannst die erteilten Berechtigungen in Entra ID/Microsoft 365 jederzeit entziehen oder die Integration in Kopexa deaktivieren.
+
+## Transparenz & Dokumentation
+
+Kopexa verwendet die **Microsoft Graph API**.  
+Eine vollständige Liste aller genutzten Endpunkte inkl. offizieller Microsoft-Dokumentation findest du hier:
+
+- [Microsoft Graph Permissions Reference](https://learn.microsoft.com/en-us/graph/permissions-reference)
+
+<Callout title="Hinweis">
+Für Audits kannst du jederzeit exportieren, **welche Scopes freigegeben wurden**, wann der Zugriff eingerichtet wurde und wie die Daten innerhalb Kopexa verwendet werden.
+</Callout>
+
+## Sicherheit & Audit-Fit
+
+- **Least Privilege**: Es werden nur die Scopes angefragt, die für die vereinbarten Compliance-Nachweise notwendig sind.  
+- **Nachvollziehbarkeit**: Alle Datenflüsse sind im Audit-Trail dokumentiert (wer hat wann welchen Import angestoßen).
+- **Kein Vendor Lock-in**: Du behältst die Hoheit über deine Entra-ID-Daten; die Integration ist optional und kann jederzeit widerrufen werden.
+
+Mit diesen Berechtigungen wird eine saubere Brücke zwischen deiner Microsoft-365-Umgebung und Kopexa geschaffen – für automatisierte, prüfbare und **audit-sichere Compliance-Nachweise** ohne manuellen Aufwand.

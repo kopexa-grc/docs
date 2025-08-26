@@ -1,0 +1,11 @@
+{
+    "title": "Integrationen",
+    "root": true,
+    "pages": [
+        "index",
+        "---Identity & Access---",
+        "microsoft-365",
+        "---Developer & Code---",
+        "github"
+    ]
+}

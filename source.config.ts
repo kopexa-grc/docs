@@ -18,6 +18,7 @@ export const docs = defineDocs({
 });
 
 export default defineConfig({
+	lastModifiedTime: "git",
 	mdxOptions: {
 		rehypePlugins: (v) => [rehypeCode, ...v],
 	},

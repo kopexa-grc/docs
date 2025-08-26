@@ -1,0 +1,80 @@
+---
+title: GitHub Integration
+description: Synchronisation von Repositories, Organisationen und Security-Daten aus GitHub – plus Ausblick auf geplante Automatisierungen
+---
+
+Mit der **GitHub-Integration** verbindet Kopexa dein GitHub-Organisation-Konto und synchronisiert automatisch relevante Informationen.  
+Ziel: **Sichtbarkeit über alle Repositories und Projekte** herstellen und diese direkt mit **Assets, Risiken und Kontrollen** verknüpfen.
+
+## Warum GitHub in Kopexa?
+
+- **Zentrale Übersicht:** Alle Repos und Projekte als **Assets** im Inventory.
+- **Audit-Ready:** Überblick über Berechtigungen, Organisation, verwendete Technologien.
+- **Compliance-Verknüpfung:** Repos mit Risiken, Policies und Kontrollen verbinden.
+- **DSGVO/NIS2/ISO**: Nachvollziehbarkeit, wo Quellcode liegt, wer Zugriff hat, welche Sicherheitsmaßnahmen bestehen.
+
+<Callout title="Gut zu wissen">
+Die GitHub-Integration ist aktuell **read-only**.  
+Kopexa schreibt keine Änderungen an deine Repositories, Nutzer oder Organisationseinstellungen.
+</Callout>
+
+## Welche Daten werden heute synchronisiert?
+
+- **Organisation & Mitglieder:** GitHub-Organisation(en), User und Teams (optional).
+- **Repositories:** Name, Beschreibung, Sichtbarkeit (public/private), Owner.
+- **Repo-Assets:** Automatische Abbildung als **Assets** im Inventory.
+- **Metadaten:** Themen wie Default-Branch, letzte Commits, ob ein Repository archiviert ist.
+
+Diese Daten sind die Basis für Risikoanalysen, z. B.: „Welche kritischen Assets liegen in public Repos? Wer hat Zugriff?“
+
+## Roadmap & Zukunft: Security-Automatisierung
+
+Wir arbeiten daran, **weit über reine Sichtbarkeit hinauszugehen**. Geplante Features (opt-in):
+
+- **Branch Protection Checks:** Automatische Überprüfung, ob Branch Protection Rules aktiv sind (z. B. PR-Reviews, Status-Checks).
+- **Vulnerability Scanning:** Anbindung an GitHub Advanced Security und Dependabot-Daten, um bekannte Schwachstellen zu erfassen.
+- **Secret Scanning:** Erkennung von geleakten Secrets/Keys in Repositories.
+- **Best-Practice-Reports:** Abgleich mit OWASP DevSecOps und ISO 27001 Annex A Controls (z. B. „Secure SDLC“, „Code Integrity“).
+
+Diese Daten können zukünftig **automatisiert als Evidenz** für Kontrollen dienen (z. B. „Alle kritischen Repos haben Branch Protection aktiv“).
+
+<Callout title="Roadmap">
+Die Security-Automation befindet sich auf unserer **Produkt-Roadmap**.  
+Wir starten mit **read-only Checks**, später folgen **optionale Remediation-Workflows** (z. B. automatisierte Branch-Protection-Policies).
+</Callout>
+
+## Einrichtung & Berechtigungen
+
+Aktuell erfolgt die Verbindung via **GitHub OAuth App / PAT (Personal Access Token)** mit Lesezugriff auf:
+
+- `repo` (Leserechte für Organisation/Repos)
+- `read:org` (Leserechte für Organisations- und Team-Mitglieder)
+- `admin:repo_hook` (optional für Webhook-basierte Events, Roadmap-Feature)
+
+
+## Datenschutz & Sicherheit
+
+- **Read-only Zugriff:** Keine Schreibaktionen an deinen Repos oder Organisationseinstellungen.
+- **Space-Isolation:** Jede Kopexa-Space ist mandantengetrennt.
+- **Widerruf jederzeit:** Zugriff über GitHub Settings entziehbar.
+
+## Mapping in Kopexa
+
+- **Repos → Assets:** Jedes Repo wird als Asset angelegt, kann mit Risiken und Kontrollen verknüpft werden.
+- **Owner → People:** GitHub-Nutzer können in Inventory „People“ gemappt werden.
+- **Policies:** Verknüpfe Kontrollen wie „Secure SDLC“ oder „Branch Protection aktiv“ direkt mit den Repos.
+
+<Mermaid
+  chart={`
+graph TD
+  A[GitHub Org] --> B[Repos als Assets]
+  B --> C[Risiken]
+  B --> D[Kontrollen]
+  D --> E["Evidenz (z.B. Branch Protection Check)"]
+  style A fill:#e0f2fe,stroke:#3b82f6
+  style B fill:#ecfdf5,stroke:#10b981
+  style C fill:#fff7ed,stroke:#fb923c
+  style D fill:#e5e7eb,stroke:#9ca3af
+  style E fill:#fde68a,stroke:#f59e0b
+`}
+ />
