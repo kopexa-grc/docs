@@ -1,0 +1,193 @@
+---
+title: Best Practices
+description: Leitfaden für Klassifizierung, Bewertung, Verträge, Sicherheit, Monitoring und Audits – mit konkretem Mapping auf Kopexa
+---
+
+Viele Sicherheitsvorfälle entstehen über **Dienstleister und Lieferketten**. Ob Cloud-Anbieter, IT-Dienstleister oder HR-Software: Sie verarbeiten oft sensible Daten oder stellen kritische Systeme bereit.  
+Dieses Kapitel zeigt dir, **wie du Lieferanten professionell managst** – Schritt für Schritt, von der ersten Einstufung über Fragebögen, Vertragsgestaltung und Sicherheitsprüfungen bis hin zu kontinuierlichem Monitoring und Audits.  
+Alles ist direkt auf **Kopexa** mappbar, sodass du nicht nur theoretisch, sondern **auditfest und nachvollziehbar** arbeitest.
+
+## Warum Vendor Management?
+
+- **Supply-Chain-Risiken erkennen und beherrschen:** Angriffe über Dienstleister zählen zu den häufigsten Einfallstoren.
+- **Nachweise für Audits:** Wer ist kritisch? Welche Sicherheitsmaßnahmen sind vereinbart? Wann war der letzte Review?
+- **Business-Resilienz:** SLAs, Backups, Notfall- und Exit-Strategien beugen Ausfällen vor.
+- **Compliance:** ISO 27001 (Lieferantensteuerung), DSGVO (Art. 28 Auftragsverarbeitung), NIS2 (Lieferkettensicherheit), TISAX® (ISA-Anforderungen).
+
+<Callout
+    title="Merke"
+>
+Vendor Management ist kein Selbstzweck. Es schützt dein Unternehmen UND erfüllt regulatorische Pflichten.
+</Callout>
+
+## Grundbegriffe (einfach erklärt)
+
+- **Vendor / Lieferant:** Externe Organisation, die Produkte/Dienstleistungen für dich erbringt.
+- **Sub-Prozessor:** Unterauftragnehmer eines Vendors, wichtig für DSGVO.
+- **AVV / TOMs:** Vertrag und technische/organisatorische Maßnahmen nach DSGVO.
+- **Kritikalität:** Wie wichtig ist der Vendor für dein Geschäft? Hat er Zugriff auf sensible Daten?
+- **Risikostufe:** Bewertung von Eintrittswahrscheinlichkeit × Auswirkung.
+
+<Callout title="Hinweis zu TOMs & Controls">
+Im Datenschutz-Kontext spricht man häufig von **TOMs (Technische und Organisatorische Maßnahmen)** gemäß DSGVO Art. 32.  
+
+In Kopexa müssen diese Maßnahmen **nicht zwingend „TOMs“ heißen** – wir modellieren sie als **Controls**.  
+Dadurch schlagen wir die Brücke zwischen **ISMS** (Informationssicherheit) und **DSMS** (Datenschutz):  
+ein Control kann gleichzeitig eine ISO-27001-Anforderung, eine NIS2-Maßnahme **und** eine DSGVO-TOM abbilden.  
+
+Das reduziert Doppelarbeit und sorgt für eine einheitliche Nachweisführung.
+</Callout>
+
+## Schritt 1 – Klassifiziere deine Vendoren
+
+### Warum?  
+Nicht jeder Vendor hat das gleiche Risiko. Ein Büromöbellieferant ist weniger kritisch als dein Cloud-Provider.
+
+### Wie?  
+Lege **Tiers** fest:
+  - **Tier 1 – Kritisch:** Zugriff auf sensible Daten / Kernprozesse (z. B. Azure, AWS, Identity Provider).
+  - **Tier 2 – Hoch:** Wesentliche Business-Services (z. B. Monitoring, CRM).
+  - **Tier 3 – Mittel:** Unterstützend, geringe Datenverarbeitung.
+  - **Tier 4 – Niedrig:** Keine Sicherheitsrelevanz (z. B. Catering).
+
+### In Kopexa:
+Beim Anlegen eines Vendors im Feld **„Kritikalität“** das Tier wählen.  
+Später kannst du daran automatische **Review-Intervalle** knüpfen.
+
+## Schritt 2 – Due Diligence & Onboarding
+
+Bevor ein Vendor „live“ geht, solltest du **prüfen**, ob er deine Sicherheits- und Datenschutzanforderungen erfüllt.
+
+### Sicherheitsanforderungen festlegen
+- **Informationssicherheit:** Patch-Management, Verschlüsselung, Backup, Incident-Meldungspflichten.
+- **DSGVO:** AVV (Art. 28), TOMs (Art. 32), Speicherorte, Sub-Prozessoren.
+- **Cloud Shared Responsibility:** Wer ist für welche Sicherheitsmaßnahmen verantwortlich?
+
+### Fragebögen nutzen (statt Excel-Chaos)
+
+<Callout title="Warum?">
+Du brauchst verlässliche, standardisierte Informationen. Manuelles Abfragen per Mail ist fehleranfällig.
+</Callout>
+
+Mit Kopexa kannst du im **Survey-/Questionnaire-Modul** eigene oder vordefinierte Fragebögen nutzen:
+
+- Hat der Vendor ein ISO 27001- oder SOC 2-Zertifikat?
+- Führt er Penetrationstests durch?
+- Gibt es Schwachstellen-Management und MFA?
+- Wo werden Daten gespeichert? Welche Sub-Prozessoren werden eingesetzt?
+- Wie schnell kann er Backups wiederherstellen (RPO/RTO)?
+
+<Callout title="Praxisbeispiel" type="success">
+Erstelle in Kopexa einen **„Vendor Security Assessment 2025“-Fragebogen**.  
+Versende ihn direkt an den Vendor, Kopexa erinnert bei Überfälligkeit.  
+Antworten und Zertifikate werden versioniert beim Vendor gespeichert – **Audit-Trail inklusive**.
+</Callout>
+
+### Vertragsbausteine
+- **SLA:** Verfügbarkeit, Reaktionszeiten, Eskalation.
+- **Sicherheitsklauseln:** MFA, Verschlüsselung, Incident-Meldepflicht (mit Fristen).
+- **DSGVO:** AVV, TOMs, Sub-Prozessor-Liste.
+
+**In Kopexa:**  
+Lade Verträge und AVV als **Dokumente** hoch und verknüpfe sie mit dem Vendor.  
+Offene Punkte kannst du als **Work Item** anlegen („Pentest-Report nachreichen“).
+
+## Schritt 3 – Vendor-Details vollständig pflegen
+
+Ein sauber gepflegter Vendor-Datensatz spart später viel Zeit:
+
+- **SLA-Block:** Vertragsstatus, Laufzeit, Verfügbarkeit.
+- **Auth-Block:** MFA-Status, SSO/SAML, Admin-Trennung.
+- **Kontakte:** Technik, Datenschutz, Notfall.
+- **Assets:** Welche Systeme/Daten sind betroffen?
+- **Reviewbereich:** Intervall, Reviewer, letzte/nächste Prüfung.
+
+Alles direkt in der **Vendor-Detailansicht** von Kopexa.
+
+## Schritt 4 – Kontinuierliches Monitoring & Reviews
+
+Vendor Management ist kein „einmal und fertig“.  
+Risiken ändern sich – daher: **regelmäßige Reviews**.
+
+### Empfohlene Frequenz:
+- **Tier 1:** alle 6–12 Monate  
+- **Tier 2:** jährlich  
+- **Tier 3/4:** alle 1–2 Jahre
+
+<Callout title="In Kopexa" type="success">
+Lege pro Vendor einen **Review-Intervall** fest, Kopexa erinnert automatisch.  
+Ein Review kann als **Work Item mit Checkliste** durchgeführt werden: Zertifikate prüfen, Sub-Prozessor-Liste, Backup-Tests, MFA-Quote etc.
+</Callout>
+
+## Schritt 5 – Incidents managen
+
+Was tun, wenn ein Vendor einen Sicherheitsvorfall hat?
+
+- Meldewege und Fristen im Vertrag festlegen.
+- Incident im **Kopexa-Incident-Modul** erfassen.
+- Betroffene Assets und Vendor verknüpfen.
+- Sofortmaßnahmen als Work Items dokumentieren.
+- Lessons Learned → Risiken neu bewerten.
+
+<Mermaid
+    chart='
+graph TD
+  A[Vorfall entdeckt] --> B[Incident in Kopexa erfassen]
+  B --> C[Vendor & betroffene Assets verknüpfen]
+  C --> D["Sofortmaßnahmen (Work Items)"]
+  D --> E[Lessons Learned / Controls anpassen]
+  E --> F[Risikoneubewertung & Review]
+    '
+ />
+
+## Schritt 6 – DSGVO-Pflichten erfüllen
+
+Für Datenschutz-Audits wichtig:
+
+* **AVV und TOMs** dokumentieren und aktuell halten.
+* **Verarbeitungstätigkeiten (VVT):** Vendor im VVT-Modul verknüpfen.
+* **DSAR (Betroffenenanfragen):** Klarer Prozess mit Vendor vereinbaren und in Kopexa dokumentieren.
+
+## KPIs & Reporting
+
+Mögliche Kennzahlen:
+
+* % kritischer Vendoren mit aktueller Review.
+* % Vendoren mit MFA.
+* Zeit bis Incident-Schließung.
+* DSAR-Durchlaufzeit mit Vendor-Beteiligung.
+
+Kopexa ermöglicht Filter, Exporte und Reports.
+
+## Offboarding & Exit
+
+Auch das Ende einer Vendor-Beziehung muss sauber dokumentiert sein:
+
+* Datenrückgabe und Löschung (mit Nachweis).
+* Zugangsentzug (Admin/API-Keys).
+* Sub-Prozessoren & Backups adressieren.
+
+In Kopexa als **Work Item-Checkliste** abbilden und Evidenz anhängen.
+
+## Häufige Stolpersteine
+
+* **Nur Zertifikat statt gelebter Sicherheit:** fordere **Evidenzen** (Screens, Logs).
+* **Sub-Prozessoren vergessen:** immer vertraglich fixieren.
+* **Unklare Incident-Schnittstellen:** Meldewege in Dokumenten definieren.
+* **Kein Exit-Plan:** Offboarding-Checkliste nutzen.
+
+## Zusammenfassung: End-to-End in Kopexa
+
+Alle Beziehungen werden in Kopexa sichtbar:
+
+<Mermaid
+    chart='
+graph LR
+  V[Vendor] --> D[Dokumente & Verträge]
+  V --> R[Risiken]
+  V --> C[Kontrollen]
+  V --> W[Work Items]
+  V --> P["Processing Activities (VVT)"]
+  V --> I[Incidents]
+  D --> E[Evidenz]
+' />
