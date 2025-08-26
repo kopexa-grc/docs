@@ -1,0 +1,97 @@
+---
+title: Wie Kopexa funktioniert
+description: Das Zusammenspiel von Organization, Spaces, Modulen, Sicherheit und Workflows
+---
+
+Kopexa trennt **Mandanten/Topologie** (Organization) von **operativer Arbeit** (Spaces) und verbindet alle Compliance-Bausteine über **klare Relationen**.
+
+## 1) Ebenen: Organization & Spaces
+
+**Organization (Top-Level):**
+- **Domains & SSO (SAML)** verwalten (inkl. Domain-Verifizierung)
+- globale Einstellungen, Abrechnung, zentrale Nutzerzuordnung
+- Security-Prinzipien & ReBAC-Regeln
+
+**Spaces (Arbeitsumgebungen/Sub-Tenants):**
+- hier passiert die **eigentliche Arbeit**: **Risiken, Kontrollen, Dokumente, Evidenzen, Inventory, Work Items**
+- Daten sind zwischen Spaces **isoliert**
+
+Siehe: [Spaces](./quickstart/spaces.mdx) · [Domains & SSO](./quickstart/organization/domains/index.mdx)
+
+## 2) Module im Space – und wie sie zusammenspielen
+
+- **Inventory:** **Assets**, **Vendors**, **People** – Grundlage für Risiken & Kontrollen  
+- **Risks:** Bewertung (Impact × Likelihood), **Residual Risk**, Matrix, **Maßnahmen**  
+- **Controls & Catalogs:** Anforderungen aus **ISO 27001**, **NIS2**, **DSGVO**, **TISAX®**; Controls mit **Owner**, **Evidenz**, **Bewertung**  
+- **Documents & Policies:** Rich-Text **kollaborativ**, **Draft → Review → Published**, **Reviewzyklen**, **Mapping**  
+- **Evidence:** Nachweise (Dateien, Reports, Screenshots) direkt an Controls/Dokumente/Risiken  
+- **Work Items / Issues:** Aufgaben & Maßnahmen mit Owner, Due Date, Status
+
+**Typischer Fluss:**  
+Asset entdeckt → Risiko bewertet → Controls definiert → Policy/Prozess dokumentiert → Evidenz gesammelt → Aufgabe zur Umsetzung geplant → Audit zeigt vollständige Kette.
+
+## 3) Beziehungen (Mapping) visuell
+
+<Mermaid
+  chart={`
+graph LR
+    A[Asset/Vendor/People] --> R[Risiko]
+    R --> T[Maßnahmen / Work Items]
+    R --> C[Controls]
+    C --> E[Evidenz]
+    P[Dokument/Policy] --> C
+    P --> E
+    style A fill:#ecfdf5,stroke:#34d399
+    style R fill:#fff7ed,stroke:#fb923c
+    style T fill:#ffe4e6,stroke:#fb7185
+    style C fill:#e5e7eb,stroke:#9ca3af
+    style E fill:#fde68a,stroke:#f59e0b
+    style P fill:#f5f3ff,stroke:#a78bfa
+`}
+/>
+
+## 4) Dokumente: von Draft zu Published
+
+- **Draft:** kollaborativ schreiben (Rich Text)  
+- **Review:** Reviewer/Owner prüfen, Änderungen anfordern oder freigeben  
+- **Published:** verbindlich, **Mapping** (Owner, BU, Assets, Controls, Risiken, Lieferanten)  
+- **Reviewzyklus:** Inhalte regelmäßig prüfen; bei Änderungen **neue Version** starten
+
+Details: [Dokumente & Policies](./compliance/documents/index.mdx) · [Review & Freigabe](./compliance/documents/review.mdx) · [Mapping](./compliance/documents/mapping.mdx)
+
+## 5) Sicherheit & Betrieb
+
+- **SSO für alle Pläne:** SAML-Integration (z. B. Entra ID, Okta, Keycloak) – Security **nicht** nur für Enterprise  
+- **ReBAC (OpenFGA):** feingranulare Rechte, z. B. „User X darf Dokumente in Space Y reviewen“  
+- **Datenhaltung:** verschlüsselter PostgreSQL-Cluster, Storage **SSE-OMK**, Standorte **Paris/Frankfurt (OVH)**  
+- **Backups:** Full Backups **alle 2 Std**, **WAL-Backups**, **30 Tage Retention** + **30 Tage Glacier**  
+- **Dateien:** Space-isolierte Object Storages, gleiche Retention  
+- **OWASP-Ansatz:** sichere Defaults, Härtung, Trennung von Draft/Published, Signaturprüfungen
+
+Mehr: [Security & Architektur](./quickstart/organization/security.mdx)
+
+## 6) Frameworks & Kataloge
+
+Aktiviere im Space die benötigten **Frameworks** und mappe sie auf deine Realität:
+
+- **ISO 27001** – ISMS (Annex A Controls, SoA)  
+- **NIS2** – EU-Sicherheitsanforderungen  
+- **DSGVO** – Datenschutz (TOMs, DSFA, VVT via Data Assets)  
+- **TISAX®** – Automotive (VDA ISA, Prototypenschutz, Reifegrade)
+
+Start: [Frameworks & Kataloge](../catalogs/index.mdx) · Beispiele: [ISO 27001](../catalogs/iso27001/index.mdx) · [NIS2](../catalogs/nis2/index.mdx) · [DSGVO](../catalogs/gdpr/index.mdx) · [TISAX®](../catalogs/tisax/index.mdx)
+
+## 7) Workflows: so arbeitest du im Alltag
+
+- **Risiko-Workflow:** Risiko anlegen → bewerten → Maßnahmen/Work Items → Evidenz → Review/Rezertifizierung  
+- **Policy-Workflow:** Draft → Review → Published → Mapping → Reviewzyklus → neue Version  
+- **Audit-Workflow:** Controls sichten → Evidenzen prüfen/pinnen → Lücken als Work Items → Report
+
+## 8) Checkliste für den Start
+
+- Organization anlegen, **SSO-Domain verifizieren**  
+- Ersten **Space** erstellen  
+- **Inventory** befüllen (Assets, Vendors, People)  
+- **Framework** aktivieren (z. B. ISO 27001 oder NIS2)  
+- **Top-3 Risiken** & **erste Policies** anlegen  
+- **Work Items** planen und **Evidenzen** sammeln

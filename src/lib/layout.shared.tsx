@@ -14,17 +14,12 @@ export function baseOptions(_locale: string): BaseLayoutProps {
 	return {
 		i18n,
 		nav: {
+			transparentMode: "top",
 			title: (
 				<>
-					<svg
-						width="24"
-						height="24"
-						xmlns="http://www.w3.org/2000/svg"
-						aria-label="Logo"
-					>
-						<title>Kopexa</title>
-						<circle cx={12} cy={12} r={12} fill="currentColor" />
-					</svg>
+					<div className="size-8 rounded-md bg-primary-800 grid place-content-center">
+						<span className="text-white">K</span>
+					</div>
 					Kopexa
 				</>
 			),

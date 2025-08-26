@@ -1,3 +1,25 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/ocean.css';
 @import 'fumadocs-ui/css/preset.css';
+
+:root {
+  --fd-layout-width: 1400px;
+}
+
+#nd-sidebar {
+    @apply bg-transparent;
+}
+
+@theme {
+    --color-primary-50: oklch(96.58% 0.016 262.77);
+    --color-primary-100: oklch(92.21% 0.037 262.15);
+    --color-primary-200: oklch(84.55% 0.074 259.28);
+    --color-primary-300: oklch(76.66% 0.113 255.47);
+    --color-primary-400: oklch(68.81% 0.153 250.39);
+    --color-primary-500: oklch(61.06% 0.141 250.16);
+    --color-primary-600: oklch(53.38% 0.119 250.22);
+    --color-primary-700: oklch(45.75% 0.099 250.12);
+    --color-primary-800: oklch(37.91% 0.082 250.88);
+    --color-primary-900: oklch(30.29% 0.063 250.69);
+    --color-primary-950: oklch(26.35% 0.054 251.42);
+}

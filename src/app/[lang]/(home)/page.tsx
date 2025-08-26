@@ -35,13 +35,16 @@ export default function HomePage() {
 
 				{/* Primary CTAs */}
 				<div className="mx-auto mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-					<CTA href="/docs/core" variant="primary">
+					<CTA href="/platform" variant="primary">
 						Doku starten <ArrowRight className="ml-1.5 h-4 w-4" />
 					</CTA>
-					<CTA href="/docs/core/organization" variant="ghost">
+					<CTA href="/platform/quickstart/organization" variant="ghost">
 						Erste Schritte: Organization
 					</CTA>
-					<CTA href="/docs/core/organization/domains/setup" variant="ghost">
+					<CTA
+						href="/platform/quickstart/organization/domains/setup"
+						variant="ghost"
+					>
 						SSO & Domains einrichten
 					</CTA>
 				</div>
@@ -88,42 +91,42 @@ export default function HomePage() {
 					<GuideStep
 						index={1}
 						title="Organization anlegen & Domain verifizieren"
-						to="/docs/core/organization/domains/setup"
+						to="/platform/quickstart/organization/domains/setup"
 					/>
 					<GuideStep
 						index={2}
 						title="SSO mit Entra ID verbinden"
-						to="/docs/core/organization/domains/entra"
+						to="/platform/quickstart/organization/domains/entra"
 					/>
 					<GuideStep
 						index={3}
 						title="Ersten Space erstellen"
-						to="/docs/core/spaces"
+						to="/platform/quickstart/spaces"
 					/>
 					<GuideStep
 						index={4}
 						title="Inventory befüllen (Assets, Domains)"
-						to="/docs/core/spaces/inventory"
+						to="/platform/inventory"
 					/>
 					<GuideStep
 						index={5}
 						title="Frameworks & Kontrollen wählen"
-						to="/docs/core/spaces" // update to catalogs-controls once available
+						to="/core/spaces" // update to catalogs-controls once available
 					/>
 					<GuideStep
 						index={6}
 						title="Risiken bewerten & Maßnahmen planen"
-						to="/docs/core/spaces" // update to risks once available
+						to="/core/spaces" // update to risks once available
 					/>
 					<GuideStep
 						index={7}
 						title="Nachweise verlinken (Documents & Evidence)"
-						to="/docs/core/spaces" // update to documents-evidence once available
+						to="/core/spaces" // update to documents-evidence once available
 					/>
 					<GuideStep
 						index={8}
 						title="Aufgaben im Board steuern (Work Items)"
-						to="/docs/core/spaces" // update to issues once available
+						to="/core/spaces" // update to issues once available
 					/>
 				</ol>
 			</section>
@@ -138,37 +141,37 @@ export default function HomePage() {
 
 				<div className="mt-6 grid gap-6 md:grid-cols-3">
 					<ModuleCard
-						href="/docs/core/spaces/inventory"
+						href="/core/spaces/inventory"
 						icon={<Boxes className="h-5 w-5" aria-hidden />}
 						title="Inventory"
 						description="Assets, Services & Internet-Domains verwalten. Grundlage für Risiken, Kontrollen, Evidences."
 					/>
 					<ModuleCard
-						href="/docs/core/spaces" // update to risks
+						href="/core/spaces" // update to risks
 						icon={<ShieldCheck className="h-5 w-5" aria-hidden />}
 						title="Risks"
 						description="Risiken identifizieren, bewerten und mit Assets/Controls verknüpfen."
 					/>
 					<ModuleCard
-						href="/docs/core/spaces" // update to vendors
+						href="/core/spaces" // update to vendors
 						icon={<Users className="h-5 w-5" aria-hidden />}
 						title="Vendors"
 						description="Dienstleister & Partner zentral managen, Due Diligence nachweisen."
 					/>
 					<ModuleCard
-						href="/docs/core/spaces" // update to catalogs-controls
+						href="/core/spaces" // update to catalogs-controls
 						icon={<ClipboardList className="h-5 w-5" aria-hidden />}
 						title="Catalogs & Controls"
 						description="Frameworks nutzen und eigene Kontrollkataloge abbilden."
 					/>
 					<ModuleCard
-						href="/docs/core/spaces" // update to documents-evidence
+						href="/core/spaces" // update to documents-evidence
 						icon={<Files className="h-5 w-5" aria-hidden />}
 						title="Documents & Evidence"
 						description="Richtlinien, Nachweise & Versionen auditfest dokumentieren."
 					/>
 					<ModuleCard
-						href="/docs/core/spaces" // update to issues
+						href="/core/spaces" // update to issues
 						icon={<FileCheck2 className="h-5 w-5" aria-hidden />}
 						title="Work Items"
 						description="Maßnahmen & Findings im Board planen und verfolgen."
@@ -188,11 +191,8 @@ export default function HomePage() {
 						Docs führen dich Schritt für Schritt.
 					</p>
 					<div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-						<CTA href="/docs/core" variant="primary">
+						<CTA href="/platform" variant="primary">
 							Doku starten <ArrowRight className="ml-1.5 h-4 w-4" />
-						</CTA>
-						<CTA href="/docs/core/organization/domains/setup" variant="ghost">
-							Domain & SSO einrichten
 						</CTA>
 					</div>
 				</div>

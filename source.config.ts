@@ -1,3 +1,4 @@
+import { rehypeCode } from "fumadocs-core/mdx-plugins";
 import {
 	defineConfig,
 	defineDocs,
@@ -17,5 +18,7 @@ export const docs = defineDocs({
 });
 
 export default defineConfig({
-	mdxOptions: {},
+	mdxOptions: {
+		rehypePlugins: (v) => [rehypeCode, ...v],
+	},
 });

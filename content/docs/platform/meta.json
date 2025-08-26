@@ -1,0 +1,14 @@
+{
+	"title": "Platform",
+	"description": "Documentation",
+	"root": true,
+    "pages": [
+        "...index",
+        "...was-ist-kopexa",
+        "...wie-kopexa-funktioniert",
+        "---Quick Start---",
+        "...quickstart",
+        "---Manage---",
+        "...compliance"
+    ]
+}

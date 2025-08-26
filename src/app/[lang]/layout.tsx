@@ -2,6 +2,7 @@ import "@/app/global.css";
 import { defineI18nUI } from "fumadocs-ui/i18n";
 import { RootProvider } from "fumadocs-ui/provider";
 import { Inter } from "next/font/google";
+import { BackgroundPattern } from "@/components/background-pattern";
 import { i18n } from "@/lib/i18n";
 
 const inter = Inter({
@@ -31,7 +32,8 @@ export default async function Layout({
 
 	return (
 		<html lang={lang} className={inter.className} suppressHydrationWarning>
-			<body className="flex flex-col min-h-screen">
+			<body className="flex flex-col min-h-screen" suppressHydrationWarning>
+				<BackgroundPattern />
 				<RootProvider
 					search={{
 						enabled: true,
