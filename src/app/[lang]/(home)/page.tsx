@@ -1,14 +1,4 @@
-import {
-	ArrowRight,
-	Boxes,
-	ClipboardList,
-	FileCheck2,
-	Files,
-	Layers,
-	Rocket,
-	ShieldCheck,
-	Users,
-} from "lucide-react";
+import { ArrowRight, Layers, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -18,19 +8,17 @@ export default function HomePage() {
 			<section className="w-full max-w-6xl text-center">
 				<p className="mx-auto inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-3 py-1 text-xs font-medium text-fd-muted-foreground">
 					<ShieldCheck className="h-3.5 w-3.5" aria-hidden />
-					ISMS & DSMS mit Kopexa – sicher, skalierbar, auditbereit
+					Kopexa Dokumentation – sicher, zugänglich, auditbereit
 				</p>
 
 				<h1 className="mx-auto mt-5 max-w-3xl text-pretty text-4xl font-extrabold tracking-tight text-fd-foreground md:text-6xl">
-					Kopexa&nbsp;Docs
+					Kopexa Docs
 				</h1>
 
 				<p className="mx-auto mt-4 max-w-3xl text-balance text-lg text-fd-muted-foreground md:text-xl">
-					Das Handbuch für Teams aus IT, Informationssicherheit, Datenschutz,
-					Beratung und Fachbereichen. Lerne Kopexa schnell kennen und baue
-					Schritt für Schritt ein{" "}
-					<span className="font-semibold text-fd-foreground">ISMS/DSMS</span>{" "}
-					auf.
+					Die zentrale Anlaufstelle f\u00fcr Teams aus IT,
+					Informationssicherheit und Datenschutz. Erfahre, wie Kopexa aufgebaut
+					ist, starte mit Quickstarts und vertiefe Module im Detail.
 				</p>
 
 				{/* Primary CTAs */}
@@ -72,129 +60,10 @@ export default function HomePage() {
 						description="OWASP-orientierte Architektur, verschlüsselte Datenhaltung in der EU, SSO für jedes Team."
 					/>
 					<FeatureCard
-						icon={<Rocket className="h-6 w-6" aria-hidden />}
+						icon={<Layers className="h-6 w-6" aria-hidden />}
 						title="Schnell produktiv"
 						description="Geführte Setups, Screenshots, Checklisten – so bist du in Minuten startklar."
 					/>
-				</div>
-			</section>
-
-			{/* Quickstart */}
-			<section className="mt-16 w-full max-w-6xl">
-				<h2 className="text-2xl font-bold text-fd-foreground">Quickstart</h2>
-				<p className="mt-1 text-sm text-fd-muted-foreground">
-					Der schnellste Weg von 0 auf auditbereit – führe diese Schritte in
-					Reihenfolge aus.
-				</p>
-
-				<ol className="mt-6 grid gap-4 md:grid-cols-2">
-					<GuideStep
-						index={1}
-						title="Organization anlegen & Domain verifizieren"
-						to="/platform/quickstart/organization/domains/setup"
-					/>
-					<GuideStep
-						index={2}
-						title="SSO mit Entra ID verbinden"
-						to="/platform/quickstart/organization/domains/entra"
-					/>
-					<GuideStep
-						index={3}
-						title="Ersten Space erstellen"
-						to="/platform/quickstart/spaces"
-					/>
-					<GuideStep
-						index={4}
-						title="Inventory befüllen (Assets, Domains)"
-						to="/platform/inventory"
-					/>
-					<GuideStep
-						index={5}
-						title="Frameworks & Kontrollen wählen"
-						to="/core/spaces" // update to catalogs-controls once available
-					/>
-					<GuideStep
-						index={6}
-						title="Risiken bewerten & Maßnahmen planen"
-						to="/core/spaces" // update to risks once available
-					/>
-					<GuideStep
-						index={7}
-						title="Nachweise verlinken (Documents & Evidence)"
-						to="/core/spaces" // update to documents-evidence once available
-					/>
-					<GuideStep
-						index={8}
-						title="Aufgaben im Board steuern (Work Items)"
-						to="/core/spaces" // update to issues once available
-					/>
-				</ol>
-			</section>
-
-			{/* Modules */}
-			<section className="mt-16 w-full max-w-6xl">
-				<h2 className="text-2xl font-bold text-fd-foreground">Kernmodule</h2>
-				<p className="mt-1 text-sm text-fd-muted-foreground">
-					Die wichtigsten Bereiche in Kopexa – mit Kontext, Beispielen und Best
-					Practices.
-				</p>
-
-				<div className="mt-6 grid gap-6 md:grid-cols-3">
-					<ModuleCard
-						href="/core/spaces/inventory"
-						icon={<Boxes className="h-5 w-5" aria-hidden />}
-						title="Inventory"
-						description="Assets, Services & Internet-Domains verwalten. Grundlage für Risiken, Kontrollen, Evidences."
-					/>
-					<ModuleCard
-						href="/core/spaces" // update to risks
-						icon={<ShieldCheck className="h-5 w-5" aria-hidden />}
-						title="Risks"
-						description="Risiken identifizieren, bewerten und mit Assets/Controls verknüpfen."
-					/>
-					<ModuleCard
-						href="/core/spaces" // update to vendors
-						icon={<Users className="h-5 w-5" aria-hidden />}
-						title="Vendors"
-						description="Dienstleister & Partner zentral managen, Due Diligence nachweisen."
-					/>
-					<ModuleCard
-						href="/core/spaces" // update to catalogs-controls
-						icon={<ClipboardList className="h-5 w-5" aria-hidden />}
-						title="Catalogs & Controls"
-						description="Frameworks nutzen und eigene Kontrollkataloge abbilden."
-					/>
-					<ModuleCard
-						href="/core/spaces" // update to documents-evidence
-						icon={<Files className="h-5 w-5" aria-hidden />}
-						title="Documents & Evidence"
-						description="Richtlinien, Nachweise & Versionen auditfest dokumentieren."
-					/>
-					<ModuleCard
-						href="/core/spaces" // update to issues
-						icon={<FileCheck2 className="h-5 w-5" aria-hidden />}
-						title="Work Items"
-						description="Maßnahmen & Findings im Board planen und verfolgen."
-					/>
-				</div>
-			</section>
-
-			{/* Footer CTA */}
-			<section className="mt-16 w-full max-w-6xl text-center">
-				<div className="rounded-2xl border border-fd-border bg-fd-card p-8">
-					<h3 className="text-xl font-semibold text-fd-foreground">
-						Bereit, loszulegen?
-					</h3>
-					<p className="mx-auto mt-2 max-w-2xl text-sm text-fd-muted-foreground">
-						Starte mit der Einrichtung deiner Organization, verifiziere eine
-						Domain, aktiviere SSO und lege deinen ersten Space an. Die Kopexa
-						Docs führen dich Schritt für Schritt.
-					</p>
-					<div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
-						<CTA href="/platform" variant="primary">
-							Doku starten <ArrowRight className="ml-1.5 h-4 w-4" />
-						</CTA>
-					</div>
 				</div>
 			</section>
 		</main>
@@ -251,59 +120,5 @@ function FeatureCard({
 				{description}
 			</p>
 		</div>
-	);
-}
-
-function GuideStep({
-	index,
-	title,
-	to,
-}: {
-	index: number;
-	title: string;
-	to: string;
-}) {
-	return (
-		<Link
-			href={to}
-			className="group flex items-center gap-3 rounded-2xl border border-fd-border bg-fd-card p-4 transition hover:bg-fd-muted"
-		>
-			<span className="flex h-9 w-9 items-center justify-center rounded-xl bg-fd-muted text-sm font-semibold text-fd-foreground">
-				{index}
-			</span>
-			<span className="text-sm font-medium text-fd-foreground group-hover:underline">
-				{title}
-			</span>
-			<ArrowRight
-				className="ml-auto h-4 w-4 text-fd-muted-foreground opacity-70 group-hover:opacity-100"
-				aria-hidden
-			/>
-		</Link>
-	);
-}
-
-function ModuleCard({
-	href,
-	icon,
-	title,
-	description,
-}: {
-	href: string;
-	icon: React.ReactNode;
-	title: string;
-	description: string;
-}) {
-	return (
-		<Link
-			href={href}
-			className="flex flex-col rounded-2xl border border-fd-border bg-fd-card p-5 transition hover:bg-fd-muted"
-		>
-			<div className="mb-3 inline-flex items-center justify-center rounded-xl bg-fd-muted p-2 text-fd-foreground">
-				{icon}
-				<span className="sr-only">{title}</span>
-			</div>
-			<h3 className="text-base font-semibold text-fd-foreground">{title}</h3>
-			<p className="mt-1 text-sm text-fd-muted-foreground">{description}</p>
-		</Link>
 	);
 }
