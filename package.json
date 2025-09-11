@@ -39,7 +39,7 @@
 		"@types/react": "^19.1.10",
 		"@types/react-dom": "^19.1.7",
 		"eslint": "^9",
-		"eslint-config-next": "15.5.0",
+		"eslint-config-next": "15.5.3",
 		"globby": "^14.1.0",
 		"node-fetch": "3",
 		"postcss": "^8.5.6",
