@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.11.0](https://github.com/kopexa-grc/docs/compare/v1.10.0...v1.11.0) (2025-09-17)
+
+
+### Features
+
+* add detailed documentation for Control Implementations and Controls in Kopexa ([053fc82](https://github.com/kopexa-grc/docs/commit/053fc82d0398873161dfb1dae3fbc95f3da93fd6))
+
 ## [1.10.0](https://github.com/kopexa-grc/docs/compare/v1.9.0...v1.10.0) (2025-08-26)
 
 
