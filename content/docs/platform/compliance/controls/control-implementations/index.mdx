@@ -1,0 +1,82 @@
+---
+title: Control Implementations
+description: Konkrete technische und organisatorische Maßnahmen (TOMs) zur Umsetzung von Controls in Kopexa
+---
+
+## Control Implementations: Der TOM-Ansatz für greifbare Compliance
+
+Während Controls das **„Was“** definieren, beschreiben **Control Implementations** das **„Wie“**.  
+Sie stellen die konkreten **technischen und organisatorischen Maßnahmen (TOMs)** dar, mit denen Unternehmen die Anforderungen von Frameworks wie ISO 27001, DSGVO, TISAX oder NIS 2 praktisch umsetzen.
+
+## Was sind Control Implementations?
+
+Eine **Control Implementation** dokumentiert, wie ein Control im Unternehmen realisiert wird.  
+Sie kann technisch, organisatorisch oder prozessual sein und ist damit der entscheidende Schritt von der Theorie in die Praxis.
+
+### Beispiele
+- **Control:** „Zutrittskontrollen müssen eingerichtet werden“  
+  **Implementation:** „Elektronische Schließanlage mit Chipkarten und Besucher-Logs“  
+
+- **Control:** „Datenübertragung muss verschlüsselt sein“  
+  **Implementation:** „TLS 1.3 für alle externen Verbindungen, enforced via Load Balancer Policy“  
+
+- **Control:** „Benutzerzugriffe werden regelmäßig überprüft“  
+  **Implementation:** „Quartalsweiser Access Review im Identity Management System“  
+
+## Wiederverwendbarkeit über mehrere Controls
+
+Eine Implementation kann mehrere Controls gleichzeitig abdecken:  
+- *„MFA via Entra ID“* erfüllt sowohl ISO 27001 A.9.4.2 als auch SOC 2 CC6.2 und TISAX 3.2.1.  
+- *„Zentrales Patch-Management“* erfüllt Anforderungen aus ISO 27001, NIS 2 und BSI IT-Grundschutz.  
+
+<Callout>
+In Kopexa kannst du eine Implementation einmal anlegen und mehreren Controls zuordnen.  
+Das spart Pflegeaufwand und sorgt für konsistente Nachweise.
+</Callout>
+
+## Implementations & Evidences
+
+<Mermaid
+    chart={`
+graph TD
+  A[Control<br/>„Was soll erreicht werden?“] --> B[Implementation<br/>„Wie setzen wir es um?“]
+  B --> C[Evidence<br/>„Womit belegen wir das?“]  
+`}
+ />
+
+- Control: Zielvorgabe auf Framework-Ebene
+- Implementation (TOM): Maßnahme zur praktischen Umsetzung
+- Evidence: Nachweis, dass die Maßnahme tatsächlich umgesetzt und wirksam ist
+
+Evidences können z. B. Wartungsverträge, System-Logs, Audit-Reports oder Fotos sein.
+
+## **Best Practices für Control Implementations**
+### **1. Titel auf Maßnahmen-Ebene halten**
+
+- ❌ Zu granular: „Azure AD mit MFA, Passwort-Policy 12 Zeichen, automatische Session Timeouts“
+- ✅ Prägnant: „Azure AD MFA & Identity Management“
+
+<Callout>
+    Details wie Passwortrichtlinien, Timeout-Werte oder Logs gehören in die **Description** oder **Evidences**.
+</Callout>
+
+### **2. Description für Details nutzen**
+
+- Hier beschreibst du den genauen Umsetzungsansatz.
+- Enthält technische Parameter, Abläufe, Verantwortlichkeiten.
+
+### **3. Evidences zur Nachweisführung nutzen**
+
+- Dokumentarische Evidenz: Policies, Prozessbeschreibungen
+- Technische Evidenz: Screenshots, Konfigurationsdateien, Logs
+- Testimoniale Evidenz: Interviews, Bestätigungen
+
+## **In Kopexa**
+
+- **Erstellen:** Implementations können direkt aus einem Control heraus oder unabhängig angelegt werden.
+- **Bearbeiten:** Änderungen wirken automatisch auf alle verknüpften Controls.
+- **Verknüpfen:** Eine Implementation kann mehreren Controls zugeordnet werden.
+- **Nachweise:** Evidences hängen an der Implementation und fließen automatisch in Audit-Reports ein.
+<Callout>
+Control Implementations machen Compliance in Kopexa greifbar: Sie zeigen, wie abstrakte Anforderungen durch konkrete TOMs umgesetzt und nachweisbar werden.
+</Callout>
