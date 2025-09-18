@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.12.0](https://github.com/kopexa-grc/docs/compare/v1.11.0...v1.12.0) (2025-09-18)
+
+
+### Features
+
+* bump dependencies ([11ac492](https://github.com/kopexa-grc/docs/commit/11ac4921a8309aac0a540e2977ed8c95c3c099a7))
+* status documentation ([72606e3](https://github.com/kopexa-grc/docs/commit/72606e3b395d7828cd407b3f66329ec2d40dc3f7))
+
+
+### Bug Fixes
+
+* linting issues ([19f928a](https://github.com/kopexa-grc/docs/commit/19f928a00221aa553bdce5fb7903e929457a12d0))
+
 ## [1.11.0](https://github.com/kopexa-grc/docs/compare/v1.10.0...v1.11.0) (2025-09-17)
 
 
