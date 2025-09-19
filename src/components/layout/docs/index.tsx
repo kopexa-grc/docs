@@ -109,7 +109,7 @@ export function DocsLayout(props: DocsLayoutProps) {
 		}
 
 		if (tabOptions !== false) {
-			return getSidebarTabs(props.tree);
+			return getSidebarTabs(props?.tree);
 		}
 
 		return [];
