@@ -1,0 +1,120 @@
+---
+
+title: "ISO 27001 – Statement of Applicability Guide (2022 Edition)"
+description: "Warum du mit einer SoA und Gap-Analyse startest und wie du in Kopexa eine vollständige, auditfähige SoA nach ISO 27001:2022 erstellst – inklusive Implementations, Dokumente, Review-Prozess, praktischen Beispielen, typischen Out-of-Scope-Begründungen und automatischer Statusverfolgung."
+---
+
+# ISO 27001:2022 – SoA Getting Started Guide
+
+Die Statement of Applicability (SoA) ist das **zentrale Dokument** jeder ISO‑27001-Implementierung. Sie gibt Auskunft darüber:
+
+* welche Controls aus **Annex A der ISO 27001:2022** relevant sind,
+* wie diese umgesetzt werden,
+* und welche bewusst ausgeschlossen wurden.
+
+> 🎯 **Warum mit der SoA starten?**
+> Eine SoA oder Gap-Analyse verschafft dir einen **klaren Überblick** über den aktuellen Stand deiner Informationssicherheit. Du erkennst sofort, welche Anforderungen bereits erfüllt sind, wo Nachweise fehlen und welche Bereiche priorisiert werden müssen.
+
+Mit der 2022er Revision wurde Annex A aktualisiert und an ISO/IEC 27002:2022 angepasst: Es gibt jetzt 93 Controls in **4 Themenbereichen**:
+
+* **Organisational Controls** (z. B. Informationssicherheitsleitlinie, Rollen und Verantwortlichkeiten)
+* **People Controls** (z. B. Awareness-Trainings, Offboarding)
+* **Physical Controls** (z. B. Zutrittsmanagement)
+* **Technological Controls** (z. B. Backup, Logging, Zugriffskontrollen)
+
+---
+
+## Schritt 1: Programm anlegen & Zeitplan definieren
+
+1. Öffne deinen Space (`/s/{space_id}`).
+2. Wähle **„Neues Programm“ → ISO 27001:2022**.
+3. Lege **Start- und Zieltermin** fest, um Fortschritt und Fälligkeiten sichtbar zu machen.
+4. Kopexa erstellt automatisch ein **Gap-Analysis-Assessment** und fügt alle 93 aktualisierten Controls hinzu.
+
+> 💡 **Praxisnutzen:** Mit der neuen Version erhältst du sofort eine Heatmap deines ISMS basierend auf den aktuellen Annex‑A‑Kontrollgruppen.
+
+---
+
+## Schritt 2: Controls prüfen und dokumentieren
+
+Im Tab **„Controls“** findest du alle Controls nach den neuen Control-Themen gruppiert. Prüfe für jedes Control:
+
+* **Vorhandenes dokumentieren:**
+
+  * Beispiel: Control **5.1 Informationssicherheitsleitlinie** – Lade deine Policy hoch oder erstelle sie in Kopexa.
+  * Beispiel: Control **8.2 Benutzerregistrierung und -abbestellung** – Dokumentiere deinen Joiner-Mover-Leaver-Prozess.
+
+* **Lücken sichtbar machen:**
+
+  * Controls ohne Evidences bleiben auf **PREPARING**.
+
+* **Out-of-Scope markieren:**
+
+  * Beispiel: **7.4 Physische Zutrittskontrollen** → Out-of-Scope für ein vollständig Remote-Only-Team.
+  * Beispiel: **8.28 Sichere Softwareentwicklung** → Out-of-Scope, wenn keine eigene Entwicklung betrieben wird.
+  * Beispiel: **8.13 Backup** → Out-of-Scope, wenn ausschließlich zertifizierte SaaS-Anbieter genutzt werden, die für Verfügbarkeit verantwortlich sind.
+
+> 🧠 **Tipp:** Nutze die neuen Control-Beschreibungen aus ISO/IEC 27002:2022, um fundierte Begründungen für Out-of-Scope zu dokumentieren.
+
+---
+
+## Schritt 3: Implementations & Dokumente anlegen
+
+* **Control Implementations:** Beschreibe, wie das jeweilige Control umgesetzt wird. Beispiel: „Tägliche Cloud-Backups mit 30 Tagen Retention“.
+* **Dokumente:** Policies, Prozessbeschreibungen und Audit-Logs direkt in Kopexa erstellen oder importieren.
+* **Evidences:** Drafts sind erlaubt, bei Freigabe wird der Status automatisch aktualisiert.
+
+<Mermaid chart={`
+graph LR
+  A[Dokument erstellt] --> B[Evidence verknüpft]
+  B --> C[Implementation aktualisiert]
+  C --> D[Control-Status: PREPARING → IN_PROGRESS → FULFILLED]
+`} />
+
+---
+
+## Schritt 4: SoA-Übersicht generieren
+
+Die SoA-Ansicht zeigt:
+
+* alle 93 Controls mit Status,
+* Begründungen für Out-of-Scope,
+* zugehörige Implementations & Evidences,
+* Fortschrittsbalken pro Themenbereich (Organisational, People, Physical, Technological).
+
+> 📄 **Export:** Vollständige SoA als PDF/Excel exportieren – passend für Auditor\:innen, Kunden oder interne Reviews.
+
+## Praxisbeispiel: Control 5.1 – Informationssicherheitsleitlinie
+
+* **Control:** „Die Leitlinie für Informationssicherheit muss genehmigt, kommuniziert und regelmäßig überprüft werden.“
+* **Implementation:** Implementation „ISMS-Policy 2025“ erstellen.
+* **Dokument:** Policy als Rich-Text oder PDF in Kopexa anlegen.
+* **Evidence:** Dokument als Evidence verknüpfen. Nach Freigabe wechselt das Control automatisch auf **FULFILLED**.
+
+---
+
+## Ergebnis & Nutzen
+
+Nach Abschluss:
+
+* hast du eine **auditfähige SoA nach ISO 27001:2022**,
+* weißt genau, wo Lücken bestehen,
+* hast eine Roadmap für Implementierungen und Dokumente,
+* und profitierst von automatischer Statusberechnung.
+
+
+## FAQ
+
+<Accordions type="single">
+  <Accordion title="Warum mit der 2022er-Version starten?">
+     Weil sie die aktuellen Best Practices und Control-Struktur nutzt und künftige Audits auf dieser Basis durchgeführt werden.
+  </Accordion>
+  <Accordion title="Was, wenn ich noch keine Dokumente habe?">
+    Beginne mit der Bestandsaufnahme. Kopexa zeigt dir automatisch die größten Gaps.
+  </Accordion>
+  <Accordion title="Typische Out-of-Scope-Begründungen">
+     * Remote-Only-Team → physische Sicherheitsmaßnahmen entfallen.
+     * Keine interne Softwareentwicklung → Development-Controls entfallen.
+     * Nutzung von ISO 27001-zertifizierten SaaS-Providern → bestimmte Backup- und Logging-Controls können ausgeschlossen werden.
+  </Accordion>
+</Accordions>
