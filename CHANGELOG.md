@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.13.0](https://github.com/kopexa-grc/docs/compare/v1.12.0...v1.13.0) (2025-09-19)
+
+
+### Features
+
+* add ISO 27001 Statement of Applicability guide (2022 Edition) ([06675d0](https://github.com/kopexa-grc/docs/commit/06675d0819de75b21ac928ffabdf6b0677d9173a))
+
+
+### Bug Fixes
+
+* update rewrites to include language parameter and improve tree access in DocsLayout ([23e9a03](https://github.com/kopexa-grc/docs/commit/23e9a034d6b3f0c51ccee6dc893e4bf978838114))
+
 ## [1.12.0](https://github.com/kopexa-grc/docs/compare/v1.11.0...v1.12.0) (2025-09-18)
 
 
