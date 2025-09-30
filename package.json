@@ -41,7 +41,7 @@
 		"@types/react-dom": "^19.1.9",
 		"eslint": "^9.35.0",
 		"eslint-config-next": "15.5.3",
-		"globby": "^14.1.0",
+		"globby": "^15.0.0",
 		"node-fetch": "^3.3.2",
 		"postcss": "^8.5.6",
 		"rehype-autolink-headings": "^7.1.0",
