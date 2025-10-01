@@ -54,7 +54,7 @@
 		"remark-validate-links": "^13.1.0",
 		"tailwindcss": "^4.1.13",
 		"tsx": "^4.20.5",
-		"typescript": "^5.9.2",
+		"typescript": "^5.9.3",
 		"unified": "^11.0.5",
 		"vfile-reporter": "^8.1.1"
 	},
