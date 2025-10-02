@@ -52,7 +52,7 @@
 		"remark-parse": "^11.0.0",
 		"remark-rehype": "^11.1.2",
 		"remark-validate-links": "^13.1.0",
-		"tailwindcss": "^4.1.13",
+		"tailwindcss": "^4.1.14",
 		"tsx": "^4.20.5",
 		"typescript": "^5.9.2",
 		"unified": "^11.0.5",
