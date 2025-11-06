@@ -6,6 +6,9 @@ const withMDX = createMDX();
 const config = {
 	reactStrictMode: true,
 	output: "standalone",
+    serverExternalPackages: [
+        'shiki',
+    ],
     async rewrites() {
     return [
       {
