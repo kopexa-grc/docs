@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.13.2](https://github.com/kopexa-grc/docs/compare/v1.13.1...v1.13.2) (2025-12-08)
+
+
+### Bug Fixes
+
+* bump react react4shell ([17ebe47](https://github.com/kopexa-grc/docs/commit/17ebe479295f17ecd167542c8644aafa8c8c12fd))
+* update docs ([d63ad38](https://github.com/kopexa-grc/docs/commit/d63ad38997022f3607a3db8c023c193fe2037ae4))
+
 ## [1.13.1](https://github.com/kopexa-grc/docs/compare/v1.13.0...v1.13.1) (2025-12-08)
 
 
