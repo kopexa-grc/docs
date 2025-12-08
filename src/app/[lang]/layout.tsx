@@ -1,24 +1,13 @@
 import "@/app/global.css";
-import { defineI18nUI } from "fumadocs-ui/i18n";
-import { RootProvider } from "fumadocs-ui/provider";
+import { NextProvider } from "fumadocs-core/framework/next";
+import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
 import { Inter } from "next/font/google";
 import { BackgroundPattern } from "@/components/background-pattern";
-import { i18n } from "@/lib/i18n";
+import { source } from "@/lib/source";
+import { Provider } from "./provider";
 
 const inter = Inter({
 	subsets: ["latin"],
-});
-
-const { provider } = defineI18nUI(i18n, {
-	translations: {
-		en: {
-			displayName: "English",
-		},
-		de: {
-			displayName: "German",
-			search: "Suchen...",
-		},
-	},
 });
 
 export default async function Layout({
@@ -34,20 +23,11 @@ export default async function Layout({
 		<html lang={lang} className={inter.className} suppressHydrationWarning>
 			<body className="flex flex-col min-h-screen" suppressHydrationWarning>
 				<BackgroundPattern />
-				<RootProvider
-					search={{
-						enabled: true,
-						hotKey: [
-							{
-								display: "K",
-								key: "k", // key code, or a function determining whether the key is pressed
-							},
-						],
-					}}
-					i18n={provider(lang)}
-				>
-					{children}
-				</RootProvider>
+				<NextProvider>
+					<TreeContextProvider tree={source.pageTree[lang]}>
+						<Provider lang={lang}>{children}</Provider>
+					</TreeContextProvider>
+				</NextProvider>
 			</body>
 		</html>
 	);

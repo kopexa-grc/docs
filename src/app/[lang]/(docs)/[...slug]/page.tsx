@@ -1,12 +1,12 @@
-import { createRelativeLink } from "fumadocs-ui/mdx";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
 import {
 	DocsBody,
 	DocsDescription,
 	DocsPage,
 	DocsTitle,
-} from "@/components/layout/page";
+} from "fumadocs-ui/layouts/docs/page";
+import { createRelativeLink } from "fumadocs-ui/mdx";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
@@ -21,10 +21,10 @@ export default async function Page({ params }: Props) {
 
 	if (!page) notFound();
 
-	const MDXContent = page.data.body;
+	const { body: MDXContent, toc, lastModified } = await page.data.load();
 
 	return (
-		<DocsPage toc={page.data.toc} full={page.data.full}>
+		<DocsPage toc={toc}>
 			<DocsTitle>{page.data.title}</DocsTitle>
 			<DocsDescription className="mb-0">
 				{page.data.description}

@@ -1,6 +1,6 @@
+import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import type { ReactNode } from "react";
 import { LegalFooter } from "@/components/LegalFooter";
-import { DocsLayout } from "@/components/layout/docs";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
 
@@ -18,8 +18,17 @@ export default async function Layout({
 	return (
 		<DocsLayout
 			{...base}
-			tabMode="navbar"
-			nav={{ ...nav, mode: "top" }}
+			//tabMode="top"
+			nav={{
+				...nav,
+				title: (
+					<>
+						<span className="font-medium in-[.uwu]:hidden max-md:hidden">
+							Kopexa
+						</span>
+					</>
+				),
+			}}
 			tree={source.pageTree[lang]}
 		>
 			{children}
