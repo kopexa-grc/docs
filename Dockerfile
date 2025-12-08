@@ -9,7 +9,7 @@ RUN corepack enable
 RUN corepack prepare pnpm@9.15.9 --activate
 
 # Install necessary build tools and compilers
-RUN apk update && apk add --no-cache cmake g++ gcc jq make openssl-dev python3
+RUN apk update && apk add --no-cache cmake g++ gcc git jq make openssl-dev python3
 
 # Increase Node.js memory limit as a regular build argument
 ARG NODE_OPTIONS="--max_old_space_size=4096"
