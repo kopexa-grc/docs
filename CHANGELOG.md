@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1](https://github.com/kopexa-grc/docs/compare/v1.13.0...v1.13.1) (2025-12-08)
+
+
+### Bug Fixes
+
+* build(deps): bump next from 16.0.1 to 16.0.7 ([#236](https://github.com/kopexa-grc/docs/issues/236)) ([8643975](https://github.com/kopexa-grc/docs/commit/8643975003773b6120c6f8948b6e9ab5f4a4db04))
+
 ## [1.13.0](https://github.com/kopexa-grc/docs/compare/v1.12.0...v1.13.0) (2025-09-19)
 
 
