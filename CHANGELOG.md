@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.3](https://github.com/kopexa-grc/docs/compare/v1.13.2...v1.13.3) (2025-12-08)
+
+
+### Bug Fixes
+
+* dockerfile add git to stack ([9451b34](https://github.com/kopexa-grc/docs/commit/9451b341ceb295b4628a27c1d826145280df7213))
+
 ## [1.13.2](https://github.com/kopexa-grc/docs/compare/v1.13.1...v1.13.2) (2025-12-08)
 
 
