@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.4](https://github.com/kopexa-grc/docs/compare/v1.13.3...v1.13.4) (2025-12-15)
+
+
+### Bug Fixes
+
+* bum versions ([379d161](https://github.com/kopexa-grc/docs/commit/379d161112d6f53dc19eba22ce7e19ff0b64c833))
+
 ## [1.13.3](https://github.com/kopexa-grc/docs/compare/v1.13.2...v1.13.3) (2025-12-08)
 
 
