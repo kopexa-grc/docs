@@ -1,0 +1,75 @@
+---
+title: Konzepte
+description: Organization, Spaces und Module in Kopexa
+---
+
+Kopexa organisiert Compliance-Arbeit in zwei Ebenen: **Organization** (Mandant) und **Spaces** (Arbeitsbereiche).
+
+## Organization
+
+Die Organization ist dein Top-Level-Container.
+
+| Funktion | Beschreibung |
+|----------|--------------|
+| Domains & SSO | SAML-Provider einrichten, Domain verifizieren |
+| Nutzer | Einladen, Spaces zuweisen |
+| Abrechnung | Plan, Zahlungsmethode |
+| Einstellungen | Globale Security-Policies |
+
+→ [Organization einrichten](./quickstart/organization/domains/index.mdx)
+
+## Spaces
+
+Spaces sind isolierte Arbeitsbereiche innerhalb der Organization.
+
+- Ein Space pro Team, Projekt oder Business Unit
+- Daten zwischen Spaces sind strikt getrennt
+- Jeder Space hat eigene Module
+
+**Beispiel:** Hauptunternehmen = Space 1, Tochtergesellschaft = Space 2.
+
+→ [Spaces](./quickstart/spaces.mdx)
+
+## Module
+
+Innerhalb eines Spaces:
+
+| Modul | Funktion |
+|-------|----------|
+| **Inventory** | Assets, Lieferanten, Personen |
+| **Risks** | Risikobewertung, Maßnahmen |
+| **Controls** | Framework-Anforderungen |
+| **Documents** | Policies, Prozesse |
+| **Evidence** | Nachweise |
+| **Work Items** | Aufgaben |
+| **VVT** | Verarbeitungstätigkeiten (DSGVO) |
+| **Incidents** | Sicherheitsvorfälle |
+| **DSAR** | Betroffenenanfragen |
+
+## Beziehungen
+
+Alle Module sind verknüpft:
+
+<Mermaid
+  chart={`
+graph LR
+    A[Asset] --> R[Risk]
+    R --> C[Control]
+    C --> E[Evidence]
+    D[Document] --> C
+    D --> E
+`}
+/>
+
+Asset → Risiko → Control → Evidence. Dokumente verknüpfen mit Controls und Evidence.
+
+## Frameworks
+
+Aktivierbare Kataloge:
+
+- **ISO 27001** – ISMS, Annex A
+- **NIS2** – EU-Sicherheit
+- **DSGVO** – Datenschutz
+- **TISAX®** – Automotive
+
+→ [Frameworks & Kataloge](../catalogs/index.mdx)

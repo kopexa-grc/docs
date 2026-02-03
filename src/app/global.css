@@ -1,45 +1,147 @@
-/* src/app/global.css */
 @import 'tailwindcss';
-@import 'fumadocs-ui/css/ocean.css';
+@import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
 
+/* Font stack - Mistral-style using Arial */
+@theme {
+  --font-sans: 'Arial', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-mono: 'SF Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono', 'Ubuntu Mono', monospace;
+}
+
+/* CSS Variables - Mistral-inspired with Kopexa blue */
 :root {
+  /* Layout */
   --fd-layout-width: 1400px;
+  --fd-toc-width: 220px;
+  --header-height: 3.5rem;
+  --sidebar-width: 280px;
+
+  /* Mistral-style colors - Light mode */
+  --background: oklch(100% 0 0);
+  --foreground: oklch(21.61% 0.0061 56.04);
+  --muted: oklch(97.29% 0.0013 106.42);
+  --muted-foreground: oklch(55.6% 0 0);
+  --border: oklch(27.39% 0.0055 286.03 / 20%);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(21.61% 0.0061 56.04);
+
+  /* Kopexa Primary Blue */
+  --primary: oklch(61.06% 0.141 250.16);
+  --primary-foreground: oklch(100% 0 0);
+
+  /* Sidebar - Gray like Mistral */
+  --sidebar-bg: oklch(97.29% 0.0013 106.42);
+  --sidebar-foreground: oklch(21.61% 0.0061 56.04);
+  --sidebar-border: oklch(92.2% 0 0);
+  --sidebar-accent: oklch(93.68% 0.0013 106.43);
 }
 
+.dark {
+  --background: oklch(17.3% 0 0);
+  --foreground: oklch(98.5% 0 0);
+  --muted: oklch(22.3% 0.0038 286.08);
+  --muted-foreground: oklch(100% 0.00011 271.152);
+  --border: oklch(100% 0 0 / 20%);
+  --card: oklch(20.5% 0 0);
+  --card-foreground: oklch(98.5% 0 0);
+
+  --primary: oklch(68.81% 0.153 250.39);
+  --primary-foreground: oklch(100% 0 0);
+
+  --sidebar-bg: oklch(20.5% 0 0);
+  --sidebar-foreground: oklch(98.5% 0 0);
+  --sidebar-border: oklch(100% 0 0 / 10%);
+  --sidebar-accent: oklch(26.9% 0 0);
+}
+
+/* ===========================================
+   FUMADOCS OVERRIDES - Mistral-style Layout
+   =========================================== */
+
+/* Clean background - no patterns */
+
+/* Main layout container - gray background */
+body {
+  background: var(--muted) !important;
+}
+
+
+/* Sidebar - gray background like Mistral */
 #nd-sidebar {
-  @apply bg-transparent;
+  background: var(--muted) !important;
+  border-right: none !important;
 }
 
-/* Navbar glassmorphism */
-#nd-nav {
-  @apply backdrop-blur-md bg-fd-background/80 border-b border-fd-border/40;
+/* Sidebar inner container */
+#nd-sidebar > div {
+  background: transparent !important;
 }
 
-/* Sidebar hover animations */
-#nd-sidebar [data-active] {
-  @apply transition-colors duration-200;
+/* Main content area - the content pane next to sidebar */
+main {
+  background: var(--muted) !important;
+}
+
+/* ===========================================
+   Mistral-style Inset Panel Effect
+   =========================================== */
+
+/* The docs layout grid - add spacing for the inset effect */
+#nd-docs-layout {
+  background: var(--muted) !important;
+  padding: 1rem 1rem 0 0 !important;
+}
+
+/* Article - white background with rounded top corners */
+#nd-docs-layout > article,
+.docs-layout #nd-docs-layout > article {
+  background: var(--card) !important;
+  border-top-left-radius: 0.75rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border: none !important;
+  padding: 2.5rem 3rem !important;
+}
+
+/* TOC area - white background with rounded top-right corner */
+#nd-toc,
+.docs-layout #nd-toc {
+  background: var(--card) !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0.75rem !important;
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  padding: 1.5rem 1rem !important;
+}
+
+/* Navbar styling - gray with blur */
+#nd-nav, nav[data-fumadocs-nav] {
+  background: var(--muted) !important;
+  border-bottom: 1px solid var(--border) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* Sidebar links styling */
+#nd-sidebar a {
+  color: var(--muted-foreground);
+  transition: all 0.15s ease;
 }
 
 #nd-sidebar a:hover {
-  @apply bg-fd-muted/50 transition-colors duration-200;
+  background: var(--sidebar-accent);
+  color: var(--foreground);
 }
 
-/* Footer styling */
-footer {
-  @apply transition-colors duration-200;
+#nd-sidebar a[data-active="true"] {
+  background: var(--sidebar-accent);
+  color: var(--foreground);
+  font-weight: 500;
 }
 
-footer a {
-  @apply transition-colors duration-200;
-}
-
-/* Smooth page transitions */
-main {
-  @apply animate-fd-fade-in;
-}
-
+/* Theme mapping for Tailwind */
 @theme {
+  /* Primary colors - Kopexa Blue */
   --color-primary-50: oklch(96.58% 0.016 262.77);
   --color-primary-100: oklch(92.21% 0.037 262.15);
   --color-primary-200: oklch(84.55% 0.074 259.28);
@@ -52,12 +154,152 @@ main {
   --color-primary-900: oklch(30.29% 0.063 250.69);
   --color-primary-950: oklch(26.35% 0.054 251.42);
 
-  /* Semantic color aliases for common usage */
-  --color-background: var(--color-fd-background);
-  --color-foreground: var(--color-fd-foreground);
-  --color-muted: var(--color-fd-muted);
-  --color-muted-foreground: var(--color-fd-muted-foreground);
-  --color-border: var(--color-fd-border);
-  --color-primary: var(--color-fd-primary);
-  --color-primary-foreground: var(--color-fd-primary-foreground);
+  /* Semantic colors mapped to CSS vars */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+}
+
+/* Custom layout styles */
+.docs-layout {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.docs-container {
+  display: flex;
+  flex: 1;
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Sidebar styling - Gray background like Mistral */
+.docs-sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.docs-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.docs-sidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+/* Main content - White/card background like Mistral inset pane */
+.docs-main {
+  flex: 1;
+  min-width: 0;
+  background: var(--sidebar-bg);
+}
+
+/* Content wrapper - no longer used but kept for compatibility */
+
+/* Sidebar navigation items */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  margin: 0.125rem 0.5rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  transition: all 0.15s ease;
+}
+
+.sidebar-item:hover {
+  background: var(--sidebar-accent);
+  color: var(--foreground);
+}
+
+.sidebar-item.active {
+  background: var(--sidebar-accent);
+  color: var(--foreground);
+  font-weight: 500;
+}
+
+.sidebar-section-title {
+  padding: 0.75rem 0.75rem 0.25rem;
+  margin: 0.5rem 0.5rem 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted-foreground);
+}
+
+/* Header styling */
+.docs-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: var(--header-height);
+  background: var(--muted);
+  border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+/* Animations */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Mobile responsive */
+@media (max-width: 1024px) {
+  .docs-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 40;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .docs-sidebar.open {
+    transform: translateX(0);
+  }
+
+  #nd-docs-layout article {
+    padding: 1.5rem !important;
+  }
+}
+
+/* Footer - stays at bottom */
+.docs-footer {
+  background: var(--background);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
 }

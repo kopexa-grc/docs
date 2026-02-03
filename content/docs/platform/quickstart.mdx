@@ -1,0 +1,240 @@
+---
+title: Quickstart
+description: In 15 Minuten zum ersten dokumentierten Risiko mit Control und Maßnahme
+---
+
+Am Ende dieses Tutorials hast du:
+- Eine Organization mit verifizierter Domain
+- Einen Space für dein Team
+- Ein Framework (ISO 27001) aktiviert
+- Dein erstes Risiko dokumentiert
+- Einen Control zugewiesen
+- Eine Maßnahme angelegt (wie du den Control umsetzt)
+- Evidence hochgeladen
+
+## Voraussetzungen
+
+- Ein Kopexa-Account ([hier anmelden](https://app.kopexa.com/auth/login))
+- Zugriff auf deine Domain-DNS-Einstellungen (für SSO-Setup)
+
+---
+
+## 1. Organization erstellen
+
+Nach dem Login landest du im Onboarding. Gib die Daten deiner Organization ein:
+
+| Feld | Beispiel |
+|------|----------|
+| Name | Mustermann GmbH |
+| Slug | mustermann-gmbh |
+| Branche | IT-Dienstleistungen |
+
+Der Slug wird Teil deiner URL: `app.kopexa.com/mustermann-gmbh`
+
+Klicke **Create Organization**.
+
+---
+
+## 2. Domain verifizieren
+
+Damit dein Team sich per SSO anmelden kann, musst du deine Domain verifizieren.
+
+1. Gehe zu **Settings → Domains**
+2. Klicke **Add Domain**
+3. Gib deine Domain ein: `mustermann-gmbh.de`
+4. Kopexa zeigt dir einen TXT-Record:
+
+```
+_kopexa-verification.mustermann-gmbh.de  TXT  "kopexa-verify=abc123xyz"
+```
+
+5. Füge diesen Record bei deinem DNS-Provider hinzu (Cloudflare, AWS Route53, etc.)
+6. Warte 1-5 Minuten, dann klicke **Verify**
+
+<Callout type="info">
+DNS-Propagation kann bis zu 24 Stunden dauern. In der Praxis sind es meist wenige Minuten.
+</Callout>
+
+---
+
+## 3. Ersten Space anlegen
+
+Spaces trennen Arbeitsbereiche. Für den Start reicht ein Space.
+
+1. Klicke **Spaces → New Space**
+2. Fülle aus:
+
+| Feld | Beispiel |
+|------|----------|
+| Name | Hauptunternehmen |
+| Beschreibung | ISMS für die Mustermann GmbH |
+
+3. Klicke **Create Space**
+
+Du wirst automatisch in den neuen Space weitergeleitet.
+
+---
+
+## 4. Framework aktivieren
+
+Jetzt aktivierst du ISO 27001 als Basis für deine Controls.
+
+1. Im Space: **Settings → Frameworks**
+2. Finde **ISO 27001:2022** in der Liste
+3. Klicke **Activate**
+
+Kopexa importiert jetzt alle Annex-A-Controls. Das dauert wenige Sekunden.
+
+<Callout type="info">
+Du kannst später weitere Frameworks aktivieren (NIS2, DSGVO, TISAX®). Die Controls werden automatisch gemappt, wo sie sich überschneiden.
+</Callout>
+
+---
+
+## 5. Erstes Asset anlegen
+
+Bevor du Risiken bewertest, brauchst du ein Asset. Starte mit etwas Konkretem.
+
+1. Gehe zu **Inventory → Assets**
+2. Klicke **New Asset**
+3. Fülle aus:
+
+| Feld | Beispiel |
+|------|----------|
+| Name | Produktionsserver |
+| Typ | Server |
+| Beschreibung | Linux-Server für Kundenprojekte |
+| Owner | IT-Abteilung |
+| Kritikalität | Hoch |
+
+4. Klicke **Create**
+
+---
+
+## 6. Erstes Risiko dokumentieren
+
+Jetzt dokumentierst du ein Risiko für dieses Asset.
+
+1. Gehe zu **Risks → New Risk**
+2. Fülle aus:
+
+| Feld | Wert |
+|------|------|
+| Titel | Unauthorisierter Zugriff auf Produktionsserver |
+| Beschreibung | Angreifer könnten durch gestohlene Credentials oder ungepatchte Schwachstellen Zugriff erlangen |
+| Asset | Produktionsserver (aus Dropdown wählen) |
+| Kategorie | Vertraulichkeit |
+
+3. Bewerte das Risiko:
+
+| Dimension | Wert | Begründung |
+|-----------|------|------------|
+| **Impact** | Hoch (4) | Kundendaten betroffen, Reputationsschaden |
+| **Likelihood** | Mittel (3) | Server ist exponiert, aber grundlegend gehärtet |
+
+Die Risikomatrix zeigt: **Risikowert 12** (Hoch)
+
+4. Klicke **Create**
+
+---
+
+## 7. Control zuweisen
+
+Jetzt verknüpfst du das Risiko mit einem passenden Control aus ISO 27001.
+
+1. Öffne das eben erstellte Risiko
+2. Gehe zum Tab **Controls**
+3. Klicke **Link Control**
+4. Suche nach "access" oder "Zugriff"
+5. Wähle **A.9.2.1 - User registration and de-registration**
+6. Klicke **Link**
+
+Das Control definiert das **Was** – die Anforderung aus dem Framework.
+
+---
+
+## 8. Maßnahme anlegen
+
+Jetzt erstellst du eine Maßnahme (Control Implementation), die beschreibt **wie** du das Control umsetzt.
+
+1. Öffne das verknüpfte Control
+2. Gehe zum Tab **Maßnahmen**
+3. Klicke **Neue Maßnahme**
+4. Fülle aus:
+
+| Feld | Wert |
+|------|------|
+| Titel | Zentrales User-Management via Active Directory |
+| Beschreibung | Alle Benutzerkonten werden über AD verwaltet. Onboarding/Offboarding erfolgt via Ticket-System mit 4-Augen-Prinzip. |
+| Status | Partially Implemented |
+| Owner | Max Mustermann |
+| Fälligkeit | In 30 Tagen |
+
+5. Klicke **Create**
+
+<Callout type="info">
+**Control vs. Maßnahme:** Das Control sagt "Benutzerregistrierung muss kontrolliert erfolgen" (Was). Die Maßnahme sagt "Wir nutzen AD mit Ticket-basiertem Onboarding" (Wie).
+</Callout>
+
+---
+
+## 9. Evidence hochladen
+
+Zum Schluss dokumentierst du, dass die Maßnahme umgesetzt ist.
+
+1. In der Maßnahme: Tab **Evidence**
+2. Klicke **Add Evidence**
+3. Wähle eine Datei (z.B. Screenshot deiner AD-Konsole oder Onboarding-Ticket)
+4. Beschreibung: "AD User-Management Stand Q1 2025"
+5. Klicke **Upload**
+
+---
+
+## Geschafft
+
+Du hast jetzt:
+
+- ✓ Eine Organization mit Domain
+- ✓ Einen Space
+- ✓ ISO 27001 aktiviert
+- ✓ Ein Asset dokumentiert
+- ✓ Ein Risiko bewertet (Impact × Likelihood)
+- ✓ Einen Control zugewiesen
+- ✓ Eine Maßnahme angelegt
+- ✓ Evidence hochgeladen
+
+Das ist der Kern-Workflow in Kopexa:
+
+**Asset → Risiko → Control → Maßnahme → Evidence**
+
+- **Control** = Was muss erfüllt werden? (Framework-Anforderung)
+- **Maßnahme** = Wie setzen wir es um? (Konkrete Implementierung)
+
+## Nächste Schritte
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Weitere Risiken"
+    description="Top-10 Risiken deiner Organisation dokumentieren"
+    href="/platform/compliance/risks"
+    color="orange"
+  />
+  <FeatureCard
+    title="Policies schreiben"
+    description="Erste Richtlinie erstellen und freigeben"
+    href="/platform/compliance/documents"
+    color="purple"
+  />
+  <FeatureCard
+    title="Team einladen"
+    description="Kollegen in die Organization einladen"
+    href="/platform/quickstart/organization/members"
+    color="blue"
+  />
+  <FeatureCard
+    title="SSO einrichten"
+    description="SAML-Provider konfigurieren"
+    href="/platform/quickstart/organization/domains"
+    color="green"
+  />
+</FeatureCards>
