@@ -1,6 +1,6 @@
 import { DocsLayout } from "fumadocs-ui/layouts/docs";
 import type { ReactNode } from "react";
-import { LegalFooter } from "@/components/LegalFooter";
+import { Footer } from "@/components/footer";
 import { baseOptions } from "@/lib/layout.shared";
 import { source } from "@/lib/source";
 
@@ -32,7 +32,7 @@ export default async function Layout({
 			tree={source.pageTree[lang]}
 		>
 			{children}
-			<LegalFooter lang={lang} />
+			<Footer />
 		</DocsLayout>
 	);
 }
