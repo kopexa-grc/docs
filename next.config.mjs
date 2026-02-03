@@ -4,16 +4,23 @@ const withMDX = createMDX();
 
 /** @type {import('next').NextConfig} */
 const config = {
-	reactStrictMode: true,
-	output: "standalone",
-    serverExternalPackages: [
-        'shiki',
-    ],
-    async rewrites() {
+  reactStrictMode: true,
+  output: "standalone",
+  serverExternalPackages: ["shiki"],
+  async redirects() {
     return [
       {
-        source: '/:lang/:path*.mdx',
-        destination: '/:lang/llms.mdx/:path*',
+        source: "/",
+        destination: "/de/platform",
+        permanent: false,
+      },
+    ];
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/:lang/:path*.mdx",
+        destination: "/:lang/llms.mdx/:path*",
       },
     ];
   },
