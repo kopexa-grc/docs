@@ -8,24 +8,26 @@ import { FOOTER_LINKS, SOCIALS, KOPEXA_URL } from "@/lib/constants";
 export function Footer() {
   return (
     <footer className="mt-auto relative overflow-hidden">
-      {/* Soft transition from content area */}
-      <div className="absolute inset-x-0 top-0 h-8 bg-gradient-to-b from-background to-transparent z-10" />
+      {/* Multi-step gradient for soft transition from content area */}
+      <div className="absolute inset-0">
+        {/* Base: from gray background to primary tones */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/80 via-20% to-primary-50/90 dark:to-primary-950/90" />
+        {/* Mid layer: blend into primary */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary-100/50 via-50% to-primary-200 dark:via-primary-900/50 dark:to-primary-800" />
+      </div>
 
-      {/* Gradient Background - Kopexa Blue themed */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary-50 via-primary-100 to-primary-200 dark:from-primary-950 dark:via-primary-900 dark:to-primary-800" />
-
-      {/* Pixel Art Animation */}
+      {/* Pixel Art Animation - full footer background */}
       <PixelAnimation />
 
       {/* Content */}
-      <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-48 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-48 lg:px-8">
         {/* Logo */}
         <div className="mb-12 flex justify-center">
           <Link
             href={KOPEXA_URL}
             className="inline-flex items-center gap-3 text-primary-900 dark:text-primary-100 hover:opacity-80 transition-opacity"
           >
-            <div className="grid size-10 place-content-center rounded-lg bg-primary-600 shadow-lg shadow-primary-600/25">
+            <div className="grid size-10 place-content-center rounded-lg bg-[#0F263E] shadow-lg shadow-[#0F263E]/25">
               <span className="text-lg font-bold text-white">K</span>
             </div>
           </Link>
