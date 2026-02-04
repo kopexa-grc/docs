@@ -10,10 +10,10 @@ const PLAYER_HEIGHT = 42;
 const ENEMY_WIDTH = 48;
 const ENEMY_HEIGHT = 34;
 const BULLET_SIZE = 10;
-const PLAYER_SPEED = 12;
-const BULLET_SPEED = 14;
-const ENEMY_SPEED = 1.5;
-const ENEMY_DROP = 30;
+const PLAYER_SPEED = 6;
+const BULLET_SPEED = 10;
+const ENEMY_SPEED = 0.8;
+const ENEMY_DROP = 20;
 
 type Enemy = {
   id: number;
@@ -239,7 +239,8 @@ export function ComplianceRunner() {
 
         const moved = prevEnemies.map((e) => {
           if (!e.alive) return e;
-          const newX = e.x + ENEMY_SPEED * enemyDirection * (1 + wave * 0.15);
+          // Gentle speed increase: only +5% per wave (was +15%)
+          const newX = e.x + ENEMY_SPEED * enemyDirection * (1 + wave * 0.05);
           if (newX <= 0 || newX >= GAME_WIDTH - ENEMY_WIDTH) {
             shouldDrop = true;
             newDirection = enemyDirection === 1 ? -1 : 1;
