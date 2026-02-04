@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Quickstart",
+  "description": "Erste Schritte mit Kopexa",
+  "pages": [
+    "...index",
+    "organization",
+    "spaces",
+    "user",
+    "glossary"
+  ]
+}
