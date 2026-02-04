@@ -2,18 +2,18 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-// Game constants
-const GAME_WIDTH = 400;
-const GAME_HEIGHT = 500;
-const PLAYER_WIDTH = 32;
-const PLAYER_HEIGHT = 24;
-const ENEMY_WIDTH = 28;
-const ENEMY_HEIGHT = 20;
-const BULLET_SIZE = 6;
-const PLAYER_SPEED = 8;
-const BULLET_SPEED = 10;
-const ENEMY_SPEED = 1;
-const ENEMY_DROP = 20;
+// Game constants - larger for better gameplay
+const GAME_WIDTH = 800;
+const GAME_HEIGHT = 600;
+const PLAYER_WIDTH = 56;
+const PLAYER_HEIGHT = 42;
+const ENEMY_WIDTH = 48;
+const ENEMY_HEIGHT = 34;
+const BULLET_SIZE = 10;
+const PLAYER_SPEED = 12;
+const BULLET_SPEED = 14;
+const ENEMY_SPEED = 1.5;
+const ENEMY_DROP = 30;
 
 type Enemy = {
   id: number;
@@ -36,8 +36,13 @@ type UFO = {
 };
 
 // Pixel art: Player (Kopexa Bot as a ship)
-const PlayerShip = () => (
-  <svg width={PLAYER_WIDTH} height={PLAYER_HEIGHT} viewBox="0 0 32 24">
+const PlayerShip = ({ size = "normal" }: { size?: "normal" | "small" }) => (
+  <svg
+    width={size === "small" ? 36 : PLAYER_WIDTH}
+    height={size === "small" ? 27 : PLAYER_HEIGHT}
+    viewBox="0 0 32 24"
+    className="drop-shadow-[0_0_8px_rgba(34,211,238,0.5)]"
+  >
     {/* Ship body */}
     <rect x="12" y="0" width="8" height="4" fill="#22d3ee" />
     <rect x="8" y="4" width="16" height="4" fill="#0F263E" />
@@ -58,14 +63,19 @@ const PlayerShip = () => (
 // Pixel art: Risk enemy (red threat)
 const RiskEnemy = ({ type }: { type: Enemy["type"] }) => {
   const colors = {
-    risk: { main: "#ef4444", dark: "#dc2626" },
-    vulnerability: { main: "#f97316", dark: "#ea580c" },
-    threat: { main: "#a855f7", dark: "#9333ea" },
+    risk: { main: "#ef4444", dark: "#dc2626", glow: "rgba(239,68,68,0.4)" },
+    vulnerability: { main: "#f97316", dark: "#ea580c", glow: "rgba(249,115,22,0.4)" },
+    threat: { main: "#a855f7", dark: "#9333ea", glow: "rgba(168,85,247,0.4)" },
   };
-  const { main, dark } = colors[type];
+  const { main, dark, glow } = colors[type];
 
   return (
-    <svg width={ENEMY_WIDTH} height={ENEMY_HEIGHT} viewBox="0 0 28 20">
+    <svg
+      width={ENEMY_WIDTH}
+      height={ENEMY_HEIGHT}
+      viewBox="0 0 28 20"
+      style={{ filter: `drop-shadow(0 0 6px ${glow})` }}
+    >
       {/* Body */}
       <rect x="8" y="0" width="12" height="4" fill={main} />
       <rect x="4" y="4" width="20" height="4" fill={main} />
@@ -86,7 +96,7 @@ const RiskEnemy = ({ type }: { type: Enemy["type"] }) => {
 
 // Pixel art: UFO bonus
 const BonusUFO = () => (
-  <svg width="40" height="20" viewBox="0 0 40 20">
+  <svg width="60" height="30" viewBox="0 0 40 20" className="drop-shadow-[0_0_10px_rgba(34,197,94,0.6)]">
     <ellipse cx="20" cy="12" rx="18" ry="6" fill="#0F263E" />
     <ellipse cx="20" cy="10" rx="14" ry="4" fill="#1a3a5c" />
     <ellipse cx="20" cy="8" rx="8" ry="4" fill="#22d3ee" />
@@ -98,7 +108,12 @@ const BonusUFO = () => (
 
 // Pixel art: Bullet (shield projectile)
 const ShieldBullet = () => (
-  <svg width={BULLET_SIZE} height={BULLET_SIZE * 2} viewBox="0 0 6 12">
+  <svg
+    width={BULLET_SIZE}
+    height={BULLET_SIZE * 2}
+    viewBox="0 0 6 12"
+    className="drop-shadow-[0_0_4px_rgba(34,197,94,0.8)]"
+  >
     <rect x="1" y="0" width="4" height="4" fill="#22d3ee" />
     <rect x="0" y="4" width="6" height="4" fill="#22c55e" />
     <rect x="1" y="8" width="4" height="4" fill="#16a34a" />
@@ -120,6 +135,7 @@ export function ComplianceRunner() {
   const lastShotRef = useRef(0);
   const bulletIdRef = useRef(0);
   const gameLoopRef = useRef<number | null>(null);
+  const gameContainerRef = useRef<HTMLDivElement>(null);
 
   // Load high score
   useEffect(() => {
@@ -131,7 +147,7 @@ export function ComplianceRunner() {
   const initEnemies = useCallback((waveNum: number) => {
     const newEnemies: Enemy[] = [];
     const rows = Math.min(3 + Math.floor(waveNum / 2), 5);
-    const cols = Math.min(6 + waveNum, 8);
+    const cols = Math.min(7 + waveNum, 10);
     const types: Enemy["type"][] = ["threat", "vulnerability", "risk"];
 
     let id = 0;
@@ -139,8 +155,8 @@ export function ComplianceRunner() {
       for (let col = 0; col < cols; col++) {
         newEnemies.push({
           id: id++,
-          x: 30 + col * (ENEMY_WIDTH + 10),
-          y: 40 + row * (ENEMY_HEIGHT + 12),
+          x: 50 + col * (ENEMY_WIDTH + 15),
+          y: 50 + row * (ENEMY_HEIGHT + 18),
           type: types[row % 3],
           alive: true,
         });
@@ -160,12 +176,14 @@ export function ComplianceRunner() {
     setBullets([]);
     setEnemyDirection(1);
     setUfo({ x: -50, active: false, direction: 1 });
+    // Focus game container for keyboard input
+    gameContainerRef.current?.focus();
   }, [initEnemies]);
 
   // Handle input
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (["ArrowLeft", "ArrowRight", "Space", " "].includes(e.key)) {
+      if (["ArrowLeft", "ArrowRight", "Space", " ", "a", "d", "A", "D"].includes(e.key)) {
         e.preventDefault();
         keysRef.current.add(e.key);
       }
@@ -194,20 +212,20 @@ export function ComplianceRunner() {
     const gameLoop = () => {
       const now = Date.now();
 
-      // Player movement
-      if (keysRef.current.has("ArrowLeft")) {
+      // Player movement (arrow keys and WASD)
+      if (keysRef.current.has("ArrowLeft") || keysRef.current.has("a") || keysRef.current.has("A")) {
         setPlayerX((x) => Math.max(0, x - PLAYER_SPEED));
       }
-      if (keysRef.current.has("ArrowRight")) {
+      if (keysRef.current.has("ArrowRight") || keysRef.current.has("d") || keysRef.current.has("D")) {
         setPlayerX((x) => Math.min(GAME_WIDTH - PLAYER_WIDTH, x + PLAYER_SPEED));
       }
 
       // Shooting
-      if ((keysRef.current.has("Space") || keysRef.current.has(" ")) && now - lastShotRef.current > 300) {
+      if ((keysRef.current.has("Space") || keysRef.current.has(" ")) && now - lastShotRef.current > 250) {
         lastShotRef.current = now;
         setBullets((b) => [
           ...b,
-          { id: bulletIdRef.current++, x: playerX + PLAYER_WIDTH / 2 - BULLET_SIZE / 2, y: GAME_HEIGHT - 60 },
+          { id: bulletIdRef.current++, x: playerX + PLAYER_WIDTH / 2 - BULLET_SIZE / 2, y: GAME_HEIGHT - 70 },
         ]);
       }
 
@@ -221,7 +239,7 @@ export function ComplianceRunner() {
 
         const moved = prevEnemies.map((e) => {
           if (!e.alive) return e;
-          const newX = e.x + ENEMY_SPEED * enemyDirection * (1 + wave * 0.2);
+          const newX = e.x + ENEMY_SPEED * enemyDirection * (1 + wave * 0.15);
           if (newX <= 0 || newX >= GAME_WIDTH - ENEMY_WIDTH) {
             shouldDrop = true;
             newDirection = enemyDirection === 1 ? -1 : 1;
@@ -238,12 +256,12 @@ export function ComplianceRunner() {
 
       // UFO logic
       setUfo((u) => {
-        if (!u.active && Math.random() < 0.002) {
-          return { x: u.direction === 1 ? -50 : GAME_WIDTH + 50, active: true, direction: u.direction === 1 ? -1 : 1 };
+        if (!u.active && Math.random() < 0.003) {
+          return { x: u.direction === 1 ? -60 : GAME_WIDTH + 60, active: true, direction: u.direction === 1 ? -1 : 1 };
         }
         if (u.active) {
-          const newX = u.x + 3 * u.direction;
-          if (newX < -50 || newX > GAME_WIDTH + 50) {
+          const newX = u.x + 4 * u.direction;
+          if (newX < -60 || newX > GAME_WIDTH + 60) {
             return { ...u, active: false };
           }
           return { ...u, x: newX };
@@ -280,7 +298,7 @@ export function ComplianceRunner() {
         // Check UFO hit
         if (ufo.active) {
           const ufoHitIndex = remainingBullets.findIndex(
-            (b) => b.x < ufo.x + 40 && b.x + BULLET_SIZE > ufo.x && b.y < 30 && b.y + BULLET_SIZE * 2 > 10
+            (b) => b.x < ufo.x + 60 && b.x + BULLET_SIZE > ufo.x && b.y < 40 && b.y + BULLET_SIZE * 2 > 10
           );
           if (ufoHitIndex !== -1) {
             remainingBullets.splice(ufoHitIndex, 1);
@@ -294,7 +312,7 @@ export function ComplianceRunner() {
 
       // Check if enemies reached player
       const lowestEnemy = enemies.filter((e) => e.alive).reduce((max, e) => Math.max(max, e.y), 0);
-      if (lowestEnemy > GAME_HEIGHT - 80) {
+      if (lowestEnemy > GAME_HEIGHT - 100) {
         setLives(0);
       }
 
@@ -327,47 +345,65 @@ export function ComplianceRunner() {
   }, [gameState, playerX, enemies, enemyDirection, wave, lives, score, highScore, ufo, initEnemies]);
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      {/* Score display */}
-      <div className="flex justify-between w-full max-w-[400px] px-2 text-sm font-mono">
-        <span className="text-[#0F263E] dark:text-white">Score: {score}</span>
-        <span className="text-[#22d3ee]">Wave: {wave}</span>
-        <span className="text-[#0F263E]/60 dark:text-white/60">Best: {highScore}</span>
-      </div>
+    <div className="flex flex-col items-center gap-4 w-full">
+      {/* Header with score and controls */}
+      <div className="flex flex-col sm:flex-row justify-between items-center w-full max-w-[800px] gap-4 px-4">
+        {/* Score display */}
+        <div className="flex gap-6 text-base font-mono font-bold">
+          <span className="text-[#0F263E] dark:text-white">
+            SCORE: <span className="text-[#22d3ee]">{score.toString().padStart(5, '0')}</span>
+          </span>
+          <span className="text-[#22c55e]">WAVE {wave}</span>
+        </div>
 
-      {/* Lives */}
-      <div className="flex gap-2">
-        {[...Array(lives)].map((_, i) => (
-          <div key={i} className="w-6 h-4">
-            <PlayerShip />
+        {/* Lives */}
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-mono text-[#0F263E]/70 dark:text-white/70">LIVES:</span>
+          <div className="flex gap-1">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className={`w-9 h-7 ${i < lives ? 'opacity-100' : 'opacity-20'}`}>
+                <PlayerShip size="small" />
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+
+        {/* High score */}
+        <div className="text-sm font-mono text-[#0F263E]/60 dark:text-white/60">
+          HI-SCORE: {highScore.toString().padStart(5, '0')}
+        </div>
       </div>
 
       {/* Game area */}
       <div
+        ref={gameContainerRef}
         onClick={() => (gameState !== "playing" ? startGame() : null)}
         onKeyDown={(e) => e.code === "Space" && gameState !== "playing" && startGame()}
         role="button"
         tabIndex={0}
-        className="relative overflow-hidden rounded-lg border-2 border-[#0F263E]/20 dark:border-white/20 cursor-pointer select-none bg-gradient-to-b from-[#0F263E] to-[#1a3a5c]"
+        className="relative overflow-hidden rounded-xl border-4 border-[#0F263E]/30 dark:border-[#22d3ee]/30 cursor-pointer select-none bg-gradient-to-b from-[#0a1929] via-[#0F263E] to-[#1a3a5c] shadow-2xl shadow-[#0F263E]/50"
         style={{ width: GAME_WIDTH, height: GAME_HEIGHT, maxWidth: "100%" }}
       >
-        {/* Stars background */}
-        {[...Array(30)].map((_, i) => (
+        {/* Animated stars background */}
+        {[...Array(50)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-white/40 rounded-full"
+            className="absolute bg-white rounded-full animate-pulse"
             style={{
-              left: `${(i * 37) % 100}%`,
-              top: `${(i * 23) % 100}%`,
+              width: i % 3 === 0 ? 2 : 1,
+              height: i % 3 === 0 ? 2 : 1,
+              left: `${(i * 37 + i * 13) % 100}%`,
+              top: `${(i * 23 + i * 7) % 100}%`,
+              opacity: 0.3 + (i % 5) * 0.1,
+              animationDelay: `${i * 100}ms`,
+              animationDuration: `${2000 + i * 100}ms`,
             }}
           />
         ))}
 
         {/* UFO */}
         {ufo.active && (
-          <div className="absolute" style={{ left: ufo.x, top: 10 }}>
+          <div className="absolute transition-transform" style={{ left: ufo.x, top: 15 }}>
             <BonusUFO />
           </div>
         )}
@@ -389,35 +425,72 @@ export function ComplianceRunner() {
         ))}
 
         {/* Player */}
-        <div className="absolute" style={{ left: playerX, bottom: 20 }}>
+        <div className="absolute transition-transform duration-75" style={{ left: playerX, bottom: 25 }}>
           <PlayerShip />
         </div>
 
         {/* Game states */}
         {gameState === "idle" && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 text-white">
-            <h3 className="text-xl font-bold mb-2">GRC Invaders</h3>
-            <p className="text-sm mb-2 opacity-80 text-center px-4">Verteidige dein System gegen Risiken!</p>
-            <div className="text-xs opacity-60 mb-4 text-center">
-              <p>← → Bewegen</p>
-              <p>Leertaste = Schießen</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 text-white backdrop-blur-sm">
+            <h3 className="text-4xl font-bold mb-3 text-[#22d3ee] drop-shadow-[0_0_10px_rgba(34,211,238,0.5)]">
+              GRC INVADERS
+            </h3>
+            <p className="text-lg mb-4 opacity-90">Verteidige dein System gegen Risiken!</p>
+
+            {/* Legend */}
+            <div className="flex gap-6 mb-6 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-4 bg-[#a855f7] rounded" />
+                <span>Threat (30pt)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-4 bg-[#f97316] rounded" />
+                <span>Vulnerability (20pt)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-4 bg-[#ef4444] rounded" />
+                <span>Risk (10pt)</span>
+              </div>
             </div>
-            <p className="text-xs animate-pulse">Klick oder Leertaste zum Starten</p>
+
+            <div className="text-sm opacity-70 mb-6 text-center space-y-1">
+              <p>← → oder A/D zum Bewegen</p>
+              <p>LEERTASTE zum Schießen</p>
+            </div>
+            <button
+              type="button"
+              className="px-8 py-3 bg-[#22d3ee] text-[#0F263E] font-bold rounded-lg hover:bg-[#22d3ee]/90 transition-all hover:scale-105 shadow-lg shadow-[#22d3ee]/30"
+              onClick={startGame}
+            >
+              SPIEL STARTEN
+            </button>
           </div>
         )}
 
         {gameState === "gameover" && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/70 text-white">
-            <h3 className="text-xl font-bold mb-2 text-red-400">System Compromised!</h3>
-            <p className="text-lg mb-1">Score: {score}</p>
-            <p className="text-sm opacity-60">Wave: {wave}</p>
-            {score >= highScore && score > 0 && <p className="text-sm text-yellow-400 mt-2">Neuer Highscore!</p>}
-            <p className="text-xs animate-pulse mt-4">Klick zum Neustarten</p>
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/80 text-white backdrop-blur-sm">
+            <h3 className="text-3xl font-bold mb-4 text-red-400 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]">
+              SYSTEM COMPROMISED!
+            </h3>
+            <p className="text-2xl mb-2 font-mono">Score: <span className="text-[#22d3ee]">{score}</span></p>
+            <p className="text-lg opacity-70 mb-2">Wave: {wave}</p>
+            {score >= highScore && score > 0 && (
+              <p className="text-lg text-yellow-400 mb-4 animate-pulse">🏆 NEUER HIGHSCORE! 🏆</p>
+            )}
+            <button
+              type="button"
+              className="px-8 py-3 bg-[#22d3ee] text-[#0F263E] font-bold rounded-lg hover:bg-[#22d3ee]/90 transition-all hover:scale-105 shadow-lg shadow-[#22d3ee]/30 mt-4"
+              onClick={startGame}
+            >
+              NOCHMAL SPIELEN
+            </button>
           </div>
         )}
       </div>
 
-      <p className="text-xs text-[#0F263E]/50 dark:text-white/50">← → Bewegen | Leertaste = Schießen</p>
+      <p className="text-sm text-[#0F263E]/60 dark:text-white/60 font-mono">
+        ← → / A D = Bewegen | SPACE = Schießen
+      </p>
     </div>
   );
 }
