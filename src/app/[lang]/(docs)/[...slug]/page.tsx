@@ -8,6 +8,7 @@ import { createRelativeLink } from "fumadocs-ui/mdx";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
+import { createMetadata } from "@/lib/metadata";
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
 
@@ -57,8 +58,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 	const page = source.getPage(params.slug, params.lang);
 	if (!page) notFound();
 
-	return {
+	// Determine OG type based on URL path
+	const slug = params.slug?.join("/") ?? "";
+	const ogType = slug.startsWith("platform")
+		? "platform"
+		: slug.startsWith("catalogs")
+			? "catalog"
+			: slug.startsWith("integrations")
+				? "integrations"
+				: "docs";
+
+	return createMetadata({
 		title: page.data.title,
 		description: page.data.description,
-	};
+		ogType,
+	});
 }
