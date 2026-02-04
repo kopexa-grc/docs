@@ -63,36 +63,68 @@ const Tree = ({ className }: { className?: string }) => (
 );
 
 // Little robot character - Kopexa Bot
-const Robot = ({ frame, className }: { frame: number; className?: string }) => (
-  <svg viewBox="0 0 32 40" className={className}>
+const Robot = ({ frame, isWaving, className }: { frame: number; isWaving?: boolean; className?: string }) => (
+  <svg viewBox="0 0 40 40" className={className}>
     {/* Antenna with glowing tip */}
-    <rect x="14" y="0" width="4" height="4" fill="#22d3ee" className="animate-pulse" />
-    <rect x="12" y="4" width="8" height="4" fill="#0F263E" />
+    <rect x="18" y="0" width="4" height="4" fill={isWaving ? "#22c55e" : "#22d3ee"} className="animate-pulse" />
+    <rect x="16" y="4" width="8" height="4" fill="#0F263E" />
     {/* Head */}
-    <rect x="8" y="8" width="16" height="12" fill="#0F263E" />
-    <rect x="10" y="10" width="4" height="4" fill="#22d3ee" />
-    <rect x="18" y="10" width="4" height="4" fill="#22d3ee" />
-    <rect x="12" y="16" width="8" height="2" fill="#22d3ee" />
-    {/* Body */}
-    <rect x="6" y="20" width="20" height="12" fill="#0F263E" />
-    <rect x="10" y="22" width="12" height="8" fill="#1a3a5c" />
-    {/* Kopexa "K" on chest */}
-    <rect x="14" y="23" width="2" height="6" fill="#22d3ee" />
-    <rect x="16" y="25" width="2" height="2" fill="#22d3ee" />
-    <rect x="18" y="23" width="2" height="2" fill="#22d3ee" />
-    <rect x="18" y="27" width="2" height="2" fill="#22d3ee" />
-    {/* Status lights */}
-    <rect x="11" y="24" width="2" height="2" fill={frame === 0 ? "#22c55e" : "#0F263E"} />
-    {/* Legs - animated */}
-    {frame === 0 ? (
+    <rect x="12" y="8" width="16" height="12" fill="#0F263E" />
+    {/* Eyes - happy when waving */}
+    {isWaving ? (
       <>
-        <rect x="8" y="32" width="6" height="8" fill="#1a3a5c" />
-        <rect x="18" y="32" width="6" height="8" fill="#1a3a5c" />
+        <rect x="14" y="12" width="4" height="2" fill="#22d3ee" />
+        <rect x="22" y="12" width="4" height="2" fill="#22d3ee" />
       </>
     ) : (
       <>
-        <rect x="6" y="32" width="6" height="8" fill="#1a3a5c" />
-        <rect x="20" y="32" width="6" height="8" fill="#1a3a5c" />
+        <rect x="14" y="10" width="4" height="4" fill="#22d3ee" />
+        <rect x="22" y="10" width="4" height="4" fill="#22d3ee" />
+      </>
+    )}
+    {/* Mouth - smile when waving */}
+    {isWaving ? (
+      <>
+        <rect x="16" y="16" width="8" height="2" fill="#22d3ee" />
+        <rect x="15" y="15" width="2" height="2" fill="#22d3ee" />
+        <rect x="23" y="15" width="2" height="2" fill="#22d3ee" />
+      </>
+    ) : (
+      <rect x="16" y="16" width="8" height="2" fill="#22d3ee" />
+    )}
+    {/* Body */}
+    <rect x="10" y="20" width="20" height="12" fill="#0F263E" />
+    <rect x="14" y="22" width="12" height="8" fill="#1a3a5c" />
+    {/* Waving arm */}
+    {isWaving && (
+      <>
+        <rect x="30" y="18" width="4" height="2" fill="#0F263E" />
+        <rect x="32" y="14" width="4" height="4" fill="#0F263E" />
+        <rect x="34" y={frame === 0 ? 10 : 8} width="4" height="4" fill="#0F263E" />
+      </>
+    )}
+    {/* Kopexa "K" on chest */}
+    <rect x="18" y="23" width="2" height="6" fill="#22d3ee" />
+    <rect x="20" y="25" width="2" height="2" fill="#22d3ee" />
+    <rect x="22" y="23" width="2" height="2" fill="#22d3ee" />
+    <rect x="22" y="27" width="2" height="2" fill="#22d3ee" />
+    {/* Status lights */}
+    <rect x="15" y="24" width="2" height="2" fill={isWaving ? "#22c55e" : frame === 0 ? "#22c55e" : "#0F263E"} />
+    {/* Legs - standing still when waving */}
+    {isWaving ? (
+      <>
+        <rect x="12" y="32" width="6" height="8" fill="#1a3a5c" />
+        <rect x="22" y="32" width="6" height="8" fill="#1a3a5c" />
+      </>
+    ) : frame === 0 ? (
+      <>
+        <rect x="12" y="32" width="6" height="8" fill="#1a3a5c" />
+        <rect x="22" y="32" width="6" height="8" fill="#1a3a5c" />
+      </>
+    ) : (
+      <>
+        <rect x="10" y="32" width="6" height="8" fill="#1a3a5c" />
+        <rect x="24" y="32" width="6" height="8" fill="#1a3a5c" />
       </>
     )}
   </svg>
@@ -241,6 +273,13 @@ export function PixelAnimation() {
   const [scaredBird2, setScaredBird2] = useState(-30);
   const [panicPerson1, setPanicPerson1] = useState(45);
   const [panicPerson2, setPanicPerson2] = useState(55);
+  const [isWaving, setIsWaving] = useState(false);
+
+  const handleRobotClick = () => {
+    setIsWaving(true);
+    // Stop waving after 2 seconds
+    setTimeout(() => setIsWaving(false), 2000);
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -371,13 +410,16 @@ export function PixelAnimation() {
       <Checkmark className="absolute bottom-8 left-[58%] w-5 h-5 opacity-70" />
       <Shield className="absolute bottom-10 left-[75%] w-4 h-5 opacity-50" />
 
-      {/* Walking robot - Kopexa Bot */}
-      <div
-        className="absolute bottom-8 transition-transform duration-150 ease-linear"
+      {/* Walking robot - Kopexa Bot (clickable!) */}
+      <button
+        type="button"
+        onClick={handleRobotClick}
+        className="absolute bottom-8 transition-transform duration-150 ease-linear pointer-events-auto cursor-pointer hover:scale-110 focus:outline-none"
         style={{ left: `${robotPosition}%` }}
+        aria-label="Say hi to Kopexa Bot"
       >
-        <Robot frame={frame} className="w-8 h-10 opacity-90" />
-      </div>
+        <Robot frame={frame} isWaving={isWaving} className="w-10 h-12 opacity-90" />
+      </button>
     </div>
   );
 }
