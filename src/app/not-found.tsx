@@ -41,17 +41,16 @@ export default function NotFound() {
   const [frame, setFrame] = useState(0);
 
   // Animate the robot
-  useState(() => {
+  useEffect(() => {
     const interval = setInterval(() => {
       setFrame((f) => (f + 1) % 2);
     }, 500);
     return () => clearInterval(interval);
-  });
+  }, []);
 
   return (
-    <html lang="de">
-      <body className="min-h-screen bg-gradient-to-b from-background to-primary-50 dark:to-primary-950 flex items-center justify-center p-4">
-        <div className="max-w-2xl mx-auto text-center">
+    <div className="min-h-screen bg-gradient-to-b from-background to-primary-50 dark:to-primary-950 flex items-center justify-center p-4">
+      <div className="max-w-2xl mx-auto text-center">
           {/* Lost Robot */}
           <div className="flex justify-center mb-8">
             <LostRobot frame={frame} />
@@ -88,7 +87,7 @@ export default function NotFound() {
 
           {/* Mini Game */}
           {showGame && (
-            <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div>
               <ComplianceRunner />
             </div>
           )}
@@ -113,8 +112,7 @@ export default function NotFound() {
               </Link>
             </div>
           </div>
-        </div>
-      </body>
-    </html>
+      </div>
+    </div>
   );
 }
