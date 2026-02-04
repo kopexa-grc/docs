@@ -1,25 +1,42 @@
 import type { Metadata } from "next/types";
 
-export const baseUrl =
-	process.env.NODE_ENV === "development" ||
-	!process.env.VERCEL_PROJECT_PRODUCTION_URL
-		? new URL("http://localhost:3000")
-		: new URL(`https://docs.kopexa.com`);
+export const baseUrl = new URL(
+	process.env.VERCEL_PROJECT_PRODUCTION_URL
+		? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+		: process.env.VERCEL_URL
+			? `https://${process.env.VERCEL_URL}`
+			: "http://localhost:3000"
+);
 
 interface CreateMetadataOptions extends Metadata {
-	ogType?: "docs" | "platform" | "catalog" | "integrations";
+	slug?: string;
 }
 
+/**
+ * Create metadata for pages with dynamic OG images.
+ * Uses /api/og route for image generation.
+ */
 export function createMetadata(override: CreateMetadataOptions): Metadata {
 	const title = typeof override.title === "string" ? override.title : "Kopexa Documentation";
 	const description = override.description ?? "GRC Platform für moderne Unternehmen";
-	const ogType = override.ogType ?? "docs";
+	const slug = override.slug ?? "";
 
-	// Build OG image URL with parameters
-	const ogImageUrl = new URL("/api/og", baseUrl);
-	ogImageUrl.searchParams.set("title", title);
-	if (description) ogImageUrl.searchParams.set("description", description);
-	ogImageUrl.searchParams.set("type", ogType);
+	// Determine type based on slug
+	const ogType = slug.startsWith("platform")
+		? "platform"
+		: slug.startsWith("catalogs")
+			? "catalog"
+			: slug.startsWith("integrations")
+				? "integrations"
+				: "docs";
+
+	// Build relative OG image URL (metadataBase will make it absolute)
+	const ogImageParams = new URLSearchParams({
+		title,
+		description: description ?? "",
+		type: ogType,
+	});
+	const ogImageUrl = `/api/og?${ogImageParams.toString()}`;
 
 	return {
 		...override,
@@ -31,7 +48,7 @@ export function createMetadata(override: CreateMetadataOptions): Metadata {
 			type: "website",
 			images: [
 				{
-					url: ogImageUrl.toString(),
+					url: ogImageUrl,
 					width: 1200,
 					height: 630,
 					alt: title,
@@ -43,26 +60,11 @@ export function createMetadata(override: CreateMetadataOptions): Metadata {
 			card: "summary_large_image",
 			title,
 			description,
-			images: [ogImageUrl.toString()],
+			images: [ogImageUrl],
 			...override.twitter,
 		},
 		alternates: {
 			...override.alternates,
 		},
 	};
-}
-
-/**
- * Generate OG image URL for a specific page
- */
-export function getOgImageUrl(
-	title: string,
-	description?: string,
-	type: "docs" | "platform" | "catalog" | "integrations" = "docs"
-): string {
-	const ogImageUrl = new URL("/api/og", baseUrl);
-	ogImageUrl.searchParams.set("title", title);
-	if (description) ogImageUrl.searchParams.set("description", description);
-	ogImageUrl.searchParams.set("type", type);
-	return ogImageUrl.toString();
 }

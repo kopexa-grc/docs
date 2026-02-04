@@ -12,7 +12,16 @@ export async function GET(request: NextRequest) {
 
   const title = searchParams.get("title") || "Kopexa Documentation";
   const description = searchParams.get("description") || "GRC Platform für moderne Unternehmen";
-  const type = searchParams.get("type") || "docs"; // docs, platform, catalog, etc.
+  const type = searchParams.get("type") || "docs";
+
+  // Determine display type
+  const displayType = type === "platform"
+    ? "Platform"
+    : type === "catalog"
+      ? "Catalog"
+      : type === "integrations"
+        ? "Integrations"
+        : "Documentation";
 
   return new ImageResponse(
     (
@@ -27,16 +36,16 @@ export async function GET(request: NextRequest) {
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        {/* Background pattern - pixel grid */}
+        {/* Background grid pattern */}
         <div
           style={{
             position: "absolute",
             inset: 0,
             backgroundImage: `
-              linear-gradient(${BRAND_CYAN}10 1px, transparent 1px),
-              linear-gradient(90deg, ${BRAND_CYAN}10 1px, transparent 1px)
+              linear-gradient(${BRAND_CYAN}15 1px, transparent 1px),
+              linear-gradient(90deg, ${BRAND_CYAN}15 1px, transparent 1px)
             `,
-            backgroundSize: "32px 32px",
+            backgroundSize: "40px 40px",
           }}
         />
 
@@ -45,8 +54,8 @@ export async function GET(request: NextRequest) {
           style={{
             position: "absolute",
             inset: 0,
-            background: `linear-gradient(135deg, ${BRAND_PRIMARY} 0%, #1a3a5c 50%, ${BRAND_PRIMARY} 100%)`,
-            opacity: 0.9,
+            background: `linear-gradient(145deg, ${BRAND_PRIMARY} 0%, #1a3a5c 40%, ${BRAND_PRIMARY} 100%)`,
+            opacity: 0.95,
           }}
         />
 
@@ -57,7 +66,7 @@ export async function GET(request: NextRequest) {
             flexDirection: "column",
             justifyContent: "space-between",
             height: "100%",
-            padding: "60px",
+            padding: "48px 56px",
             position: "relative",
             zIndex: 10,
           }}
@@ -65,48 +74,49 @@ export async function GET(request: NextRequest) {
           {/* Top: Logo and badge */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
             {/* Logo */}
-            <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
               <div
                 style={{
-                  width: "64px",
-                  height: "64px",
+                  width: "56px",
+                  height: "56px",
                   backgroundColor: BRAND_CYAN,
-                  borderRadius: "12px",
+                  borderRadius: "10px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <span style={{ fontSize: "36px", fontWeight: "bold", color: BRAND_PRIMARY }}>K</span>
+                <span style={{ fontSize: "32px", fontWeight: "bold", color: BRAND_PRIMARY }}>K</span>
               </div>
-              <span style={{ fontSize: "32px", fontWeight: "600", color: "white" }}>Kopexa</span>
+              <span style={{ fontSize: "28px", fontWeight: "600", color: "white" }}>Kopexa</span>
             </div>
 
             {/* Type badge */}
             <div
               style={{
                 backgroundColor: `${BRAND_CYAN}20`,
-                border: `2px solid ${BRAND_CYAN}`,
+                border: `2px solid ${BRAND_CYAN}60`,
                 borderRadius: "9999px",
-                padding: "8px 24px",
+                padding: "8px 20px",
                 display: "flex",
               }}
             >
-              <span style={{ fontSize: "18px", color: BRAND_CYAN, textTransform: "uppercase", letterSpacing: "0.1em" }}>
-                {type === "docs" ? "Documentation" : type === "platform" ? "Platform" : type === "catalog" ? "Catalog" : "Docs"}
+              <span style={{ fontSize: "16px", color: BRAND_CYAN, textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: "500" }}>
+                {displayType}
               </span>
             </div>
           </div>
 
           {/* Center: Title and description */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "900px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "16px", maxWidth: "950px" }}>
             <h1
               style={{
-                fontSize: title.length > 40 ? "48px" : "56px",
+                fontSize: title.length > 50 ? "44px" : title.length > 30 ? "52px" : "58px",
                 fontWeight: "bold",
                 color: "white",
-                lineHeight: 1.2,
+                lineHeight: 1.15,
                 margin: 0,
+                letterSpacing: "-0.02em",
               }}
             >
               {title}
@@ -114,30 +124,30 @@ export async function GET(request: NextRequest) {
             {description && (
               <p
                 style={{
-                  fontSize: "24px",
+                  fontSize: "22px",
                   color: "#94a3b8",
-                  lineHeight: 1.5,
+                  lineHeight: 1.4,
                   margin: 0,
                 }}
               >
-                {description.length > 120 ? `${description.slice(0, 117)}...` : description}
+                {description.length > 100 ? `${description.slice(0, 97)}...` : description}
               </p>
             )}
           </div>
 
           {/* Bottom: URL and decorative elements */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-            <span style={{ fontSize: "20px", color: "#64748b" }}>docs.kopexa.com</span>
+            <span style={{ fontSize: "18px", color: "#64748b" }}>docs.kopexa.com</span>
 
             {/* Decorative pixel elements */}
-            <div style={{ display: "flex", gap: "8px" }}>
-              {[...Array(5)].map((_, i) => (
+            <div style={{ display: "flex", gap: "6px" }}>
+              {[...Array(6)].map((_, i) => (
                 <div
                   key={i}
                   style={{
-                    width: "12px",
-                    height: "12px",
-                    backgroundColor: i % 2 === 0 ? BRAND_CYAN : `${BRAND_CYAN}50`,
+                    width: "10px",
+                    height: "10px",
+                    backgroundColor: i % 2 === 0 ? BRAND_CYAN : `${BRAND_CYAN}40`,
                     borderRadius: "2px",
                   }}
                 />
@@ -146,27 +156,27 @@ export async function GET(request: NextRequest) {
           </div>
         </div>
 
-        {/* Decorative corner elements */}
+        {/* Corner accents */}
         <div
           style={{
             position: "absolute",
-            top: "20px",
-            right: "20px",
-            width: "100px",
-            height: "100px",
-            borderTop: `4px solid ${BRAND_CYAN}30`,
-            borderRight: `4px solid ${BRAND_CYAN}30`,
+            top: "16px",
+            right: "16px",
+            width: "80px",
+            height: "80px",
+            borderTop: `3px solid ${BRAND_CYAN}25`,
+            borderRight: `3px solid ${BRAND_CYAN}25`,
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: "20px",
-            left: "20px",
-            width: "100px",
-            height: "100px",
-            borderBottom: `4px solid ${BRAND_CYAN}30`,
-            borderLeft: `4px solid ${BRAND_CYAN}30`,
+            bottom: "16px",
+            left: "16px",
+            width: "80px",
+            height: "80px",
+            borderBottom: `3px solid ${BRAND_CYAN}25`,
+            borderLeft: `3px solid ${BRAND_CYAN}25`,
           }}
         />
       </div>

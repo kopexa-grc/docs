@@ -3,17 +3,19 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Footer } from "@/components/footer";
 import { baseOptions } from "@/lib/layout.shared";
-import { createMetadata } from "@/lib/metadata";
+import { baseUrl, createMetadata } from "@/lib/metadata";
 import { source } from "@/lib/source";
 
-export const metadata: Metadata = createMetadata({
-  title: {
-    default: "Kopexa Docs",
-    template: "%s | Kopexa Docs",
-  },
-  description: "GRC Platform für moderne Unternehmen - Compliance, Risikomanagement und Governance einfach gemacht.",
-  ogType: "docs",
-});
+export const metadata: Metadata = {
+  metadataBase: baseUrl,
+  ...createMetadata({
+    title: {
+      default: "Kopexa Docs",
+      template: "%s | Kopexa Docs",
+    },
+    description: "GRC Platform für moderne Unternehmen - Compliance, Risikomanagement und Governance einfach gemacht.",
+  }),
+};
 
 export default async function Layout({
   params,
