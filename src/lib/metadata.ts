@@ -1,11 +1,9 @@
 import type { Metadata } from "next/types";
 
 export const baseUrl = new URL(
-	process.env.VERCEL_PROJECT_PRODUCTION_URL
-		? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-		: process.env.VERCEL_URL
-			? `https://${process.env.VERCEL_URL}`
-			: "http://localhost:3000"
+	process.env.NODE_ENV === "production"
+		? "https://docs.kopexa.com"
+		: "http://localhost:3000"
 );
 
 interface CreateMetadataOptions extends Metadata {
