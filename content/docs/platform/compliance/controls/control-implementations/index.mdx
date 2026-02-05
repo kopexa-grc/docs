@@ -7,6 +7,15 @@ Ein Control definiert **was** erreicht werden soll – eine Anforderung aus eine
 
 Diese Trennung ist zentral für ein funktionierendes ISMS: Controls bleiben stabil (sie kommen aus dem Framework), während Maßnahmen sich ändern können (wenn du die Umsetzung anpasst).
 
+<Callout type="info" title="Für ISO 27001-Berater">
+In der deutschen Übersetzung der ISO 27001 werden Annex A Items oft als "Maßnahmen" bezeichnet. Kopexa unterscheidet präziser:
+
+- **Control** = Die Anforderung aus Annex A (z.B. A.9.4.2 "Secure log-on procedures")
+- **Maßnahme** = Deine technische/organisatorische Umsetzung (z.B. "Azure AD mit MFA")
+
+Diese Trennung ermöglicht: Ein Control kann mehrere Maßnahmen haben, eine Maßnahme kann mehrere Controls erfüllen (cross-framework). Das entspricht dem Aufbau des Statement of Applicability (SoA).
+</Callout>
+
 ## Control vs. Maßnahme
 
 | | Control | Maßnahme |
@@ -37,6 +46,40 @@ Du dokumentierst die Maßnahme einmal. Kopexa verknüpft sie mit allen relevante
 **3. Änderungen sind nachvollziehbar**
 
 Wenn du die Maßnahme änderst (z.B. von Azure AD auf Okta wechselst), aktualisierst du eine Stelle. Alle verknüpften Controls sehen die neue Maßnahme.
+
+## ISO 27001: Mapping zum Statement of Applicability
+
+Das Statement of Applicability (SoA) ist das zentrale Dokument für ISO 27001. Es listet alle Annex A Controls und dokumentiert:
+- Ist das Control anwendbar? (Ja/Nein + Begründung)
+- Wie wird es umgesetzt? (Verweis auf Maßnahmen)
+
+**So bildet Kopexa das SoA ab:**
+
+| SoA-Spalte | Kopexa-Entsprechung |
+|------------|---------------------|
+| Control-ID (A.9.4.2) | Control in Kopexa |
+| Anwendbar? | Control-Status: `FULFILLED` oder `OUT_OF_SCOPE` |
+| Begründung bei Nicht-Anwendbarkeit | Control-Beschreibung / Notizen |
+| Umsetzung | Verknüpfte Maßnahme(n) |
+| Nachweis | Evidenzen der Maßnahme |
+
+<Callout>
+Kopexa generiert dein SoA automatisch aus den Control-Maßnahmen-Verknüpfungen. Kein manuelles Excel-Pflegen mehr.
+</Callout>
+
+### Audit-Workflow mit Kopexa
+
+**Stage 1 (Dokumentenprüfung):**
+- Auditor prüft: Sind alle Annex A Controls adressiert?
+- Kopexa zeigt: Control-Liste mit Status `FULFILLED` / `OUT_OF_SCOPE`
+
+**Stage 2 (Implementierungsprüfung):**
+- Auditor fragt: "Zeigen Sie mir A.9.4.2"
+- Du öffnest das Control → siehst die Maßnahme → zeigst die Evidenzen
+
+**Surveillance Audit:**
+- Auditor prüft Stichproben
+- Kopexa zeigt: Aktuelle Evidenzen mit Zeitstempel
 
 ## Aufbau einer Maßnahme
 
@@ -84,6 +127,23 @@ Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 | **Technisch** | Screenshots, Konfigurationsdateien, Logs, Scan-Reports |
 | **Dokumentarisch** | Policies, Prozessbeschreibungen, Arbeitsanweisungen |
 | **Prüfberichte** | Audit-Reports, Penetration-Test-Ergebnisse |
+
+<Accordions>
+  <Accordion title="Evidence-Beispiele nach ISO 27001 Domänen">
+    | Annex A Bereich | Typische Evidenzen |
+    |-----------------|-------------------|
+    | **A.5 Informationssicherheitsrichtlinien** | Freigegebene Policy-Dokumente mit Versionierung, Schulungsnachweise |
+    | **A.6 Organisation** | Organigramm, RACI-Matrix, Rollenbeschreibungen, Ernennungsschreiben CISO |
+    | **A.7 Personalsicherheit** | Arbeitsverträge mit NDA, Schulungszertifikate, Onboarding-Checklisten |
+    | **A.8 Asset Management** | Asset-Inventar (Export), Klassifizierungsschema, Data-Flow-Diagramme |
+    | **A.9 Zugangssteuerung** | AD-Screenshots, Berechtigungsmatrix, Access-Review-Protokolle |
+    | **A.12 Betriebssicherheit** | Change-Management-Tickets, Patch-Reports, Backup-Logs, AV-Dashboard |
+    | **A.13 Kommunikationssicherheit** | Netzwerkdiagramm, Firewall-Regeln, VPN-Konfiguration |
+    | **A.16 Incident Management** | Incident-Tickets, Post-Mortem-Reports, Eskalationsmatrix |
+    | **A.17 Business Continuity** | BIA-Dokument, BC-Pläne, Test-Protokolle |
+    | **A.18 Compliance** | Rechtsgutachten, Datenschutz-Folgenabschätzungen, Audit-Berichte |
+  </Accordion>
+</Accordions>
 
 ## Maßnahme anlegen
 
