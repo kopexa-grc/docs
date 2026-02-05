@@ -614,53 +614,79 @@ function drawEnemy(
 
   } else if (type === "threat") {
     // =========================================================================
-    // GDPR FINE - Euro signs of doom
+    // REGULATORY FINES - GDPR, NIS2, DORA rotating based on enemy ID
     // =========================================================================
     const w = ENEMY_WIDTH;
     const h = ENEMY_HEIGHT;
+    const fineType = enemy.id % 3; // 0 = GDPR, 1 = NIS2, 2 = DORA
 
     ctx.translate(x + w / 2, y + h / 2 + bounce);
     ctx.rotate(wobble * 0.07);
     ctx.translate(-w / 2, -h / 2);
 
+    // Different colors per regulation
+    const fineColors = [
+      { bg: "#fef2f2", border: "#dc2626", text: "#991b1b", accent: "#dc2626" }, // GDPR - Red
+      { bg: "#fefce8", border: "#ca8a04", text: "#854d0e", accent: "#eab308" }, // NIS2 - Yellow/Gold
+      { bg: "#f0fdf4", border: "#16a34a", text: "#166534", accent: "#22c55e" }, // DORA - Green
+    ];
+    const fineNames = ["GDPR", "NIS2", "DORA"];
+    const fineSymbols = ["€", "🔒", "🏦"];
+    const colors = fineColors[fineType];
+    const fineName = fineNames[fineType];
+
     // Document/fine background
-    ctx.fillStyle = "#fef2f2";
-    ctx.fillRect(3, 3, w - 6, h - 6);
+    ctx.fillStyle = colors.bg;
+    ctx.fillRect(2, 2, w - 4, h - 4);
 
-    // Red border (DANGER!)
-    ctx.strokeStyle = "#dc2626";
+    // Border
+    ctx.strokeStyle = colors.border;
     ctx.lineWidth = 2;
-    ctx.strokeRect(3, 3, w - 6, h - 6);
+    ctx.strokeRect(2, 2, w - 4, h - 4);
 
-    // Euro symbol with skull features
-    ctx.fillStyle = "#dc2626";
-    ctx.font = "bold 22px monospace";
+    // Header bar
+    ctx.fillStyle = colors.accent;
+    ctx.fillRect(2, 2, w - 4, 10);
+
+    // Regulation name in header
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 7px monospace";
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("€", w / 2, h / 2 - 2);
+    ctx.fillText(fineName, w / 2, 8);
 
-    // Skull eyes on the €
+    // Big warning symbol
+    ctx.fillStyle = colors.border;
+    ctx.font = "bold 16px monospace";
+    ctx.fillText("⚠", w / 2, h / 2 + 2);
+
+    // Angry pixel eyes
     ctx.fillStyle = "#1f2937";
-    ctx.fillRect(w / 2 - 7, h / 2 - 8, 4, 5);
-    ctx.fillRect(w / 2 + 3, h / 2 - 8, 4, 5);
+    ctx.fillRect(w / 2 - 10, h / 2 - 4, 4, 4);
+    ctx.fillRect(w / 2 + 6, h / 2 - 4, 4, 4);
 
-    // "FINE" text
-    ctx.fillStyle = "#991b1b";
-    ctx.font = "bold 8px monospace";
-    ctx.fillText("FINE", w / 2, h - 8);
+    // "FINE" text at bottom
+    ctx.fillStyle = colors.text;
+    ctx.font = "bold 7px monospace";
+    ctx.fillText("FINE!", w / 2, h - 6);
 
-    // Angry eyebrows above
-    ctx.fillStyle = "#dc2626";
-    ctx.fillRect(w / 2 - 10, 6, 8, 3);
-    ctx.fillRect(w / 2 + 2, 6, 8, 3);
-
-    // Flying euro particles
-    ctx.fillStyle = "#fbbf24";
-    ctx.globalAlpha = 0.6;
-    const particleY = (frame * 2 + enemy.id * 20) % 20;
-    ctx.font = "8px monospace";
-    ctx.fillText("€", 6, 10 + particleY);
-    ctx.fillText("€", w - 10, 5 + (20 - particleY));
+    // Flying particles based on type
+    ctx.fillStyle = colors.accent;
+    ctx.globalAlpha = 0.7;
+    const particleY = (frame * 2 + enemy.id * 20) % 16;
+    ctx.font = "7px monospace";
+    if (fineType === 0) { // GDPR - Euros
+      ctx.fillText("€", 5, 14 + particleY);
+      ctx.fillText("€", w - 8, 18 + (16 - particleY));
+    } else if (fineType === 1) { // NIS2 - Locks
+      ctx.fillRect(4, 14 + particleY, 4, 5);
+      ctx.fillRect(w - 8, 18 + (16 - particleY), 4, 5);
+    } else { // DORA - Coins
+      ctx.beginPath();
+      ctx.arc(6, 16 + particleY, 3, 0, Math.PI * 2);
+      ctx.arc(w - 6, 20 + (16 - particleY), 3, 0, Math.PI * 2);
+      ctx.fill();
+    }
     ctx.globalAlpha = 1;
 
     ctx.restore();
@@ -717,159 +743,157 @@ function drawFinding(ctx: CanvasRenderingContext2D, finding: Finding, frame: num
 
 function drawPowerUp(ctx: CanvasRenderingContext2D, powerUp: PowerUp, frame: number) {
   const { x, y, type } = powerUp;
-  const size = 28;
-  const pulse = 1 + Math.sin(frame * 0.2) * 0.15;
   const float = Math.sin(frame * 0.15) * 3;
+  const p = 2; // pixel size for retro look
 
   ctx.save();
-  ctx.translate(x + size / 2, y + size / 2 + float);
-  ctx.scale(pulse, pulse);
+  ctx.translate(x, y + float);
+
+  // Pulsing glow effect
+  const glowSize = 2 + Math.sin(frame * 0.2) * 1;
+  ctx.globalAlpha = 0.3;
+  ctx.fillStyle = type === "shield" ? COLORS.powerupShield : type === "rapid" ? COLORS.powerupRapid : COLORS.powerupMulti;
+  ctx.fillRect(-glowSize, -glowSize, 28 + glowSize * 2, 28 + glowSize * 2);
+  ctx.globalAlpha = 1;
 
   if (type === "shield") {
     // =========================================================================
-    // ISO CERTIFICATION - The ultimate protection!
+    // ISO CERTIFICATION - Pixel art shield/certificate
     // =========================================================================
-    // Glow
-    ctx.fillStyle = COLORS.powerupShield;
-    ctx.globalAlpha = 0.3;
-    ctx.beginPath();
-    ctx.arc(0, 0, size / 2 + 6, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
+    const c = COLORS.powerupShield;
+    const d = "#0891b2"; // darker cyan
 
-    // Shield shape
-    ctx.fillStyle = COLORS.powerupShield;
-    ctx.beginPath();
-    ctx.moveTo(0, -size / 2);
-    ctx.lineTo(size / 2, -size / 4);
-    ctx.lineTo(size / 2, size / 4);
-    ctx.lineTo(0, size / 2);
-    ctx.lineTo(-size / 2, size / 4);
-    ctx.lineTo(-size / 2, -size / 4);
-    ctx.closePath();
-    ctx.fill();
+    // Shield outline (pixel by pixel)
+    //     ████████
+    //   ██        ██
+    //   ██  ISO   ██
+    //   ██ 27001  ██
+    //   ██        ██
+    //     ██    ██
+    //       ████
+    ctx.fillStyle = c;
+    // Top row
+    ctx.fillRect(6, 0, 16, p);
+    // Second row
+    ctx.fillRect(4, p, 4, p); ctx.fillRect(20, p, 4, p);
+    // Sides
+    ctx.fillRect(2, p*2, 4, p*8); ctx.fillRect(22, p*2, 4, p*8);
+    // Inner fill
+    ctx.fillStyle = d;
+    ctx.fillRect(6, p, 16, p*9);
+    // Bottom taper
+    ctx.fillStyle = c;
+    ctx.fillRect(4, p*10, 4, p); ctx.fillRect(20, p*10, 4, p);
+    ctx.fillRect(6, p*11, 4, p); ctx.fillRect(18, p*11, 4, p);
+    ctx.fillRect(10, p*12, 8, p);
 
-    // Inner shield
-    ctx.fillStyle = "#0a1929";
-    ctx.beginPath();
-    ctx.moveTo(0, -size / 2 + 4);
-    ctx.lineTo(size / 2 - 4, -size / 4 + 2);
-    ctx.lineTo(size / 2 - 4, size / 4 - 2);
-    ctx.lineTo(0, size / 2 - 4);
-    ctx.lineTo(-size / 2 + 4, size / 4 - 2);
-    ctx.lineTo(-size / 2 + 4, -size / 4 + 2);
-    ctx.closePath();
-    ctx.fill();
+    // "ISO" text (pixel letters)
+    ctx.fillStyle = "#ffffff";
+    // I
+    ctx.fillRect(8, p*3, p, p*3);
+    // S
+    ctx.fillRect(11, p*3, p*2, p); ctx.fillRect(11, p*4, p, p); ctx.fillRect(11, p*5, p*2, p);
+    ctx.fillRect(12, p*6, p, p); ctx.fillRect(11, p*7, p*2, p);
+    // O
+    ctx.fillRect(15, p*3, p*2, p); ctx.fillRect(14, p*4, p, p*2); ctx.fillRect(17, p*4, p, p*2);
+    ctx.fillRect(15, p*6, p*2, p);
 
-    // ISO text
-    ctx.fillStyle = COLORS.powerupShield;
-    ctx.font = "bold 8px monospace";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("ISO", 0, -3);
-    ctx.font = "bold 6px monospace";
-    ctx.fillText("27001", 0, 6);
+    // Checkmark
+    ctx.fillStyle = "#22c55e";
+    ctx.fillRect(10, p*8, p, p); ctx.fillRect(11, p*9, p, p);
+    ctx.fillRect(12, p*8, p, p); ctx.fillRect(13, p*7, p, p); ctx.fillRect(14, p*6, p, p);
 
   } else if (type === "rapid") {
     // =========================================================================
-    // KOPEXA AUTOMATION - Speed through compliance!
+    // KOPEXA AUTOMATION - Pixel art lightning/speed
     // =========================================================================
-    // Glow
-    ctx.fillStyle = COLORS.powerupRapid;
-    ctx.globalAlpha = 0.3;
-    ctx.beginPath();
-    ctx.arc(0, 0, size / 2 + 6, 0, Math.PI * 2);
-    ctx.fill();
+    const c = COLORS.powerupRapid;
+    const d = "#16a34a"; // darker green
+
+    // Box/monitor shape
+    ctx.fillStyle = c;
+    ctx.fillRect(2, 2, 24, 20);
+    ctx.fillStyle = d;
+    ctx.fillRect(4, 4, 20, 16);
+
+    // Screen content - "K" made of pixels
+    ctx.fillStyle = "#ffffff";
+    // K letter pixel art
+    ctx.fillRect(8, 6, p, p*6);  // vertical line
+    ctx.fillRect(10, 8, p, p);   // middle
+    ctx.fillRect(12, 6, p, p);   // top right
+    ctx.fillRect(12, 12, p, p);  // bottom right
+    ctx.fillRect(14, 6, p, p);
+    ctx.fillRect(14, 12, p, p);
+
+    // Lightning bolt next to K
+    ctx.fillStyle = "#fbbf24";
+    ctx.fillRect(16, 6, p*2, p);
+    ctx.fillRect(15, 7, p*2, p);
+    ctx.fillRect(14, 8, p*3, p);
+    ctx.fillRect(15, 9, p*2, p);
+    ctx.fillRect(16, 10, p*2, p);
+    ctx.fillRect(17, 11, p, p);
+
+    // Stand
+    ctx.fillStyle = c;
+    ctx.fillRect(10, 22, 8, p);
+    ctx.fillRect(8, 24, 12, p);
+
+    // Speed lines (animated)
+    ctx.fillStyle = c;
+    ctx.globalAlpha = 0.6;
+    const lineOffset = frame % 8;
+    ctx.fillRect(26, 6 + lineOffset, 4, p);
+    ctx.fillRect(28, 10 + (8 - lineOffset), 3, p);
     ctx.globalAlpha = 1;
-
-    // Hexagon (tech shape)
-    ctx.fillStyle = COLORS.powerupRapid;
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-      const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
-      const px = Math.cos(angle) * (size / 2);
-      const py = Math.sin(angle) * (size / 2);
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fill();
-
-    // Inner hexagon
-    ctx.fillStyle = "#0a1929";
-    ctx.beginPath();
-    for (let i = 0; i < 6; i++) {
-      const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
-      const px = Math.cos(angle) * (size / 2 - 4);
-      const py = Math.sin(angle) * (size / 2 - 4);
-      if (i === 0) ctx.moveTo(px, py);
-      else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
-    ctx.fill();
-
-    // "K" for Kopexa with lightning effect
-    ctx.fillStyle = COLORS.powerupRapid;
-    ctx.font = "bold 14px monospace";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("K", 0, 1);
-
-    // Lightning sparks
-    ctx.strokeStyle = COLORS.powerupRapid;
-    ctx.lineWidth = 1.5;
-    const sparkAngle = frame * 0.3;
-    ctx.beginPath();
-    ctx.moveTo(Math.cos(sparkAngle) * 8, Math.sin(sparkAngle) * 8);
-    ctx.lineTo(Math.cos(sparkAngle) * 14, Math.sin(sparkAngle) * 14);
-    ctx.stroke();
 
   } else if (type === "multi") {
     // =========================================================================
-    // CONSULTING TEAM - Berater-Power!
+    // CONSULTING TEAM - Pixel art people/team
     // =========================================================================
-    // Glow
-    ctx.fillStyle = COLORS.powerupMulti;
-    ctx.globalAlpha = 0.3;
-    ctx.beginPath();
-    ctx.arc(0, 0, size / 2 + 6, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.globalAlpha = 1;
+    const c = COLORS.powerupMulti;
+    const d = "#7c3aed"; // darker purple
 
-    // Briefcase shape
-    ctx.fillStyle = COLORS.powerupMulti;
-    ctx.fillRect(-size / 2 + 2, -2, size - 4, size / 2);
+    // Three pixel people
+    const drawPerson = (px: number, py: number, color: string) => {
+      ctx.fillStyle = color;
+      // Head
+      ctx.fillRect(px + p, py, p*2, p*2);
+      // Body
+      ctx.fillRect(px, py + p*2, p*4, p*3);
+      // Legs
+      ctx.fillRect(px, py + p*5, p, p*2);
+      ctx.fillRect(px + p*3, py + p*5, p, p*2);
+    };
 
-    // Briefcase handle
+    // Background circle
+    ctx.fillStyle = d;
+    ctx.fillRect(4, 4, 20, 20);
+
+    // Three people (team)
+    drawPerson(4, 8, c);   // Left
+    drawPerson(11, 4, "#ffffff"); // Center (highlighted)
+    drawPerson(18, 8, c);  // Right
+
+    // "x3" badge
+    ctx.fillStyle = "#fbbf24";
+    ctx.fillRect(18, 18, 10, 8);
     ctx.fillStyle = "#0a1929";
-    ctx.fillRect(-5, -6, 10, 6);
-    ctx.fillStyle = COLORS.powerupMulti;
-    ctx.fillRect(-3, -8, 6, 4);
+    // x
+    ctx.fillRect(19, 20, p, p); ctx.fillRect(21, 20, p, p);
+    ctx.fillRect(20, 21, p, p);
+    ctx.fillRect(19, 22, p, p); ctx.fillRect(21, 22, p, p);
+    // 3
+    ctx.fillRect(23, 20, p*2, p); ctx.fillRect(24, 21, p, p);
+    ctx.fillRect(23, 22, p*2, p); ctx.fillRect(24, 23, p, p);
+    ctx.fillRect(23, 24, p*2, p);
 
-    // Briefcase details
-    ctx.fillStyle = "#0a1929";
-    ctx.fillRect(-size / 2 + 5, 2, size - 10, 2);
-    ctx.fillRect(-2, 0, 4, size / 2 - 4);
-
-    // "x3" multiplier
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 8px monospace";
-    ctx.textAlign = "center";
-    ctx.textBaseline = "middle";
-    ctx.fillText("x3", 0, 10);
-
-    // Multiple person icons floating
-    ctx.fillStyle = COLORS.powerupMulti;
-    ctx.globalAlpha = 0.7;
-    const personOffset = Math.sin(frame * 0.2) * 2;
-    // Left person
-    ctx.beginPath();
-    ctx.arc(-10, -10 + personOffset, 3, 0, Math.PI * 2);
-    ctx.fill();
-    // Right person
-    ctx.beginPath();
-    ctx.arc(10, -10 - personOffset, 3, 0, Math.PI * 2);
-    ctx.fill();
+    // Floating sparkles
+    ctx.fillStyle = c;
+    ctx.globalAlpha = 0.5 + Math.sin(frame * 0.3) * 0.3;
+    ctx.fillRect(2, 2 + (frame % 6), p, p);
+    ctx.fillRect(26, 8 - (frame % 6), p, p);
     ctx.globalAlpha = 1;
   }
 
@@ -1595,17 +1619,34 @@ export function ComplianceRunner() {
           ctx.fillText("GRC INVADERS", GAME_WIDTH / 2, 60);
 
           ctx.fillStyle = COLORS.text;
-          ctx.font = "15px monospace";
-          ctx.fillText("Defend against Audits, Shadow IT & GDPR Fines!", GAME_WIDTH / 2, 95);
+          ctx.font = "14px monospace";
+          ctx.fillText("Survive Audits, Shadow IT & Regulatory Fines!", GAME_WIDTH / 2, 95);
 
-          // Legend - new enemy types
-          ctx.font = "12px monospace";
-          ctx.fillStyle = COLORS.threat;
-          ctx.fillText("GDPR Fine (30pt)", 180, 200);
-          ctx.fillStyle = COLORS.vulnerability;
-          ctx.fillText("Shadow IT (20pt)", 400, 200);
+          // Legend - enemy types
+          ctx.font = "11px monospace";
           ctx.fillStyle = COLORS.risk;
-          ctx.fillText("Audit Finding (10pt)", 600, 200);
+          ctx.fillText("Audit Finding", 120, 195);
+          ctx.fillStyle = COLORS.textMuted;
+          ctx.fillText("10pt", 120, 210);
+
+          ctx.fillStyle = COLORS.vulnerability;
+          ctx.fillText("Shadow IT", 280, 195);
+          ctx.fillStyle = COLORS.textMuted;
+          ctx.fillText("20pt", 280, 210);
+
+          ctx.fillStyle = "#dc2626";
+          ctx.fillText("GDPR", 400, 195);
+          ctx.fillStyle = "#eab308";
+          ctx.fillText("NIS2", 450, 195);
+          ctx.fillStyle = "#22c55e";
+          ctx.fillText("DORA", 500, 195);
+          ctx.fillStyle = COLORS.textMuted;
+          ctx.fillText("Fines 30pt", 450, 210);
+
+          ctx.fillStyle = COLORS.boss;
+          ctx.fillText("The Regulator", 640, 195);
+          ctx.fillStyle = COLORS.textMuted;
+          ctx.fillText("BOSS", 640, 210);
 
           // Power-ups legend
           ctx.fillStyle = COLORS.textMuted;
