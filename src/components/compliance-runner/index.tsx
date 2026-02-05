@@ -415,6 +415,9 @@ export function ComplianceRunner() {
     powerUp: null,
   });
   const [canvasSize, setCanvasSize] = useState({ width: GAME_WIDTH, height: GAME_HEIGHT });
+  const [showShareCard, setShowShareCard] = useState(false);
+  const [nickname, setNickname] = useState("");
+  const shareCanvasRef = useRef<HTMLCanvasElement>(null);
 
   // Game state refs
   const gameRef = useRef({
@@ -1098,6 +1101,127 @@ export function ComplianceRunner() {
 
   const { gameState, score, highScore, lives, wave, powerUp } = displayState;
 
+  // Generate and download scorecard
+  const generateScorecard = useCallback(() => {
+    const canvas = shareCanvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const w = 600;
+    const h = 400;
+    canvas.width = w;
+    canvas.height = h;
+
+    // Background gradient
+    const grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, COLORS.background);
+    grad.addColorStop(0.5, COLORS.backgroundMid);
+    grad.addColorStop(1, COLORS.backgroundLight);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+
+    // Stars
+    for (let i = 0; i < 40; i++) {
+      ctx.fillStyle = `rgba(255, 255, 255, ${0.3 + Math.random() * 0.4})`;
+      ctx.fillRect(Math.random() * w, Math.random() * h, Math.random() > 0.7 ? 2 : 1, Math.random() > 0.7 ? 2 : 1);
+    }
+
+    // Border
+    ctx.strokeStyle = COLORS.playerAccent;
+    ctx.lineWidth = 4;
+    ctx.strokeRect(10, 10, w - 20, h - 20);
+
+    // Inner glow border
+    ctx.strokeStyle = `${COLORS.playerAccent}40`;
+    ctx.lineWidth = 8;
+    ctx.strokeRect(14, 14, w - 28, h - 28);
+
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    // Title
+    ctx.fillStyle = COLORS.playerAccent;
+    ctx.font = "bold 36px monospace";
+    ctx.fillText("GRC INVADERS", w / 2, 50);
+
+    // Subtitle
+    ctx.fillStyle = COLORS.textMuted;
+    ctx.font = "14px monospace";
+    ctx.fillText("MISSION COMPLETE", w / 2, 80);
+
+    // Nickname
+    const displayName = nickname.trim() || "ANONYMOUS";
+    ctx.fillStyle = COLORS.text;
+    ctx.font = "bold 24px monospace";
+    ctx.fillText(displayName.toUpperCase(), w / 2, 130);
+
+    // Score box
+    ctx.fillStyle = `${COLORS.playerAccent}20`;
+    ctx.fillRect(w / 2 - 140, 160, 280, 80);
+    ctx.strokeStyle = COLORS.playerAccent;
+    ctx.lineWidth = 2;
+    ctx.strokeRect(w / 2 - 140, 160, 280, 80);
+
+    // Score
+    ctx.fillStyle = COLORS.playerAccent;
+    ctx.font = "bold 42px monospace";
+    ctx.fillText(score.toString().padStart(6, "0"), w / 2, 200);
+
+    // Score label
+    ctx.fillStyle = COLORS.textMuted;
+    ctx.font = "12px monospace";
+    ctx.fillText("FINAL SCORE", w / 2, 225);
+
+    // Stats
+    ctx.fillStyle = COLORS.text;
+    ctx.font = "18px monospace";
+    ctx.fillText(`WAVE ${wave}`, w / 2 - 80, 280);
+
+    // High score indicator
+    if (score >= highScore && score > 0) {
+      ctx.fillStyle = "#fbbf24";
+      ctx.font = "bold 16px monospace";
+      ctx.fillText("★ NEW HIGH SCORE ★", w / 2 + 80, 280);
+    }
+
+    // Draw mini enemies as decoration
+    const enemyColors = [COLORS.threat, COLORS.vulnerability, COLORS.risk];
+    const enemyX = [w / 2 - 100, w / 2, w / 2 + 100];
+    enemyColors.forEach((color, i) => {
+      ctx.fillStyle = color;
+      ctx.fillRect(enemyX[i] - 12, 320, 24, 8);
+      ctx.fillRect(enemyX[i] - 16, 328, 32, 12);
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(enemyX[i] - 10, 330, 4, 4);
+      ctx.fillRect(enemyX[i] + 6, 330, 4, 4);
+    });
+
+    // Footer
+    ctx.fillStyle = COLORS.textMuted;
+    ctx.font = "11px monospace";
+    const date = new Date().toLocaleDateString("de-DE");
+    ctx.fillText(`docs.kopexa.com • ${date}`, w / 2, 370);
+  }, [nickname, score, wave, highScore]);
+
+  // Update scorecard when values change
+  useEffect(() => {
+    if (showShareCard) {
+      generateScorecard();
+    }
+  }, [showShareCard, nickname, generateScorecard]);
+
+  const downloadScorecard = () => {
+    const canvas = shareCanvasRef.current;
+    if (!canvas) return;
+
+    const link = document.createElement("a");
+    link.download = `grc-invaders-${score}-wave${wave}.png`;
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
   return (
     <div className="flex flex-col items-center gap-2 sm:gap-3 w-full" ref={containerRef}>
       {/* HUD */}
@@ -1148,6 +1272,67 @@ export function ComplianceRunner() {
         <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
         <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
       </p>
+
+      {/* Share Score Button - shown on game over */}
+      {gameState === "gameover" && (
+        <button
+          type="button"
+          onClick={() => setShowShareCard(true)}
+          className="mt-2 px-4 py-2 bg-[#22d3ee]/20 hover:bg-[#22d3ee]/30 border border-[#22d3ee]/50 rounded-lg text-[#22d3ee] font-mono text-sm font-bold transition-colors"
+        >
+          📸 Share Score
+        </button>
+      )}
+
+      {/* Share Card Overlay */}
+      {showShareCard && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+          <div className="bg-[#0F263E] border-2 border-[#22d3ee]/50 rounded-xl p-4 sm:p-6 max-w-lg w-full flex flex-col items-center gap-4">
+            <h3 className="text-[#22d3ee] font-mono font-bold text-lg">Share Your Score</h3>
+
+            {/* Nickname input */}
+            <div className="w-full">
+              <label htmlFor="nickname" className="text-white/70 font-mono text-xs mb-1 block">
+                Enter your nickname:
+              </label>
+              <input
+                id="nickname"
+                type="text"
+                value={nickname}
+                onChange={(e) => setNickname(e.target.value.slice(0, 16))}
+                placeholder="ANONYMOUS"
+                maxLength={16}
+                className="w-full px-3 py-2 bg-[#0a1929] border border-[#22d3ee]/30 rounded-lg text-white font-mono text-center uppercase focus:outline-none focus:border-[#22d3ee]"
+              />
+            </div>
+
+            {/* Preview canvas */}
+            <canvas
+              ref={shareCanvasRef}
+              className="w-full max-w-[400px] rounded-lg border border-[#22d3ee]/30"
+              style={{ aspectRatio: "600/400" }}
+            />
+
+            {/* Buttons */}
+            <div className="flex gap-3 w-full">
+              <button
+                type="button"
+                onClick={() => setShowShareCard(false)}
+                className="flex-1 px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-mono text-sm transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={downloadScorecard}
+                className="flex-1 px-4 py-2 bg-[#22d3ee] hover:bg-[#22d3ee]/80 rounded-lg text-[#0a1929] font-mono text-sm font-bold transition-colors"
+              >
+                📥 Download
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
