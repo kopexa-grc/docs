@@ -1511,131 +1511,122 @@ export function ComplianceRunner() {
     link.click();
   };
 
-  // Fullscreen game wrapper
-  const gameContent = (
-    <>
-      {/* HUD */}
-      <div className={`flex flex-wrap justify-center gap-3 sm:gap-6 w-full max-w-[800px] px-2 text-xs sm:text-sm font-mono font-bold ${isFullscreen ? "absolute top-4 left-0 right-0 z-10" : ""}`}>
-        <span className="text-white">
-          SCORE: <span className="text-[#22d3ee]">{score.toString().padStart(6, "0")}</span>
-        </span>
-        <span className="text-[#22c55e]">WAVE {wave}</span>
-        <span className="text-white/60">HI: {highScore.toString().padStart(6, "0")}</span>
-      </div>
-
-      {/* Lives & Power-up & Controls */}
-      <div className={`flex items-center gap-4 text-xs sm:text-sm font-mono ${isFullscreen ? "absolute top-10 left-0 right-0 z-10 justify-center" : ""}`}>
-        <div className="flex items-center gap-2 text-white/70">
-          <span>LIVES:</span>
-          <div className="flex gap-1">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className={`w-5 h-3 sm:w-6 sm:h-4 rounded ${i < lives ? "bg-[#22d3ee]" : "bg-[#22d3ee]/20"}`}
-              />
-            ))}
-          </div>
-        </div>
-        {powerUp && (
-          <div className={`px-2 py-0.5 rounded text-xs font-bold ${
-            powerUp === "shield" ? "bg-[#22d3ee]/30 text-[#22d3ee]" :
-            powerUp === "rapid" ? "bg-[#22c55e]/30 text-[#22c55e]" :
-            "bg-[#a855f7]/30 text-[#a855f7]"
-          }`}>
-            {powerUp === "shield" ? "🛡 SHIELD" : powerUp === "rapid" ? "⚡ RAPID" : "✦ MULTI"}
-          </div>
-        )}
-        {/* Sound & Fullscreen buttons */}
-        <div className="flex gap-2 ml-2">
-          <button
-            type="button"
-            onClick={() => setSoundEnabled(!soundEnabled)}
-            className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
-            title={soundEnabled ? "Mute" : "Unmute"}
-          >
-            {soundEnabled ? "🔊" : "🔇"}
-          </button>
-          <button
-            type="button"
-            onClick={() => setShowSettings(true)}
-            className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
-            title="Settings"
-          >
-            ⚙️
-          </button>
-          <button
-            type="button"
-            onClick={() => setIsFullscreen(!isFullscreen)}
-            className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
-            title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-          >
-            {isFullscreen ? "⛶" : "⛶"}
-          </button>
-        </div>
-      </div>
-
-      {/* Canvas */}
-      <canvas
-        ref={canvasRef}
-        width={GAME_WIDTH}
-        height={GAME_HEIGHT}
-        onClick={(e) => {
-          const game = gameRef.current;
-          if (game.state === "playing") return;
-
-          // Check if click is on share button (game over screen)
-          if (game.state === "gameover" && game.shareButtonBounds) {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const scaleX = GAME_WIDTH / rect.width;
-            const scaleY = GAME_HEIGHT / rect.height;
-            const x = (e.clientX - rect.left) * scaleX;
-            const y = (e.clientY - rect.top) * scaleY;
-            const btn = game.shareButtonBounds;
-
-            if (x >= btn.x && x <= btn.x + btn.w && y >= btn.y && y <= btn.y + btn.h) {
-              setShowShareCard(true);
-              return;
-            }
-          }
-
-          // Otherwise try to start game
-          if (canRestart()) {
-            startGame();
-          }
-        }}
-        className={`rounded-xl border-2 sm:border-4 border-[#22d3ee]/30 cursor-pointer touch-none ${
-          isFullscreen ? "w-full h-full max-w-none max-h-none object-contain" : ""
-        }`}
-        style={isFullscreen ? { width: "100%", height: "100%", objectFit: "contain" } : { width: canvasSize.width, height: canvasSize.height }}
-      />
-
-      {/* Controls - hide in fullscreen during play */}
-      {!isFullscreen && (
-        <p className="text-xs text-white/50 font-mono text-center px-4">
-          <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
-          <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
-        </p>
-      )}
-    </>
-  );
-
   return (
     <>
-      {/* Normal mode */}
-      {!isFullscreen && (
-        <div className="flex flex-col items-center gap-2 sm:gap-3 w-full" ref={containerRef}>
-          {gameContent}
+      {/* Game Container - stays in DOM, fullscreen is just a style change */}
+      <div
+        ref={containerRef}
+        className={`flex flex-col items-center gap-2 sm:gap-3 ${
+          isFullscreen
+            ? "fixed inset-0 z-50 bg-gradient-to-b from-[#0a1929] via-[#0F263E] to-[#1a3a5c] justify-center p-4"
+            : "w-full"
+        }`}
+      >
+        {/* HUD */}
+        <div className="flex flex-wrap justify-center gap-3 sm:gap-6 w-full max-w-[800px] px-2 text-xs sm:text-sm font-mono font-bold">
+          <span className="text-white">
+            SCORE: <span className="text-[#22d3ee]">{score.toString().padStart(6, "0")}</span>
+          </span>
+          <span className="text-[#22c55e]">WAVE {wave}</span>
+          <span className="text-white/60">HI: {highScore.toString().padStart(6, "0")}</span>
         </div>
-      )}
 
-      {/* Fullscreen mode */}
-      {isFullscreen && (
-        <div className="fixed inset-0 z-50 bg-gradient-to-b from-[#0a1929] via-[#0F263E] to-[#1a3a5c] flex flex-col items-center justify-center p-4">
-          <div ref={containerRef} className="relative w-full h-full flex flex-col items-center justify-center">
-            {gameContent}
+        {/* Lives & Power-up & Controls */}
+        <div className="flex items-center gap-4 text-xs sm:text-sm font-mono">
+          <div className="flex items-center gap-2 text-white/70">
+            <span>LIVES:</span>
+            <div className="flex gap-1">
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  className={`w-5 h-3 sm:w-6 sm:h-4 rounded ${i < lives ? "bg-[#22d3ee]" : "bg-[#22d3ee]/20"}`}
+                />
+              ))}
+            </div>
+          </div>
+          {powerUp && (
+            <div className={`px-2 py-0.5 rounded text-xs font-bold ${
+              powerUp === "shield" ? "bg-[#22d3ee]/30 text-[#22d3ee]" :
+              powerUp === "rapid" ? "bg-[#22c55e]/30 text-[#22c55e]" :
+              "bg-[#a855f7]/30 text-[#a855f7]"
+            }`}>
+              {powerUp === "shield" ? "🛡 SHIELD" : powerUp === "rapid" ? "⚡ RAPID" : "✦ MULTI"}
+            </div>
+          )}
+          {/* Sound & Fullscreen buttons */}
+          <div className="flex gap-2 ml-2">
+            <button
+              type="button"
+              onClick={() => setSoundEnabled(!soundEnabled)}
+              className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+              title={soundEnabled ? "Mute" : "Unmute"}
+            >
+              {soundEnabled ? "🔊" : "🔇"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowSettings(true)}
+              className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+              title="Settings"
+            >
+              ⚙️
+            </button>
+            <button
+              type="button"
+              onClick={() => setIsFullscreen(!isFullscreen)}
+              className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+              title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+            >
+              {isFullscreen ? "✕" : "⛶"}
+            </button>
           </div>
         </div>
-      )}
+
+        {/* Canvas */}
+        <canvas
+          ref={canvasRef}
+          width={GAME_WIDTH}
+          height={GAME_HEIGHT}
+          onClick={(e) => {
+            const game = gameRef.current;
+            if (game.state === "playing") return;
+
+            // Check if click is on share button (game over screen)
+            if (game.state === "gameover" && game.shareButtonBounds) {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const scaleX = GAME_WIDTH / rect.width;
+              const scaleY = GAME_HEIGHT / rect.height;
+              const x = (e.clientX - rect.left) * scaleX;
+              const y = (e.clientY - rect.top) * scaleY;
+              const btn = game.shareButtonBounds;
+
+              if (x >= btn.x && x <= btn.x + btn.w && y >= btn.y && y <= btn.y + btn.h) {
+                setShowShareCard(true);
+                return;
+              }
+            }
+
+            // Otherwise try to start game
+            if (canRestart()) {
+              startGame();
+            }
+          }}
+          className="rounded-xl border-2 sm:border-4 border-[#22d3ee]/30 cursor-pointer touch-none"
+          style={
+            isFullscreen
+              ? { width: "min(100%, calc(100vh - 120px) * 4 / 3)", height: "auto", maxHeight: "calc(100vh - 120px)", aspectRatio: "4/3" }
+              : { width: canvasSize.width, height: canvasSize.height }
+          }
+        />
+
+        {/* Controls hint */}
+        {!isFullscreen && (
+          <p className="text-xs text-white/50 font-mono text-center px-4">
+            <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
+            <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
+          </p>
+        )}
+      </div>
 
       {/* Settings Overlay */}
       {showSettings && (
