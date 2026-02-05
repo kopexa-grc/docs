@@ -55,8 +55,8 @@ export default async function GamePage({
 				</div>
 			</header>
 
-			{/* Main Content */}
-			<main className="flex-1 flex flex-col items-center justify-center px-4 py-8">
+			{/* Main Content - using div instead of main to avoid fumadocs !important override */}
+			<div className="flex-1 flex flex-col items-center justify-center px-4 py-8" role="main">
 				<div className="text-center mb-6">
 					<h1 className="text-3xl sm:text-4xl font-bold text-[#22d3ee] font-mono mb-2">
 						GRC INVADERS
@@ -124,7 +124,7 @@ export default async function GamePage({
 						</svg>
 					</Link>
 				</div>
-			</main>
+			</div>
 
 			{/* Footer */}
 			<footer className="border-t border-white/10 bg-black/20">
