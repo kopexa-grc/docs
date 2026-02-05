@@ -1,6 +1,6 @@
 ---
 title: Controls
-description: "Controls als Kernbaustein: Von Framework-Anforderungen über Implementierungen bis hin zu Evidences"
+description: "Controls als Kernbaustein: Von Framework-Anforderungen über Maßnahmen bis hin zu Evidences"
 ---
 
 import { getPageTreePeers } from 'fumadocs-core/page-tree';
@@ -10,21 +10,18 @@ import { source } from '@/lib/source';
   <Card title="Status" href="/platform/compliance/controls/status">
     Lerne mehr über den Control Status
   </Card>
-  <Card title="Control Implementations" href="/platform/compliance/controls/control-implementations">
+  <Card title="Maßnahmen" href="/platform/compliance/controls/control-implementations">
     Erfahre, wie Controls praktisch umgesetzt werden
   </Card>
 </Cards>
 
-## Controls: Der strukturierte Ansatz für nachweisbare Compliance
+## Was ist ein Control?
 
-Controls bilden das strategische Fundament jeder effektiven Compliance-Strategie. Anders als bei traditionellen GRC-Tools, die sich auf das reine Hochladen von Policy-Dokumenten beschränken, implementiert Kopexa einen systematischen Control-basierten Ansatz, der messbare Sicherheitsziele mit konkreten Umsetzungsmaßnahmen verknüpft.
+<Callout>
+**Kurzfassung:** Ein Control ist eine Sicherheitsanforderung, die dein Unternehmen erfüllen muss. Stell es dir wie ein Checklisten-Item vor: *"Wir müssen regelmäßig prüfen, wer auf unsere Systeme zugreifen kann."* Das Control sagt **was** erreicht werden soll – nicht **wie**.
+</Callout>
 
-
-
-## Was sind Controls?
-
-Ein **Control** definiert ein spezifisches Sicherheits- oder Compliance-Ziel, das erreicht werden soll. Controls beschreiben nicht das "Wie", sondern das "Was" - sie geben vor, welcher Sicherheitsstandard erfüllt werden muss, ohne die konkrete Implementierung zu diktieren.
-
+Ein **Control** definiert ein spezifisches Sicherheits- oder Compliance-Ziel. Controls beschreiben nicht das "Wie", sondern das "Was" - sie geben vor, welcher Sicherheitsstandard erfüllt werden muss, ohne die konkrete Umsetzung zu diktieren.
 
 ### Beispiele für Controls:
 
@@ -34,15 +31,17 @@ Ein **Control** definiert ein spezifisches Sicherheits- oder Compliance-Ziel, da
 - **"Backup-Verfahren werden monatlich getestet"**
 
 
-## Controls vs. traditionelle Policy-Uploads
+## Warum Controls statt Policy-Uploads?
 
 | Traditioneller Ansatz | Control-basierter Ansatz (Kopexa) |
 |----------------------|-----------------------------------|
 | Statische PDF/Word-Dokumente | Strukturierte, messbare Ziele |
-| Keine Verknüpfung zu Umsetzung | Direkte Verbindung zu Implementations |
+| Keine Verknüpfung zu Umsetzung | Direkte Verbindung zu Maßnahmen |
 | Schwer auditierbar | Automatisiert prüfbar |
 | Framework-agnostisch | Multi-Framework-Mapping |
 | Einmalige Uploads | Kontinuierliche Überwachung |
+
+Der Unterschied: Mit Controls siehst du nicht nur **was dokumentiert** ist, sondern **was nachweislich funktioniert**.
 
 
 ## Framework-Integration: Ein Control, mehrere Standards
@@ -64,8 +63,8 @@ So wird Doppelarbeit reduziert und ein einheitlicher Nachweis über mehrere Fram
 <Mermaid
     chart={`
 graph TD
-  A[Control<br/>„Was soll erreicht werden?“] --> B[Implementation<br/>„Wie setzen wir es um?“]
-  B --> C[Evidence<br/>„Womit belegen wir das?“]
+  A[Control<br/>„Was soll erreicht werden?"] --> B[Maßnahme<br/>„Wie setzen wir es um?"]
+  B --> C[Evidence<br/>„Womit belegen wir das?"]
 `}
  />
 
@@ -73,7 +72,7 @@ graph TD
 - **Definition**: Was soll erreicht werden?
 - **Beispiel**: "Alle Benutzerkonten müssen eindeutig identifizierbar sein"
 
-### 2. Implementation (Umsetzungsmaßnahme)
+### 2. Maßnahme (Umsetzung)
 - **Definition**: Wie wird das Control umgesetzt?
 - **Beispiel**: "Active Directory-basierte Benutzerauthentifizierung mit eindeutigen Benutzernamen"
 
@@ -81,15 +80,14 @@ graph TD
 - **Definition**: Womit wird die Umsetzung belegt?
 - **Beispiel**: "Screenshot der AD-Benutzerverwaltung + Audit-Log der letzten Zugangsüberprüfung"
 
-
 ### Audit-Perspektive
 
-Auditor:innen bewerten nicht nur Dokumente, sondern die Gesamtheit von Control → Implementation → Evidence.
+Auditor:innen bewerten nicht nur Dokumente, sondern die Gesamtheit von Control → Maßnahme → Evidence.
 
 <Mermaid chart={`
 graph LR
     A[Framework-Anforderung] --> B[Control-Mapping]
-    B --> C[Implementation-Status]
+    B --> C[Maßnahmen-Status]
     C --> D[Evidence-Sammlung]
     D --> E[Audit-Report]
 `} />
@@ -103,12 +101,12 @@ graph LR
 **Zu granular**: "Passwörter müssen mindestens 8 Zeichen haben"
 **Optimal**: "Authentifizierung erfolgt nach bewährten Sicherheitsstandards"
 
-### 2. Implementation-Flexibilität gewährleisten
-Controls sollten verschiedene Implementierungsansätze zulassen:
+### 2. Flexibilität bei Maßnahmen gewährleisten
+Controls sollten verschiedene Umsetzungsansätze zulassen:
 
-**Control: "Sensible Daten werden gegen unbefugten Zugriff geschützt"**.
-Mögliche Implementations:
+**Control: "Sensible Daten werden gegen unbefugten Zugriff geschützt"**
 
+Mögliche Maßnahmen:
 - Encryption-at-Rest via BitLocker
 - Database-Level-Encryption
 - Application-Level-Tokenisierung
@@ -116,54 +114,41 @@ Mögliche Implementations:
 
 
 ### 3. Evidence-Anforderungen definieren
-Jeder Control sollte klare Kriterien für ausreichende Evidenz haben:
+Jedes Control sollte klare Kriterien für ausreichende Evidenz haben:
 
 - **Dokumentarische Evidenz**: Policies, Prozessbeschreibungen
 - **Technische Evidenz**: Screenshots, Konfigurationsdateien, Logs
 - **Testimoniale Evidenz**: Interviews, Bestätigungen
 
 
-## Integration in Ihr bestehendes GRC-Ecosystem
+## Reporting und Dashboards
 
-Controls in Kopexa sind darauf ausgelegt, nahtlos in bestehende Compliance-Landschaften zu integrieren:
+Controls in Kopexa bieten verschiedene Sichten für unterschiedliche Zielgruppen:
 
-### API-basierte Integration
-```
-
-// Beispiel: Control-Status via API abrufen
-const controlStatus = await kopexa.controls({
-    where: {
-        id: "AC-001",
-        framework: "ISO27001"
-    }
-});
-
-console.log(`Control ${controlStatus.name}: ${controlStatus.status}`);
-
-```
-
-
-### Reporting und Dashboards
 - **Executive Dashboards**: High-level Control-Compliance auf einen Blick
-- **Operational Views**: Detaillierte Implementation-Status für Teams
+- **Operational Views**: Detaillierte Maßnahmen-Status für Teams
 - **Audit Reports**: Automatisch generierte Compliance-Nachweise
 
-## Warum der Control-basierte Ansatz überlegen ist
+<Callout type="info" title="Für Entwickler">
+Controls können auch via API abgefragt werden. Dokumentation unter [API-Referenz](/api).
+</Callout>
 
-### Traditionelle Policy-Uploads: Die Limitierungen
-- **Statischer Content**: Keine Verknüpfung zu aktuellen Implementierungen
-- **Audit-Ineffizienz**: Manuelle Prüfung jedes Dokuments erforderlich
-- **Redundanzen**: Gleiche Inhalte in verschiedenen Framework-Dokumenten
-- **Versionsprobleme**: Inkonsistente Policy-Versionen across Frameworks
+## Praxis-Beispiel: Lisa's erster Audit
 
+Lisa ist Compliance-Managerin bei einer SaaS-Firma. Sie muss ISO 27001 und SOC 2 nachweisen.
 
-### Kopexa's Control-Ansatz: Die Vorteile
+**Ohne Kopexa:**
+1. Lisa erstellt separate Excel-Listen für ISO 27001 und SOC 2
+2. Sie lädt Policy-PDFs in verschiedene Ordner
+3. Beim Audit sucht sie manuell nach Nachweisen
+4. Der Auditor fragt: "Wie hängt diese Policy mit der Anforderung zusammen?" – Lisa muss erklären
 
-- **Dynamic Mapping**: Ein Control bedient multiple Frameworks
-- **Implementation-Tracking**: Direkte Verknüpfung zu Umsetzungsmaßnahmen
-- **Automated Evidence**: Continuous Compliance-Monitoring
-- **Audit-Readiness**: Jederzeit prüfbare Compliance-Status
-
+**Mit Kopexa:**
+1. Lisa legt das Control "Zugriffsrechte werden regelmäßig überprüft" an
+2. Sie verknüpft es mit ISO 27001 A.9.2.5 **und** SOC 2 CC6.2
+3. Sie erstellt eine Maßnahme "Quartalsweiser Access Review via Azure AD"
+4. Sie lädt den letzten Review-Report als Evidence hoch
+5. Beim Audit klickt der Auditor auf das Control und sieht sofort: Maßnahme ✓, Evidence ✓, Status: Fulfilled
 
 <Callout>
 Kopexa transformiert Compliance von einem dokumentenlastigen, reaktiven Prozess zu einem strukturierten, kontinuierlich überwachten System.

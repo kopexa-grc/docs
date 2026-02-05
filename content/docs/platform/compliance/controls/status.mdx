@@ -1,6 +1,6 @@
 ---
 title: Status Models
-description: Einheitliche Status-Logik für Controls, Control Implementations und Evidences
+description: Einheitliche Status-Logik für Controls, Maßnahmen und Evidences
 ---
 
 ## Warum Status-Modelle?
@@ -9,7 +9,7 @@ In klassischen GRC-Tools muss der Status oft **manuell gepflegt** werden: Excel-
 Das führt zu **Inkonsistenzen**, widersprüchlichen Bewertungen und viel Nacharbeit in Audits.
 
 Kopexa geht einen anderen Weg:
-Der Status wird **automatisch** berechnet – immer auf Basis der Verknüpfungen zwischen Controls, Implementations und Evidences.
+Der Status wird **automatisch** berechnet – immer auf Basis der Verknüpfungen zwischen Controls, Maßnahmen und Evidences.
 So entsteht eine **lebendige Compliance-Landkarte**, die ohne manuelles Pflegen konsistent bleibt und für Auditor:innen jederzeit nachvollziehbar ist.
 
 <Callout>
@@ -18,16 +18,16 @@ So entsteht eine **lebendige Compliance-Landkarte**, die ohne manuelles Pflegen 
 
 ## Control Status
 
-Controls sind die „oberste Ebene“ – sie definieren, **was** erreicht werden soll.
-Ihr Status ergibt sich automatisch aus den zugeordneten Implementations.
+Controls sind die „oberste Ebene" – sie definieren, **was** erreicht werden soll.
+Ihr Status ergibt sich automatisch aus den zugeordneten Maßnahmen.
 
 | Status | Bedeutung | Typische Ursache |
 |--------|-----------|------------------|
 | **PREPARING** | Control ist angelegt, aber noch nicht weiter bearbeitet | Neu erstellt |
 | **OUT_OF_SCOPE** | Control ist für den Scope nicht relevant | z. B. Technologie nicht im Einsatz |
-| **IN_PROGRESS** | Erste Arbeiten laufen, Implementations werden zugeordnet | Work in progress |
-| **NEEDS_APPROVAL** | Mindestens eine Implementation ist nicht genehmigt oder unvollständig | Review offen |
-| **FULFILLED** | Alle Implementations sind *PUBLISHED* | Erfolgreiche Umsetzung |
+| **IN_PROGRESS** | Erste Arbeiten laufen, Maßnahmen werden zugeordnet | Work in progress |
+| **NEEDS_APPROVAL** | Mindestens eine Maßnahme ist nicht genehmigt oder unvollständig | Review offen |
+| **FULFILLED** | Alle Maßnahmen sind *PUBLISHED* | Erfolgreiche Umsetzung |
 
 <Mermaid chart={`
 graph LR
@@ -42,9 +42,9 @@ graph LR
 - Auditor:innen sehen eine klare Story: von Planung (PREPARING) bis Nachweis (FULFILLED).
 - OUT_OF_SCOPE verhindert, dass irrelevante Anforderungen dein Reporting aufblähen.
 
-## Control Implementation Status
+## Maßnahmen Status
 
-Implementations sind die konkreten **Maßnahmen (TOMs)**, die ein Control umsetzen.
+Maßnahmen (auch TOMs genannt) sind die konkreten Umsetzungen eines Controls.
 Ihr Status hängt ausschließlich von den hinterlegten Evidences ab.
 
 | Status | Bedeutung | Typische Ursache |
@@ -63,12 +63,12 @@ graph LR
 
 **Warum hilfreich?**
 - Du siehst nicht nur, ob eine Maßnahme existiert, sondern ob sie **wirksam nachgewiesen** ist.
-- Das schützt vor „Papier-Controls“, die zwar dokumentiert, aber nicht überprüfbar sind.
+- Das schützt vor „Papier-Controls", die zwar dokumentiert, aber nicht überprüfbar sind.
 - ARCHIVED sorgt dafür, dass alte Maßnahmen nicht fälschlich als aktiv gewertet werden.
 
 ## Evidence Lifecycle
 
-Evidences sind der **Beweis**, dass eine Implementation tatsächlich umgesetzt ist.
+Evidences sind der **Beweis**, dass eine Maßnahme tatsächlich umgesetzt ist.
 Sie verknüpfen Maßnahmen mit Nachweisen – wie Policies, Audit-Logs, Screenshots oder Prozessdokumente.
 
 In Kopexa hängen Evidences oft an **Dokumenten**, die selbst einen Lifecycle haben (Status, Review, Versionierung).
@@ -86,7 +86,7 @@ Dieser Dokument-Lifecycle beeinflusst den Status der Evidence **automatisch**.
 <Mermaid chart={`
 graph LR
   A[Document Lifecycle] --> B[Evidence Status]
-  B --> C[Implementation Status]
+  B --> C[Maßnahmen Status]
   C --> D[Control Status]
 `} />
 
@@ -95,7 +95,7 @@ graph LR
 - Eine Richtlinie (*Document*) läuft in den jährlichen Review-Zyklus.
 - Das Dokument springt auf den Status **"Review required"**.
 - Alle Evidences, die auf dieser Richtlinie basieren, wechseln automatisch auf **"ACTION REQUIRED"**.
-- Die betroffenen Implementations und Controls werden dadurch ebenfalls abgewertet.
+- Die betroffenen Maßnahmen und Controls werden dadurch ebenfalls abgewertet.
 
 So entsteht eine **durchgehende Kette**: Dokument → Evidence → Implementation → Control.
 
@@ -128,11 +128,11 @@ Mit Kopexa siehst du nicht nur, **was geplant** ist, sondern auch **was nachweis
   </Accordion>
   <Accordion title="Kann ich den Status manuell überschreiben?">
     Nein. Status sind **immer systemisch berechnet**, um Manipulation und Fehler auszuschließen.
-    Du steuerst einen Status indirekt, indem du **Implementations** pflegst und **Evidences** bereitstellst.
+    Du steuerst einen Status indirekt, indem du **Maßnahmen** pflegst und **Evidences** bereitstellst.
   </Accordion>
   <Accordion title="Was unterscheidet Evidence von einem Dokument?">
       Ein Dokument ist eine **Quelle** (z. B. Policy-PDF, Screenshot).
-      Eine Evidence ist der **Nachweis**, dass dieses Dokument zur Umsetzung einer Implementation genutzt wird.
+      Eine Evidence ist der **Nachweis**, dass dieses Dokument zur Umsetzung einer Maßnahme genutzt wird.
   </Accordion>
   <Accordion title='Warum gibt es "Out of Scope"?'>
       Damit du klar zeigen kannst, dass ein Control im **Audit-Scope irrelevant** ist – ohne es zu löschen.
