@@ -454,6 +454,8 @@ export function ComplianceRunner() {
     waveEnemiesSpawned: 0,
     waveEnemiesKilled: 0,
     waveTarget: 0,
+    // Invincibility after hit
+    invincibleUntil: 0,
   });
 
   const keysRef = useRef<Set<string>>(new Set());
@@ -561,6 +563,7 @@ export function ComplianceRunner() {
     game.waveEnemiesSpawned = 0;
     game.waveEnemiesKilled = 0;
     game.waveTarget = 0;
+    game.invincibleUntil = 0;
 
     setDisplayState((s) => ({
       ...s,
@@ -877,6 +880,32 @@ export function ComplianceRunner() {
 
         // Collision: findings vs player
         const playerY = GAME_HEIGHT - 65;
+        const isInvincible = now < game.invincibleUntil;
+
+        // Helper function for taking damage
+        const takeDamage = () => {
+          if (isInvincible) return false;
+          if (game.hasShield) {
+            game.hasShield = false;
+            return false;
+          }
+          game.lives--;
+          game.invincibleUntil = now + 1500; // 1.5 seconds invincibility
+          // Hit flash particles
+          for (let i = 0; i < 15; i++) {
+            game.particles.push({
+              x: game.playerX + PLAYER_WIDTH / 2,
+              y: playerY + PLAYER_HEIGHT / 2,
+              vx: (Math.random() - 0.5) * 8,
+              vy: (Math.random() - 0.5) * 8,
+              life: 1,
+              color: COLORS.risk,
+              size: 5,
+            });
+          }
+          return true;
+        };
+
         game.findings = game.findings.filter((f) => {
           if (
             f.x < game.playerX + PLAYER_WIDTH &&
@@ -884,28 +913,26 @@ export function ComplianceRunner() {
             f.y < playerY + PLAYER_HEIGHT &&
             f.y + 16 > playerY
           ) {
-            if (game.hasShield) {
-              // Shield absorbs
-              game.hasShield = false;
-            } else {
-              game.lives--;
-              // Hit flash particles
-              for (let i = 0; i < 10; i++) {
-                game.particles.push({
-                  x: game.playerX + PLAYER_WIDTH / 2,
-                  y: playerY + PLAYER_HEIGHT / 2,
-                  vx: (Math.random() - 0.5) * 6,
-                  vy: (Math.random() - 0.5) * 6,
-                  life: 1,
-                  color: COLORS.risk,
-                  size: 4,
-                });
-              }
-            }
+            takeDamage();
             return false;
           }
           return true;
         });
+
+        // Collision: enemies vs player
+        for (const enemy of game.enemies) {
+          const ew = enemy.type === "boss" ? ENEMY_WIDTH * 2.5 : ENEMY_WIDTH;
+          const eh = enemy.type === "boss" ? ENEMY_HEIGHT * 2.5 : ENEMY_HEIGHT;
+          if (
+            game.playerX < enemy.x + ew &&
+            game.playerX + PLAYER_WIDTH > enemy.x &&
+            playerY < enemy.y + eh &&
+            playerY + PLAYER_HEIGHT > enemy.y
+          ) {
+            takeDamage();
+            break; // Only take damage once per frame
+          }
+        }
 
         // Collision: power-ups vs player
         game.powerUps = game.powerUps.filter((p) => {
@@ -973,7 +1000,12 @@ export function ComplianceRunner() {
         game.findings.forEach((f) => drawFinding(ctx, f, game.frame));
         game.enemies.forEach((e) => drawEnemy(ctx, e, game.frame));
         game.bullets.forEach((b) => drawBullet(ctx, b.x, b.y, b.angle));
-        drawPlayer(ctx, game.playerX, playerY, game.hasShield, game.frame);
+
+        // Draw player with invincibility flashing
+        const isCurrentlyInvincible = now < game.invincibleUntil;
+        if (!isCurrentlyInvincible || Math.floor(game.frame / 4) % 2 === 0) {
+          drawPlayer(ctx, game.playerX, playerY, game.hasShield, game.frame);
+        }
 
         // Touch zone hints
         ctx.fillStyle = "rgba(34, 211, 238, 0.02)";
