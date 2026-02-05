@@ -414,11 +414,15 @@ export function PixelAnimation() {
       <button
         type="button"
         onClick={handleRobotClick}
-        className="absolute bottom-8 transition-transform duration-150 ease-linear pointer-events-auto cursor-pointer hover:scale-110 focus:outline-none"
+        onTouchEnd={(e) => {
+          e.preventDefault();
+          handleRobotClick();
+        }}
+        className="absolute bottom-6 transition-transform duration-150 ease-linear pointer-events-auto cursor-pointer hover:scale-110 active:scale-95 focus:outline-none touch-manipulation p-2 -m-2"
         style={{ left: `${robotPosition}%` }}
         aria-label="Say hi to Kopexa Bot"
       >
-        <Robot frame={frame} isWaving={isWaving} className="w-10 h-12 opacity-90" />
+        <Robot frame={frame} isWaving={isWaving} className="w-12 h-14 opacity-90 sm:w-10 sm:h-12" />
       </button>
     </div>
   );
