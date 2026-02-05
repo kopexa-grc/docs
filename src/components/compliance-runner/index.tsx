@@ -100,58 +100,58 @@ type Formation = {
 
 function createFormation(waveNum: number): Formation {
   const formations: (() => Formation)[] = [
-    // V-Formation
+    // V-Formation - starts with 3, max 7
     () => {
       const enemies: Formation["enemies"] = [];
-      const count = Math.min(5 + Math.floor(waveNum / 2), 9);
+      const count = Math.min(3 + Math.floor(waveNum / 2), 7);
       for (let i = 0; i < count; i++) {
         const row = Math.abs(i - Math.floor(count / 2));
         enemies.push({
-          x: GAME_WIDTH / 2 + (i - count / 2) * 60,
-          y: -50 - row * 40,
+          x: GAME_WIDTH / 2 + (i - count / 2) * 65,
+          y: -50 - row * 45,
           type: i === Math.floor(count / 2) ? "threat" : row === 0 ? "vulnerability" : "risk",
           pattern: "swoop",
         });
       }
       return { name: "V-Formation", enemies };
     },
-    // Line wave
+    // Line wave - starts with 4, max 10
     () => {
       const enemies: Formation["enemies"] = [];
-      const count = Math.min(6 + waveNum, 12);
+      const count = Math.min(4 + Math.floor(waveNum * 0.8), 10);
       for (let i = 0; i < count; i++) {
         enemies.push({
-          x: 50 + (i * (GAME_WIDTH - 100)) / count,
-          y: -50 - (i % 2) * 30,
+          x: 60 + (i * (GAME_WIDTH - 120)) / count,
+          y: -50 - (i % 2) * 35,
           type: i % 3 === 0 ? "threat" : i % 3 === 1 ? "vulnerability" : "risk",
           pattern: "dive",
         });
       }
       return { name: "Wave", enemies };
     },
-    // Circle formation
+    // Circle formation - starts with 4, max 8
     () => {
       const enemies: Formation["enemies"] = [];
-      const count = Math.min(6 + Math.floor(waveNum / 2), 10);
+      const count = Math.min(4 + Math.floor(waveNum / 2), 8);
       for (let i = 0; i < count; i++) {
         const angle = (i / count) * Math.PI * 2;
         enemies.push({
-          x: GAME_WIDTH / 2 + Math.cos(angle) * 120,
-          y: -100 + Math.sin(angle) * 60,
+          x: GAME_WIDTH / 2 + Math.cos(angle) * 110,
+          y: -100 + Math.sin(angle) * 50,
           type: i % 2 === 0 ? "vulnerability" : "risk",
           pattern: "circle",
         });
       }
       return { name: "Circle", enemies };
     },
-    // Zigzag attackers
+    // Zigzag attackers - starts with 2, max 6
     () => {
       const enemies: Formation["enemies"] = [];
-      const count = Math.min(4 + Math.floor(waveNum / 2), 8);
+      const count = Math.min(2 + Math.floor(waveNum / 2), 6);
       for (let i = 0; i < count; i++) {
         enemies.push({
-          x: 100 + (i * (GAME_WIDTH - 200)) / count,
-          y: -50 - i * 20,
+          x: 120 + (i * (GAME_WIDTH - 240)) / Math.max(count - 1, 1),
+          y: -50 - i * 25,
           type: "threat",
           pattern: "zigzag",
         });
@@ -511,7 +511,7 @@ export function ComplianceRunner() {
           startX: e.x,
           startY: e.y,
           angle: 0,
-          speed: 1.5 + waveNum * 0.1,
+          speed: 0.5 + waveNum * 0.08,
         });
         game.waveEnemiesSpawned++;
       }, i * 150);
@@ -533,7 +533,7 @@ export function ComplianceRunner() {
       startX: GAME_WIDTH / 2 - 50,
       startY: 60,
       angle: 0,
-      speed: 2,
+      speed: 0.8 + waveNum * 0.05,
     });
     game.waveEnemiesSpawned++;
     game.waveTarget = 1;
@@ -710,57 +710,59 @@ export function ComplianceRunner() {
             case "swoop": {
               // Swoop down then oscillate
               if (e.y < 120) {
-                e.y += e.speed * 1.5;
+                e.y += e.speed * 1.2;
               } else {
-                e.x = e.startX + Math.sin(t * 2) * 80;
-                e.y = 120 + Math.sin(t) * 30;
+                e.x = e.startX + Math.sin(t * 1.2) * 60;
+                e.y = 120 + Math.sin(t * 0.8) * 25;
               }
               break;
             }
             case "dive": {
               // Dive toward player area
               if (e.y < 80) {
-                e.y += e.speed * 2;
+                e.y += e.speed * 1.5;
               } else if (e.y < 350) {
-                e.y += e.speed * 0.8;
-                e.x += Math.sin(t * 3) * 2;
+                e.y += e.speed * 0.6;
+                e.x += Math.sin(t * 2) * 1.5;
               } else {
                 // Pull back up
-                e.y -= e.speed * 0.5;
+                e.y -= e.speed * 0.4;
                 e.startY = e.y;
               }
               break;
             }
             case "circle": {
-              e.angle += 0.02;
-              e.x = GAME_WIDTH / 2 + Math.cos(e.angle + e.id * 0.5) * (150 + Math.sin(t) * 30);
-              e.y = 150 + Math.sin(e.angle + e.id * 0.5) * 80;
+              e.angle += 0.012 + game.wave * 0.001;
+              e.x = GAME_WIDTH / 2 + Math.cos(e.angle + e.id * 0.5) * (140 + Math.sin(t * 0.5) * 20);
+              e.y = 140 + Math.sin(e.angle + e.id * 0.5) * 60;
               break;
             }
             case "zigzag": {
-              e.y += e.speed * 0.7;
-              e.x = e.startX + Math.sin(t * 4) * 100;
-              if (e.y > 400) {
+              e.y += e.speed * 0.5;
+              e.x = e.startX + Math.sin(t * 2.5) * 80;
+              if (e.y > 420) {
                 e.y = -50;
                 e.patternTime = 0;
               }
               break;
             }
             case "boss": {
-              // Boss movement
+              // Boss movement - scales with wave
+              const bossSpeedMult = 0.4 + game.wave * 0.03;
               if (e.y < e.startY) {
-                e.y += 1;
+                e.y += 0.8;
               } else {
-                e.x = GAME_WIDTH / 2 - 50 + Math.sin(t * 0.8) * 200;
-                e.y = e.startY + Math.sin(t * 0.5) * 30;
+                e.x = GAME_WIDTH / 2 - 50 + Math.sin(t * bossSpeedMult) * 180;
+                e.y = e.startY + Math.sin(t * bossSpeedMult * 0.6) * 25;
 
-                // Boss drops findings
-                if (Math.random() < 0.02) {
+                // Boss drops findings - rate scales with wave
+                const dropChance = 0.008 + game.wave * 0.002;
+                if (Math.random() < dropChance) {
                   game.findings.push({
                     id: game.findingIdCounter++,
                     x: e.x + 40 + Math.random() * 20,
                     y: e.y + 80,
-                    speed: 3 + Math.random() * 2,
+                    speed: 1.5 + Math.random() * 1 + game.wave * 0.1,
                     type: ["gap", "incident", "finding"][Math.floor(Math.random() * 3)] as Finding["type"],
                   });
                 }
@@ -769,13 +771,14 @@ export function ComplianceRunner() {
             }
           }
 
-          // Random finding drops from regular enemies
-          if (e.pattern !== "boss" && Math.random() < 0.002) {
+          // Random finding drops from regular enemies - scales with wave
+          const enemyDropChance = 0.001 + game.wave * 0.0003;
+          if (e.pattern !== "boss" && Math.random() < enemyDropChance) {
             game.findings.push({
               id: game.findingIdCounter++,
               x: e.x + ENEMY_WIDTH / 2,
               y: e.y + ENEMY_HEIGHT,
-              speed: 2 + Math.random() * 2,
+              speed: 1.2 + Math.random() * 0.8 + game.wave * 0.08,
               type: ["gap", "incident", "finding"][Math.floor(Math.random() * 3)] as Finding["type"],
             });
           }
@@ -946,8 +949,8 @@ export function ComplianceRunner() {
           game.bossWave = false;
         }
 
-        // Spawn additional formations mid-wave
-        if (!game.bossWave && game.enemies.length < 3 && game.waveEnemiesKilled < game.waveTarget - 2) {
+        // Spawn additional formations mid-wave (only after wave 3, and less aggressively)
+        if (!game.bossWave && game.wave >= 3 && game.enemies.length < 2 && game.waveEnemiesKilled < game.waveTarget - 3) {
           spawnFormation(game.wave);
         }
 
