@@ -1,0 +1,207 @@
+---
+title: Programme
+description: Programme koordinieren Compliance-Aktivitäten, Controls und Evidenzen für Zertifizierungen, Audits und laufende Compliance
+---
+
+## Was ist ein Programm?
+
+<Callout>
+**Kurzfassung:** Ein Programm ist deine Compliance-Initiative auf höchster Ebene. Es bündelt alles, was du brauchst, um eine Zertifizierung zu erreichen, ein Audit vorzubereiten oder laufende Compliance zu managen – Controls, Maßnahmen, Evidenzen, Aufgaben und Zeitpläne.
+</Callout>
+
+Ein Programm in Kopexa repräsentiert ein strukturiertes Compliance-Vorhaben, das sich über Monate oder sogar Jahre erstrecken kann. Es koordiniert die Arbeit verschiedener Teams und gibt dir den Überblick über den Gesamtfortschritt.
+
+**Typische Programme:**
+- ISO 27001 Erstzertifizierung
+- SOC 2 Type II Audit-Vorbereitung
+- NIS2-Compliance-Projekt
+- Jährliches ISMS-Review
+- Lieferanten-Risikobewertung
+
+## Programm vs. andere Konzepte
+
+| Konzept | Ebene | Beschreibung |
+|---------|-------|--------------|
+| **Space** | Organisation | Container für alle Compliance-Aktivitäten einer Einheit |
+| **Programm** | Initiative | Koordiniert ein spezifisches Compliance-Ziel über Zeit |
+| **Assessment** | Bewertung | Wird vom Programm erstellt (z.B. Gap-Analyse) |
+| **Controls** | Anforderung | Werden vom Framework ins Programm importiert |
+| **Maßnahmen** | Umsetzung | Konkrete Implementierung der Controls |
+
+<Mermaid chart={`
+graph TD
+    S[Space] --> P1[Programm: ISO 27001]
+    S --> P2[Programm: SOC 2]
+    P1 --> A1[Assessment: Gap-Analyse]
+    P1 --> A2[Assessment: Internes Audit]
+    A1 --> C1[93 Controls]
+    C1 --> M1[Massnahmen]
+    M1 --> E1[Evidenzen]
+`} />
+
+## Wann brauche ich ein Programm?
+
+| Szenario | Programm sinnvoll? |
+|----------|-------------------|
+| Erstzertifizierung ISO 27001 | ✅ Ja – 6-12 Monate Laufzeit, viele Beteiligte |
+| Jährliches Surveillance-Audit | ✅ Ja – Strukturierte Vorbereitung |
+| Einzelne Policy aktualisieren | ❌ Nein – Direkt im Dokument bearbeiten |
+| Neuen Lieferanten onboarden | ⚠️ Kommt drauf an – Bei kritischen Lieferanten ggf. eigenes Programm |
+| Multi-Framework-Compliance | ✅ Ja – Ein Programm pro Framework oder kombiniert |
+
+## Programm erstellen
+
+1. Öffne deinen **Space**
+2. Klicke auf **Neues Programm**
+3. Wähle ein **Framework** (z.B. ISO 27001:2022, SOC 2, NIS2)
+4. Definiere **Start- und Zieltermin**
+5. Kopexa erstellt automatisch:
+   - Alle Controls des Frameworks
+   - Ein initiales Gap-Assessment
+   - Eine Fortschritts-Heatmap
+
+<Callout type="info">
+Das Zieldatum ist nicht nur kosmetisch – Kopexa berechnet daraus Meilensteine und warnt, wenn der Fortschritt hinter dem Zeitplan liegt.
+</Callout>
+
+## Aufbau eines Programms
+
+### Timeline & Meilensteine
+
+Ein Programm hat einen definierten Zeitrahmen:
+
+```
+Start ─────────────────────────────────────────────── Ziel
+  │                                                      │
+  ├── Gap-Analyse abschließen (Monat 1-2)               │
+  ├── Kritische Controls umsetzen (Monat 2-4)           │
+  ├── Dokumentation vervollständigen (Monat 4-6)        │
+  ├── Internes Audit (Monat 6)                          │
+  └── Externes Audit (Zieltermin) ──────────────────────┘
+```
+
+### Controls & Status
+
+Das Programm zeigt alle Framework-Controls mit ihrem aktuellen Status:
+
+| Status | Bedeutung | Aktion |
+|--------|-----------|--------|
+| **PREPARING** | Noch nicht begonnen | Maßnahme zuordnen |
+| **IN_PROGRESS** | Umsetzung läuft | Evidenzen sammeln |
+| **NEEDS_APPROVAL** | Review erforderlich | Freigabe einholen |
+| **FULFILLED** | Vollständig umgesetzt | ✅ Erledigt |
+| **OUT_OF_SCOPE** | Nicht anwendbar | Begründung dokumentiert |
+
+### Fortschritts-Dashboard
+
+Das Programm-Dashboard zeigt:
+- **Gesamtfortschritt** als Prozent
+- **Heatmap** nach Control-Kategorien
+- **Zeitplan-Status** (on track / behind / at risk)
+- **Offene Aufgaben** nach Verantwortlichen
+
+## Programm-Typen
+
+### Zertifizierungs-Programm
+
+Für Erstzertifizierungen wie ISO 27001, SOC 2, TISAX:
+
+- Längere Laufzeit (6-18 Monate)
+- Vollständige Control-Abdeckung erforderlich
+- Endet mit externem Audit
+
+### Audit-Vorbereitungs-Programm
+
+Für wiederkehrende Audits (Surveillance, Rezertifizierung):
+
+- Kürzere Laufzeit (2-3 Monate)
+- Fokus auf geänderte Controls und neue Evidenzen
+- Review bestehender Maßnahmen
+
+### Continuous-Compliance-Programm
+
+Für laufende Compliance ohne festes Enddatum:
+
+- Kein Zieltermin, sondern rollierender Prozess
+- Automatische Erinnerungen für Reviews
+- Integration mit Monitoring-Tools
+
+## Multi-Framework-Programme
+
+Eine Maßnahme kann mehrere Controls aus verschiedenen Frameworks erfüllen. Kopexa unterstützt zwei Ansätze:
+
+### Option 1: Separate Programme
+
+```
+Space
+├── Programm: ISO 27001
+└── Programm: SOC 2
+    └── Maßnahmen werden automatisch verknüpft
+```
+
+**Vorteil:** Klare Trennung, separate Timelines
+**Nachteil:** Mehr Verwaltungsaufwand
+
+### Option 2: Kombiniertes Programm
+
+```
+Space
+└── Programm: ISO 27001 + SOC 2
+    └── Unified Control Set mit Mapping
+```
+
+**Vorteil:** Eine Übersicht, keine Doppelarbeit
+**Nachteil:** Komplexeres Reporting
+
+<Callout type="info">
+Kopexa erkennt überlappende Controls automatisch. Wenn du eine Maßnahme für ISO 27001 A.9.4.2 erstellst, wird sie automatisch auch für SOC 2 CC6.1 vorgeschlagen.
+</Callout>
+
+## Best Practices
+
+### 1. Realistischen Zeitplan setzen
+
+| Programm-Typ | Typische Dauer |
+|--------------|----------------|
+| ISO 27001 Erstzertifizierung | 9-12 Monate |
+| SOC 2 Type I | 3-6 Monate |
+| SOC 2 Type II | 6-12 Monate (+ Beobachtungszeitraum) |
+| NIS2-Compliance | 6-9 Monate |
+| Surveillance-Audit-Prep | 2-3 Monate |
+
+### 2. Owner früh zuweisen
+
+Jedes Control sollte einen Owner haben. Verteile die Verantwortung:
+
+- **IT-Security:** Technische Controls (Access, Encryption, Logging)
+- **HR:** People Controls (Onboarding, Training, Offboarding)
+- **Facility:** Physical Controls (Zutritt, Clean Desk)
+- **Legal:** Compliance Controls (Verträge, Datenschutz)
+
+### 3. Quick Wins zuerst
+
+Starte mit Controls, die bereits erfüllt sind – das zeigt schnell Fortschritt und motiviert das Team.
+
+### 4. Regelmäßige Reviews
+
+Plane wöchentliche oder zweiwöchentliche Programm-Reviews:
+- Was wurde erledigt?
+- Was blockiert?
+- Sind wir im Zeitplan?
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Kann ich ein Programm pausieren?">
+    Ja. Du kannst den Status auf "Pausiert" setzen. Controls und Maßnahmen bleiben erhalten, aber Erinnerungen werden deaktiviert.
+  </Accordion>
+  <Accordion title="Was passiert nach Abschluss eines Programms?">
+    Das Programm wird archiviert. Alle Controls, Maßnahmen und Evidenzen bleiben als historische Referenz erhalten. Für das nächste Audit erstellst du ein neues Programm.
+  </Accordion>
+  <Accordion title="Kann ich Controls zwischen Programmen teilen?">
+    Maßnahmen und Evidenzen können programmübergreifend verknüpft werden. Die Controls selbst gehören zum jeweiligen Programm, aber die Umsetzung (Maßnahme) ist wiederverwendbar.
+  </Accordion>
+  <Accordion title="Wie viele Programme kann ein Space haben?">
+    Unbegrenzt. Ein typisches Setup: Ein Programm pro aktivem Framework plus ggf. interne Audit-Programme.
+  </Accordion>
+</Accordions>
