@@ -401,71 +401,272 @@ function drawEnemy(
   frame: number
 ) {
   const { x, y, type, health, maxHealth } = enemy;
-
-  const colorMap: Record<EnemyType, { main: string; dark: string }> = {
-    risk: { main: COLORS.risk, dark: COLORS.riskDark },
-    vulnerability: { main: COLORS.vulnerability, dark: COLORS.vulnerabilityDark },
-    threat: { main: COLORS.threat, dark: COLORS.threatDark },
-    boss: { main: COLORS.boss, dark: COLORS.bossDark },
-  };
-
-  const { main, dark } = colorMap[type];
-  const size = type === "boss" ? 2.5 : 1;
-  const w = ENEMY_WIDTH * size;
-  const h = ENEMY_HEIGHT * size;
-
-  // Wobble animation
   const wobble = Math.sin(frame * 0.15 + enemy.id) * 2;
+  const bounce = Math.sin(frame * 0.1 + enemy.id) * 2;
 
   ctx.save();
-  ctx.translate(x + w / 2, y + h / 2);
-  ctx.rotate(wobble * 0.05);
-  ctx.translate(-w / 2, -h / 2);
 
-  // Body
-  drawPixelRect(ctx, w * 0.2, 0, w * 0.6, h * 0.15, main);
-  drawPixelRect(ctx, w * 0.1, h * 0.15, w * 0.8, h * 0.15, main);
-  drawPixelRect(ctx, 0, h * 0.3, w, h * 0.35, dark);
-
-  // Eyes
-  const eyeSize = type === "boss" ? 12 : 6;
-  const eyeY = h * 0.35;
-  drawPixelRect(ctx, w * 0.2, eyeY, eyeSize, eyeSize, "#ffffff");
-  drawPixelRect(ctx, w * 0.6, eyeY, eyeSize, eyeSize, "#ffffff");
-
-  // Angry eyebrows for boss
   if (type === "boss") {
-    ctx.fillStyle = dark;
-    ctx.fillRect(w * 0.15, eyeY - 4, eyeSize + 6, 4);
-    ctx.fillRect(w * 0.55, eyeY - 4, eyeSize + 6, 4);
-  }
+    // =========================================================================
+    // THE REGULATOR - Big intimidating EU-style regulatory boss
+    // =========================================================================
+    const w = ENEMY_WIDTH * 2.5;
+    const h = ENEMY_HEIGHT * 2.5;
 
-  // Pupils (follow player direction implied by wobble)
-  const pupilOffset = wobble > 0 ? 2 : -2;
-  drawPixelRect(ctx, w * 0.25 + pupilOffset, eyeY + 2, eyeSize / 2, eyeSize / 2, main);
-  drawPixelRect(ctx, w * 0.65 + pupilOffset, eyeY + 2, eyeSize / 2, eyeSize / 2, main);
+    ctx.translate(x + w / 2, y + h / 2);
+    ctx.rotate(wobble * 0.03);
+    ctx.translate(-w / 2, -h / 2);
 
-  // Tentacles/legs
-  const legCount = type === "boss" ? 6 : 4;
-  const legWidth = w / (legCount * 2);
-  for (let i = 0; i < legCount; i++) {
-    const legX = (w / (legCount + 1)) * (i + 1) - legWidth / 2;
-    const legWobble = Math.sin(frame * 0.2 + i) * 3;
-    drawPixelRect(ctx, legX + legWobble, h * 0.65, legWidth, h * 0.35, dark);
+    // Body - suit shape
+    ctx.fillStyle = "#1e3a5f";
+    ctx.fillRect(8, 25, w - 16, h - 30);
+
+    // Suit lapels
+    ctx.fillStyle = "#0f2744";
+    ctx.beginPath();
+    ctx.moveTo(w / 2, 25);
+    ctx.lineTo(w / 2 - 20, 55);
+    ctx.lineTo(w / 2, 70);
+    ctx.lineTo(w / 2 + 20, 55);
+    ctx.closePath();
+    ctx.fill();
+
+    // Tie (red for danger)
+    ctx.fillStyle = "#dc2626";
+    ctx.fillRect(w / 2 - 5, 35, 10, 35);
+    ctx.beginPath();
+    ctx.moveTo(w / 2 - 8, 70);
+    ctx.lineTo(w / 2, 85);
+    ctx.lineTo(w / 2 + 8, 70);
+    ctx.closePath();
+    ctx.fill();
+
+    // Head
+    ctx.fillStyle = "#fbbf24";
+    ctx.fillRect(w / 2 - 22, 0, 44, 30);
+    ctx.fillRect(w / 2 - 18, 28, 36, 8);
+
+    // EU Stars crown (regulatory power!)
+    ctx.fillStyle = "#fbbf24";
+    const starRadius = 6;
+    for (let i = 0; i < 5; i++) {
+      const angle = (i / 5) * Math.PI - Math.PI / 2;
+      const starX = w / 2 + Math.cos(angle) * 28;
+      const starY = 15 + Math.sin(angle) * 12 - 18;
+      ctx.beginPath();
+      ctx.arc(starX, starY, starRadius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Angry eyes
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(w / 2 - 16, 8, 10, 10);
+    ctx.fillRect(w / 2 + 6, 8, 10, 10);
+
+    // Angry eyebrows
+    ctx.fillStyle = "#0f2744";
+    ctx.fillRect(w / 2 - 18, 4, 14, 4);
+    ctx.fillRect(w / 2 + 4, 4, 14, 4);
+
+    // Red glowing pupils
+    ctx.fillStyle = "#dc2626";
+    const pupilX = wobble > 0 ? 2 : -2;
+    ctx.fillRect(w / 2 - 13 + pupilX, 11, 5, 5);
+    ctx.fillRect(w / 2 + 9 + pupilX, 11, 5, 5);
+
+    // Frown
+    ctx.fillStyle = "#0f2744";
+    ctx.fillRect(w / 2 - 10, 22, 20, 3);
+
+    // Magnifying glass (audit tool!)
+    ctx.save();
+    ctx.translate(w - 15, 40);
+    ctx.rotate(0.3 + wobble * 0.05);
+    ctx.strokeStyle = "#fbbf24";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(0, 0, 15, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.fillStyle = "rgba(251, 191, 36, 0.3)";
+    ctx.fill();
+    ctx.fillStyle = "#fbbf24";
+    ctx.fillRect(10, 10, 6, 20);
+    ctx.restore();
+
+    // "AUDIT" text on clipboard he's holding
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(5, 45, 25, 35);
+    ctx.fillStyle = "#dc2626";
+    ctx.font = "bold 7px monospace";
+    ctx.fillText("AUDIT", 7, 58);
+    ctx.fillStyle = "#1e3a5f";
+    ctx.fillRect(8, 62, 18, 2);
+    ctx.fillRect(8, 67, 15, 2);
+    ctx.fillRect(8, 72, 18, 2);
+
+    ctx.restore();
+
+    // Health bar
+    if (health < maxHealth) {
+      const barWidth = w;
+      const healthPercent = health / maxHealth;
+      ctx.fillStyle = "#1f2937";
+      ctx.fillRect(x, y - 12, barWidth, 6);
+      ctx.fillStyle = healthPercent > 0.5 ? "#22c55e" : healthPercent > 0.25 ? "#fbbf24" : "#ef4444";
+      ctx.fillRect(x, y - 12, barWidth * healthPercent, 6);
+    }
+
+  } else if (type === "risk") {
+    // =========================================================================
+    // AUDIT FINDING - Evil clipboard with red X
+    // =========================================================================
+    const w = ENEMY_WIDTH;
+    const h = ENEMY_HEIGHT;
+
+    ctx.translate(x + w / 2, y + h / 2 + bounce);
+    ctx.rotate(wobble * 0.08);
+    ctx.translate(-w / 2, -h / 2);
+
+    // Clipboard body
+    ctx.fillStyle = "#fef3c7";
+    ctx.fillRect(4, 6, w - 8, h - 8);
+
+    // Clipboard clip
+    ctx.fillStyle = "#78716c";
+    ctx.fillRect(w / 2 - 8, 0, 16, 10);
+    ctx.fillStyle = "#a8a29e";
+    ctx.fillRect(w / 2 - 6, 2, 12, 6);
+
+    // Red X mark
+    ctx.strokeStyle = "#dc2626";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(10, 14);
+    ctx.lineTo(w - 10, h - 10);
+    ctx.moveTo(w - 10, 14);
+    ctx.lineTo(10, h - 10);
+    ctx.stroke();
+
+    // Angry eyes on the X
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(w / 2 - 8, 16, 6, 6);
+    ctx.fillRect(w / 2 + 2, 16, 6, 6);
+    ctx.fillStyle = "#dc2626";
+    ctx.fillRect(w / 2 - 6 + (wobble > 0 ? 1 : -1), 18, 3, 3);
+    ctx.fillRect(w / 2 + 4 + (wobble > 0 ? 1 : -1), 18, 3, 3);
+
+    ctx.restore();
+
+  } else if (type === "vulnerability") {
+    // =========================================================================
+    // SHADOW IT - Ghostly unauthorized computer
+    // =========================================================================
+    const w = ENEMY_WIDTH;
+    const h = ENEMY_HEIGHT;
+
+    ctx.translate(x + w / 2, y + h / 2 + bounce);
+    ctx.rotate(wobble * 0.06);
+    ctx.translate(-w / 2, -h / 2);
+
+    // Ghost transparency effect
+    ctx.globalAlpha = 0.7 + Math.sin(frame * 0.2) * 0.2;
+
+    // Monitor body
+    ctx.fillStyle = "#374151";
+    ctx.fillRect(4, 2, w - 8, h - 14);
+
+    // Screen
+    ctx.fillStyle = "#1f2937";
+    ctx.fillRect(7, 5, w - 14, h - 20);
+
+    // Spooky face on screen
+    ctx.fillStyle = "#f97316";
+    // Eyes (hollow)
+    ctx.fillRect(12, 10, 6, 8);
+    ctx.fillRect(w - 18, 10, 6, 8);
+    ctx.fillStyle = "#1f2937";
+    ctx.fillRect(14, 12, 3, 4);
+    ctx.fillRect(w - 16, 12, 3, 4);
+
+    // Spooky mouth
+    ctx.fillStyle = "#f97316";
+    ctx.fillRect(14, 22, w - 28, 4);
+    ctx.fillStyle = "#1f2937";
+    ctx.fillRect(16, 22, 3, 4);
+    ctx.fillRect(w / 2 - 1, 22, 3, 4);
+    ctx.fillRect(w - 19, 22, 3, 4);
+
+    // Monitor stand
+    ctx.globalAlpha = 0.6;
+    ctx.fillStyle = "#4b5563";
+    ctx.fillRect(w / 2 - 4, h - 12, 8, 6);
+    ctx.fillRect(w / 2 - 10, h - 6, 20, 4);
+
+    // Ghost wisps
+    ctx.globalAlpha = 0.4;
+    ctx.fillStyle = "#9ca3af";
+    const wispOffset = Math.sin(frame * 0.3) * 3;
+    ctx.fillRect(2, h / 2 + wispOffset, 3, 8);
+    ctx.fillRect(w - 5, h / 2 - wispOffset, 3, 8);
+
+    ctx.globalAlpha = 1;
+    ctx.restore();
+
+  } else if (type === "threat") {
+    // =========================================================================
+    // GDPR FINE - Euro signs of doom
+    // =========================================================================
+    const w = ENEMY_WIDTH;
+    const h = ENEMY_HEIGHT;
+
+    ctx.translate(x + w / 2, y + h / 2 + bounce);
+    ctx.rotate(wobble * 0.07);
+    ctx.translate(-w / 2, -h / 2);
+
+    // Document/fine background
+    ctx.fillStyle = "#fef2f2";
+    ctx.fillRect(3, 3, w - 6, h - 6);
+
+    // Red border (DANGER!)
+    ctx.strokeStyle = "#dc2626";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(3, 3, w - 6, h - 6);
+
+    // Euro symbol with skull features
+    ctx.fillStyle = "#dc2626";
+    ctx.font = "bold 22px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("€", w / 2, h / 2 - 2);
+
+    // Skull eyes on the €
+    ctx.fillStyle = "#1f2937";
+    ctx.fillRect(w / 2 - 7, h / 2 - 8, 4, 5);
+    ctx.fillRect(w / 2 + 3, h / 2 - 8, 4, 5);
+
+    // "FINE" text
+    ctx.fillStyle = "#991b1b";
+    ctx.font = "bold 8px monospace";
+    ctx.fillText("FINE", w / 2, h - 8);
+
+    // Angry eyebrows above
+    ctx.fillStyle = "#dc2626";
+    ctx.fillRect(w / 2 - 10, 6, 8, 3);
+    ctx.fillRect(w / 2 + 2, 6, 8, 3);
+
+    // Flying euro particles
+    ctx.fillStyle = "#fbbf24";
+    ctx.globalAlpha = 0.6;
+    const particleY = (frame * 2 + enemy.id * 20) % 20;
+    ctx.font = "8px monospace";
+    ctx.fillText("€", 6, 10 + particleY);
+    ctx.fillText("€", w - 10, 5 + (20 - particleY));
+    ctx.globalAlpha = 1;
+
+    ctx.restore();
   }
 
   ctx.restore();
-
-  // Health bar for boss
-  if (type === "boss" && health < maxHealth) {
-    const barWidth = w;
-    const barHeight = 6;
-    const healthPercent = health / maxHealth;
-    ctx.fillStyle = "#1f2937";
-    ctx.fillRect(x, y - 12, barWidth, barHeight);
-    ctx.fillStyle = healthPercent > 0.5 ? "#22c55e" : healthPercent > 0.25 ? "#fbbf24" : "#ef4444";
-    ctx.fillRect(x, y - 12, barWidth * healthPercent, barHeight);
-  }
 }
 
 function drawBullet(ctx: CanvasRenderingContext2D, x: number, y: number, angle = 0) {
@@ -516,45 +717,161 @@ function drawFinding(ctx: CanvasRenderingContext2D, finding: Finding, frame: num
 
 function drawPowerUp(ctx: CanvasRenderingContext2D, powerUp: PowerUp, frame: number) {
   const { x, y, type } = powerUp;
-  const size = 24;
-
-  const colors: Record<typeof type, string> = {
-    shield: COLORS.powerupShield,
-    rapid: COLORS.powerupRapid,
-    multi: COLORS.powerupMulti,
-  };
+  const size = 28;
+  const pulse = 1 + Math.sin(frame * 0.2) * 0.15;
+  const float = Math.sin(frame * 0.15) * 3;
 
   ctx.save();
-  ctx.translate(x + size / 2, y + size / 2);
-
-  // Pulsing glow
-  const pulse = 1 + Math.sin(frame * 0.2) * 0.2;
+  ctx.translate(x + size / 2, y + size / 2 + float);
   ctx.scale(pulse, pulse);
 
-  // Outer circle
-  ctx.fillStyle = colors[type];
-  ctx.globalAlpha = 0.3;
-  ctx.beginPath();
-  ctx.arc(0, 0, size / 2 + 4, 0, Math.PI * 2);
-  ctx.fill();
+  if (type === "shield") {
+    // =========================================================================
+    // ISO CERTIFICATION - The ultimate protection!
+    // =========================================================================
+    // Glow
+    ctx.fillStyle = COLORS.powerupShield;
+    ctx.globalAlpha = 0.3;
+    ctx.beginPath();
+    ctx.arc(0, 0, size / 2 + 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
 
-  // Inner circle
-  ctx.globalAlpha = 1;
-  ctx.beginPath();
-  ctx.arc(0, 0, size / 2, 0, Math.PI * 2);
-  ctx.fill();
+    // Shield shape
+    ctx.fillStyle = COLORS.powerupShield;
+    ctx.beginPath();
+    ctx.moveTo(0, -size / 2);
+    ctx.lineTo(size / 2, -size / 4);
+    ctx.lineTo(size / 2, size / 4);
+    ctx.lineTo(0, size / 2);
+    ctx.lineTo(-size / 2, size / 4);
+    ctx.lineTo(-size / 2, -size / 4);
+    ctx.closePath();
+    ctx.fill();
 
-  // Icon
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "bold 14px monospace";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  const icons: Record<typeof type, string> = {
-    shield: "🛡",
-    rapid: "⚡",
-    multi: "✦",
-  };
-  ctx.fillText(icons[type], 0, 1);
+    // Inner shield
+    ctx.fillStyle = "#0a1929";
+    ctx.beginPath();
+    ctx.moveTo(0, -size / 2 + 4);
+    ctx.lineTo(size / 2 - 4, -size / 4 + 2);
+    ctx.lineTo(size / 2 - 4, size / 4 - 2);
+    ctx.lineTo(0, size / 2 - 4);
+    ctx.lineTo(-size / 2 + 4, size / 4 - 2);
+    ctx.lineTo(-size / 2 + 4, -size / 4 + 2);
+    ctx.closePath();
+    ctx.fill();
+
+    // ISO text
+    ctx.fillStyle = COLORS.powerupShield;
+    ctx.font = "bold 8px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("ISO", 0, -3);
+    ctx.font = "bold 6px monospace";
+    ctx.fillText("27001", 0, 6);
+
+  } else if (type === "rapid") {
+    // =========================================================================
+    // KOPEXA AUTOMATION - Speed through compliance!
+    // =========================================================================
+    // Glow
+    ctx.fillStyle = COLORS.powerupRapid;
+    ctx.globalAlpha = 0.3;
+    ctx.beginPath();
+    ctx.arc(0, 0, size / 2 + 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Hexagon (tech shape)
+    ctx.fillStyle = COLORS.powerupRapid;
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
+      const px = Math.cos(angle) * (size / 2);
+      const py = Math.sin(angle) * (size / 2);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // Inner hexagon
+    ctx.fillStyle = "#0a1929";
+    ctx.beginPath();
+    for (let i = 0; i < 6; i++) {
+      const angle = (i / 6) * Math.PI * 2 - Math.PI / 2;
+      const px = Math.cos(angle) * (size / 2 - 4);
+      const py = Math.sin(angle) * (size / 2 - 4);
+      if (i === 0) ctx.moveTo(px, py);
+      else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fill();
+
+    // "K" for Kopexa with lightning effect
+    ctx.fillStyle = COLORS.powerupRapid;
+    ctx.font = "bold 14px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("K", 0, 1);
+
+    // Lightning sparks
+    ctx.strokeStyle = COLORS.powerupRapid;
+    ctx.lineWidth = 1.5;
+    const sparkAngle = frame * 0.3;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(sparkAngle) * 8, Math.sin(sparkAngle) * 8);
+    ctx.lineTo(Math.cos(sparkAngle) * 14, Math.sin(sparkAngle) * 14);
+    ctx.stroke();
+
+  } else if (type === "multi") {
+    // =========================================================================
+    // CONSULTING TEAM - Berater-Power!
+    // =========================================================================
+    // Glow
+    ctx.fillStyle = COLORS.powerupMulti;
+    ctx.globalAlpha = 0.3;
+    ctx.beginPath();
+    ctx.arc(0, 0, size / 2 + 6, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Briefcase shape
+    ctx.fillStyle = COLORS.powerupMulti;
+    ctx.fillRect(-size / 2 + 2, -2, size - 4, size / 2);
+
+    // Briefcase handle
+    ctx.fillStyle = "#0a1929";
+    ctx.fillRect(-5, -6, 10, 6);
+    ctx.fillStyle = COLORS.powerupMulti;
+    ctx.fillRect(-3, -8, 6, 4);
+
+    // Briefcase details
+    ctx.fillStyle = "#0a1929";
+    ctx.fillRect(-size / 2 + 5, 2, size - 10, 2);
+    ctx.fillRect(-2, 0, 4, size / 2 - 4);
+
+    // "x3" multiplier
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 8px monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("x3", 0, 10);
+
+    // Multiple person icons floating
+    ctx.fillStyle = COLORS.powerupMulti;
+    ctx.globalAlpha = 0.7;
+    const personOffset = Math.sin(frame * 0.2) * 2;
+    // Left person
+    ctx.beginPath();
+    ctx.arc(-10, -10 + personOffset, 3, 0, Math.PI * 2);
+    ctx.fill();
+    // Right person
+    ctx.beginPath();
+    ctx.arc(10, -10 - personOffset, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
 
   ctx.restore();
 }
@@ -1278,22 +1595,22 @@ export function ComplianceRunner() {
           ctx.fillText("GRC INVADERS", GAME_WIDTH / 2, 60);
 
           ctx.fillStyle = COLORS.text;
-          ctx.font = "16px monospace";
-          ctx.fillText("Eliminate Risks, Vulnerabilities & Threats!", GAME_WIDTH / 2, 95);
+          ctx.font = "15px monospace";
+          ctx.fillText("Defend against Audits, Shadow IT & GDPR Fines!", GAME_WIDTH / 2, 95);
 
-          // Legend
-          ctx.font = "13px monospace";
+          // Legend - new enemy types
+          ctx.font = "12px monospace";
           ctx.fillStyle = COLORS.threat;
-          ctx.fillText("Threat (30pt)", 200, 200);
+          ctx.fillText("GDPR Fine (30pt)", 180, 200);
           ctx.fillStyle = COLORS.vulnerability;
-          ctx.fillText("Vulnerability (20pt)", 400, 200);
+          ctx.fillText("Shadow IT (20pt)", 400, 200);
           ctx.fillStyle = COLORS.risk;
-          ctx.fillText("Risk (10pt)", 560, 200);
+          ctx.fillText("Audit Finding (10pt)", 600, 200);
 
           // Power-ups legend
           ctx.fillStyle = COLORS.textMuted;
-          ctx.font = "12px monospace";
-          ctx.fillText("Power-ups: 🛡 Shield | ⚡ Rapid Fire | ✦ Multi-Shot", GAME_WIDTH / 2, 240);
+          ctx.font = "11px monospace";
+          ctx.fillText("Power-ups: ISO Cert (Shield) | Kopexa (Speed) | Consultants (x3)", GAME_WIDTH / 2, 240);
 
           ctx.fillStyle = COLORS.textMuted;
           ctx.font = "13px monospace";
@@ -1550,7 +1867,7 @@ export function ComplianceRunner() {
               powerUp === "rapid" ? "bg-[#22c55e]/30 text-[#22c55e]" :
               "bg-[#a855f7]/30 text-[#a855f7]"
             }`}>
-              {powerUp === "shield" ? "🛡 SHIELD" : powerUp === "rapid" ? "⚡ RAPID" : "✦ MULTI"}
+              {powerUp === "shield" ? "🛡 ISO CERT" : powerUp === "rapid" ? "⚡ KOPEXA" : "👥 CONSULTANTS"}
             </div>
           )}
           {/* Sound & Fullscreen buttons */}
