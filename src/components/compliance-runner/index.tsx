@@ -2,6 +2,187 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
+// =============================================================================
+// SOUND ENGINE - Retro synth sounds using Web Audio API
+// =============================================================================
+
+type SoundType = "shoot" | "hit" | "explode" | "powerup" | "damage" | "gameover" | "wave" | "boss";
+
+class SoundEngine {
+  private ctx: AudioContext | null = null;
+  private enabled = true;
+  private volume = 0.3;
+
+  private getContext(): AudioContext | null {
+    if (!this.ctx) {
+      try {
+        this.ctx = new (window.AudioContext || (window as typeof window & { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      } catch {
+        return null;
+      }
+    }
+    return this.ctx;
+  }
+
+  setEnabled(enabled: boolean) {
+    this.enabled = enabled;
+  }
+
+  setVolume(volume: number) {
+    this.volume = Math.max(0, Math.min(1, volume));
+  }
+
+  getEnabled() { return this.enabled; }
+  getVolume() { return this.volume; }
+
+  play(type: SoundType) {
+    if (!this.enabled) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    const gain = ctx.createGain();
+    gain.connect(ctx.destination);
+    gain.gain.value = this.volume;
+
+    const now = ctx.currentTime;
+
+    switch (type) {
+      case "shoot": {
+        // Pew pew - short high pitched
+        const osc = ctx.createOscillator();
+        osc.type = "square";
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(220, now + 0.1);
+        gain.gain.setValueAtTime(this.volume * 0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+        osc.connect(gain);
+        osc.start(now);
+        osc.stop(now + 0.1);
+        break;
+      }
+      case "hit": {
+        // Short blip
+        const osc = ctx.createOscillator();
+        osc.type = "square";
+        osc.frequency.setValueAtTime(300, now);
+        osc.frequency.exponentialRampToValueAtTime(100, now + 0.05);
+        gain.gain.setValueAtTime(this.volume * 0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.05);
+        osc.connect(gain);
+        osc.start(now);
+        osc.stop(now + 0.05);
+        break;
+      }
+      case "explode": {
+        // Noise burst explosion
+        const bufferSize = ctx.sampleRate * 0.2;
+        const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = (Math.random() * 2 - 1) * (1 - i / bufferSize);
+        }
+        const noise = ctx.createBufferSource();
+        noise.buffer = buffer;
+        const filter = ctx.createBiquadFilter();
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(1000, now);
+        filter.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.gain.setValueAtTime(this.volume * 0.5, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+        noise.start(now);
+        break;
+      }
+      case "powerup": {
+        // Ascending arpeggio
+        [440, 554, 659, 880].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = "sine";
+          osc.frequency.value = freq;
+          g.gain.setValueAtTime(0, now + i * 0.05);
+          g.gain.linearRampToValueAtTime(this.volume * 0.3, now + i * 0.05 + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.05 + 0.1);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start(now + i * 0.05);
+          osc.stop(now + i * 0.05 + 0.1);
+        });
+        break;
+      }
+      case "damage": {
+        // Low thud
+        const osc = ctx.createOscillator();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(150, now);
+        osc.frequency.exponentialRampToValueAtTime(50, now + 0.2);
+        gain.gain.setValueAtTime(this.volume * 0.6, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+        osc.connect(gain);
+        osc.start(now);
+        osc.stop(now + 0.2);
+        break;
+      }
+      case "gameover": {
+        // Descending sad tones
+        [440, 392, 349, 262].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = "triangle";
+          osc.frequency.value = freq;
+          g.gain.setValueAtTime(0, now + i * 0.2);
+          g.gain.linearRampToValueAtTime(this.volume * 0.4, now + i * 0.2 + 0.05);
+          g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.2 + 0.3);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start(now + i * 0.2);
+          osc.stop(now + i * 0.2 + 0.3);
+        });
+        break;
+      }
+      case "wave": {
+        // Victory fanfare
+        [523, 659, 784, 1047].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = "square";
+          osc.frequency.value = freq;
+          g.gain.setValueAtTime(0, now + i * 0.08);
+          g.gain.linearRampToValueAtTime(this.volume * 0.25, now + i * 0.08 + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.08 + 0.15);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start(now + i * 0.08);
+          osc.stop(now + i * 0.08 + 0.15);
+        });
+        break;
+      }
+      case "boss": {
+        // Ominous bass
+        const osc = ctx.createOscillator();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(80, now);
+        osc.frequency.setValueAtTime(60, now + 0.2);
+        osc.frequency.setValueAtTime(80, now + 0.4);
+        gain.gain.setValueAtTime(this.volume * 0.5, now);
+        gain.gain.setValueAtTime(this.volume * 0.5, now + 0.5);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+        osc.connect(gain);
+        osc.start(now);
+        osc.stop(now + 0.6);
+        break;
+      }
+    }
+  }
+}
+
+const soundEngine = new SoundEngine();
+
+// =============================================================================
+// GAME CONSTANTS
+// =============================================================================
+
 // Game constants
 const GAME_WIDTH = 800;
 const GAME_HEIGHT = 600;
@@ -417,6 +598,10 @@ export function ComplianceRunner() {
   const [canvasSize, setCanvasSize] = useState({ width: GAME_WIDTH, height: GAME_HEIGHT });
   const [showShareCard, setShowShareCard] = useState(false);
   const [nickname, setNickname] = useState("");
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const [soundVolume, setSoundVolume] = useState(0.3);
+  const [showSettings, setShowSettings] = useState(false);
   const shareCanvasRef = useRef<HTMLCanvasElement>(null);
 
   // Game state refs
@@ -466,6 +651,13 @@ export function ComplianceRunner() {
   const touchRef = useRef({ left: false, right: false, shoot: false });
   const animationFrameRef = useRef<number | null>(null);
 
+  // Sync sound settings with engine
+  useEffect(() => {
+    soundEngine.setEnabled(soundEnabled);
+    soundEngine.setVolume(soundVolume);
+    localStorage.setItem("grc-invaders-sound", JSON.stringify({ enabled: soundEnabled, volume: soundVolume }));
+  }, [soundEnabled, soundVolume]);
+
   // Initialize
   useEffect(() => {
     // Stars
@@ -481,6 +673,16 @@ export function ComplianceRunner() {
     if (saved) {
       gameRef.current.highScore = Number.parseInt(saved, 10);
       setDisplayState((s) => ({ ...s, highScore: gameRef.current.highScore }));
+    }
+
+    // Sound settings
+    const soundSettings = localStorage.getItem("grc-invaders-sound");
+    if (soundSettings) {
+      try {
+        const { enabled, volume } = JSON.parse(soundSettings);
+        setSoundEnabled(enabled ?? true);
+        setSoundVolume(volume ?? 0.3);
+      } catch { /* ignore */ }
     }
   }, []);
 
@@ -712,6 +914,7 @@ export function ComplianceRunner() {
           } else {
             game.bullets.push({ id: game.bulletIdCounter++, x: bulletX, y: bulletY, angle: 0 });
           }
+          soundEngine.play("shoot");
         }
 
         // Move bullets
@@ -842,6 +1045,7 @@ export function ComplianceRunner() {
               bullet.y + BULLET_HEIGHT > enemy.y
             ) {
               enemy.health--;
+              soundEngine.play("hit");
 
               // Hit particles
               for (let i = 0; i < 5; i++) {
@@ -857,6 +1061,7 @@ export function ComplianceRunner() {
               }
 
               if (enemy.health <= 0) {
+                soundEngine.play("explode");
                 // Death explosion
                 for (let i = 0; i < 15; i++) {
                   game.particles.push({
@@ -907,6 +1112,7 @@ export function ComplianceRunner() {
           }
           game.lives--;
           game.invincibleUntil = now + 1500; // 1.5 seconds invincibility
+          soundEngine.play("damage");
           // Hit flash particles
           for (let i = 0; i < 15; i++) {
             game.particles.push({
@@ -959,6 +1165,7 @@ export function ComplianceRunner() {
             p.y + 24 > playerY
           ) {
             const duration = 8000;
+            soundEngine.play("powerup");
             switch (p.type) {
               case "shield":
                 game.hasShield = true;
@@ -984,10 +1191,12 @@ export function ComplianceRunner() {
           game.waveEnemiesSpawned = 0;
           game.waveEnemiesKilled = 0;
           game.score += 100 * game.wave;
+          soundEngine.play("wave");
 
           // Boss every 5 waves
           if (game.wave % 5 === 0) {
             spawnBoss(game.wave);
+            soundEngine.play("boss");
           } else {
             spawnFormation(game.wave);
             game.waveTarget = game.activeFormation?.enemies.length || 0;
@@ -1004,6 +1213,7 @@ export function ComplianceRunner() {
         if (game.lives <= 0) {
           game.state = "gameover";
           game.gameOverTime = now;
+          soundEngine.play("gameover");
           if (game.score > game.highScore) {
             game.highScore = game.score;
             localStorage.setItem("grc-invaders-highscore-v2", game.score.toString());
@@ -1301,10 +1511,11 @@ export function ComplianceRunner() {
     link.click();
   };
 
-  return (
-    <div className="flex flex-col items-center gap-2 sm:gap-3 w-full" ref={containerRef}>
+  // Fullscreen game wrapper
+  const gameContent = (
+    <>
       {/* HUD */}
-      <div className="flex flex-wrap justify-center gap-3 sm:gap-6 w-full max-w-[800px] px-2 text-xs sm:text-sm font-mono font-bold">
+      <div className={`flex flex-wrap justify-center gap-3 sm:gap-6 w-full max-w-[800px] px-2 text-xs sm:text-sm font-mono font-bold ${isFullscreen ? "absolute top-4 left-0 right-0 z-10" : ""}`}>
         <span className="text-white">
           SCORE: <span className="text-[#22d3ee]">{score.toString().padStart(6, "0")}</span>
         </span>
@@ -1312,8 +1523,8 @@ export function ComplianceRunner() {
         <span className="text-white/60">HI: {highScore.toString().padStart(6, "0")}</span>
       </div>
 
-      {/* Lives & Power-up */}
-      <div className="flex items-center gap-4 text-xs sm:text-sm font-mono">
+      {/* Lives & Power-up & Controls */}
+      <div className={`flex items-center gap-4 text-xs sm:text-sm font-mono ${isFullscreen ? "absolute top-10 left-0 right-0 z-10 justify-center" : ""}`}>
         <div className="flex items-center gap-2 text-white/70">
           <span>LIVES:</span>
           <div className="flex gap-1">
@@ -1334,6 +1545,33 @@ export function ComplianceRunner() {
             {powerUp === "shield" ? "🛡 SHIELD" : powerUp === "rapid" ? "⚡ RAPID" : "✦ MULTI"}
           </div>
         )}
+        {/* Sound & Fullscreen buttons */}
+        <div className="flex gap-2 ml-2">
+          <button
+            type="button"
+            onClick={() => setSoundEnabled(!soundEnabled)}
+            className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+            title={soundEnabled ? "Mute" : "Unmute"}
+          >
+            {soundEnabled ? "🔊" : "🔇"}
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowSettings(true)}
+            className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+            title="Settings"
+          >
+            ⚙️
+          </button>
+          <button
+            type="button"
+            onClick={() => setIsFullscreen(!isFullscreen)}
+            className="p-1.5 rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-colors"
+            title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+          >
+            {isFullscreen ? "⛶" : "⛶"}
+          </button>
+        </div>
       </div>
 
       {/* Canvas */}
@@ -1365,19 +1603,98 @@ export function ComplianceRunner() {
             startGame();
           }
         }}
-        className="rounded-xl border-2 sm:border-4 border-[#22d3ee]/30 cursor-pointer touch-none"
-        style={{ width: canvasSize.width, height: canvasSize.height }}
+        className={`rounded-xl border-2 sm:border-4 border-[#22d3ee]/30 cursor-pointer touch-none ${
+          isFullscreen ? "w-full h-full max-w-none max-h-none object-contain" : ""
+        }`}
+        style={isFullscreen ? { width: "100%", height: "100%", objectFit: "contain" } : { width: canvasSize.width, height: canvasSize.height }}
       />
 
-      {/* Controls */}
-      <p className="text-xs text-white/50 font-mono text-center px-4">
-        <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
-        <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
-      </p>
+      {/* Controls - hide in fullscreen during play */}
+      {!isFullscreen && (
+        <p className="text-xs text-white/50 font-mono text-center px-4">
+          <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
+          <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
+        </p>
+      )}
+    </>
+  );
+
+  return (
+    <>
+      {/* Normal mode */}
+      {!isFullscreen && (
+        <div className="flex flex-col items-center gap-2 sm:gap-3 w-full" ref={containerRef}>
+          {gameContent}
+        </div>
+      )}
+
+      {/* Fullscreen mode */}
+      {isFullscreen && (
+        <div className="fixed inset-0 z-50 bg-gradient-to-b from-[#0a1929] via-[#0F263E] to-[#1a3a5c] flex flex-col items-center justify-center p-4">
+          <div ref={containerRef} className="relative w-full h-full flex flex-col items-center justify-center">
+            {gameContent}
+          </div>
+        </div>
+      )}
+
+      {/* Settings Overlay */}
+      {showSettings && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[60] p-4">
+          <div className="bg-[#0F263E] border-2 border-[#22d3ee]/50 rounded-xl p-4 sm:p-6 max-w-sm w-full flex flex-col gap-4">
+            <h3 className="text-[#22d3ee] font-mono font-bold text-lg text-center">Settings</h3>
+
+            {/* Sound toggle */}
+            <div className="flex items-center justify-between">
+              <span className="text-white font-mono text-sm">Sound</span>
+              <button
+                type="button"
+                onClick={() => setSoundEnabled(!soundEnabled)}
+                className={`w-14 h-8 rounded-full transition-colors ${soundEnabled ? "bg-[#22d3ee]" : "bg-white/20"}`}
+              >
+                <div className={`w-6 h-6 bg-white rounded-full transition-transform mx-1 ${soundEnabled ? "translate-x-6" : ""}`} />
+              </button>
+            </div>
+
+            {/* Volume slider */}
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-white font-mono text-sm">Volume</span>
+                <span className="text-white/60 font-mono text-xs">{Math.round(soundVolume * 100)}%</span>
+              </div>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={soundVolume * 100}
+                onChange={(e) => setSoundVolume(Number(e.target.value) / 100)}
+                className="w-full h-2 bg-white/20 rounded-lg appearance-none cursor-pointer accent-[#22d3ee]"
+              />
+            </div>
+
+            {/* Test sound button */}
+            <button
+              type="button"
+              onClick={() => soundEngine.play("powerup")}
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-mono text-sm transition-colors"
+            >
+              🔊 Test Sound
+            </button>
+
+            {/* Close button */}
+            <button
+              type="button"
+              onClick={() => setShowSettings(false)}
+              className="px-4 py-2 bg-[#22d3ee] hover:bg-[#22d3ee]/80 rounded-lg text-[#0a1929] font-mono text-sm font-bold transition-colors"
+            >
+              Done
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Share Card Overlay */}
       {showShareCard && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-[60] p-4">
           <div className="bg-[#0F263E] border-2 border-[#22d3ee]/50 rounded-xl p-4 sm:p-6 max-w-lg w-full flex flex-col items-center gap-4">
             <h3 className="text-[#22d3ee] font-mono font-bold text-lg">Share Your Score</h3>
 
@@ -1424,6 +1741,6 @@ export function ComplianceRunner() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
