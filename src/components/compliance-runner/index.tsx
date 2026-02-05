@@ -456,6 +456,10 @@ export function ComplianceRunner() {
     waveTarget: 0,
     // Invincibility after hit
     invincibleUntil: 0,
+    // Game over cooldown
+    gameOverTime: 0,
+    // Share button bounds for click detection
+    shareButtonBounds: null as { x: number; y: number; w: number; h: number } | null,
   });
 
   const keysRef = useRef<Set<string>>(new Set());
@@ -544,7 +548,18 @@ export function ComplianceRunner() {
     game.waveTarget = 1;
   }, []);
 
+  // Check if restart is allowed (2 second cooldown after game over)
+  const canRestart = useCallback(() => {
+    const game = gameRef.current;
+    if (game.state === "idle") return true;
+    if (game.state === "gameover") {
+      return Date.now() - game.gameOverTime > 2000;
+    }
+    return false;
+  }, []);
+
   const startGame = useCallback(() => {
+    if (!canRestart()) return;
     const game = gameRef.current;
     game.state = "playing";
     game.score = 0;
@@ -564,6 +579,7 @@ export function ComplianceRunner() {
     game.waveEnemiesKilled = 0;
     game.waveTarget = 0;
     game.invincibleUntil = 0;
+    game.gameOverTime = 0;
 
     setDisplayState((s) => ({
       ...s,
@@ -586,7 +602,7 @@ export function ComplianceRunner() {
         e.preventDefault();
         keysRef.current.add(e.key);
       }
-      if ((e.key === " " || e.code === "Space") && gameRef.current.state !== "playing") {
+      if ((e.key === " " || e.code === "Space") && gameRef.current.state !== "playing" && canRestart()) {
         startGame();
       }
     };
@@ -599,7 +615,7 @@ export function ComplianceRunner() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [startGame]);
+  }, [startGame, canRestart]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -607,7 +623,7 @@ export function ComplianceRunner() {
 
     const handleTouch = (e: TouchEvent, isStart: boolean) => {
       e.preventDefault();
-      if (isStart && gameRef.current.state !== "playing") {
+      if (isStart && gameRef.current.state !== "playing" && canRestart()) {
         startGame();
         return;
       }
@@ -638,7 +654,7 @@ export function ComplianceRunner() {
       canvas.removeEventListener("touchmove", onMove);
       canvas.removeEventListener("touchend", onEnd);
     };
-  }, [startGame]);
+  }, [startGame, canRestart]);
 
   // Main game loop
   useEffect(() => {
@@ -987,6 +1003,7 @@ export function ComplianceRunner() {
         // Game over check
         if (game.lives <= 0) {
           game.state = "gameover";
+          game.gameOverTime = now;
           if (game.score > game.highScore) {
             game.highScore = game.score;
             localStorage.setItem("grc-invaders-highscore-v2", game.score.toString());
@@ -1086,30 +1103,60 @@ export function ComplianceRunner() {
             ctx.fillText(`High Score: ${game.highScore}`, GAME_WIDTH / 2, 420);
           }
         } else {
+          const timeSinceGameOver = now - game.gameOverTime;
+          const canRestartNow = timeSinceGameOver > 2000;
+
           ctx.fillStyle = COLORS.risk;
           ctx.font = "bold 38px monospace";
-          ctx.fillText("SYSTEM BREACHED!", GAME_WIDTH / 2, 220);
+          ctx.fillText("SYSTEM BREACHED!", GAME_WIDTH / 2, 180);
 
           ctx.fillStyle = COLORS.text;
-          ctx.font = "bold 26px monospace";
-          ctx.fillText(`Score: ${game.score}`, GAME_WIDTH / 2, 280);
+          ctx.font = "bold 32px monospace";
+          ctx.fillText(`${game.score.toString().padStart(6, "0")}`, GAME_WIDTH / 2, 240);
 
           ctx.fillStyle = COLORS.textMuted;
-          ctx.font = "18px monospace";
-          ctx.fillText(`Wave ${game.wave}`, GAME_WIDTH / 2, 320);
+          ctx.font = "16px monospace";
+          ctx.fillText(`Wave ${game.wave}`, GAME_WIDTH / 2, 275);
 
           if (game.score >= game.highScore && game.score > 0) {
             ctx.fillStyle = "#fbbf24";
-            ctx.font = "bold 16px monospace";
-            ctx.fillText("🏆 NEW HIGH SCORE! 🏆", GAME_WIDTH / 2, 370);
+            ctx.font = "bold 14px monospace";
+            ctx.fillText("★ NEW HIGH SCORE ★", GAME_WIDTH / 2, 310);
           }
+
+          // Share button - drawn as a clickable area
+          const shareButtonY = 350;
+          const shareButtonWidth = 180;
+          const shareButtonHeight = 40;
+          const shareButtonX = GAME_WIDTH / 2 - shareButtonWidth / 2;
+
+          // Store button bounds for click detection
+          game.shareButtonBounds = { x: shareButtonX, y: shareButtonY, w: shareButtonWidth, h: shareButtonHeight };
+
+          ctx.fillStyle = `${COLORS.playerAccent}30`;
+          ctx.fillRect(shareButtonX, shareButtonY, shareButtonWidth, shareButtonHeight);
+          ctx.strokeStyle = COLORS.playerAccent;
+          ctx.lineWidth = 2;
+          ctx.strokeRect(shareButtonX, shareButtonY, shareButtonWidth, shareButtonHeight);
 
           ctx.fillStyle = COLORS.playerAccent;
           ctx.font = "bold 16px monospace";
-          const pulse = 0.7 + Math.sin(game.frame * 0.1) * 0.3;
-          ctx.globalAlpha = pulse;
-          ctx.fillText("TAP TO RESTART", GAME_WIDTH / 2, 430);
-          ctx.globalAlpha = 1;
+          ctx.fillText("📸 SHARE SCORE", GAME_WIDTH / 2, shareButtonY + 24);
+
+          // Restart text with countdown
+          if (canRestartNow) {
+            ctx.fillStyle = COLORS.text;
+            ctx.font = "bold 14px monospace";
+            const pulse = 0.7 + Math.sin(game.frame * 0.1) * 0.3;
+            ctx.globalAlpha = pulse;
+            ctx.fillText("TAP OR SPACE TO RESTART", GAME_WIDTH / 2, 430);
+            ctx.globalAlpha = 1;
+          } else {
+            const secondsLeft = Math.ceil((2000 - timeSinceGameOver) / 1000);
+            ctx.fillStyle = COLORS.textMuted;
+            ctx.font = "14px monospace";
+            ctx.fillText(`Restart in ${secondsLeft}...`, GAME_WIDTH / 2, 430);
+          }
 
           setDisplayState((s) => ({
             ...s,
@@ -1294,7 +1341,30 @@ export function ComplianceRunner() {
         ref={canvasRef}
         width={GAME_WIDTH}
         height={GAME_HEIGHT}
-        onClick={() => gameState !== "playing" && startGame()}
+        onClick={(e) => {
+          const game = gameRef.current;
+          if (game.state === "playing") return;
+
+          // Check if click is on share button (game over screen)
+          if (game.state === "gameover" && game.shareButtonBounds) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const scaleX = GAME_WIDTH / rect.width;
+            const scaleY = GAME_HEIGHT / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+            const btn = game.shareButtonBounds;
+
+            if (x >= btn.x && x <= btn.x + btn.w && y >= btn.y && y <= btn.y + btn.h) {
+              setShowShareCard(true);
+              return;
+            }
+          }
+
+          // Otherwise try to start game
+          if (canRestart()) {
+            startGame();
+          }
+        }}
         className="rounded-xl border-2 sm:border-4 border-[#22d3ee]/30 cursor-pointer touch-none"
         style={{ width: canvasSize.width, height: canvasSize.height }}
       />
@@ -1304,17 +1374,6 @@ export function ComplianceRunner() {
         <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
         <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
       </p>
-
-      {/* Share Score Button - shown on game over */}
-      {gameState === "gameover" && (
-        <button
-          type="button"
-          onClick={() => setShowShareCard(true)}
-          className="mt-2 px-4 py-2 bg-[#22d3ee]/20 hover:bg-[#22d3ee]/30 border border-[#22d3ee]/50 rounded-lg text-[#22d3ee] font-mono text-sm font-bold transition-colors"
-        >
-          📸 Share Score
-        </button>
-      )}
 
       {/* Share Card Overlay */}
       {showShareCard && (
