@@ -21,7 +21,7 @@ export default async function GamePage({
 	const { lang } = await params;
 
 	return (
-		<div className="min-h-screen flex flex-col bg-gradient-to-b from-[#0a1929] via-[#0F263E] to-[#1a3a5c]">
+		<div className="min-h-screen flex flex-col bg-gradient-to-b from-[#0a1929] via-[#0F263E] to-[#1a3a5c] text-white">
 			{/* Header */}
 			<header className="border-b border-white/10 bg-black/20 backdrop-blur-sm">
 				<div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
