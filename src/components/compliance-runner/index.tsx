@@ -943,6 +943,7 @@ export function ComplianceRunner() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [soundVolume, setSoundVolume] = useState(0.3);
   const [showSettings, setShowSettings] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const shareCanvasRef = useRef<HTMLCanvasElement>(null);
 
   // Game state refs
@@ -1001,6 +1002,10 @@ export function ComplianceRunner() {
 
   // Initialize
   useEffect(() => {
+    // Detect touch device
+    const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(hasTouch);
+
     // Stars
     gameRef.current.stars = Array.from({ length: 80 }, () => ({
       x: Math.random() * GAME_WIDTH,
@@ -1170,40 +1175,32 @@ export function ComplianceRunner() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const handleTouch = (e: TouchEvent, isStart: boolean) => {
+    // Canvas touch only handles starting the game, not movement
+    const onCanvasTouch = (e: TouchEvent) => {
       e.preventDefault();
-      if (isStart && gameRef.current.state !== "playing" && canRestart()) {
+      if (gameRef.current.state !== "playing" && canRestart()) {
         startGame();
-        return;
-      }
-
-      const rect = canvas.getBoundingClientRect();
-      touchRef.current = { left: false, right: false, shoot: false };
-
-      for (let i = 0; i < e.touches.length; i++) {
-        const relX = (e.touches[i].clientX - rect.left) / rect.width;
-        if (relX < 0.35) touchRef.current.left = true;
-        else if (relX > 0.65) touchRef.current.right = true;
-        else touchRef.current.shoot = true;
       }
     };
 
-    const onStart = (e: TouchEvent) => handleTouch(e, true);
-    const onMove = (e: TouchEvent) => handleTouch(e, false);
-    const onEnd = (e: TouchEvent) => {
-      e.preventDefault();
-      touchRef.current = { left: false, right: false, shoot: false };
-    };
-
-    canvas.addEventListener("touchstart", onStart, { passive: false });
-    canvas.addEventListener("touchmove", onMove, { passive: false });
-    canvas.addEventListener("touchend", onEnd, { passive: false });
+    canvas.addEventListener("touchstart", onCanvasTouch, { passive: false });
     return () => {
-      canvas.removeEventListener("touchstart", onStart);
-      canvas.removeEventListener("touchmove", onMove);
-      canvas.removeEventListener("touchend", onEnd);
+      canvas.removeEventListener("touchstart", onCanvasTouch);
     };
   }, [startGame, canRestart]);
+
+  // Virtual control button handlers
+  const handleControlStart = useCallback((control: "left" | "right" | "shoot") => {
+    touchRef.current[control] = true;
+    // Also start game if not playing
+    if (control === "shoot" && gameRef.current.state !== "playing" && canRestart()) {
+      startGame();
+    }
+  }, [startGame, canRestart]);
+
+  const handleControlEnd = useCallback((control: "left" | "right" | "shoot") => {
+    touchRef.current[control] = false;
+  }, []);
 
   // Main game loop
   useEffect(() => {
@@ -1983,12 +1980,81 @@ export function ComplianceRunner() {
           }
         />
 
-        {/* Controls hint */}
+        {/* Controls hint - desktop only */}
         {!isFullscreen && (
-          <p className="text-xs text-white/50 font-mono text-center px-4">
-            <span className="hidden sm:inline">← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!</span>
-            <span className="sm:hidden">Left/Right = Move | Center = Shoot</span>
+          <p className="text-xs text-white/50 font-mono text-center px-4 hidden sm:block">
+            ← → / A D = Move | SPACE = Shoot | Dodge ⚠ Findings!
           </p>
+        )}
+
+        {/* Virtual Controls - Mobile only */}
+        {isTouchDevice && (
+          <div className="flex justify-between items-center w-full max-w-[500px] px-4 mt-2 sm:hidden">
+            {/* D-Pad Left/Right */}
+            <div className="flex gap-2">
+              <button
+                type="button"
+                className="w-16 h-16 rounded-xl bg-white/10 active:bg-white/30 border-2 border-white/20 flex items-center justify-center select-none touch-none"
+                onTouchStart={(e) => { e.preventDefault(); handleControlStart("left"); }}
+                onTouchEnd={(e) => { e.preventDefault(); handleControlEnd("left"); }}
+                onTouchCancel={(e) => { e.preventDefault(); handleControlEnd("left"); }}
+              >
+                {/* Pixel Arrow Left */}
+                <svg width="24" height="24" viewBox="0 0 24 24" className="fill-white">
+                  <rect x="12" y="4" width="4" height="4" />
+                  <rect x="8" y="8" width="4" height="4" />
+                  <rect x="4" y="12" width="4" height="4" />
+                  <rect x="8" y="16" width="4" height="4" />
+                  <rect x="12" y="20" width="4" height="4" />
+                  <rect x="12" y="8" width="8" height="4" />
+                  <rect x="12" y="12" width="8" height="4" />
+                  <rect x="12" y="16" width="8" height="4" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                className="w-16 h-16 rounded-xl bg-white/10 active:bg-white/30 border-2 border-white/20 flex items-center justify-center select-none touch-none"
+                onTouchStart={(e) => { e.preventDefault(); handleControlStart("right"); }}
+                onTouchEnd={(e) => { e.preventDefault(); handleControlEnd("right"); }}
+                onTouchCancel={(e) => { e.preventDefault(); handleControlEnd("right"); }}
+              >
+                {/* Pixel Arrow Right */}
+                <svg width="24" height="24" viewBox="0 0 24 24" className="fill-white">
+                  <rect x="8" y="4" width="4" height="4" />
+                  <rect x="12" y="8" width="4" height="4" />
+                  <rect x="16" y="12" width="4" height="4" />
+                  <rect x="12" y="16" width="4" height="4" />
+                  <rect x="8" y="20" width="4" height="4" />
+                  <rect x="0" y="8" width="12" height="4" />
+                  <rect x="0" y="12" width="12" height="4" />
+                  <rect x="0" y="16" width="12" height="4" />
+                </svg>
+              </button>
+            </div>
+
+            {/* Fire Button - Pixel Crosshair/Target */}
+            <button
+              type="button"
+              className="w-20 h-20 rounded-full bg-[#ef4444]/80 active:bg-[#ef4444] border-4 border-[#ef4444] flex items-center justify-center select-none touch-none shadow-lg shadow-[#ef4444]/30"
+              onTouchStart={(e) => { e.preventDefault(); handleControlStart("shoot"); }}
+              onTouchEnd={(e) => { e.preventDefault(); handleControlEnd("shoot"); }}
+              onTouchCancel={(e) => { e.preventDefault(); handleControlEnd("shoot"); }}
+            >
+              {/* Pixel Crosshair */}
+              <svg width="36" height="36" viewBox="0 0 36 36" className="fill-white">
+                {/* Vertical line */}
+                <rect x="16" y="2" width="4" height="10" />
+                <rect x="16" y="24" width="4" height="10" />
+                {/* Horizontal line */}
+                <rect x="2" y="16" width="10" height="4" />
+                <rect x="24" y="16" width="10" height="4" />
+                {/* Center dot */}
+                <rect x="14" y="14" width="8" height="8" />
+                {/* Inner square cutout effect */}
+                <rect x="16" y="16" width="4" height="4" className="fill-[#ef4444]" />
+              </svg>
+            </button>
+          </div>
         )}
       </div>
 
