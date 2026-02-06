@@ -1141,6 +1141,12 @@ export function ComplianceRunner() {
   // Input handlers
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't capture game keys when typing in inputs or when dialogs are open
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
+        return;
+      }
+
       if (["ArrowLeft", "ArrowRight", "Space", " ", "a", "d", "A", "D"].includes(e.key)) {
         e.preventDefault();
         keysRef.current.add(e.key);
