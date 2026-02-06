@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 // SOUND ENGINE - Retro synth sounds using Web Audio API
 // =============================================================================
 
-type SoundType = "shoot" | "hit" | "explode" | "powerup" | "damage" | "gameover" | "wave" | "boss";
+type SoundType = "shoot" | "hit" | "explode" | "powerup" | "damage" | "gameover" | "wave" | "boss" | "victory";
 
 class SoundEngine {
   private ctx: AudioContext | null = null;
@@ -173,6 +173,23 @@ class SoundEngine {
         osc.stop(now + 0.6);
         break;
       }
+      case "victory": {
+        // Triumphant ascending fanfare
+        [523, 659, 784, 1047, 1319].forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = "square";
+          osc.frequency.value = freq;
+          g.gain.setValueAtTime(0, now + i * 0.12);
+          g.gain.linearRampToValueAtTime(this.volume * 0.3, now + i * 0.12 + 0.03);
+          g.gain.exponentialRampToValueAtTime(0.01, now + i * 0.12 + 0.25);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start(now + i * 0.12);
+          osc.stop(now + i * 0.12 + 0.25);
+        });
+        break;
+      }
     }
   }
 }
@@ -274,6 +291,90 @@ type Particle = {
 };
 
 type GameState = "idle" | "playing" | "gameover";
+
+type Difficulty = "easy" | "normal" | "hard";
+type MenuScreen = "main" | "difficulty";
+type WaveModifier = null | "shadow-audit" | "mission-stage" | "boss-rush";
+
+type DifficultyConfig = {
+  label: string;
+  color: string;
+  speedMult: number;
+  healthMult: number;
+  dropMult: number;
+  powerupDurationMult: number;
+};
+
+type MissionStage = {
+  name: string;
+  enemies: { type: EnemyType; count: number; pattern: Enemy["pattern"] }[];
+  isBoss?: boolean;
+  bossHealthOverride?: number;
+};
+
+type MissionDef = {
+  id: string;
+  name: string;
+  description: string;
+  color: string;
+  stages: MissionStage[];
+};
+
+const DIFFICULTIES: Record<Difficulty, DifficultyConfig> = {
+  easy: { label: "EASY", color: "#22c55e", speedMult: 0.7, healthMult: 0.8, dropMult: 0.7, powerupDurationMult: 1.3 },
+  normal: { label: "NORMAL", color: "#eab308", speedMult: 1, healthMult: 1, dropMult: 1, powerupDurationMult: 1 },
+  hard: { label: "HARD", color: "#ef4444", speedMult: 1.4, healthMult: 1.5, dropMult: 1.3, powerupDurationMult: 0.7 },
+};
+
+const MISSIONS: MissionDef[] = [
+  {
+    id: "iso27001",
+    name: "ISO 27001",
+    description: "Information Security Audit",
+    color: "#22d3ee",
+    stages: [
+      { name: "Scope Definition", enemies: [{ type: "risk", count: 5, pattern: "swoop" }] },
+      { name: "Risk Assessment", enemies: [{ type: "risk", count: 4, pattern: "dive" }, { type: "vulnerability", count: 3, pattern: "zigzag" }] },
+      { name: "Control Selection", enemies: [{ type: "threat", count: 3, pattern: "circle" }, { type: "vulnerability", count: 4, pattern: "swoop" }] },
+      { name: "Implementation Review", enemies: [{ type: "threat", count: 5, pattern: "zigzag" }, { type: "risk", count: 3, pattern: "dive" }] },
+      { name: "The Certification Audit", isBoss: true, bossHealthOverride: 30, enemies: [] },
+    ],
+  },
+  {
+    id: "dora",
+    name: "DORA",
+    description: "Digital Operational Resilience",
+    color: "#22c55e",
+    stages: [
+      { name: "ICT Risk Management", enemies: [{ type: "risk", count: 4, pattern: "swoop" }] },
+      { name: "Incident Reporting", enemies: [{ type: "vulnerability", count: 5, pattern: "dive" }] },
+      { name: "Resilience Testing", enemies: [{ type: "threat", count: 3, pattern: "zigzag" }, { type: "risk", count: 3, pattern: "circle" }] },
+      { name: "Third-Party Risk", enemies: [{ type: "vulnerability", count: 4, pattern: "swoop" }, { type: "threat", count: 2, pattern: "dive" }] },
+      { name: "Information Sharing", enemies: [{ type: "risk", count: 6, pattern: "zigzag" }] },
+      { name: "Governance Review", enemies: [{ type: "threat", count: 4, pattern: "circle" }, { type: "vulnerability", count: 3, pattern: "swoop" }] },
+      { name: "Compliance Verification", enemies: [{ type: "threat", count: 5, pattern: "dive" }, { type: "risk", count: 4, pattern: "zigzag" }] },
+      { name: "The Supervisory Exam", isBoss: true, bossHealthOverride: 45, enemies: [] },
+    ],
+  },
+  {
+    id: "nis2",
+    name: "NIS2",
+    description: "Network & Information Security",
+    color: "#a855f7",
+    stages: [
+      { name: "Asset Inventory", enemies: [{ type: "risk", count: 5, pattern: "swoop" }] },
+      { name: "Supply Chain Audit", enemies: [{ type: "vulnerability", count: 4, pattern: "dive" }, { type: "risk", count: 3, pattern: "zigzag" }] },
+      { name: "Access Controls", enemies: [{ type: "threat", count: 4, pattern: "circle" }] },
+      { name: "Encryption Review", enemies: [{ type: "vulnerability", count: 5, pattern: "swoop" }, { type: "threat", count: 2, pattern: "dive" }] },
+      { name: "Incident Response", enemies: [{ type: "risk", count: 4, pattern: "zigzag" }, { type: "vulnerability", count: 4, pattern: "circle" }] },
+      { name: "Business Continuity", enemies: [{ type: "threat", count: 5, pattern: "swoop" }, { type: "risk", count: 3, pattern: "dive" }] },
+      { name: "Vulnerability Mgmt", enemies: [{ type: "vulnerability", count: 6, pattern: "zigzag" }, { type: "threat", count: 2, pattern: "circle" }] },
+      { name: "Cross-Border Ops", enemies: [{ type: "threat", count: 4, pattern: "dive" }, { type: "risk", count: 4, pattern: "swoop" }, { type: "vulnerability", count: 3, pattern: "zigzag" }] },
+      { name: "Reporting Obligations", enemies: [{ type: "threat", count: 6, pattern: "circle" }, { type: "vulnerability", count: 4, pattern: "dive" }] },
+      { name: "The EU Regulator", isBoss: true, bossHealthOverride: 60, enemies: [] },
+    ],
+  },
+];
 
 // Formation patterns
 type Formation = {
@@ -942,6 +1043,10 @@ export function ComplianceRunner() {
     shieldLevel: number;
     rapidLevel: number;
     multiLevel: number;
+    difficulty: Difficulty;
+    waveModifier: WaveModifier;
+    waveModifierLabel: string;
+    rewardWaveActive: boolean;
   }>({
     gameState: "idle",
     score: 0,
@@ -951,6 +1056,10 @@ export function ComplianceRunner() {
     shieldLevel: 0,
     rapidLevel: 0,
     multiLevel: 0,
+    difficulty: "normal",
+    waveModifier: null,
+    waveModifierLabel: "",
+    rewardWaveActive: false,
   });
   const [canvasSize, setCanvasSize] = useState({ width: GAME_WIDTH, height: GAME_HEIGHT });
   const [showShareCard, setShowShareCard] = useState(false);
@@ -1003,6 +1112,23 @@ export function ComplianceRunner() {
     gameOverTime: 0,
     // Share button bounds for click detection
     shareButtonBounds: null as { x: number; y: number; w: number; h: number } | null,
+    // Difficulty & menu
+    difficulty: "normal" as Difficulty,
+    menuScreen: "main" as MenuScreen,
+    menuCursor: 0,
+    // Dynamic wave modifiers
+    waveModifier: null as WaveModifier,
+    waveModifierLabel: "",
+    missionStageData: null as MissionStage | null,
+    // Reward wave
+    rewardWaveActive: false,
+    rewardWaveEndTime: 0,
+    // Shadow audit (darkness overlay)
+    darknessRadius: 130,
+    // Unused but kept for potential future use
+    victoryTime: 0,
+    // Menu item bounds for click detection
+    menuItemBounds: [] as { x: number; y: number; w: number; h: number; action: string }[],
   });
 
   const keysRef = useRef<Set<string>>(new Set());
@@ -1030,12 +1156,16 @@ export function ComplianceRunner() {
       speed: 0.5 + Math.random() * 1.5,
     }));
 
-    // High score
+    // High score (legacy key, shown on main menu)
     const saved = localStorage.getItem("grc-invaders-highscore-v2");
     if (saved) {
       gameRef.current.highScore = Number.parseInt(saved, 10);
       setDisplayState((s) => ({ ...s, highScore: gameRef.current.highScore }));
     }
+
+    // Initialize menu state
+    gameRef.current.menuScreen = "main";
+    gameRef.current.menuCursor = 0;
 
     // Sound settings
     const soundSettings = localStorage.getItem("grc-invaders-sound");
@@ -1065,6 +1195,7 @@ export function ComplianceRunner() {
   // Spawn helpers
   const spawnFormation = useCallback((waveNum: number) => {
     const game = gameRef.current;
+    const diff = DIFFICULTIES[game.difficulty];
     const formation = createFormation(waveNum);
     game.activeFormation = formation;
     game.formationComplete = false;
@@ -1072,44 +1203,133 @@ export function ComplianceRunner() {
     formation.enemies.forEach((e, i) => {
       setTimeout(() => {
         if (game.state !== "playing") return;
+        const baseHealth = e.type === "threat" ? 2 : 1;
+        const health = Math.max(1, Math.round(baseHealth * diff.healthMult));
         game.enemies.push({
           id: game.enemyIdCounter++,
           x: e.x,
           y: e.y,
           type: e.type,
-          health: e.type === "threat" ? 2 : 1,
-          maxHealth: e.type === "threat" ? 2 : 1,
+          health,
+          maxHealth: health,
           pattern: e.pattern,
           patternTime: 0,
           startX: e.x,
           startY: e.y,
           angle: 0,
-          speed: 0.5 + waveNum * 0.08,
+          speed: (0.5 + waveNum * 0.08) * diff.speedMult,
         });
         game.waveEnemiesSpawned++;
       }, i * 150);
     });
   }, []);
 
-  const spawnBoss = useCallback((waveNum: number) => {
+  const spawnBoss = useCallback((waveNum: number, healthOverride?: number) => {
     const game = gameRef.current;
+    const diff = DIFFICULTIES[game.difficulty];
     game.bossWave = true;
+    const baseHealth = healthOverride ?? (15 + waveNum * 3);
+    const health = Math.round(baseHealth * diff.healthMult);
     game.enemies.push({
       id: game.enemyIdCounter++,
       x: GAME_WIDTH / 2 - 50,
       y: -100,
       type: "boss",
-      health: 15 + waveNum * 3,
-      maxHealth: 15 + waveNum * 3,
+      health,
+      maxHealth: health,
       pattern: "boss",
       patternTime: 0,
       startX: GAME_WIDTH / 2 - 50,
       startY: 60,
       angle: 0,
-      speed: 0.8 + waveNum * 0.05,
+      speed: (0.8 + waveNum * 0.05) * diff.speedMult,
     });
     game.waveEnemiesSpawned++;
     game.waveTarget = 1;
+  }, []);
+
+  // Spawn enemies from a mission stage config (used by mission-stage wave modifier)
+  const spawnMissionStage = useCallback((stage: MissionStage, waveNum: number) => {
+    const game = gameRef.current;
+    const diff = DIFFICULTIES[game.difficulty];
+
+    let spawnIndex = 0;
+    stage.enemies.forEach((group) => {
+      for (let i = 0; i < group.count; i++) {
+        const idx = spawnIndex++;
+        setTimeout(() => {
+          if (game.state !== "playing") return;
+          const baseHealth = group.type === "threat" ? 2 : 1;
+          const health = Math.max(1, Math.round(baseHealth * diff.healthMult));
+          const spread = GAME_WIDTH - 120;
+          game.enemies.push({
+            id: game.enemyIdCounter++,
+            x: 60 + (idx % 8) * (spread / 8),
+            y: -50 - Math.floor(idx / 8) * 45,
+            type: group.type,
+            health,
+            maxHealth: health,
+            pattern: group.pattern,
+            patternTime: 0,
+            startX: 60 + (idx % 8) * (spread / 8),
+            startY: -50,
+            angle: 0,
+            speed: (0.5 + waveNum * 0.08) * diff.speedMult,
+          });
+          game.waveEnemiesSpawned++;
+        }, idx * 150);
+      }
+    });
+
+    const totalEnemies = stage.enemies.reduce((sum, g) => sum + g.count, 0);
+    game.waveTarget = totalEnemies;
+  }, []);
+
+  // Reward wave: spawn falling power-ups
+  const startRewardWave = useCallback(() => {
+    const game = gameRef.current;
+    game.rewardWaveActive = true;
+    game.rewardWaveEndTime = Date.now() + 3000;
+
+    for (let i = 0; i < 8; i++) {
+      setTimeout(() => {
+        if (game.state !== "playing") return;
+        game.powerUps.push({
+          id: game.powerUpIdCounter++,
+          x: 40 + (i * (GAME_WIDTH - 80)) / 8 + Math.random() * 30,
+          y: -20 - Math.random() * 40,
+          type: (["shield", "rapid", "multi"] as const)[Math.floor(Math.random() * 3)],
+        });
+      }, i * 300);
+    }
+  }, []);
+
+  // Pick a random wave modifier for non-boss waves
+  // Cycle: normal → normal → shadow-audit → mission-stage → normal → boss-rush → ...
+  const pickWaveModifier = useCallback((waveNum: number): { modifier: WaveModifier; label: string; stage: MissionStage | null } => {
+    // Boss waves (every 5th) never get a modifier
+    if (waveNum % 5 === 0) return { modifier: null, label: "", stage: null };
+
+    // First 2 waves are always normal
+    if (waveNum <= 2) return { modifier: null, label: "", stage: null };
+
+    // Cycle through modifiers on certain waves
+    const cycle = waveNum % 7; // 7-wave repeating cycle
+    if (cycle === 3) {
+      return { modifier: "shadow-audit", label: "SHADOW AUDIT", stage: null };
+    }
+    if (cycle === 5) {
+      // Pick a random non-boss stage from a random mission
+      const mission = MISSIONS[Math.floor(Math.random() * MISSIONS.length)];
+      const regularStages = mission.stages.filter((s) => !s.isBoss);
+      const stage = regularStages[Math.floor(Math.random() * regularStages.length)];
+      return { modifier: "mission-stage", label: `${mission.name}: ${stage.name}`, stage };
+    }
+    if (cycle === 6 && waveNum > 8) {
+      return { modifier: "boss-rush", label: "BOSS RUSH", stage: null };
+    }
+
+    return { modifier: null, label: "", stage: null };
   }, []);
 
   // Check if restart is allowed (2 second cooldown after game over)
@@ -1123,7 +1343,6 @@ export function ComplianceRunner() {
   }, []);
 
   const startGame = useCallback(() => {
-    if (!canRestart()) return;
     const game = gameRef.current;
     game.state = "playing";
     game.score = 0;
@@ -1144,6 +1363,18 @@ export function ComplianceRunner() {
     game.waveTarget = 0;
     game.invincibleUntil = 0;
     game.gameOverTime = 0;
+    game.victoryTime = 0;
+    game.rewardWaveActive = false;
+    game.rewardWaveEndTime = 0;
+    game.waveModifier = null;
+    game.waveModifierLabel = "";
+    game.missionStageData = null;
+    game.shareButtonBounds = null;
+
+    // Load difficulty-specific high score
+    const hsKey = `grc-invaders-hs-${game.difficulty}`;
+    const saved = localStorage.getItem(hsKey);
+    game.highScore = saved ? Number.parseInt(saved, 10) : 0;
 
     setDisplayState((s) => ({
       ...s,
@@ -1154,12 +1385,49 @@ export function ComplianceRunner() {
       shieldLevel: 0,
       rapidLevel: 0,
       multiLevel: 0,
+      difficulty: game.difficulty,
+      waveModifier: null,
+      waveModifierLabel: "",
+      rewardWaveActive: false,
+      highScore: game.highScore,
     }));
 
-    // Start first wave
+    // Start first wave - always a normal formation
     spawnFormation(1);
     game.waveTarget = game.activeFormation?.enemies.length || 0;
   }, [spawnFormation]);
+
+  // Menu navigation helpers
+  const handleMenuSelect = useCallback(() => {
+    const game = gameRef.current;
+    const cursor = game.menuCursor;
+
+    if (game.menuScreen === "main") {
+      game.menuScreen = "difficulty";
+      game.menuCursor = 1; // default normal
+      setDisplayState((s) => ({ ...s, menuScreen: "difficulty" as MenuScreen }));
+    } else if (game.menuScreen === "difficulty") {
+      const diffs: Difficulty[] = ["easy", "normal", "hard"];
+      game.difficulty = diffs[cursor] || "normal";
+      startGame();
+    }
+  }, [startGame]);
+
+  const handleMenuBack = useCallback(() => {
+    const game = gameRef.current;
+    if (game.menuScreen === "difficulty") {
+      game.menuScreen = "main";
+      game.menuCursor = 0;
+      setDisplayState((s) => ({ ...s, menuScreen: "main" as MenuScreen }));
+    }
+  }, []);
+
+  const getMenuItemCount = useCallback(() => {
+    const game = gameRef.current;
+    if (game.menuScreen === "main") return 1;
+    if (game.menuScreen === "difficulty") return 3;
+    return 1;
+  }, []);
 
   // Input handlers
   useEffect(() => {
@@ -1170,12 +1438,47 @@ export function ComplianceRunner() {
         return;
       }
 
+      const game = gameRef.current;
+
+      // Menu navigation when idle
+      if (game.state === "idle") {
+        if (e.key === "ArrowUp") {
+          e.preventDefault();
+          game.menuCursor = (game.menuCursor - 1 + getMenuItemCount()) % getMenuItemCount();
+          return;
+        }
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          game.menuCursor = (game.menuCursor + 1) % getMenuItemCount();
+          return;
+        }
+        if (e.key === "Enter" || e.key === " " || e.code === "Space") {
+          e.preventDefault();
+          handleMenuSelect();
+          return;
+        }
+        if (e.key === "Escape") {
+          e.preventDefault();
+          handleMenuBack();
+          return;
+        }
+        return;
+      }
+
+      // Game over → return to menu
+      if (game.state === "gameover" && (e.key === " " || e.code === "Space") && canRestart()) {
+        e.preventDefault();
+        // Go back to menu
+        game.state = "idle";
+        game.menuScreen = "main";
+        game.menuCursor = 0;
+        setDisplayState((s) => ({ ...s, gameState: "idle", menuScreen: "main" }));
+        return;
+      }
+
       if (["ArrowLeft", "ArrowRight", "Space", " ", "a", "d", "A", "D"].includes(e.key)) {
         e.preventDefault();
         keysRef.current.add(e.key);
-      }
-      if ((e.key === " " || e.code === "Space") && gameRef.current.state !== "playing" && canRestart()) {
-        startGame();
       }
     };
     const handleKeyUp = (e: KeyboardEvent) => {
@@ -1187,34 +1490,76 @@ export function ComplianceRunner() {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [startGame, canRestart]);
+  }, [startGame, canRestart, handleMenuSelect, handleMenuBack, getMenuItemCount]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Canvas touch only handles starting the game, not movement
-    const onCanvasTouch = (e: TouchEvent) => {
-      e.preventDefault();
-      if (gameRef.current.state !== "playing" && canRestart()) {
-        startGame();
+    const handleCanvasTouchOrClick = (clientX: number, clientY: number) => {
+      const game = gameRef.current;
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = GAME_WIDTH / rect.width;
+      const scaleY = GAME_HEIGHT / rect.height;
+      const x = (clientX - rect.left) * scaleX;
+      const y = (clientY - rect.top) * scaleY;
+
+      if (game.state === "idle") {
+        // Check menu item bounds
+        for (const item of game.menuItemBounds) {
+          if (x >= item.x && x <= item.x + item.w && y >= item.y && y <= item.y + item.h) {
+            // Set cursor to matching item and select
+            const idx = game.menuItemBounds.indexOf(item);
+            game.menuCursor = idx;
+            handleMenuSelect();
+            return;
+          }
+        }
+        return;
+      }
+
+      if (game.state === "gameover" && canRestart()) {
+        // Check share button
+        if (game.shareButtonBounds) {
+          const btn = game.shareButtonBounds;
+          if (x >= btn.x && x <= btn.x + btn.w && y >= btn.y && y <= btn.y + btn.h) {
+            setShowShareCard(true);
+            return;
+          }
+        }
+        // Return to menu
+        game.state = "idle";
+        game.menuScreen = "main";
+        game.menuCursor = 0;
+        setDisplayState((s) => ({ ...s, gameState: "idle", menuScreen: "main" }));
+        return;
       }
     };
 
+    const onCanvasTouch = (e: TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      if (touch) handleCanvasTouchOrClick(touch.clientX, touch.clientY);
+    };
+
+    const onCanvasClick = (e: MouseEvent) => {
+      const game = gameRef.current;
+      if (game.state === "playing") return;
+      handleCanvasTouchOrClick(e.clientX, e.clientY);
+    };
+
     canvas.addEventListener("touchstart", onCanvasTouch, { passive: false });
+    canvas.addEventListener("click", onCanvasClick);
     return () => {
       canvas.removeEventListener("touchstart", onCanvasTouch);
+      canvas.removeEventListener("click", onCanvasClick);
     };
-  }, [startGame, canRestart]);
+  }, [startGame, canRestart, handleMenuSelect]);
 
   // Virtual control button handlers
   const handleControlStart = useCallback((control: "left" | "right" | "shoot") => {
     touchRef.current[control] = true;
-    // Also start game if not playing
-    if (control === "shoot" && gameRef.current.state !== "playing" && canRestart()) {
-      startGame();
-    }
-  }, [startGame, canRestart]);
+  }, []);
 
   const handleControlEnd = useCallback((control: "left" | "right" | "shoot") => {
     touchRef.current[control] = false;
@@ -1346,8 +1691,8 @@ export function ComplianceRunner() {
                 e.x = GAME_WIDTH / 2 - 50 + Math.sin(t * bossSpeedMult) * 180;
                 e.y = e.startY + Math.sin(t * bossSpeedMult * 0.6) * 25;
 
-                // Boss drops findings - rate scales with wave
-                const dropChance = 0.008 + game.wave * 0.002;
+                // Boss drops findings - rate scales with wave and difficulty
+                const dropChance = (0.008 + game.wave * 0.002) * DIFFICULTIES[game.difficulty].dropMult;
                 if (Math.random() < dropChance) {
                   game.findings.push({
                     id: game.findingIdCounter++,
@@ -1362,8 +1707,8 @@ export function ComplianceRunner() {
             }
           }
 
-          // Random finding drops from regular enemies - scales with wave
-          const enemyDropChance = 0.001 + game.wave * 0.0003;
+          // Random finding drops from regular enemies - scales with wave and difficulty
+          const enemyDropChance = (0.001 + game.wave * 0.0003) * DIFFICULTIES[game.difficulty].dropMult;
           if (e.pattern !== "boss" && Math.random() < enemyDropChance) {
             game.findings.push({
               id: game.findingIdCounter++,
@@ -1477,7 +1822,7 @@ export function ComplianceRunner() {
             return false;
           }
           game.lives--;
-          game.invincibleUntil = now + 1500; // 1.5 seconds invincibility
+          game.invincibleUntil = now + 1500;
           soundEngine.play("damage");
           // Hit flash particles
           for (let i = 0; i < 15; i++) {
@@ -1530,7 +1875,8 @@ export function ComplianceRunner() {
             p.y < playerY + PLAYER_HEIGHT &&
             p.y + 24 > playerY
           ) {
-            const duration = 8000;
+            const diff = DIFFICULTIES[game.difficulty];
+            const duration = Math.round(8000 * diff.powerupDurationMult);
             soundEngine.play("powerup");
             switch (p.type) {
               case "shield":
@@ -1551,27 +1897,72 @@ export function ComplianceRunner() {
           return true;
         });
 
-        // Check wave completion
-        if (game.waveEnemiesKilled >= game.waveTarget && game.enemies.length === 0) {
-          game.wave++;
-          game.waveEnemiesSpawned = 0;
-          game.waveEnemiesKilled = 0;
+        // Check reward wave expiry
+        if (game.rewardWaveActive && now > game.rewardWaveEndTime) {
+          game.rewardWaveActive = false;
+        }
+
+        // Check wave completion (skip during reward waves)
+        if (!game.rewardWaveActive && game.waveEnemiesKilled >= game.waveTarget && game.waveTarget > 0 && game.enemies.length === 0) {
           game.score += 100 * game.wave;
           soundEngine.play("wave");
 
-          // Boss every 5 waves
+          game.wave++;
+          game.waveEnemiesSpawned = 0;
+          game.waveEnemiesKilled = 0;
+          game.waveModifier = null;
+          game.waveModifierLabel = "";
+          game.missionStageData = null;
+
+          // Boss every 5 waves - reward wave after boss
           if (game.wave % 5 === 0) {
+            game.waveModifier = null;
             spawnBoss(game.wave);
             soundEngine.play("boss");
+          } else if ((game.wave - 1) % 5 === 0 && game.wave > 1) {
+            // Wave right after a boss - reward wave first
+            startRewardWave();
+            // After reward, pick modifier and spawn next wave
+            const { modifier, label, stage } = pickWaveModifier(game.wave);
+            game.waveModifier = modifier;
+            game.waveModifierLabel = label;
+            game.missionStageData = stage;
+            setTimeout(() => {
+              if (game.state !== "playing") return;
+              if (modifier === "mission-stage" && stage) {
+                spawnMissionStage(stage, game.wave);
+              } else if (modifier === "boss-rush") {
+                const rushHp = 20 + Math.floor(game.wave / 5) * 8;
+                spawnBoss(game.wave, rushHp);
+                soundEngine.play("boss");
+              } else {
+                spawnFormation(game.wave);
+                game.waveTarget = game.activeFormation?.enemies.length || 0;
+              }
+            }, 3200); // after reward wave ends
           } else {
-            spawnFormation(game.wave);
-            game.waveTarget = game.activeFormation?.enemies.length || 0;
+            // Normal wave advance - pick modifier
+            const { modifier, label, stage } = pickWaveModifier(game.wave);
+            game.waveModifier = modifier;
+            game.waveModifierLabel = label;
+            game.missionStageData = stage;
+
+            if (modifier === "mission-stage" && stage) {
+              spawnMissionStage(stage, game.wave);
+            } else if (modifier === "boss-rush") {
+              const rushHp = 20 + Math.floor(game.wave / 5) * 8;
+              spawnBoss(game.wave, rushHp);
+              soundEngine.play("boss");
+            } else {
+              spawnFormation(game.wave);
+              game.waveTarget = game.activeFormation?.enemies.length || 0;
+            }
           }
           game.bossWave = false;
         }
 
-        // Spawn additional formations mid-wave (only after wave 3, and less aggressively)
-        if (!game.bossWave && game.wave >= 3 && game.enemies.length < 2 && game.waveEnemiesKilled < game.waveTarget - 3) {
+        // Spawn additional formations mid-wave (only for normal/shadow-audit waves after wave 3)
+        if (!game.bossWave && game.waveModifier !== "mission-stage" && game.waveModifier !== "boss-rush" && game.wave >= 3 && game.enemies.length < 2 && game.waveEnemiesKilled < game.waveTarget - 3) {
           spawnFormation(game.wave);
         }
 
@@ -1580,8 +1971,14 @@ export function ComplianceRunner() {
           game.state = "gameover";
           game.gameOverTime = now;
           soundEngine.play("gameover");
+          const hsKey = `grc-invaders-hs-${game.difficulty}`;
           if (game.score > game.highScore) {
             game.highScore = game.score;
+            localStorage.setItem(hsKey, game.score.toString());
+          }
+          // Also update legacy key for backwards compat
+          const legacyHs = localStorage.getItem("grc-invaders-highscore-v2");
+          if (!legacyHs || game.score > Number.parseInt(legacyHs, 10)) {
             localStorage.setItem("grc-invaders-highscore-v2", game.score.toString());
           }
         }
@@ -1600,6 +1997,61 @@ export function ComplianceRunner() {
           drawPlayer(ctx, game.playerX, playerY, game.shieldLevel, game.frame);
         }
 
+        // Shadow Audit darkness overlay (dynamic wave modifier)
+        if (game.waveModifier === "shadow-audit") {
+          const playerCenterX = game.playerX + PLAYER_WIDTH / 2;
+          const playerCenterY = playerY + PLAYER_HEIGHT / 2;
+          game.darknessRadius = 120 + Math.sin(game.frame * 0.03) * 10;
+          const r = game.darknessRadius;
+
+          ctx.save();
+          ctx.beginPath();
+          // Outer rectangle
+          ctx.rect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+          // Inner circle cutout (evenodd)
+          ctx.arc(playerCenterX, playerCenterY, r, 0, Math.PI * 2, true);
+          ctx.fillStyle = "rgba(0, 0, 0, 0.92)";
+          ctx.fill("evenodd");
+
+          // Soft gradient edge
+          const gradient = ctx.createRadialGradient(playerCenterX, playerCenterY, r * 0.7, playerCenterX, playerCenterY, r * 1.3);
+          gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
+          gradient.addColorStop(1, "rgba(0, 0, 0, 0.6)");
+          ctx.beginPath();
+          ctx.arc(playerCenterX, playerCenterY, r * 1.3, 0, Math.PI * 2);
+          ctx.fillStyle = gradient;
+          ctx.fill();
+          ctx.restore();
+        }
+
+        // Reward wave text
+        if (game.rewardWaveActive) {
+          ctx.save();
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.fillStyle = "#fbbf24";
+          ctx.font = "bold 28px monospace";
+          const pulse = 0.7 + Math.sin(game.frame * 0.15) * 0.3;
+          ctx.globalAlpha = pulse;
+          ctx.fillText("REWARD WAVE!", GAME_WIDTH / 2, 80);
+          ctx.globalAlpha = 1;
+          ctx.restore();
+        }
+
+        // Wave modifier announcement (fades after 3 seconds)
+        if (game.waveModifier && game.waveModifierLabel && !game.rewardWaveActive) {
+          ctx.save();
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          const modColor = game.waveModifier === "shadow-audit" ? "#a855f7"
+            : game.waveModifier === "mission-stage" ? "#22d3ee"
+            : "#ec4899";
+          ctx.fillStyle = modColor;
+          ctx.font = "bold 16px monospace";
+          ctx.fillText(game.waveModifierLabel, GAME_WIDTH / 2, 30);
+          ctx.restore();
+        }
+
         // Touch zone hints
         ctx.fillStyle = "rgba(34, 211, 238, 0.02)";
         ctx.fillRect(0, 0, GAME_WIDTH * 0.35, GAME_HEIGHT);
@@ -1615,15 +2067,19 @@ export function ComplianceRunner() {
           shieldLevel: game.shieldLevel,
           rapidLevel: game.rapidLevel,
           multiLevel: game.multiLevel,
+          difficulty: game.difficulty,
+          waveModifier: game.waveModifier,
+          waveModifierLabel: game.waveModifierLabel,
+          rewardWaveActive: game.rewardWaveActive,
         });
       }
 
-      // Idle / Game Over screens
-      if (game.state === "idle" || game.state === "gameover") {
+      // Idle menu screen
+      if (game.state === "idle") {
         ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
         ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 
-        // Animated enemies
+        // Animated enemies in background
         const demoEnemies: Enemy[] = [
           { id: 1, x: 200, y: 120, type: "threat", health: 2, maxHealth: 2, pattern: "swoop", patternTime: game.frame * 0.016, startX: 200, startY: 120, angle: 0, speed: 1 },
           { id: 2, x: 350, y: 140, type: "vulnerability", health: 1, maxHealth: 1, pattern: "circle", patternTime: game.frame * 0.016, startX: 350, startY: 140, angle: game.frame * 0.02, speed: 1 },
@@ -1640,131 +2096,174 @@ export function ComplianceRunner() {
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
 
-        if (game.state === "idle") {
-          ctx.fillStyle = COLORS.playerAccent;
-          ctx.font = "bold 44px monospace";
-          ctx.fillText("GRC INVADERS", GAME_WIDTH / 2, 60);
+        // Title always shown
+        ctx.fillStyle = COLORS.playerAccent;
+        ctx.font = "bold 44px monospace";
+        ctx.fillText("GRC INVADERS", GAME_WIDTH / 2, 55);
 
+        game.menuItemBounds = [];
+
+        const drawMenuItem = (text: string, y: number, idx: number, color?: string) => {
+          const isSelected = game.menuCursor === idx;
+          const w = 320;
+          const h = 36;
+          const x = GAME_WIDTH / 2 - w / 2;
+
+          if (isSelected) {
+            ctx.fillStyle = `${COLORS.playerAccent}30`;
+            ctx.fillRect(x, y - h / 2, w, h);
+            ctx.strokeStyle = COLORS.playerAccent;
+            ctx.lineWidth = 2;
+            ctx.strokeRect(x, y - h / 2, w, h);
+          }
+
+          ctx.fillStyle = color || (isSelected ? COLORS.playerAccent : COLORS.text);
+          ctx.font = isSelected ? "bold 18px monospace" : "16px monospace";
+          ctx.fillText(text, GAME_WIDTH / 2, y);
+
+          game.menuItemBounds.push({ x, y: y - h / 2, w, h, action: text });
+        };
+
+        if (game.menuScreen === "main") {
           ctx.fillStyle = COLORS.text;
           ctx.font = "14px monospace";
-          ctx.fillText("Survive Audits, Shadow IT & Regulatory Fines!", GAME_WIDTH / 2, 95);
+          ctx.fillText("Survive Audits, Shadow IT & Regulatory Fines!", GAME_WIDTH / 2, 90);
 
-          // Legend - enemy types
+          // Legend
           ctx.font = "11px monospace";
           ctx.fillStyle = COLORS.risk;
           ctx.fillText("Audit Finding", 120, 195);
-          ctx.fillStyle = COLORS.textMuted;
-          ctx.fillText("10pt", 120, 210);
-
           ctx.fillStyle = COLORS.vulnerability;
           ctx.fillText("Shadow IT", 280, 195);
-          ctx.fillStyle = COLORS.textMuted;
-          ctx.fillText("20pt", 280, 210);
-
-          ctx.fillStyle = "#dc2626";
-          ctx.fillText("GDPR", 400, 195);
-          ctx.fillStyle = "#eab308";
-          ctx.fillText("NIS2", 450, 195);
-          ctx.fillStyle = "#22c55e";
-          ctx.fillText("DORA", 500, 195);
-          ctx.fillStyle = COLORS.textMuted;
-          ctx.fillText("Fines 30pt", 450, 210);
-
+          ctx.fillStyle = COLORS.threat;
+          ctx.fillText("Reg. Fines", 440, 195);
           ctx.fillStyle = COLORS.boss;
-          ctx.fillText("The Regulator", 640, 195);
-          ctx.fillStyle = COLORS.textMuted;
-          ctx.fillText("BOSS", 640, 210);
+          ctx.fillText("The Regulator", 620, 195);
 
-          // Power-ups legend
           ctx.fillStyle = COLORS.textMuted;
           ctx.font = "11px monospace";
-          ctx.fillText("Power-ups stack! Collect same type to upgrade (max Lv5)", GAME_WIDTH / 2, 240);
+          ctx.fillText("Power-ups stack! Collect same type to upgrade (max Lv5)", GAME_WIDTH / 2, 225);
 
           ctx.fillStyle = COLORS.textMuted;
-          ctx.font = "13px monospace";
-          ctx.fillText("← → or A/D to move | SPACE or tap center to shoot", GAME_WIDTH / 2, 280);
-          ctx.fillText("Dodge the ⚠ Findings!", GAME_WIDTH / 2, 305);
+          ctx.font = "12px monospace";
+          ctx.fillText("← → / A D = Move | SPACE = Shoot | ↑↓ = Menu | ENTER = Select", GAME_WIDTH / 2, 260);
 
-          ctx.fillStyle = COLORS.playerAccent;
-          ctx.font = "bold 18px monospace";
           const pulse = 0.7 + Math.sin(game.frame * 0.1) * 0.3;
           ctx.globalAlpha = pulse;
-          ctx.fillText("TAP OR PRESS SPACE TO START", GAME_WIDTH / 2, 380);
+          drawMenuItem("▶  PLAY", 340, 0);
           ctx.globalAlpha = 1;
 
           if (game.highScore > 0) {
             ctx.fillStyle = COLORS.textMuted;
             ctx.font = "14px monospace";
-            ctx.fillText(`High Score: ${game.highScore}`, GAME_WIDTH / 2, 420);
+            ctx.fillText(`High Score: ${game.highScore}`, GAME_WIDTH / 2, 400);
           }
-        } else {
-          const timeSinceGameOver = now - game.gameOverTime;
-          const canRestartNow = timeSinceGameOver > 2000;
 
-          ctx.fillStyle = COLORS.risk;
-          ctx.font = "bold 38px monospace";
-          ctx.fillText("SYSTEM BREACHED!", GAME_WIDTH / 2, 180);
-
-          ctx.fillStyle = COLORS.text;
-          ctx.font = "bold 32px monospace";
-          ctx.fillText(`${game.score.toString().padStart(6, "0")}`, GAME_WIDTH / 2, 240);
-
+        } else if (game.menuScreen === "difficulty") {
           ctx.fillStyle = COLORS.textMuted;
           ctx.font = "16px monospace";
-          ctx.fillText(`Wave ${game.wave}`, GAME_WIDTH / 2, 275);
+          ctx.fillText("SELECT DIFFICULTY", GAME_WIDTH / 2, 100);
+          ctx.font = "11px monospace";
+          ctx.fillText("ESC = Back", GAME_WIDTH / 2, 122);
 
-          if (game.score >= game.highScore && game.score > 0) {
-            ctx.fillStyle = "#fbbf24";
-            ctx.font = "bold 14px monospace";
-            ctx.fillText("★ NEW HIGH SCORE ★", GAME_WIDTH / 2, 310);
-          }
-
-          // Share button - drawn as a clickable area
-          const shareButtonY = 350;
-          const shareButtonWidth = 180;
-          const shareButtonHeight = 40;
-          const shareButtonX = GAME_WIDTH / 2 - shareButtonWidth / 2;
-
-          // Store button bounds for click detection
-          game.shareButtonBounds = { x: shareButtonX, y: shareButtonY, w: shareButtonWidth, h: shareButtonHeight };
-
-          ctx.fillStyle = `${COLORS.playerAccent}30`;
-          ctx.fillRect(shareButtonX, shareButtonY, shareButtonWidth, shareButtonHeight);
-          ctx.strokeStyle = COLORS.playerAccent;
-          ctx.lineWidth = 2;
-          ctx.strokeRect(shareButtonX, shareButtonY, shareButtonWidth, shareButtonHeight);
-
-          ctx.fillStyle = COLORS.playerAccent;
-          ctx.font = "bold 16px monospace";
-          ctx.fillText("📸 SHARE SCORE", GAME_WIDTH / 2, shareButtonY + 24);
-
-          // Restart text with countdown
-          if (canRestartNow) {
-            ctx.fillStyle = COLORS.text;
-            ctx.font = "bold 14px monospace";
-            const pulse = 0.7 + Math.sin(game.frame * 0.1) * 0.3;
-            ctx.globalAlpha = pulse;
-            ctx.fillText("TAP OR SPACE TO RESTART", GAME_WIDTH / 2, 430);
-            ctx.globalAlpha = 1;
-          } else {
-            const secondsLeft = Math.ceil((2000 - timeSinceGameOver) / 1000);
+          const diffs: { key: Difficulty; label: string; desc: string }[] = [
+            { key: "easy", label: "EASY", desc: "Slower enemies, weaker foes, longer power-ups" },
+            { key: "normal", label: "NORMAL", desc: "The standard compliance experience" },
+            { key: "hard", label: "HARD", desc: "Faster enemies, tougher foes, shorter power-ups" },
+          ];
+          diffs.forEach((d, i) => {
+            const y = 230 + i * 65;
+            drawMenuItem(d.label, y, i, DIFFICULTIES[d.key].color);
             ctx.fillStyle = COLORS.textMuted;
-            ctx.font = "14px monospace";
-            ctx.fillText(`Restart in ${secondsLeft}...`, GAME_WIDTH / 2, 430);
-          }
+            ctx.font = "11px monospace";
+            ctx.fillText(d.desc, GAME_WIDTH / 2, y + 24);
+          });
 
-          setDisplayState((s) => ({
-            ...s,
-            gameState: "gameover",
-            score: game.score,
-            highScore: game.highScore,
-            lives: 0,
-            wave: game.wave,
-            shieldLevel: 0,
-            rapidLevel: 0,
-            multiLevel: 0,
-          }));
+          // Features preview
+          ctx.fillStyle = COLORS.textMuted;
+          ctx.font = "10px monospace";
+          ctx.fillText("Dynamic events: Shadow Audits • Mission Stages • Boss Rushes", GAME_WIDTH / 2, 440);
+          ctx.fillText("Boss every 5 waves • Reward waves after bosses", GAME_WIDTH / 2, 456);
         }
+      }
+
+      // Game Over screen
+      if (game.state === "gameover") {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.75)";
+        ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+
+        const timeSinceGameOver = now - game.gameOverTime;
+        const canRestartNow = timeSinceGameOver > 2000;
+
+        ctx.fillStyle = COLORS.risk;
+        ctx.font = "bold 34px monospace";
+        ctx.fillText("SYSTEM BREACHED!", GAME_WIDTH / 2, 160);
+
+        // Difficulty badge
+        const diff = DIFFICULTIES[game.difficulty];
+        ctx.fillStyle = diff.color;
+        ctx.font = "bold 12px monospace";
+        ctx.fillText(diff.label, GAME_WIDTH / 2, 195);
+
+        ctx.fillStyle = COLORS.text;
+        ctx.font = "bold 32px monospace";
+        ctx.fillText(`${game.score.toString().padStart(6, "0")}`, GAME_WIDTH / 2, 240);
+
+        ctx.fillStyle = COLORS.textMuted;
+        ctx.font = "16px monospace";
+        ctx.fillText(`Wave ${game.wave}`, GAME_WIDTH / 2, 275);
+
+        if (game.score >= game.highScore && game.score > 0) {
+          ctx.fillStyle = "#fbbf24";
+          ctx.font = "bold 14px monospace";
+          ctx.fillText("★ NEW HIGH SCORE ★", GAME_WIDTH / 2, 310);
+        }
+
+        // Share button
+        const shareButtonY = 350;
+        const shareButtonWidth = 180;
+        const shareButtonHeight = 40;
+        const shareButtonX = GAME_WIDTH / 2 - shareButtonWidth / 2;
+        game.shareButtonBounds = { x: shareButtonX, y: shareButtonY, w: shareButtonWidth, h: shareButtonHeight };
+
+        ctx.fillStyle = `${COLORS.playerAccent}30`;
+        ctx.fillRect(shareButtonX, shareButtonY, shareButtonWidth, shareButtonHeight);
+        ctx.strokeStyle = COLORS.playerAccent;
+        ctx.lineWidth = 2;
+        ctx.strokeRect(shareButtonX, shareButtonY, shareButtonWidth, shareButtonHeight);
+
+        ctx.fillStyle = COLORS.playerAccent;
+        ctx.font = "bold 16px monospace";
+        ctx.fillText("📸 SHARE SCORE", GAME_WIDTH / 2, shareButtonY + 24);
+
+        if (canRestartNow) {
+          ctx.fillStyle = COLORS.text;
+          ctx.font = "bold 14px monospace";
+          const pulse = 0.7 + Math.sin(game.frame * 0.1) * 0.3;
+          ctx.globalAlpha = pulse;
+          ctx.fillText("TAP OR SPACE FOR MENU", GAME_WIDTH / 2, 430);
+          ctx.globalAlpha = 1;
+        } else {
+          const secondsLeft = Math.ceil((2000 - timeSinceGameOver) / 1000);
+          ctx.fillStyle = COLORS.textMuted;
+          ctx.font = "14px monospace";
+          ctx.fillText(`Menu in ${secondsLeft}...`, GAME_WIDTH / 2, 430);
+        }
+
+        setDisplayState((s) => ({
+          ...s,
+          gameState: "gameover",
+          score: game.score,
+          highScore: game.highScore,
+          lives: 0,
+          wave: game.wave,
+          shieldLevel: 0,
+          rapidLevel: 0,
+          multiLevel: 0,
+        }));
       }
 
       animationFrameRef.current = requestAnimationFrame(gameLoop);
@@ -1774,9 +2273,9 @@ export function ComplianceRunner() {
     return () => {
       if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
     };
-  }, [spawnFormation, spawnBoss]);
+  }, [spawnFormation, spawnBoss, spawnMissionStage, startRewardWave, pickWaveModifier]);
 
-  const { gameState, score, highScore, lives, wave, shieldLevel: dispShield, rapidLevel: dispRapid, multiLevel: dispMulti } = displayState;
+  const { gameState, score, highScore, lives, wave, shieldLevel: dispShield, rapidLevel: dispRapid, multiLevel: dispMulti, difficulty: dispDiff, waveModifier: dispModifier, waveModifierLabel: dispModLabel } = displayState;
 
   // Generate and download scorecard
   const generateScorecard = useCallback(() => {
@@ -1823,10 +2322,10 @@ export function ComplianceRunner() {
     ctx.font = "bold 36px monospace";
     ctx.fillText("GRC INVADERS", w / 2, 50);
 
-    // Subtitle
+    // Subtitle - difficulty
     ctx.fillStyle = COLORS.textMuted;
     ctx.font = "14px monospace";
-    ctx.fillText("MISSION COMPLETE", w / 2, 80);
+    ctx.fillText(DIFFICULTIES[dispDiff].label, w / 2, 80);
 
     // Nickname
     const displayName = nickname.trim() || "ANONYMOUS";
@@ -1880,7 +2379,7 @@ export function ComplianceRunner() {
     ctx.font = "11px monospace";
     const date = new Date().toLocaleDateString("de-DE");
     ctx.fillText(`docs.kopexa.com • ${date}`, w / 2, 370);
-  }, [nickname, score, wave, highScore]);
+  }, [nickname, score, wave, highScore, dispDiff]);
 
   // Update scorecard when values change
   useEffect(() => {
@@ -1916,7 +2415,24 @@ export function ComplianceRunner() {
             SCORE: <span className="text-[#22d3ee]">{score.toString().padStart(6, "0")}</span>
           </span>
           <span className="text-[#22c55e]">WAVE {wave}</span>
+          {gameState === "playing" && dispModifier && dispModLabel && (
+            <span className={`text-xs px-1.5 py-0.5 rounded font-bold ${
+              dispModifier === "shadow-audit" ? "bg-[#a855f7]/30 text-[#a855f7]"
+              : dispModifier === "mission-stage" ? "bg-[#22d3ee]/30 text-[#22d3ee]"
+              : "bg-[#ec4899]/30 text-[#ec4899]"
+            }`}>
+              {dispModLabel}
+            </span>
+          )}
           <span className="text-white/60">HI: {highScore.toString().padStart(6, "0")}</span>
+          {gameState === "playing" && (
+            <span
+              className="px-1.5 py-0.5 rounded text-[10px] font-bold"
+              style={{ backgroundColor: `${DIFFICULTIES[dispDiff].color}30`, color: DIFFICULTIES[dispDiff].color }}
+            >
+              {DIFFICULTIES[dispDiff].label}
+            </span>
+          )}
         </div>
 
         {/* Lives & Power-up & Controls */}
@@ -1984,29 +2500,8 @@ export function ComplianceRunner() {
           ref={canvasRef}
           width={GAME_WIDTH}
           height={GAME_HEIGHT}
-          onClick={(e) => {
-            const game = gameRef.current;
-            if (game.state === "playing") return;
-
-            // Check if click is on share button (game over screen)
-            if (game.state === "gameover" && game.shareButtonBounds) {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const scaleX = GAME_WIDTH / rect.width;
-              const scaleY = GAME_HEIGHT / rect.height;
-              const x = (e.clientX - rect.left) * scaleX;
-              const y = (e.clientY - rect.top) * scaleY;
-              const btn = game.shareButtonBounds;
-
-              if (x >= btn.x && x <= btn.x + btn.w && y >= btn.y && y <= btn.y + btn.h) {
-                setShowShareCard(true);
-                return;
-              }
-            }
-
-            // Otherwise try to start game
-            if (canRestart()) {
-              startGame();
-            }
+          onClick={() => {
+            // Click handling is done in the useEffect canvas click handler
           }}
           className="rounded-xl border-2 sm:border-4 border-[#22d3ee]/30 cursor-pointer touch-none"
           style={
