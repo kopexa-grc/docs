@@ -194,6 +194,8 @@ const BULLET_WIDTH = 6;
 const BULLET_HEIGHT = 14;
 const PLAYER_SPEED = 5;
 const BULLET_SPEED = 12;
+const MAX_POWER_LEVEL = 5;
+const RAPID_FIRE_RATES = [200, 150, 120, 90, 70, 50]; // fire rate ms per level (0-5)
 
 // Colors
 const COLORS = {
@@ -361,19 +363,29 @@ function drawPlayer(
   ctx: CanvasRenderingContext2D,
   x: number,
   y: number,
-  hasShield: boolean,
+  shieldLevel: number,
   frame: number
 ) {
   const s = 1.75;
 
-  // Shield effect
-  if (hasShield) {
+  // Shield effect - concentric rings per level
+  if (shieldLevel > 0) {
     ctx.strokeStyle = COLORS.powerupShield;
-    ctx.lineWidth = 2;
-    ctx.globalAlpha = 0.5 + Math.sin(frame * 0.2) * 0.3;
+    const pulse = Math.sin(frame * 0.2) * 0.3;
+    for (let i = 0; i < shieldLevel; i++) {
+      ctx.lineWidth = 2;
+      ctx.globalAlpha = (0.4 + pulse) * (1 - i * 0.1);
+      const grow = i * 5;
+      ctx.beginPath();
+      ctx.ellipse(x + PLAYER_WIDTH / 2, y + PLAYER_HEIGHT / 2, PLAYER_WIDTH / 2 + 8 + grow, PLAYER_HEIGHT / 2 + 6 + grow, 0, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    // Fill innermost shield with faint glow
+    ctx.globalAlpha = 0.08 * shieldLevel;
+    ctx.fillStyle = COLORS.powerupShield;
     ctx.beginPath();
     ctx.ellipse(x + PLAYER_WIDTH / 2, y + PLAYER_HEIGHT / 2, PLAYER_WIDTH / 2 + 8, PLAYER_HEIGHT / 2 + 6, 0, 0, Math.PI * 2);
-    ctx.stroke();
+    ctx.fill();
     ctx.globalAlpha = 1;
   }
 
@@ -927,14 +939,18 @@ export function ComplianceRunner() {
     highScore: number;
     lives: number;
     wave: number;
-    powerUp: string | null;
+    shieldLevel: number;
+    rapidLevel: number;
+    multiLevel: number;
   }>({
     gameState: "idle",
     score: 0,
     highScore: 0,
     lives: 3,
     wave: 1,
-    powerUp: null,
+    shieldLevel: 0,
+    rapidLevel: 0,
+    multiLevel: 0,
   });
   const [canvasSize, setCanvasSize] = useState({ width: GAME_WIDTH, height: GAME_HEIGHT });
   const [showShareCard, setShowShareCard] = useState(false);
@@ -969,12 +985,12 @@ export function ComplianceRunner() {
     lastShot: 0,
     frame: 0,
     starOffset: 0,
-    // Power-up states
-    hasShield: false,
+    // Power-up states (stacking levels 0-5)
+    shieldLevel: 0,
     shieldEndTime: 0,
-    rapidFire: false,
+    rapidLevel: 0,
     rapidFireEndTime: 0,
-    multiShot: false,
+    multiLevel: 0,
     multiShotEndTime: 0,
     // Boss tracking
     bossWave: false,
@@ -1119,9 +1135,9 @@ export function ComplianceRunner() {
     game.findings = [];
     game.powerUps = [];
     game.particles = [];
-    game.hasShield = false;
-    game.rapidFire = false;
-    game.multiShot = false;
+    game.shieldLevel = 0;
+    game.rapidLevel = 0;
+    game.multiLevel = 0;
     game.bossWave = false;
     game.waveEnemiesSpawned = 0;
     game.waveEnemiesKilled = 0;
@@ -1135,7 +1151,9 @@ export function ComplianceRunner() {
       score: 0,
       lives: 3,
       wave: 1,
-      powerUp: null,
+      shieldLevel: 0,
+      rapidLevel: 0,
+      multiLevel: 0,
     }));
 
     // Start first wave
@@ -1227,12 +1245,9 @@ export function ComplianceRunner() {
 
       if (game.state === "playing") {
         // Check power-up expiration
-        if (game.hasShield && now > game.shieldEndTime) game.hasShield = false;
-        if (game.rapidFire && now > game.rapidFireEndTime) game.rapidFire = false;
-        if (game.multiShot && now > game.multiShotEndTime) game.multiShot = false;
-
-        // Update display state for power-ups
-        const currentPowerUp = game.hasShield ? "shield" : game.rapidFire ? "rapid" : game.multiShot ? "multi" : null;
+        if (game.shieldLevel > 0 && now > game.shieldEndTime) game.shieldLevel = 0;
+        if (game.rapidLevel > 0 && now > game.rapidFireEndTime) game.rapidLevel = 0;
+        if (game.multiLevel > 0 && now > game.multiShotEndTime) game.multiLevel = 0;
 
         // Player movement
         const left = keysRef.current.has("ArrowLeft") || keysRef.current.has("a") || keysRef.current.has("A") || touchRef.current.left;
@@ -1242,19 +1257,26 @@ export function ComplianceRunner() {
         if (left) game.playerX = Math.max(0, game.playerX - PLAYER_SPEED);
         if (right) game.playerX = Math.min(GAME_WIDTH - PLAYER_WIDTH, game.playerX + PLAYER_SPEED);
 
-        // Shooting
-        const fireRate = game.rapidFire ? 100 : 200;
+        // Shooting - fire rate scales with rapid level
+        const fireRate = RAPID_FIRE_RATES[Math.min(game.rapidLevel, MAX_POWER_LEVEL)];
         if (shoot && now - game.lastShot > fireRate) {
           game.lastShot = now;
           const bulletX = game.playerX + PLAYER_WIDTH / 2 - BULLET_WIDTH / 2;
           const bulletY = GAME_HEIGHT - 70;
 
-          if (game.multiShot) {
-            game.bullets.push(
-              { id: game.bulletIdCounter++, x: bulletX, y: bulletY, angle: 0 },
-              { id: game.bulletIdCounter++, x: bulletX - 10, y: bulletY, angle: -0.15 },
-              { id: game.bulletIdCounter++, x: bulletX + 10, y: bulletY, angle: 0.15 }
-            );
+          if (game.multiLevel > 0) {
+            // Center bullet always fires
+            game.bullets.push({ id: game.bulletIdCounter++, x: bulletX, y: bulletY, angle: 0 });
+            // Symmetric spread pairs based on level (lv1=3, lv2=5, lv3=7, lv4=9, lv5=11 total)
+            const spreadStep = 0.12;
+            for (let i = 1; i <= game.multiLevel; i++) {
+              const angle = spreadStep * i;
+              const offset = i * 6;
+              game.bullets.push(
+                { id: game.bulletIdCounter++, x: bulletX - offset, y: bulletY, angle: -angle },
+                { id: game.bulletIdCounter++, x: bulletX + offset, y: bulletY, angle: angle }
+              );
+            }
           } else {
             game.bullets.push({ id: game.bulletIdCounter++, x: bulletX, y: bulletY, angle: 0 });
           }
@@ -1450,8 +1472,8 @@ export function ComplianceRunner() {
         // Helper function for taking damage
         const takeDamage = () => {
           if (isInvincible) return false;
-          if (game.hasShield) {
-            game.hasShield = false;
+          if (game.shieldLevel > 0) {
+            game.shieldLevel--;
             return false;
           }
           game.lives--;
@@ -1512,15 +1534,15 @@ export function ComplianceRunner() {
             soundEngine.play("powerup");
             switch (p.type) {
               case "shield":
-                game.hasShield = true;
+                game.shieldLevel = Math.min(game.shieldLevel + 1, MAX_POWER_LEVEL);
                 game.shieldEndTime = now + duration;
                 break;
               case "rapid":
-                game.rapidFire = true;
+                game.rapidLevel = Math.min(game.rapidLevel + 1, MAX_POWER_LEVEL);
                 game.rapidFireEndTime = now + duration;
                 break;
               case "multi":
-                game.multiShot = true;
+                game.multiLevel = Math.min(game.multiLevel + 1, MAX_POWER_LEVEL);
                 game.multiShotEndTime = now + duration;
                 break;
             }
@@ -1575,7 +1597,7 @@ export function ComplianceRunner() {
         // Draw player with invincibility flashing
         const isCurrentlyInvincible = now < game.invincibleUntil;
         if (!isCurrentlyInvincible || Math.floor(game.frame / 4) % 2 === 0) {
-          drawPlayer(ctx, game.playerX, playerY, game.hasShield, game.frame);
+          drawPlayer(ctx, game.playerX, playerY, game.shieldLevel, game.frame);
         }
 
         // Touch zone hints
@@ -1590,7 +1612,9 @@ export function ComplianceRunner() {
           highScore: game.highScore,
           lives: game.lives,
           wave: game.wave,
-          powerUp: currentPowerUp,
+          shieldLevel: game.shieldLevel,
+          rapidLevel: game.rapidLevel,
+          multiLevel: game.multiLevel,
         });
       }
 
@@ -1611,7 +1635,7 @@ export function ComplianceRunner() {
           drawEnemy(ctx, e, game.frame);
         });
 
-        drawPlayer(ctx, GAME_WIDTH / 2 - PLAYER_WIDTH / 2, GAME_HEIGHT - 100, false, game.frame);
+        drawPlayer(ctx, GAME_WIDTH / 2 - PLAYER_WIDTH / 2, GAME_HEIGHT - 100, 0, game.frame);
 
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -1654,7 +1678,7 @@ export function ComplianceRunner() {
           // Power-ups legend
           ctx.fillStyle = COLORS.textMuted;
           ctx.font = "11px monospace";
-          ctx.fillText("Power-ups: ISO Cert (Shield) | Kopexa (Speed) | Consultants (x3)", GAME_WIDTH / 2, 240);
+          ctx.fillText("Power-ups stack! Collect same type to upgrade (max Lv5)", GAME_WIDTH / 2, 240);
 
           ctx.fillStyle = COLORS.textMuted;
           ctx.font = "13px monospace";
@@ -1736,6 +1760,9 @@ export function ComplianceRunner() {
             highScore: game.highScore,
             lives: 0,
             wave: game.wave,
+            shieldLevel: 0,
+            rapidLevel: 0,
+            multiLevel: 0,
           }));
         }
       }
@@ -1749,7 +1776,7 @@ export function ComplianceRunner() {
     };
   }, [spawnFormation, spawnBoss]);
 
-  const { gameState, score, highScore, lives, wave, powerUp } = displayState;
+  const { gameState, score, highScore, lives, wave, shieldLevel: dispShield, rapidLevel: dispRapid, multiLevel: dispMulti } = displayState;
 
   // Generate and download scorecard
   const generateScorecard = useCallback(() => {
@@ -1905,13 +1932,22 @@ export function ComplianceRunner() {
               ))}
             </div>
           </div>
-          {powerUp && (
-            <div className={`px-2 py-0.5 rounded text-xs font-bold ${
-              powerUp === "shield" ? "bg-[#22d3ee]/30 text-[#22d3ee]" :
-              powerUp === "rapid" ? "bg-[#22c55e]/30 text-[#22c55e]" :
-              "bg-[#a855f7]/30 text-[#a855f7]"
-            }`}>
-              {powerUp === "shield" ? "🛡 ISO CERT" : powerUp === "rapid" ? "⚡ KOPEXA" : "👥 CONSULTANTS"}
+          {dispShield > 0 && (
+            <div className="px-2 py-0.5 rounded text-xs font-bold bg-[#22d3ee]/30 text-[#22d3ee] flex items-center gap-1">
+              <span>🛡 ISO</span>
+              <span className="text-[10px] opacity-80">{"⚡".repeat(dispShield)}</span>
+            </div>
+          )}
+          {dispRapid > 0 && (
+            <div className="px-2 py-0.5 rounded text-xs font-bold bg-[#22c55e]/30 text-[#22c55e] flex items-center gap-1">
+              <span>⚡ KOPEXA</span>
+              <span className="text-[10px] opacity-80">{"⚡".repeat(dispRapid)}</span>
+            </div>
+          )}
+          {dispMulti > 0 && (
+            <div className="px-2 py-0.5 rounded text-xs font-bold bg-[#a855f7]/30 text-[#a855f7] flex items-center gap-1">
+              <span>👥 x{1 + dispMulti * 2}</span>
+              <span className="text-[10px] opacity-80">{"⚡".repeat(dispMulti)}</span>
             </div>
           )}
           {/* Sound & Fullscreen buttons */}
