@@ -27,7 +27,9 @@ Diese Gruppe weist du später deiner erstellten Kopexa-App zu.
 Zur schnelleren und fehlerfreien Konfiguration nutze die Service-Provider-Metadaten von Kopexa:
 
 - **Metadata-Datei/URL (SP):**  
-  `https://api.kopexa.com/auth/sso/saml/sp/metadata.xml`
+  `https://id.kopexa.com/sso/saml/metadata`
+- **ACS / Reply URL (SP):**  
+  `https://id.kopexa.com/sso/saml/acs`
 
 > Tipp: Entra kann die Metadata **per URL einlesen** (empfohlen) oder als **XML-Datei** hochgeladen bekommen.  
 > Dadurch werden **Entity ID/Issuer**, **ACS/Reply URL** und weitere Felder automatisch gesetzt.
@@ -48,10 +50,10 @@ Zur schnelleren und fehlerfreien Konfiguration nutze die Service-Provider-Metada
 In der App wähle **Einmaliges Anmelden → SAML** und konfiguriere:
 
 - Nutze **„Metadaten von Datei/URL hochladen“** und gib die Kopexa-URL an:  
-  `http://api.kopexa.com/auth/sso/saml/sp/metadata.xml`
+  `https://id.kopexa.com/sso/saml/metadata`
 - Alternativ: Werte manuell aus der Metadata übernehmen:
   - **Bezeichner (Entity ID / Issuer)** – aus Metadata
-  - **Antwort-URL (ACS / Reply URL)** – aus Metadata
+  - **Antwort-URL (ACS / Reply URL)** – `https://id.kopexa.com/sso/saml/acs`
   - **Anmelde-URL (optional)** – deine Kopexa-URL
 
 ![Screenshot: SAML Konfiguration in Entra](./images/entra-saml-basic.png)
