@@ -110,6 +110,70 @@ Ein Ziel ohne KPI ist ein Wunsch. Pro Ziel gehört mindestens ein KPI, selten me
 
 > **Warnung:** Definiert keinen KPI, dessen Datenquelle ihr nicht geklärt habt. Ein KPI, den niemand pflegt, ist nicht nur wertlos – er untergräbt das Vertrauen in das gesamte Goal-Modul. Lieber ein KPI weniger als ein KPI ohne Datenbasis.
 
+### KPIs automatisch tracken
+
+<Callout>
+**Der manuelle Pflegeaufwand ist der häufigste Grund, warum Goal-Module in Compliance-Tools verwaisen.** Wer einmal pro Woche Excel-Werte abtippt, bricht das Ritual nach drei Monaten ab. Kopexa löst das, indem KPI-Werte direkt aus den Systemen gezogen werden, in denen die Daten ohnehin entstehen – Ticket-Systeme, SIEM, Vulnerability-Scanner, Awareness-Tools.
+</Callout>
+
+Automatisierung verändert die Psychologie des Goal-Moduls grundlegend. Statt *"Ich muss den KPI pflegen"* wird daraus *"Der KPI pflegt sich selbst, ich muss nur auf Abweichungen reagieren"*. Genau dieser Zustand ist Voraussetzung dafür, dass ein Frühwarnsystem tatsächlich funktioniert – und nicht nur im Soll-Prozess existiert.
+
+#### Beispiel: MTTA-KPI aus Zammad
+
+Angenommen, ihr betreibt euren Security-Incident-Intake in **Zammad**. Eine reale Anforderung aus NIS2 lautet: Sicherheitsrelevante Incidents müssen innerhalb klar definierter Zeiten erkannt, klassifiziert und behandelt werden. Daraus leitet ihr ein Ziel ab:
+
+> **Ziel:** *Mean Time to Acknowledge (MTTA) für sicherheitsrelevante Incidents unter 30 Minuten – bis 2026-06-30*
+>
+> **Abgeleitete Stakeholder:** BSI (NIS2-Anforderung), Cyber-Versicherer (Reaktionsklausel in der Police)
+>
+> **Adressiertes Risiko:** *"Verzögerte Incident-Reaktion führt zur Ausweitung des Schadens und zur Verletzung der 24-Stunden-Meldepflicht"*
+
+Der passende KPI wird direkt an die Zammad-Integration gekoppelt:
+
+| Feld | Wert |
+|---|---|
+| **Name** | MTTA – sicherheitsrelevante Incidents |
+| **Einheit** | Minuten |
+| **Zielwert** | ≤ 30 |
+| **Datenquelle** | Zammad-API, Ticket-Gruppe *Security*, Zeitdifferenz zwischen `created_at` und `first_response_at` |
+| **Aktualisierung** | stündlich |
+| **Pflege** | automatisch über Integration |
+
+Sobald die Integration läuft, zieht Kopexa stündlich die aktuellen Werte aus Zammad, berechnet den gleitenden Durchschnitt und aktualisiert den KPI. Überschreitet der Wert die 30-Minuten-Schwelle, wird das verknüpfte Risiko automatisch eskaliert – und das nächste Management-Review hat eine konkrete Datenbasis statt einer Schätzung.
+
+Das schließt den ERM-Kreis ohne manuellen Eingriff:
+
+<Mermaid chart={`
+graph LR
+    Z[Zammad<br/>Security-Tickets] -->|stuendlich| K[KPI MTTA]
+    K -->|Schwellwert ueberschritten| R[Risiko eskaliert]
+    R -->|sichtbar im| MR[Management-Review]
+    MR -->|Entscheidung| MA[Massnahme / Investition]
+    MA -.wirkt auf.-> Z
+`} />
+
+<Callout>
+**An diesem Punkt hört Kopexa auf, ein Verwaltungstool zu sein.** Das Goal-Modul wird zum operativen Steuerungsinstrument: Ziele dokumentieren nicht mehr – sie greifen ein. KPI-Abweichungen eskalieren Risiken, Risiken treiben Maßnahmen, Maßnahmen verändern die Systeme, aus denen die KPIs wieder entstehen. Der Kreis schließt sich ohne manuellen Eingriff. Compliance wird damit von einer Nachweispflicht zu einem aktiven Feedback-Loop, der euer Unternehmen messbar schneller und sicherer macht.
+</Callout>
+
+<Callout type="info">
+**Warum Ticket-Systeme ein besonders lohnender Einstieg sind:** Die Daten sind bereits strukturiert, tragen Zeitstempel, und die SLA-Logik ist oft schon eingebaut. Ihr müsst nichts neu messen – nur das, was ohnehin passiert, sichtbar machen. Wer bei Automatisierung nach Quick Wins sucht, fängt hier an.
+</Callout>
+
+#### Weitere typische automatisierte KPIs
+
+| KPI | Datenquelle | Beispielziel |
+|---|---|---|
+| **Mean Time to Patch** (kritische CVEs) | Vulnerability Scanner (Qualys, Tenable, Greenbone) | ≤ 7 Tage |
+| **Phishing-Klickrate** | Awareness-Tool (KnowBe4, SoSafe) | < 3 % |
+| **MFA-Abdeckung** | Entra ID, Okta, Keycloak | ≥ 99 % |
+| **Offene Security-Tickets > 30 Tage** | Zammad, Jira, ServiceNow | = 0 |
+| **SLA-Einhaltung Vendor-Response** | Ticket-System oder Vendor-Portal | ≥ 98 % |
+| **Failed-Login-Trend** | SIEM | Alarm bei Anstieg > 200 % |
+| **Zertifikats-Ablauf < 14 Tage** | Certificate Monitoring | = 0 |
+
+> **Warnung:** Automatisierung befreit euch vom Pflegeaufwand, nicht von der Pflicht zur Datenqualität. Ein automatisch gespeister KPI, der die falschen Tickets einbezieht (z. B. alle Tickets statt nur sicherheitsrelevante), ist schlimmer als ein manuell gepflegter richtiger. Die Filterlogik in der Datenquelle gehört **einmalig sauber definiert** – danach läuft sie allein. Investiert die Zeit beim Einrichten, nicht beim Auswerten.
+
 ## Verknüpfungen
 
 Die Detailseite eines Ziels verknüpft mit drei Modulen:
