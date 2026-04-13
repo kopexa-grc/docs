@@ -1,77 +1,184 @@
 ---
 title: Ziele
-description: Messbare Compliance- und Security-Ziele definieren, mit KPIs hinterlegen und an Stakeholder, Risiken und Dokumente knüpfen.
+description: Ziele sind das Instrument, mit dem ihr "nein" zu unnötiger Arbeit sagt – und zugleich ein expliziter Risikoappetit, an dem jedes Risiko gemessen wird.
 ---
 
-**Ziele** sind die operative Brücke zwischen strategischen Anforderungen und konkreter Umsetzung. Sie übersetzen abstrakte Erwartungen (aus Normen, Regulierung oder Management) in **messbare Vorgaben** mit klarer Verantwortung und Zieldatum. In Kopexa sind Ziele eine eigene Entität unter **Governance**, verknüpft mit [Stakeholdern](../stakeholders/index.mdx), Risiken und Dokumenten.
+<Callout>
+**Kurzfassung:** Ein Ziel in Kopexa ist nicht nur eine Vorgabe, die ihr euch setzt – es ist ein **expliziter Risikoappetit**. Ihr erklärt, welches Niveau von Unsicherheit akzeptabel ist und woran ihr merkt, dass ihr es unterschreitet. Ohne Ziele bleibt jedes Risikoregister eine Liste möglicher Probleme ohne Referenzpunkt dafür, wie viel Risiko akzeptabel wäre.
+</Callout>
 
-## Warum explizite Ziele?
+## Das Problem ohne explizite Ziele
 
-ISO 27001 (Kap. 6.2), ISO 9001 und ähnliche Managementsystem-Normen verlangen **informationssicherheits- bzw. qualitätsbezogene Ziele**, die:
+Compliance-Teams ohne definierte Ziele kennen diese Muster:
 
-- mit der Policy und den strategischen Vorgaben **konsistent** sind,
-- **messbar** sind (soweit praktikabel),
-- **überwacht, kommuniziert und aktualisiert** werden,
-- **dokumentierte Information** bereithalten – wer, was, wann, mit welchen Ressourcen.
+- **Ewiges „besser werden":** Jede Maßnahme fühlt sich gleich wichtig an, nichts wird fertig. Prioritäten verschieben sich mit dem lautesten Meeting.
+- **Budget ohne Outcome:** Am Jahresende wurde viel gearbeitet, aber niemand kann sagen, *wie viel sicherer* das Unternehmen dadurch geworden ist.
+- **Risiken ohne Kontext:** Das Risikoregister wächst, aber es gibt keinen Benchmark dafür, wann ein Risiko „zu hoch" ist – die Bewertung bleibt Bauchgefühl.
+- **Compliance als reine Kostenstelle:** Die Geschäftsführung sieht Investitionen, aber keinen Gegenwert. Das nächste Budgetgespräch wird schwieriger als das letzte.
 
-Ein Kopexa-Ziel deckt genau diese Anforderungen ab: Verantwortliche, Zieldatum, KPIs, Statusverfolgung und Audit-Trail entstehen automatisch.
+Alle vier Muster haben dieselbe Ursache: Es fehlt eine explizite Aussage darüber, *was* erreicht werden soll und *woran* man Fortschritt misst.
+
+## Was dir das Goal-Modul wirklich bringt
+
+<Callout>
+**Ziele sind das Instrument, mit dem ihr „nein" zu unnötiger Arbeit sagt.** Ohne Ziele dehnt sich Compliance-Arbeit aus, bis sie alle verfügbare Zeit füllt – und nichts davon ist je fertig.
+</Callout>
+
+### 1. Priorisierungs-Anker
+
+Unbegrenzte Aufgaben, begrenzte Ressourcen: Ein Ziel zwingt dazu, drei bis fünf Dinge über alles andere zu stellen. Jede Maßnahme kann am Ziel gemessen werden – zahlt sie auf den KPI ein, oder nicht? Wenn nicht, gehört sie nicht in dieses Quartal. Das ist die einzige ehrliche Art, Fokus zu erzeugen.
+
+### 2. Risk Appetite Statement
+
+Jeder gute KPI ist zugleich eine Aussage über akzeptables Risiko.
+
+- *"Phishing-Klickrate unter 3 %"* heißt: Wir akzeptieren bis zu 3 %, alles darüber ist Handlungsbedarf.
+- *"Mean Time to Patch kritische CVEs unter 7 Tage"* heißt: Wir akzeptieren bis zu 7 Tage Exposition, länger nicht.
+- *"Anzahl Phishing-Vorfälle mit Datenabfluss pro Quartal ≤ 1"* heißt: Einen Vorfall pro Quartal tolerieren wir, zwei sind ein Problem.
+
+Diese Zahlen sind keine technischen Parameter. Sie sind **Geschäftsentscheidungen** darüber, wie viel Unsicherheit das Unternehmen bewusst trägt – und gehören entsprechend diskutiert, begründet und kommuniziert.
+
+### 3. Frühwarnsystem
+
+Ein KPI, der sich in die falsche Richtung entwickelt, ist ein **leading indicator** für ein Risiko, das sich materialisiert. Ihr seht Probleme, bevor sie zu Vorfällen werden. Das Risikoregister wird so von einer statischen Liste zu einem dynamischen Frühwarnsystem – einem der wertvollsten Outputs eines ERM-Programms.
+
+### 4. Budget-Outcome-Kopplung
+
+Mit Zielen werden Investitionen messbar. Statt *"Wir haben 200 k€ in Security gesteckt"* sagt ihr *"Wir haben 200 k€ investiert und Mean Time to Patch von 45 auf 9 Tage gesenkt"*. Die erste Aussage kostet im nächsten Jahr Budget. Die zweite gewinnt es.
+
+## Integration mit Enterprise Risk Management
+
+<Callout>
+**Ziele sind die Brücke zwischen Stakeholder-Erwartungen und Risikobehandlung.** Sie übersetzen weiche Anforderungen in messbare Vorgaben – und diese Vorgaben sind die Referenz, an der jedes Risiko bewertet wird.
+</Callout>
+
+Im ERM-Modell von Kopexa (angelehnt an **ISO 31000** und **COSO ERM**) hat jedes Ziel zwei strukturelle Funktionen:
+
+<Mermaid chart={`
+graph LR
+    ST[Stakeholder] -->|stellt Anforderung| Z[Ziel]
+    Z -->|definiert Zielwert| KPI[KPI]
+    KPI -->|Ist-Wert| M[Monitoring]
+    M -->|Abweichung| R[Risiko steigt]
+    R -->|fordert| MA[Massnahme]
+    MA -->|wirkt auf| KPI
+`} />
+
+**Funktion 1: Ziele definieren den Soll-Zustand.** Ohne Ziel gibt es keinen Soll. Ohne Soll gibt es keine Abweichung. Ohne Abweichung gibt es kein Risiko im ERM-Sinne – sondern nur technische Befunde. Das Ziel macht aus *"CVSS 7.8"* ein *"Wir sind 12 Tage über unserem 7-Tage-Zielwert, das Risiko materialisiert sich jetzt"*. Das ist ein fundamentaler Unterschied in der Steuerungsfähigkeit.
+
+**Funktion 2: Ziele sind das Gedächtnis der Stakeholder-Ableitung.** Wenn eine Aufsicht im März eine Leitlinie veröffentlicht und euer Team daraus ein Ziel ableitet, bleibt die Verbindung dauerhaft sichtbar. Zwei Jahre später, wenn das Ziel erreicht oder überarbeitet wird, ist immer noch nachvollziehbar, *woher* es kam. Das ist Auditfähigkeit ohne zusätzlichen Dokumentationsaufwand.
+
+### ISO 27001 Kap. 6.2 – der Formalbezug
+
+Für Zertifizierungszwecke deckt das Goal-Modul alle Anforderungen aus **Kap. 6.2** ab: Ziele sind mit der ISMS-Policy konsistent, messbar, überwacht, kommuniziert und aktualisiert – mit vollständiger dokumentierter Information. Das ist der Nebennutzen. Der Hauptnutzen ist, dass ihr die Information sowieso braucht, um vernünftige Geschäftsentscheidungen zu treffen.
 
 ## Ziel anlegen
 
-Über `Governance → Ziele → Neues Ziel` erfasst ihr:
+Unter `Governance → Ziele → Neues Ziel`:
 
-- **Name** – kurz, handlungsorientiert, z. B. *„Phishing-Klickrate unter 3 % senken"*
-- **Beschreibung** – Kontext, Motivation, Bezug zu Strategie oder Regulierung
-- **Verantwortlich** – eine Person im Space, die das Ziel trägt
-- **Vertreter** – Stellvertretung für Reviews und Eskalation
-- **Zieldatum** – verbindlicher Termin, zu dem das Ziel erreicht sein soll
-- **Status** – *Entwurf → Aktiv → Erreicht / Verfehlt / Archiviert*
+| Feld | Bedeutung |
+|---|---|
+| **Name** | Kurz, handlungsorientiert, zielwertbezogen – *"Phishing-Klickrate unter 3 % bis Q4"* statt *"Bewusstsein für Phishing erhöhen"* |
+| **Beschreibung** | Warum dieses Ziel? Welche Stakeholder-Erwartung steht dahinter, welche strategische Vorgabe wird operationalisiert? |
+| **Verantwortlich** | Eine Person, die das Ziel trägt – nicht ein Team |
+| **Vertreter** | Stellvertretung für Reviews und Eskalation |
+| **Zieldatum** | Verbindlicher Termin, an dem der Erfolg gemessen wird |
+| **Status** | Entwurf → Aktiv → Erreicht / Verfehlt / Archiviert |
 
-## Key Performance Indicators (KPIs)
+<Callout type="info">
+**Namensmuster:** Ein guter Zielname enthält bereits den KPI. Vergleicht: *"Patch-Management verbessern"* versus *"Mean Time to Patch kritische CVEs unter 7 Tage bis 2026-12-31"*. Das erste ist ein Wunsch, das zweite ist ein prüfbares Versprechen – und nur das zweite hilft eurem Team, Prioritäten zu setzen.
+</Callout>
 
-Ein Ziel ohne Messgröße ist ein Wunsch. Deshalb hängt ihr an jedes Ziel einen oder mehrere **KPIs** an:
+## KPIs: Messgrößen, die etwas aussagen
 
-- **Name** – z. B. *„Durchschnittliche Zeit bis Patching kritischer CVEs"*
-- **Zielwert** – was soll erreicht werden?
-- **Aktueller Wert** – manuell gepflegt oder aus Integrationen
-- **Einheit** – Tage, Prozent, Anzahl, Euro ...
+Ein Ziel ohne KPI ist ein Wunsch. Pro Ziel gehört mindestens ein KPI, selten mehr als drei:
 
-KPIs können über den Zeitverlauf beobachtet werden und liefern die Nachweise, die Auditor:innen für das **Monitoring** des Ziels erwarten.
+- **Name** – was wird gemessen?
+- **Einheit** – Tage, Prozent, Anzahl, Euro
+- **Zielwert** – der Schwellenwert, unter bzw. über dem das Ziel erreicht gilt
+- **Aktueller Wert** – manuell gepflegt oder aus Integrationen (z. B. Vulnerability Management, SIEM, Ticket-System)
+- **Datenquelle** – woher kommt der Wert, wer pflegt ihn, in welchem Rhythmus?
 
-> **Tipp:** Definiert KPIs nach dem **SMART**-Prinzip. Ein KPI, dessen aktueller Wert niemand pflegt, ist wertlos – klärt die Datenquelle, bevor ihr ihn anlegt.
+### Was einen KPI brauchbar macht
+
+| Merkmal | Schlechter KPI | Guter KPI |
+|---|---|---|
+| **Spezifität** | „Sicherheitsvorfälle reduzieren" | „Anzahl Phishing-Vorfälle mit Datenabfluss pro Quartal ≤ 1" |
+| **Datenquelle** | Geschätzt, ohne Quelle | Automatisch aus dem SIEM, wöchentlich aktualisiert |
+| **Pflegeverantwortung** | Unklar | SOC-Lead, wöchentlich |
+| **Handlungsrelevanz** | „Nice to know" | Eskaliert in ein Risiko bei Überschreitung |
+
+> **Warnung:** Definiert keinen KPI, dessen Datenquelle ihr nicht geklärt habt. Ein KPI, den niemand pflegt, ist nicht nur wertlos – er untergräbt das Vertrauen in das gesamte Goal-Modul. Lieber ein KPI weniger als ein KPI ohne Datenbasis.
 
 ## Verknüpfungen
 
-Über die Tabs auf der Detailseite verknüpft ihr das Ziel mit anderen Modulen:
+Die Detailseite eines Ziels verknüpft mit drei Modulen:
 
-- **Stakeholder** – wer stellt die Anforderung, wer profitiert vom Ziel?
-- **Risiken** – welche [Risiken](../../compliance/risks/index.mdx) adressiert dieses Ziel? Ein verfehlter KPI kann umgekehrt ein Risiko erhöhen.
-- **Dokumente** – Policies, Strategien oder Management-Reviews, die das Ziel begründen
-
-Diese Verknüpfungen sind der Schlüssel für Audit-Nachweise: Ihr zeigt nicht nur, *dass* ein Ziel existiert, sondern *warum* es existiert und *woraus* es abgeleitet ist.
-
-## Status & Lifecycle
-
-| Status | Bedeutung |
+| Tab | Frage, die beantwortet wird |
 |---|---|
-| **Entwurf** | In Abstimmung, noch nicht beschlossen |
-| **Aktiv** | Beschlossen, wird operativ verfolgt, KPIs werden gepflegt |
-| **Erreicht** | Zieldatum erreicht und KPI-Zielwert erfüllt |
-| **Verfehlt** | Zieldatum abgelaufen, Zielwert nicht erfüllt – Ursache dokumentieren |
-| **Archiviert** | Historisch, wird nicht mehr aktiv verfolgt, bleibt für Nachweise erhalten |
+| **Stakeholder** | Wessen Anforderung operationalisiert dieses Ziel? Ein Ziel ohne Stakeholder-Bezug ist Selbstzweck – und meist ein Kandidat fürs Archiv. |
+| **Risiken** | Welche Risiken adressiert dieses Ziel? Welche Risiken entstehen, wenn das Ziel verfehlt wird? |
+| **Dokumente** | Policies, Management-Reviews, Strategien, aus denen das Ziel abgeleitet wurde |
 
-Der Statuswechsel ist im Metadaten-Panel revisionssicher protokolliert – Erstellungsdatum, letzter Editor und Änderungszeitpunkt stehen jeder Auditor:in zur Verfügung.
+## Status & Lebenszyklus
+
+| Status | Bedeutung | Typische Dauer |
+|---|---|---|
+| **Entwurf** | In Abstimmung, noch nicht beschlossen | Wochen |
+| **Aktiv** | Beschlossen, KPIs werden gepflegt, monatliches Review | Monate bis zu einem Jahr |
+| **Erreicht** | Zieldatum erreicht, KPI-Zielwert erfüllt | – |
+| **Verfehlt** | Zieldatum abgelaufen, Zielwert nicht erfüllt, Ursache dokumentiert | – |
+| **Archiviert** | Historisch, für Audit-Trail erhalten | dauerhaft |
+
+Der Statuswechsel ist revisionssicher protokolliert. Besonders wichtig: **Verfehlt** ist keine Niederlage, sondern Input für das nächste Ziel. Die Dokumentation der Ursache ist der eigentliche Wert – sie zeigt, dass euer Management-System lernt.
 
 ## Best Practices
 
-- **Von oben ableiten:** Ziele entstehen aus Stakeholder-Anforderungen und Management-Vorgaben – nicht umgekehrt. Verknüpft jedes Ziel mit mindestens einem [Stakeholder](../stakeholders/index.mdx).
-- **Wenig, aber messbar:** Drei scharf geschnittene Ziele mit je ein bis zwei KPIs sind wirksamer als zehn unklare Ziele ohne Messgröße.
-- **Regelmäßig reviewen:** Setzt feste Intervalle (Quartalsweise im Management-Review), zu denen Status und KPI-Werte aktualisiert werden.
-- **Verfehlen dokumentieren:** Ein verfehltes Ziel ist keine Niederlage, sondern Input für den nächsten Zyklus – Ursachenanalyse und Folgeaktionen im Kommentar festhalten.
-- **Nicht mit Maßnahmen verwechseln:** Ein Ziel beschreibt *was* erreicht werden soll. *Wie* ihr dorthin kommt, gehört in [Maßnahmen und Work Items](../../compliance/controls/index.mdx).
+### Drei Ziele, nicht dreißig
+
+Ein Space mit zehn aktiven Zielen ist meistens ein Space mit zwei guten und acht rituellen Zielen. Haltet die Zahl der aktiven Ziele bewusst klein. Drei bis fünf pro Space und Quartal sind genug, um Fokus zu halten. Ziele, die nicht innerhalb eines Quartals bewegt werden können, gehören in ein [Programm](../programs/index.mdx).
+
+### KPIs vor Zielen durchdenken
+
+Überlegt die Datenquelle für den KPI, **bevor** ihr das Ziel anlegt. Wenn ihr keinen Weg findet, den KPI aus bestehenden Quellen zu speisen, ist entweder der KPI falsch oder die Datenquelle fehlt – beides ist wichtig zu wissen, aber erst danach lohnt sich das Ziel.
+
+### Verfehlte Ziele ehrlich dokumentieren
+
+Wer verfehlte Ziele als Erfolge umdeutet, zerstört das Lernpotenzial des Management-Systems. Setzt den Status auf **Verfehlt**, beschreibt die Ursache in zwei Sätzen und leitet das nächste Ziel daraus ab. Auditor:innen honorieren Ehrlichkeit mehr als geschönte Bilanzen – und intern baut ihr Vertrauen auf, statt es zu verbrauchen.
+
+### Ziele nicht mit Maßnahmen verwechseln
+
+*"Endpoint-Protection ausrollen"* ist eine Maßnahme, kein Ziel. *"Erkennungsquote von Malware auf Endpunkten ≥ 99,5 %"* ist ein Ziel, das durch die Maßnahme erfüllt wird. Die Trennung ist entscheidend: Ziele überdauern einzelne Maßnahmen und erlauben es, verschiedene Lösungswege gegeneinander abzuwägen.
+
+### Quartalsrhythmus im Management-Review
+
+Verbindet Goal-Reviews mit dem Management-Review-Zyklus. Einmal pro Quartal: Welche Ziele sind auf Kurs, welche nicht, welche KPI-Trends erzeugen neue Risiken? Das ist ein Meeting, keine Ritualveranstaltung – gute Fragen stellen, unbequeme Antworten dokumentieren.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Wie viele Ziele sollte ein Space haben?">
+    Drei bis fünf aktive Ziele pro Quartal. Mehr signalisiert fehlende Priorisierung. Weniger ist oft auch in Ordnung – ein scharfes Ziel, das bewegt wird, ist besser als fünf unklare Ziele, die ruhen.
+  </Accordion>
+  <Accordion title="Was ist der Unterschied zwischen einem Ziel und einem Programm?">
+    Ein Programm ist eine Initiative (z. B. „ISO 27001 Erstzertifizierung") mit längerer Laufzeit und vielen Arbeitspaketen. Ein Ziel ist eine messbare Vorgabe – innerhalb oder außerhalb eines Programms – mit KPI und klarem Zielwert. Programme koordinieren, Ziele steuern. Beides gehört zusammen, aber erfüllt unterschiedliche Aufgaben.
+  </Accordion>
+  <Accordion title="Kann ein KPI automatisch aus einer Integration gespeist werden?">
+    Technisch ja – Kopexa unterstützt manuelle Pflege wie auch automatische Werte aus Integrationen (Vulnerability Management, SIEM, Ticket-Systeme). Bevor ihr eine Automatisierung einrichtet, stellt sicher, dass die Datenqualität der Quelle stimmt. Ein automatisch gespeister falscher KPI ist schlimmer als ein manuell gepflegter richtiger.
+  </Accordion>
+  <Accordion title="Was passiert mit einem verfehlten Ziel?">
+    Status auf **Verfehlt** setzen, Ursache in der Diskussion dokumentieren, Follow-up-Ziel oder Maßnahme ableiten. Das alte Ziel bleibt archiviert als Nachweis, dass ihr gelernt habt. Das ist im Audit wertvoller als stille Umdeutungen.
+  </Accordion>
+  <Accordion title="Wie oft sollte ich ein Ziel aktualisieren?">
+    KPI-Werte mindestens monatlich. Das Ziel selbst (Zielwert, Beschreibung, Stakeholder-Bezug) nur bei substanziellen Änderungen – etwa wenn sich eine Stakeholder-Anforderung verschiebt oder ein neuer Risikofaktor hinzukommt. Häufige Zieländerungen sind ein Zeichen, dass das Ziel nicht gut durchdacht war.
+  </Accordion>
+  <Accordion title="Was, wenn wir gar keine KPIs haben, weil wir noch am Anfang stehen?">
+    Dann fangt mit drei einfachen KPIs an, die ihr messen *könnt*: Anzahl offener kritischer Findings, Mean Time to Patch, Anzahl abgeschlossener Policy-Reviews. Perfekte KPIs lassen sich später verfeinern. Kein KPI zu haben, weil der „richtige" noch nicht gefunden ist, ist Aufschiebeverhalten.
+  </Accordion>
+</Accordions>
 
 ## Weiterführende Module
 
-- [**Stakeholder**](../stakeholders/index.mdx) – Quelle vieler Ziele, insbesondere regulatorischer
-- [**Programme**](../programs/index.mdx) – Container für Ziele, die zu einer größeren Initiative gehören (z. B. ISO 27001 Zertifizierung)
-- [**Risiken**](../../compliance/risks/index.mdx) – Ziele adressieren Risiken; verfehlte Ziele erhöhen Risiken
+- [**Stakeholder**](../stakeholders/index.mdx) – die Quelle, aus der Ziele abgeleitet werden
+- [**Programme**](../programs/index.mdx) – Initiativen, die mehrere Ziele bündeln
+- [**Risiken**](../../compliance/risks/index.mdx) – das Gegenstück zum Ziel im ERM-Modell

@@ -1,89 +1,181 @@
 ---
 title: Stakeholder
-description: Stakeholder erfassen, nach Einfluss und Interesse bewerten und gezielt einbinden – als Grundlage für ISMS, Compliance und Audits.
+description: Wem gegenüber seid ihr verantwortlich – und was kostet es, wenn ihr diese Verantwortung nicht einlöst? Das Stakeholder-Register ist der Ort, an dem diese Frage beantwortet wird.
 ---
 
-**Stakeholder** sind Personen, Teams, Behörden oder Organisationen, die Anforderungen oder Erwartungen an euer Unternehmen stellen – oder selbst von euren Entscheidungen betroffen sind. In Kopexa pflegt ihr sie als zentrale Entität im Space und verknüpft sie mit **Zielen, Risiken, Kontrollen, Maßnahmen** und **Dokumenten**.
+<Callout>
+**Kurzfassung:** Ein Stakeholder-Register dokumentiert, *wem gegenüber* ihr verantwortlich seid – und *was es kostet*, wenn ihr diese Verantwortung nicht einlöst. Ohne diesen Kontext ist ein Risikoregister eine Liste technischer Befunde ohne Geschäftsbezug.
+</Callout>
 
-## Warum Stakeholder-Management?
+## Das Problem ohne aktives Stakeholder-Management
 
-Normen wie **ISO 27001 (Kap. 4.2)**, **ISO 9001**, **NIS2** und **TISAX®** verlangen explizit, dass du die **interessierten Parteien** eures Managementsystems identifizierst, ihre Anforderungen dokumentierst und regelmäßig bewertest. Ohne diese Grundlage fehlt jeder Audit-Vorbereitung der Kontext: *Für wen* macht ihr Compliance eigentlich?
+Compliance-Teams, die Stakeholder nur in einer PowerPoint-Folie pflegen, kennen diese Muster:
 
-Ein sauber gepflegtes Stakeholder-Register liefert euch:
+- Der Vertrieb verspricht einem Kunden SOC-2-Konformität, die IT erfährt davon drei Monate später in der Audit-Vorbereitung.
+- Eine Aufsicht veröffentlicht neue Leitlinien (z. B. DORA-Anforderungen an ICT-Third-Party), niemand prüft, ob bestehende Vendor-Assessments noch passen.
+- Ein Risiko mit Score „hoch" wird priorisiert, obwohl es nur einen internen Stakeholder betrifft – während ein „mittleres" Risiko liegen bleibt, das eine regulatorische Meldepflicht auslösen würde.
+- Das Management fragt *"Warum brauchen wir das Budget?"* und die Antwort ist *"Wegen ISO 27001"*. Das ist keine Business-Begründung.
 
-- **Scope-Klarheit** für das ISMS – welche Anforderungen gehen in die Risikobehandlung ein?
-- **Nachweisbarkeit** gegenüber Auditor:innen – wer verlangt was, und wie wurde darauf reagiert?
-- **Priorisierung** – wer hat wirklich Einfluss auf eure Ziele, und wer muss nur informiert werden?
+Alle vier Probleme haben dieselbe Ursache: Es fehlt die Verbindung zwischen **technischen Risiken** und **wem sie schaden, wenn sie eintreten**.
+
+## Was dir das Stakeholder-Modul wirklich bringt
+
+<Callout>
+**Der eigentliche Wert liegt nicht im Audit-Nachweis, sondern in der Priorisierung jeder Compliance-Entscheidung anhand dessen, was Stakeholder tatsächlich kosten, wenn etwas schiefläuft.**
+</Callout>
+
+Vier konkrete Hebel, die ein aktiv gepflegtes Stakeholder-Register liefert:
+
+### 1. Risiko-Priorisierung mit Geschäftsbezug
+
+Jedes Risiko in Kopexa kann mit einem oder mehreren Stakeholdern verknüpft werden. Das verändert Priorisierung grundlegend. Statt *"CVSS 7.8 → hoch"* wird ein Risiko zu *"CVSS 7.8, betrifft das System mit den Kundendaten eines Top-3-Kunden, dessen Vertrag eine 24-Stunden-Meldepflicht enthält, und dessen Security-Team quartalsweise auditiert"*. Das ist eine Business-Entscheidung, keine rein technische Einschätzung – und genau das, was euch im Management-Review weiterbringt.
+
+### 2. Frühwarnsystem für regulatorische Änderungen
+
+Wenn ihr BaFin, BSI, die Datenschutz-Aufsicht oder ENISA als Stakeholder mit konkreten Anforderungen pflegt, erzeugt jede Änderung ihrer Leitlinien einen Review-Anlass. Ihr merkt neue Anforderungen, **bevor** sie ein Audit-Finding werden. Wer DORA, NIS2 oder den AI Act im Blick hat, weiß, wie schnell sich Anforderungen ändern – und wie teuer es ist, zu spät zu reagieren.
+
+### 3. Budget-Begründung statt Compliance-Jargon
+
+Sicherheitsausgaben stehen immer unter Druck. *"Wir brauchen X wegen ISO 27001"* überzeugt keine CFO. *"Stakeholder Y hat Anforderung Z, die wir ohne Investition X nicht erfüllen, was im Schadenfall Vertragsstrafe W auslöst"* überzeugt. Das Stakeholder-Register macht diese Rechnung explizit und wiederholbar.
+
+### 4. Scope-Disziplin
+
+Jede Stakeholder-Anforderung, die ihr nicht dokumentiert, ist entweder nicht wichtig – oder sie wird später als „vergessen" auffallen. Das Register zwingt das Team, Scope-Fragen bewusst zu beantworten: *Ist das für uns relevant, und wenn ja, wessen Erwartung adressiert es?* Das ist unbequem, spart aber genau die Diskussionen, die sonst im Audit stattfinden.
+
+## Integration mit Enterprise Risk Management
+
+<Callout>
+**Kopexa ist kein isoliertes Compliance-Tool.** Stakeholder, Ziele, Risiken und Kontrollen bilden eine durchgängige ERM-Kette nach dem Muster von **ISO 31000** und **COSO ERM**. Stakeholder stehen dabei am Anfang – sie definieren den Kontext, aus dem alles Folgende abgeleitet wird.
+</Callout>
+
+<Mermaid chart={`
+graph LR
+    S[Stakeholder<br/>definieren Kontext] --> G[Ziele<br/>operationalisieren Anforderungen]
+    G --> R[Risiken<br/>entstehen aus Zielabweichungen]
+    R --> M[Massnahmen<br/>reduzieren Risiko]
+    M --> C[Kontrollen<br/>wirken dauerhaft]
+    C --> E[Evidenzen<br/>belegen Wirksamkeit]
+    E -.Review.-> S
+`} />
+
+Das entscheidende Merkmal dieser Kette ist die **Rückkopplung**. Wenn ein Stakeholder seine Erwartungen ändert, verfolgt ihr in Kopexa konkret, welche Ziele betroffen sind, welche Risiken sich verschieben und welche Kontrollen neu bewertet werden müssen. Umgekehrt liefert die Evidenz-Schicht Daten darüber, ob ihr die Erwartungen tatsächlich erfüllt – und diese Information steht beim nächsten Stakeholder-Review automatisch bereit.
+
+> **ISO 31000** verlangt als ersten Schritt das *Establishing the Context*. Das ist exakt, was ein Stakeholder-Register tut. Wer Risiken ohne Stakeholder-Kontext managt, macht ERM ohne Kontext – und landet bei technisch sauberer, geschäftlich bedeutungsloser Compliance.
 
 ## Stakeholder-Typen
 
-Kopexa unterscheidet drei Typen, die sich direkt auf die Engagement-Strategie und Audit-Relevanz auswirken:
+Kopexa unterscheidet drei Typen, die unterschiedliche Engagement-Muster erfordern:
 
-| Typ | Beispiele | Typische Anforderungen |
-|---|---|---|
-| **Extern** | Kunden, Partner, Wettbewerber, Öffentlichkeit | Vertragliche SLAs, Datenschutz, Reputation |
-| **Intern** | Geschäftsführung, Fachbereiche, Betriebsrat | Budget, Ressourcen, Arbeitssicherheit |
-| **Regulatorisch** | BaFin, BSI, Datenschutz-Aufsicht, Branchenverbände | Meldepflichten, Prüfungen, Zertifizierungen |
+| Typ | Beispiele | Typische Anforderungen | Reviewzyklus |
+|---|---|---|---|
+| **Regulatorisch** | BaFin, BSI, Datenschutz-Aufsichten, ENISA, Branchen-Aufsicht | Gesetze, Leitlinien, Meldepflichten | Quartal oder ad-hoc bei Gesetzesänderung |
+| **Extern** | Kunden, Partner, Investoren, Versicherer | SLAs, DPAs, Zertifikate, Kontinuitätsanforderungen | Halbjahr oder Vertragszyklus |
+| **Intern** | Geschäftsführung, Betriebsrat, Fachbereiche | Budget, Betriebsstabilität, Mitarbeiterschutz | Jährlich, bei strategischen Wechseln |
 
 ## Stakeholder anlegen
 
-Beim Anlegen (`Governance → Stakeholder → Neu hinzufügen`) erfasst ihr die Basis-Daten und bewertet direkt **Einfluss** und **Interesse**:
+Unter `Governance → Stakeholder → Neu hinzufügen` erfasst ihr:
 
-- **Name** – eindeutige Bezeichnung, z. B. *„Aufsichtsbehörde (BaFin)"*
-- **Typ** – Extern, Intern oder Regulatorisch
-- **Verantwortlich** – Person im Space, die die Beziehung pflegt
-- **Anforderungen** – konkrete, oft vertraglich oder regulatorisch fixierte Forderungen
-- **Erwartungen** – weiche Erwartungen, die nicht formal fixiert sind, aber die Beziehung prägen
-- **Einfluss-Assessment** – *Niedrig* (wenig Macht über das Unternehmen) bis *Hoch* (kann Genehmigungen verlangen, Verträge kündigen oder den Betrieb stoppen)
-- **Interesse-Assessment** – wie aktiv beschäftigt sich der Stakeholder mit eurer Compliance?
+| Feld | Bedeutung |
+|---|---|
+| **Name** | Eindeutig, mit Kontext – *"BaFin – Bankenaufsicht/Abt. IT"*, nicht nur *"BaFin"* |
+| **Typ** | Regulatorisch, Extern oder Intern |
+| **Verantwortlich** | Genau eine Person, die die Beziehung aktiv pflegt |
+| **Anforderungen** | Konkrete, oft vertraglich oder regulatorisch fixierte Forderungen |
+| **Erwartungen** | Weiche Erwartungen ohne formale Grundlage |
+| **Einfluss** | *Niedrig* – kaum Konsequenzen, wenn ihr enttäuscht • *Hoch* – kann Genehmigungen verlangen, Verträge kündigen oder den Betrieb stoppen |
+| **Interesse** | Wie aktiv verfolgt der Stakeholder eure Compliance **tatsächlich**? |
 
-> **Tipp:** Trennt sauber zwischen *Anforderungen* (prüfbar, auditrelevant) und *Erwartungen* (Kontext, Beziehungsarbeit). Auditor:innen schauen zuerst in die Anforderungen.
+<Callout type="info">
+**Anforderung vs. Erwartung** ist der wichtigste Split in diesem Formular. Anforderungen sind auditrelevant und müssen nachweisbar erfüllt werden. Erwartungen sind Beziehungsarbeit – wichtig für die Kooperation, aber nicht für die Zertifizierung. Vermischt beides nicht, sonst wird aus „weichem Wunsch" ein „Gap", den ihr im Audit erklären müsst.
+</Callout>
 
-## Engagement-Strategie: Einfluss × Interesse
+## Einfluss × Interesse: die Engagement-Strategie
 
-Aus der Bewertung leitet Kopexa automatisch eine **Engagement-Strategie** nach dem klassischen Stakeholder-Mapping ab:
+Aus Einfluss und Interesse leitet Kopexa automatisch eine **Engagement-Strategie** nach dem Mendelow-Muster ab. Diese Strategie ist nicht kosmetisch – sie bestimmt, wie viel Zeit und Budget in eine Beziehung fließen:
 
-| Einfluss | Interesse | Strategie |
+|  | **Interesse: Niedrig** | **Interesse: Hoch** |
 |---|---|---|
-| Hoch | Hoch | **Eng managen** – aktiv einbinden, regelmäßig abstimmen |
-| Hoch | Niedrig | **Zufriedenstellen** – informiert halten, Anforderungen erfüllen |
-| Niedrig | Hoch | **Informieren** – über relevante Entwicklungen auf dem Laufenden halten |
-| Niedrig | Niedrig | **Beobachten** – minimaler Aufwand, Status periodisch prüfen |
+| **Einfluss: Hoch** | **Zufriedenstellen** – Anforderungen proaktiv erfüllen, aber nicht überkommunizieren. Typisch: Aufsicht, die selten prüft, im Fall der Fälle aber hart durchgreift. | **Eng managen** – aktiv einbinden, regelmäßig abstimmen, eigenes Kommunikationskonzept. Typisch: Top-Kunde mit eigenem Security-Team. |
+| **Einfluss: Niedrig** | **Beobachten** – minimaler Aufwand, jährliche Bestandsaufnahme. Typisch: interne Abteilungen ohne Entscheidungsmacht. | **Informieren** – regelmäßige Updates, kein tiefes Engagement. Typisch: Branchenverbände, Presse, Partner ohne Vertragsbindung. |
 
-Die Strategie erscheint direkt auf der Detailseite und lässt sich jederzeit über **Neu bewerten** aktualisieren, wenn sich die Lage ändert (z. B. neuer Regulierungsentwurf, Vertragsverhandlung).
+Ein Stakeholder im Quadranten *"Eng managen"* rechtfertigt regelmäßige Reviews, dedizierte Ansprechpartner und priorisierte Anforderungsbehandlung. Ein Stakeholder im Quadranten *"Beobachten"* bekommt eine jährliche Erinnerung und nichts weiter.
+
+> **Warnung:** Die Matrix ist ein Arbeitsinstrument, keine politische Aussage. Pflegt sie ehrlich. Ein „wichtiger" Kunde, der euch nie anruft und keine Reports einfordert, ist im Tagesgeschäft ein *"Zufriedenstellen"*-Stakeholder – auch wenn das im Meeting unbequem klingt.
 
 ## Detailseite & Verknüpfungen
 
-Auf der Detailseite pflegt ihr den Stakeholder über seinen gesamten Lebenszyklus:
+Auf der Detailseite pflegt ihr den Stakeholder über den Lebenszyklus:
 
-- **Anforderungen & Erwartungen** – jederzeit editierbar, mit Änderungshistorie
-- **Rollen verknüpfen** – Stakeholder mit Rollen oder Verantwortungsbereichen verbinden
-- **Kommunikationskanäle** – E-Mail-Verteiler, Portale, feste Ansprechpartner
-- **Diskussion** – interne Notizen und Kommentare für das Governance-Team
+- **Anforderungen & Erwartungen** – editierbar mit Änderungshistorie
+- **Rollen verknüpfen** – Stakeholder an konkrete Verantwortungsbereiche koppeln
+- **Kommunikationskanäle** – Portale, Verteiler, feste Ansprechpartner
+- **Diskussion** – interne Notizen, die nicht in Compliance-Dokumente gehören
 
-Über die Tabs verknüpft ihr den Stakeholder mit anderen Modulen:
+Die Tabs verknüpfen den Stakeholder mit den Kernmodulen:
 
-- **Ziele** – auf welche [Ziele](../goals/index.mdx) zahlt dieser Stakeholder ein?
-- **Risiken** – welche Risiken entstehen durch oder für diesen Stakeholder?
-- **Kontakte** – konkrete Personen mit Rollen und Kontaktdaten
-- **Aufgaben & Maßnahmen** – abgeleitete Work Items und Controls
-- **Dokumente** – Verträge, Meldungen, Freigaben, Korrespondenz
+| Tab | Frage, die beantwortet wird |
+|---|---|
+| **Ziele** | Auf welche Unternehmensziele wirkt dieser Stakeholder ein? |
+| **Risiken** | Welche Risiken entstehen durch diesen Stakeholder – oder treffen ihn im Schadenfall? |
+| **Kontakte** | Wer sind die konkreten Menschen hinter der Organisation? |
+| **Aufgaben & Maßnahmen** | Was tun wir aktiv, um die Anforderungen zu erfüllen? |
+| **Dokumente** | Verträge, Meldungen, Freigaben, Korrespondenz |
 
-## Status & Lifecycle
+## Lebenszyklus & Reviews
 
-- **Aktiv** – Beziehung wird gepflegt, Anforderungen fließen ins ISMS ein
-- **Archiviert** – frühere Stakeholder, die nicht mehr relevant sind, aber für Audit-Nachweise erhalten bleiben
+Ein Stakeholder ist kein statischer Eintrag. Plant feste Reviewzyklen:
+
+- **Regulatorische Stakeholder:** Quartalsreview plus ad-hoc bei neuen Leitlinien.
+- **Externe Stakeholder:** Vertragszyklus plus jährliches Review der Sicherheitsanforderungen. Kundenanforderungen ändern sich oft leise bei Vertragsverlängerung.
+- **Interne Stakeholder:** Jahresgespräch im Rahmen des Management-Reviews.
+
+Im Status-Feld unterscheidet Kopexa zwischen **Aktiv** (Beziehung wird gepflegt) und **Archiviert** (nicht mehr relevant, aber für Audit-Trail erhalten). **Löscht Stakeholder nicht – archiviert sie.** Gelöschte Nachweise sind im Audit schwer zu erklären.
 
 ## Best Practices
 
-- **Früh starten:** Legt das Register **vor** der ersten Risikoanalyse an – die Anforderungen sind Input für Scope und Risikokriterien.
-- **Regulatorische zuerst:** BSI, BaFin, Datenschutz-Aufsicht, ENISA – diese Stakeholder haben meist nicht verhandelbare Anforderungen und sollten als erste erfasst werden.
-- **Reviewzyklen setzen:** Mindestens jährlich, bei regulatorischen Stakeholdern auch quartalsweise – neue Leitfäden ändern Anforderungen kurzfristig.
-- **Owner benennen:** Jeder Stakeholder braucht genau eine verantwortliche Person, sonst verwaist die Beziehung.
-- **Mit Zielen verknüpfen:** Ein Stakeholder ohne Verknüpfung zu mindestens einem [Ziel](../goals/index.mdx) oder Risiko ist ein Warnsignal – entweder fehlt Kontext, oder der Stakeholder ist nicht relevant.
+### Regulatorische zuerst
+
+Startet nicht mit einer vollständigen Kundenliste. Beginnt mit den drei bis fünf regulatorischen Stakeholdern, die euer Geschäftsmodell tatsächlich prägen. Deren Anforderungen sind meist nicht verhandelbar und formen den Scope des gesamten ISMS. Alles andere baut darauf auf.
+
+### Ein Owner, nicht drei
+
+Jeder Stakeholder braucht genau eine verantwortliche Person. *"Team Security"* oder *"Compliance"* als Verantwortlicher ist ein Anti-Pattern – niemand fühlt sich zuständig, niemand erinnert sich an den letzten Review. Einer, mit Namen, im Kalender.
+
+### Anforderungen granular, Erwartungen knapp
+
+In das Feld **Anforderungen** gehört jede einzelne prüfbare Forderung mit Quelle: *"DORA Art. 28 – Third-Party-Register mit jährlichem Review"*. In das Feld **Erwartungen** gehören zwei bis drei Sätze Kontext. Anforderungen sind Arbeit. Erwartungen sind Gesprächsstoff.
+
+### Verknüpfe aggressiv
+
+Ein Stakeholder ohne Verknüpfung zu mindestens einem Ziel oder Risiko ist ein Warnsignal. Entweder fehlt die Ableitung – dann liefert der Eintrag keinen Wert – oder der Stakeholder ist nicht relevant und gehört archiviert. Leere Stakeholder-Einträge sind schlechter als keine.
+
+### Bewertung nach Realität, nicht nach Hierarchie
+
+Die Einfluss×Interesse-Matrix funktioniert nur, wenn ihr sie ehrlich führt. Eine Geschäftsführung, die sich nie für Compliance interessiert, ist „Hoch / Niedrig" – und das sollte in der Strategie sichtbar sein. Versucht nicht, die Matrix politisch zu gestalten.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Wie viele Stakeholder brauche ich am Anfang?">
+    Fünf bis zehn. Startet mit den drei bis fünf regulatorischen Stakeholdern und den zwei bis drei wichtigsten Kunden oder Partnern. Alles darüber hinaus ist in den ersten Monaten Over-Engineering. Das Register wächst mit eurer Governance-Reife.
+  </Accordion>
+  <Accordion title="Stakeholder oder Kontakte – was ist der Unterschied?">
+    Stakeholder sind Organisationen oder Rollen (BaFin, Top-Kunde, Geschäftsführung). Kontakte sind konkrete Menschen mit E-Mail und Telefon. Ein Stakeholder kann mehrere Kontakte haben. Das Register pflegt die Beziehung zur Organisation, Kontakte pflegen die operative Erreichbarkeit.
+  </Accordion>
+  <Accordion title="Was, wenn zwei Stakeholder widerspruechliche Anforderungen haben?">
+    Dokumentiert den Konflikt explizit in den Anforderungen (*"Konflikt mit Stakeholder X bezüglich Y – Entscheidung dokumentiert in Z"*). Kopexa macht solche Konflikte sichtbar, weil alle Anforderungen auf ein gemeinsames Risiko- und Ziel-Set treffen. Auflösung ist eine Management-Entscheidung, keine technische.
+  </Accordion>
+  <Accordion title="Muss ich die Einfluss-Bewertung regelmaessig neu machen?">
+    Mindestens jährlich. Bei regulatorischen Stakeholdern bei jeder relevanten Leitlinienänderung, bei externen Stakeholdern bei Vertragsverlängerung. Die Schaltfläche **Neu bewerten** auf der Detailseite protokolliert jede Änderung revisionssicher.
+  </Accordion>
+  <Accordion title="Warum ist das nicht einfach ein Feld im Risikoregister?">
+    Weil Stakeholder über Risiken hinauswirken. Derselbe Stakeholder ist gleichzeitig Quelle von Zielen, Empfänger von Reports, Auslöser von Programmen und Kontext für Kontrollen. Ein Feld im Risikoregister würde jede dieser Verbindungen duplizieren. Als eigene Entität gepflegt, bleibt die Information einmalig und trotzdem überall referenziert.
+  </Accordion>
+</Accordions>
 
 ## Weiterführende Module
 
-- [**Ziele**](../goals/index.mdx) – Stakeholder-Anforderungen in messbare Unternehmensziele überführen
-- [**Programme**](../programs/index.mdx) – Compliance-Initiativen, die mehrere Stakeholder-Anforderungen bündeln
-- [**Risiken**](../../compliance/risks/index.mdx) – Risiken, die sich aus Stakeholder-Anforderungen ableiten
+- [**Ziele**](../goals/index.mdx) – Stakeholder-Anforderungen in messbare Vorgaben übersetzen
+- [**Programme**](../programs/index.mdx) – Initiativen, die mehrere Stakeholder-Anforderungen bündeln
+- [**Risiken**](../../compliance/risks/index.mdx) – Verknüpfung von Stakeholder-Relevanz und Risiko-Priorisierung
