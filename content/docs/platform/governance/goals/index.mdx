@@ -96,7 +96,7 @@ Ein Ziel ohne KPI ist ein Wunsch. Pro Ziel gehört mindestens ein KPI, selten me
 - **Name** – was wird gemessen?
 - **Einheit** – Tage, Prozent, Anzahl, Euro
 - **Zielwert** – der Schwellenwert, unter bzw. über dem das Ziel erreicht gilt
-- **Aktueller Wert** – manuell gepflegt oder aus Integrationen (z. B. Vulnerability Management, SIEM, Ticket-System)
+- **Aktueller Wert** – manuell gepflegt oder per GraphQL-API aus einem eigenen Workflow geschrieben
 - **Datenquelle** – woher kommt der Wert, wer pflegt ihn, in welchem Rhythmus?
 
 ### Was einen KPI brauchbar macht
@@ -113,10 +113,16 @@ Ein Ziel ohne KPI ist ein Wunsch. Pro Ziel gehört mindestens ein KPI, selten me
 ### KPIs automatisch tracken
 
 <Callout>
-**Der manuelle Pflegeaufwand ist der häufigste Grund, warum Ziele in Compliance-Tools nach wenigen Monaten verwaisen.** Wer einmal pro Woche Excel-Werte abtippt, bricht das Ritual nach drei Monaten ab. Kopexa löst das, indem KPI-Werte direkt aus den Systemen gezogen werden, in denen die Daten ohnehin entstehen – Ticket-Systeme, SIEM, Vulnerability-Scanner, Awareness-Tools.
+**Der manuelle Pflegeaufwand ist der häufigste Grund, warum Ziele in Compliance-Tools nach wenigen Monaten verwaisen.** Wer einmal pro Woche Excel-Werte abtippt, bricht das Ritual nach drei Monaten ab. Kopexa löst das über seine **GraphQL-API**: Ihr baut einmal einen Workflow, der den KPI-Wert aus eurer Quelle berechnet und an Kopexa schickt – danach läuft er stumm im Hintergrund.
 </Callout>
 
+Kopexa schreibt euch keine Quellsysteme vor. Ihr kennt eure IT-Landschaft besser als jedes Tool, und ihr wisst, wo die Daten liegen – in Zammad, Jira, einem selbstgebauten Ticket-System, einem SIEM, einem Vulnerability-Scanner oder einer Datenbank. Kopexa stellt die **GraphQL-API** bereit und übernimmt alles, was danach kommt: Schwellwert-Monitoring, Risiko-Eskalation, Sichtbarkeit im Management-Review.
+
 Automatisierung verändert die Psychologie der Zielverfolgung grundlegend. Statt *"Ich muss den KPI pflegen"* wird daraus *"Der KPI pflegt sich selbst, ich muss nur auf Abweichungen reagieren"*. Genau dieser Zustand ist Voraussetzung dafür, dass ein Frühwarnsystem tatsächlich funktioniert – und nicht nur im Soll-Prozess existiert.
+
+<Callout type="info">
+**Empfohlene Werkzeuge für den Workflow:** Für die meisten Fälle reicht ein Low-Code-Workflow-Tool wie [**Windmill**](https://www.windmill.dev/) oder [**n8n**](https://n8n.io/). Beide sind selbst hostbar, haben fertige Konnektoren für gängige Systeme und lassen sich in wenigen Minuten gegen die Kopexa-GraphQL-API konfigurieren. Wer es skriptbasiert bevorzugt, kann stattdessen einen Cron-Job, eine Lambda-Funktion oder einen Kubernetes-CronJob verwenden – am Ergebnis ändert das nichts.
+</Callout>
 
 #### Beispiel: MTTA-KPI aus Zammad
 
@@ -128,51 +134,59 @@ Angenommen, ihr betreibt euren Security-Incident-Intake in **Zammad**. Eine real
 >
 > **Adressiertes Risiko:** *"Verzögerte Incident-Reaktion führt zur Ausweitung des Schadens und zur Verletzung der 24-Stunden-Meldepflicht"*
 
-Der passende KPI wird direkt an die Zammad-Integration gekoppelt:
+Der KPI in Kopexa sieht so aus:
 
 | Feld | Wert |
 |---|---|
 | **Name** | MTTA – sicherheitsrelevante Incidents |
 | **Einheit** | Minuten |
 | **Zielwert** | ≤ 30 |
-| **Datenquelle** | Zammad-API, Ticket-Gruppe *Security*, Zeitdifferenz zwischen `created_at` und `first_response_at` |
+| **Datenquelle** | Zammad – Ticket-Gruppe *Security*, Zeitdifferenz zwischen `created_at` und `first_response_at` |
 | **Aktualisierung** | stündlich |
-| **Pflege** | automatisch über Integration |
+| **Pflege** | automatisch per GraphQL-Mutation aus einem Windmill-Flow |
 
-Sobald die Integration läuft, zieht Kopexa stündlich die aktuellen Werte aus Zammad, berechnet den gleitenden Durchschnitt und aktualisiert den KPI. Überschreitet der Wert die 30-Minuten-Schwelle, wird das verknüpfte Risiko automatisch eskaliert – und das nächste Management-Review hat eine konkrete Datenbasis statt einer Schätzung.
+Der dazugehörige Windmill-Flow (oder n8n-Workflow) besteht aus drei Schritten und läuft stündlich per Cron-Trigger:
 
-Das schließt den ERM-Kreis ohne manuellen Eingriff:
+1. **Zammad abfragen** – alle Tickets der Gruppe *Security* aus dem letzten Zeitfenster abholen
+2. **MTTA berechnen** – gleitender Durchschnitt der Zeitdifferenz zwischen `created_at` und `first_response_at`
+3. **An Kopexa schicken** – per GraphQL-Mutation den aktuellen Wert auf den KPI schreiben
 
 <Mermaid chart={`
 graph LR
-    Z[Zammad<br/>Security-Tickets] -->|stuendlich| K[KPI MTTA]
+    Z[Zammad<br/>Ticket-API] -->|1. fetch| W[Windmill / n8n<br/>Flow]
+    W -->|2. MTTA berechnen| W
+    W -->|3. GraphQL Mutation| K[Kopexa KPI]
     K -->|Schwellwert ueberschritten| R[Risiko eskaliert]
     R -->|sichtbar im| MR[Management-Review]
-    MR -->|Entscheidung| MA[Massnahme / Investition]
+    MR -->|Entscheidung| MA[Massnahme]
     MA -.wirkt auf.-> Z
 `} />
+
+Ab dem Moment, in dem der Flow läuft, übernimmt Kopexa den Rest: Der Wert wird am KPI aktualisiert, Schwellwertüberschreitungen eskalieren automatisch das verknüpfte Risiko, und beim nächsten Management-Review liegt eine belastbare Datenbasis auf dem Tisch – ohne dass jemand eine Tabelle anfassen musste.
 
 <Callout>
 **An diesem Punkt hört Kopexa auf, ein Verwaltungstool zu sein.** Ziele werden zum operativen Steuerungsinstrument: Sie dokumentieren nicht mehr – sie greifen ein. KPI-Abweichungen eskalieren Risiken, Risiken treiben Maßnahmen, Maßnahmen verändern die Systeme, aus denen die KPIs wieder entstehen. Der Kreis schließt sich ohne manuellen Eingriff. Compliance wird damit von einer Nachweispflicht zu einem aktiven Feedback-Loop, der euer Unternehmen messbar schneller und sicherer macht.
 </Callout>
 
 <Callout type="info">
-**Warum Ticket-Systeme ein besonders lohnender Einstieg sind:** Die Daten sind bereits strukturiert, tragen Zeitstempel, und die SLA-Logik ist oft schon eingebaut. Ihr müsst nichts neu messen – nur das, was ohnehin passiert, sichtbar machen. Wer bei Automatisierung nach Quick Wins sucht, fängt hier an.
+**Warum das besser ist als eine fest eingebaute Integration:** Ihr entscheidet selbst, welche Tickets einbezogen werden, wie gefiltert wird, wann ein Ticket als „erster Kontakt" gilt und wie oft der Wert aktualisiert wird. Kopexa kennt eure Zammad-Instanz nicht – aber euer Flow kennt sie genau. Ihr müsst nie gegen ein starres Mapping kämpfen, und neue Datenquellen fügt ihr selbst hinzu, ohne auf ein Produktrelease zu warten.
 </Callout>
 
-#### Weitere typische automatisierte KPIs
+#### Typische Datenquellen, die sich so anbinden lassen
 
-| KPI | Datenquelle | Beispielziel |
+| KPI | Quelle (Beispiel) | Beispielziel |
 |---|---|---|
-| **Mean Time to Patch** (kritische CVEs) | Vulnerability Scanner (Qualys, Tenable, Greenbone) | ≤ 7 Tage |
-| **Phishing-Klickrate** | Awareness-Tool (KnowBe4, SoSafe) | < 3 % |
+| **Mean Time to Patch** (kritische CVEs) | Qualys, Tenable, Greenbone | ≤ 7 Tage |
+| **Phishing-Klickrate** | KnowBe4, SoSafe | < 3 % |
 | **MFA-Abdeckung** | Entra ID, Okta, Keycloak | ≥ 99 % |
 | **Offene Security-Tickets > 30 Tage** | Zammad, Jira, ServiceNow | = 0 |
 | **SLA-Einhaltung Vendor-Response** | Ticket-System oder Vendor-Portal | ≥ 98 % |
-| **Failed-Login-Trend** | SIEM | Alarm bei Anstieg > 200 % |
+| **Failed-Login-Trend** | SIEM (z. B. Wazuh, Elastic, Splunk) | Alarm bei Anstieg > 200 % |
 | **Zertifikats-Ablauf < 14 Tage** | Certificate Monitoring | = 0 |
 
-> **Warnung:** Automatisierung befreit euch vom Pflegeaufwand, nicht von der Pflicht zur Datenqualität. Ein automatisch gespeister KPI, der die falschen Tickets einbezieht (z. B. alle Tickets statt nur sicherheitsrelevante), ist schlimmer als ein manuell gepflegter richtiger. Die Filterlogik in der Datenquelle gehört **einmalig sauber definiert** – danach läuft sie allein. Investiert die Zeit beim Einrichten, nicht beim Auswerten.
+Jede dieser Quellen bringt eine eigene API mit. Der einmalige Aufwand besteht darin, den Workflow in Windmill, n8n oder einem vergleichbaren Tool zu bauen, der die Werte abholt, transformiert und per GraphQL-Mutation an Kopexa schickt. Danach läuft das System autonom.
+
+> **Warnung:** Automatisierung befreit euch vom Pflegeaufwand, nicht von der Pflicht zur Datenqualität. Ein automatisch gespeister KPI, der die falschen Tickets einbezieht (z. B. alle Tickets statt nur sicherheitsrelevante), ist schlimmer als ein manuell gepflegter richtiger. Die Filterlogik in eurem Flow gehört **einmalig sauber definiert** – danach läuft sie allein. Investiert die Zeit beim Bauen des Workflows, nicht beim Auswerten.
 
 ## Verknüpfungen
 
