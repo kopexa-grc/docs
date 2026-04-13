@@ -6,7 +6,7 @@ description: Assets, Domains & Ressourcen im Space – Grundlage für Risiko, Co
 Das **Inventory** ist die fundierende Ressource eines jeden **Space**. Hier erfassen und verwalten Teams ihre **Assets**, **Domains** und weitere Ressourcen – vollständig **isoliert pro Space**.  
 Viele Kopexa-Features bauen direkt auf dem Inventory auf (Risiken, Kontrollen, Evidences, Issues).
 
-> **Scope:** Inventory gehört zum Space (siehe [Spaces](../index.mdx)). Zentrale SSO-Domains verwaltest du auf **Organization**-Ebene (siehe [Domains](../../organization/domains.mdx)).
+> **Scope:** Inventory gehört zum Space (siehe [Spaces](../../quickstart/spaces.mdx)). Zentrale SSO-Domains verwaltest du auf **Organization**-Ebene (siehe [Domains](../../quickstart/organization/domains/index.mdx)).
 
 ---
 
@@ -32,7 +32,7 @@ Kopexa liefert einen praxistauglichen Satz an **Asset-Typen** (erweiterbar):
 > **People:** Personendaten werden in Kopexa nicht mehr als Asset geführt, sondern in einer eigenen **People-Entity** im Inventory-Kontext verwaltet. Dies erlaubt spezifische Onboarding-Prozesse, Richtlinien und Zuweisungen, bleibt aber logisch Teil des Inventory-Bereichs.
 
 > **Hinweis:** *Internet-Domains* im Inventory sind **operativ** (z. B. `example.com` für Angriffsoberfläche, Subdomain-Scanning, Zertifikate).  
-> **SSO-Domains** für Login/Zuordnung verwaltest du auf **Organization-Ebene** (siehe [Domains](../../organization/domains.mdx)).
+> **SSO-Domains** für Login/Zuordnung verwaltest du auf **Organization-Ebene** (siehe [Domains](../../quickstart/organization/domains/index.mdx)).
 
 ---
 
@@ -79,7 +79,7 @@ Sie können mit **Risks**, **Issues** (Maßnahmen) und **Documents/Evidence** (N
 ## Datenhaltung & Sicherheit
 
 - **Isolation pro Space:** Daten und Dateien eines Spaces sind logisch getrennt.  
-- **Dedizierte Buckets pro Space:** Dateien werden je Space in eigenen Object-Storage-Buckets abgelegt, mit identischer **Verschlüsselungs- und Retention-Strategie** wie unter [Security](../../security.mdx) beschrieben.  
+- **Dedizierte Buckets pro Space:** Dateien werden je Space in eigenen Object-Storage-Buckets abgelegt, mit identischer **Verschlüsselungs- und Retention-Strategie** wie unter [Security](../../quickstart/organization/security.mdx) beschrieben.  
 - **EU-Hosting:** Datenhaltung ausschließlich in Paris und Frankfurt bei OVH, mit SSE-OMK, regelmäßigen Backups (2-stündlich, 30 Tage + 30 Tage Glacier).
 
 ---

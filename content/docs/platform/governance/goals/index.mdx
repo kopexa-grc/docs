@@ -1,0 +1,77 @@
+---
+title: Ziele
+description: Messbare Compliance- und Security-Ziele definieren, mit KPIs hinterlegen und an Stakeholder, Risiken und Dokumente knüpfen.
+---
+
+**Ziele** sind die operative Brücke zwischen strategischen Anforderungen und konkreter Umsetzung. Sie übersetzen abstrakte Erwartungen (aus Normen, Regulierung oder Management) in **messbare Vorgaben** mit klarer Verantwortung und Zieldatum. In Kopexa sind Ziele eine eigene Entität unter **Governance**, verknüpft mit [Stakeholdern](../stakeholders/index.mdx), Risiken und Dokumenten.
+
+## Warum explizite Ziele?
+
+ISO 27001 (Kap. 6.2), ISO 9001 und ähnliche Managementsystem-Normen verlangen **informationssicherheits- bzw. qualitätsbezogene Ziele**, die:
+
+- mit der Policy und den strategischen Vorgaben **konsistent** sind,
+- **messbar** sind (soweit praktikabel),
+- **überwacht, kommuniziert und aktualisiert** werden,
+- **dokumentierte Information** bereithalten – wer, was, wann, mit welchen Ressourcen.
+
+Ein Kopexa-Ziel deckt genau diese Anforderungen ab: Verantwortliche, Zieldatum, KPIs, Statusverfolgung und Audit-Trail entstehen automatisch.
+
+## Ziel anlegen
+
+Über `Governance → Ziele → Neues Ziel` erfasst ihr:
+
+- **Name** – kurz, handlungsorientiert, z. B. *„Phishing-Klickrate unter 3 % senken"*
+- **Beschreibung** – Kontext, Motivation, Bezug zu Strategie oder Regulierung
+- **Verantwortlich** – eine Person im Space, die das Ziel trägt
+- **Vertreter** – Stellvertretung für Reviews und Eskalation
+- **Zieldatum** – verbindlicher Termin, zu dem das Ziel erreicht sein soll
+- **Status** – *Entwurf → Aktiv → Erreicht / Verfehlt / Archiviert*
+
+## Key Performance Indicators (KPIs)
+
+Ein Ziel ohne Messgröße ist ein Wunsch. Deshalb hängt ihr an jedes Ziel einen oder mehrere **KPIs** an:
+
+- **Name** – z. B. *„Durchschnittliche Zeit bis Patching kritischer CVEs"*
+- **Zielwert** – was soll erreicht werden?
+- **Aktueller Wert** – manuell gepflegt oder aus Integrationen
+- **Einheit** – Tage, Prozent, Anzahl, Euro ...
+
+KPIs können über den Zeitverlauf beobachtet werden und liefern die Nachweise, die Auditor:innen für das **Monitoring** des Ziels erwarten.
+
+> **Tipp:** Definiert KPIs nach dem **SMART**-Prinzip. Ein KPI, dessen aktueller Wert niemand pflegt, ist wertlos – klärt die Datenquelle, bevor ihr ihn anlegt.
+
+## Verknüpfungen
+
+Über die Tabs auf der Detailseite verknüpft ihr das Ziel mit anderen Modulen:
+
+- **Stakeholder** – wer stellt die Anforderung, wer profitiert vom Ziel?
+- **Risiken** – welche [Risiken](../../compliance/risks/index.mdx) adressiert dieses Ziel? Ein verfehlter KPI kann umgekehrt ein Risiko erhöhen.
+- **Dokumente** – Policies, Strategien oder Management-Reviews, die das Ziel begründen
+
+Diese Verknüpfungen sind der Schlüssel für Audit-Nachweise: Ihr zeigt nicht nur, *dass* ein Ziel existiert, sondern *warum* es existiert und *woraus* es abgeleitet ist.
+
+## Status & Lifecycle
+
+| Status | Bedeutung |
+|---|---|
+| **Entwurf** | In Abstimmung, noch nicht beschlossen |
+| **Aktiv** | Beschlossen, wird operativ verfolgt, KPIs werden gepflegt |
+| **Erreicht** | Zieldatum erreicht und KPI-Zielwert erfüllt |
+| **Verfehlt** | Zieldatum abgelaufen, Zielwert nicht erfüllt – Ursache dokumentieren |
+| **Archiviert** | Historisch, wird nicht mehr aktiv verfolgt, bleibt für Nachweise erhalten |
+
+Der Statuswechsel ist im Metadaten-Panel revisionssicher protokolliert – Erstellungsdatum, letzter Editor und Änderungszeitpunkt stehen jeder Auditor:in zur Verfügung.
+
+## Best Practices
+
+- **Von oben ableiten:** Ziele entstehen aus Stakeholder-Anforderungen und Management-Vorgaben – nicht umgekehrt. Verknüpft jedes Ziel mit mindestens einem [Stakeholder](../stakeholders/index.mdx).
+- **Wenig, aber messbar:** Drei scharf geschnittene Ziele mit je ein bis zwei KPIs sind wirksamer als zehn unklare Ziele ohne Messgröße.
+- **Regelmäßig reviewen:** Setzt feste Intervalle (Quartalsweise im Management-Review), zu denen Status und KPI-Werte aktualisiert werden.
+- **Verfehlen dokumentieren:** Ein verfehltes Ziel ist keine Niederlage, sondern Input für den nächsten Zyklus – Ursachenanalyse und Folgeaktionen im Kommentar festhalten.
+- **Nicht mit Maßnahmen verwechseln:** Ein Ziel beschreibt *was* erreicht werden soll. *Wie* ihr dorthin kommt, gehört in [Maßnahmen und Work Items](../../compliance/controls/index.mdx).
+
+## Weiterführende Module
+
+- [**Stakeholder**](../stakeholders/index.mdx) – Quelle vieler Ziele, insbesondere regulatorischer
+- [**Programme**](../programs/index.mdx) – Container für Ziele, die zu einer größeren Initiative gehören (z. B. ISO 27001 Zertifizierung)
+- [**Risiken**](../../compliance/risks/index.mdx) – Ziele adressieren Risiken; verfehlte Ziele erhöhen Risiken

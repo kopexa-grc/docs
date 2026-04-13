@@ -6,8 +6,8 @@ description: Personen im Space – Import, Verwaltung und verknüpfte Accounts (
 **People** repräsentieren Personen im Kontext eines **Space** – z. B. Mitarbeitende, Werkvertragskräfte oder Partner.  
 Sie sind **kein Asset-Typ**, sondern eine eigene Entität innerhalb des Inventory-Kontexts, mit Fokus auf **Identitäten, Accounts, Onboarding** und **Policy-Beziehungen**.
 
-> **Scope:** People gehören zum Space (siehe [Spaces](../index.mdx)).  
-> Zentrale **SSO-Domains** verwaltest du auf **Organization-Ebene** (siehe [Domains](../../organization/domains.mdx)).
+> **Scope:** People gehören zum Space (siehe [Spaces](../../quickstart/spaces.mdx)).  
+> Zentrale **SSO-Domains** verwaltest du auf **Organization-Ebene** (siehe [Domains](../../quickstart/organization/domains/index.mdx)).
 
 ---
 
@@ -77,7 +77,7 @@ Typische Personen- und Account-Status:
 
 ## Berechtigungen (ReBAC)
 
-Zugriffe werden über **ReBAC** mit **OpenFGA** gesteuert (siehe [Security](../../organization/security.mdx)):
+Zugriffe werden über **ReBAC** mit **OpenFGA** gesteuert (siehe [Security](../../quickstart/organization/security.mdx)):
 
 - Sichtbarkeit und Bearbeitung von People hängt von **Beziehungen** (z. B. Space-Mitgliedschaft, Rolle) ab.  
 - Feingranulare Regeln möglich, z. B.: *„HR-Rolle darf Personendaten sehen/bearbeiten, aber keine technischen Accounts löschen.“*
@@ -88,7 +88,7 @@ Zugriffe werden über **ReBAC** mit **OpenFGA** gesteuert (siehe [Security](../.
 
 - **Datenminimierung:** Speichere nur, was für Governance/Compliance erforderlich ist.  
 - **Trennung pro Space:** People-Daten sind **Space-isoliert**.  
-- **Verschlüsselung & Backups:** Siehe [Security](../../organization/security.mdx) (SSE-OMK, 2-stündliche Backups, 30 d + 30 d Glacier).  
+- **Verschlüsselung & Backups:** Siehe [Security](../../quickstart/organization/security.mdx) (SSE-OMK, 2-stündliche Backups, 30 d + 30 d Glacier).  
 - **Protokollierung:** Relevante Änderungen (z. B. Account-Entzug) werden auditiert.
 
 ---
