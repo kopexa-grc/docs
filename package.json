@@ -55,7 +55,7 @@
 		"remark-rehype": "^11.1.2",
 		"remark-validate-links": "^13.1.0",
 		"tailwindcss": "^4.1.16",
-		"tsx": "^4.20.6",
+		"tsx": "^4.21.0",
 		"typescript": "^5.9.3",
 		"unified": "^11.0.5",
 		"vfile-reporter": "^8.1.1"
