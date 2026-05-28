@@ -1,0 +1,107 @@
+---
+title: Status
+description: Wie Kopexa den Status eines Risikos automatisch ableitet und was ihn beeinflusst
+---
+
+Der Status eines Risikos in Kopexa wird **automatisch abgeleitet** — du setzt ihn nicht manuell. Er spiegelt jederzeit den realen Bearbeitungszustand wider: ob Pflichtangaben fehlen, ob das Risiko außerhalb der Toleranz liegt, ob die gewählte Behandlung greift.
+
+So sieht jeder im Team auf einen Blick, woran ein Risiko hängt — und der Auditor sieht, dass der Status nicht „weichgespült" ist.
+
+## Mögliche Status
+
+| Status | Bedeutung |
+|--------|-----------|
+| **Aktiv** | Risiko ist vollständig bewertet, eine Behandlungsstrategie ist gewählt, sie greift (Nachweise wirksam) und die Risikotoleranz ist eingehalten. Es ist nichts offen. |
+| **Aufmerksamkeit erforderlich** | Mindestens eine Bedingung für *Aktiv* ist nicht erfüllt — z. B. fehlen Pflichtangaben, das Restrisiko überschreitet die Toleranz, eine Maßnahme ist nicht wirksam, oder das nächste Review ist überfällig. |
+| **Archiviert** | Risiko ist aus dem aktiven Management raus. Entweder manuell archiviert oder die Behandlungsstrategie *Vermeiden* (AVOID) wurde gewählt und damit ist die risikobehaftete Aktivität abgeschafft. |
+
+## Was den Status bestimmt
+
+Kopexa prüft bei jeder Änderung am Risiko (oder an einer verknüpften Maßnahme, Issue oder Review) die folgenden Bedingungen — in dieser Reihenfolge:
+
+1. **Archiv-Anker** — wenn `archivedAt` gesetzt ist, bleibt das Risiko *Archiviert*.
+2. **Pflichtangaben** — Owner, Initialbewertung (Wahrscheinlichkeit × Auswirkung) und Restrisikobewertung müssen vollständig sein.
+3. **Review-Fälligkeit** — das nächste Review-Datum darf nicht in der Vergangenheit liegen.
+4. **Risikotoleranz** — das Restrisiko darf die Schwelle der Risiko-Kategorie nicht überschreiten (bei Bedrohungen) bzw. den Zielwert nicht unterschreiten (bei Chancen).
+5. **Behandlungsstrategie** — eine Strategie muss gewählt sein.
+6. **Strategie *Vermeiden* (AVOID)** — führt direkt zu *Archiviert*, da die risikobehaftete Aktivität nicht mehr stattfindet.
+7. **Aktive Strategien** — *Mindern*, *Verbessern* oder *Ausnutzen* setzen voraus, dass **alle** verknüpften Maßnahmen den Status *Wirksam* haben. Eine einzige *eingeschränkt wirksame* oder *nicht wirksame* Maßnahme reicht für *Aufmerksamkeit erforderlich*.
+8. **Passive Strategien** — *Akzeptieren*, *Übertragen* oder *Teilen* verlangen keine Maßnahmen. Wenn 1–6 sauber sind, ist das Risiko *Aktiv*.
+
+<Callout type="info" title="Maßnahmen-Status fließt durch">
+Der Status einer Maßnahme ist seinerseits automatisch aus deren Nachweisen und offenen Issues abgeleitet (siehe [Maßnahmen](/platform/compliance/controls/control-implementations)). Wenn ein verknüpftes Issue 30 Tage überfällig wird, fällt die Maßnahme auf *Eingeschränkt wirksam* — und das Risiko hängt damit auf *Aufmerksamkeit erforderlich*, bis das Issue geschlossen oder das Fälligkeitsdatum verlängert wird.
+</Callout>
+
+## Entscheidungsbaum
+
+<Mermaid
+  chart={`
+flowchart TD
+    Start([Risiko geändert]) --> Archived{archivedAt<br/>gesetzt?}
+    Archived -->|Ja| ARCH[Archiviert]
+    Archived -->|Nein| Prereq{Owner +<br/>Bewertungen<br/>vollständig?}
+    Prereq -->|Nein| NA1[Aufmerksamkeit<br/>erforderlich]
+    Prereq -->|Ja| Review{Review<br/>überfällig?}
+    Review -->|Ja| NA2[Aufmerksamkeit<br/>erforderlich]
+    Review -->|Nein| Appetite{Restrisiko<br/>außerhalb<br/>Toleranz?}
+    Appetite -->|Ja| NA3[Aufmerksamkeit<br/>erforderlich]
+    Appetite -->|Nein| Treatment{Behandlung<br/>gewählt?}
+    Treatment -->|Nein| NA4[Aufmerksamkeit<br/>erforderlich]
+    Treatment -->|Vermeiden| ARCH2[Archiviert]
+    Treatment -->|Mindern /<br/>Verbessern /<br/>Ausnutzen| Measures{Alle Maßnahmen<br/>wirksam?}
+    Treatment -->|Akzeptieren /<br/>Übertragen /<br/>Teilen| ON[Aktiv]
+    Measures -->|Nein| NA5[Aufmerksamkeit<br/>erforderlich]
+    Measures -->|Ja| ON2[Aktiv]
+
+    style ARCH fill:#e5e7eb,stroke:#6b7280
+    style ARCH2 fill:#e5e7eb,stroke:#6b7280
+    style NA1 fill:#fee2e2,stroke:#ef4444
+    style NA2 fill:#fee2e2,stroke:#ef4444
+    style NA3 fill:#fee2e2,stroke:#ef4444
+    style NA4 fill:#fee2e2,stroke:#ef4444
+    style NA5 fill:#fee2e2,stroke:#ef4444
+    style ON fill:#dcfce7,stroke:#16a34a
+    style ON2 fill:#dcfce7,stroke:#16a34a
+`}
+/>
+
+## Häufige Status-Übergänge
+
+### Neu angelegtes Risiko → *Aufmerksamkeit erforderlich*
+
+Direkt nach dem Anlegen fehlen typischerweise Bewertungen, Owner oder Behandlungsstrategie. Kopexa erinnert dich daran, dass du das Risiko noch komplettieren musst.
+
+### *Aufmerksamkeit erforderlich* → *Aktiv*
+
+Wenn du alle Pflichtangaben gemacht hast, die Behandlung wählst, ggf. wirksame Maßnahmen verknüpft sind und das Restrisiko innerhalb der Toleranz liegt, schaltet das Risiko auf *Aktiv*.
+
+### *Aktiv* → *Aufmerksamkeit erforderlich*
+
+Dieser Übergang ist der wichtigste — er zeigt, dass etwas im laufenden Betrieb aus dem Ruder läuft. Häufige Auslöser:
+
+- Eine verknüpfte Maßnahme verliert Nachweise oder bekommt ein überfälliges Issue → Maßnahme wird *Eingeschränkt wirksam* → Risiko-Behandlung *Mindern* greift nicht mehr vollständig.
+- Du erhöhst die Restrisikobewertung über die Toleranz hinaus.
+- Das nächste Review-Datum verstreicht ungenutzt.
+- Die Risikotoleranz der Kategorie wird gesenkt.
+
+### *Aktiv* / *Aufmerksamkeit erforderlich* → *Archiviert*
+
+Zwei Wege:
+- **Manuell archivieren** — wenn das Risiko nicht mehr relevant ist (z. B. das betroffene Asset wird abgeschafft).
+- **Behandlung *Vermeiden* wählen** — Kopexa archiviert das Risiko automatisch, weil die zugrundeliegende Aktivität nicht mehr stattfindet.
+
+<Callout type="info">
+Archivierte Risiken bleiben für Audits und Historie erhalten — sie tauchen nur nicht mehr in der Standard-Liste oder in aktiven KPIs auf.
+</Callout>
+
+## Wann läuft die Statusberechnung?
+
+Der Status wird neu berechnet, sobald irgendetwas Relevantes verändert wird:
+
+- Direkte Änderungen am Risiko (Bewertung, Behandlung, Review-Datum, Owner)
+- Verknüpfung/Entkopplung von Maßnahmen
+- Statusänderung einer verknüpften Maßnahme (z. B. Maßnahme fällt auf *Eingeschränkt wirksam*)
+- Statusänderung eines mit einer Maßnahme verknüpften Issues (z. B. Issue wird geschlossen oder das `target_date` ändert sich)
+- Änderungen an der Risikotoleranz der Kategorie
+
+Zusätzlich läuft ein periodischer Hintergrund-Job, der rein zeitgetriebene Übergänge erkennt — z. B. „Review-Datum gerade verstrichen" oder „Issue gerade überfällig geworden". So bleibt der Status auch dann aktuell, wenn niemand das Risiko anfasst.

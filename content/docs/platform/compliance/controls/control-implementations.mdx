@@ -107,12 +107,29 @@ Hier gehört das Detail hin:
 
 ### Status
 
-| Status | Bedeutung |
-|--------|-----------|
-| **Geplant** | Maßnahme ist definiert, aber noch nicht umgesetzt |
-| **In Umsetzung** | Implementierung läuft |
-| **Umgesetzt** | Maßnahme ist aktiv |
-| **Nicht anwendbar** | Maßnahme wurde geprüft, ist aber für diesen Kontext nicht relevant |
+Der Status einer Maßnahme wird **automatisch** aus den verknüpften Nachweisen und offenen Issues abgeleitet — du setzt ihn nicht manuell. Damit spiegelt der Status immer den realen Wirksamkeitszustand wider, ohne dass jemand ihn nachpflegen muss.
+
+| Status | Bedeutung | Wann |
+|--------|-----------|------|
+| **Wirksam** | Maßnahme ist nachweislich wirksam | Alle verknüpften Nachweise haben den Status *Bestanden* **und** kein verknüpftes offenes Issue ist überfällig |
+| **Eingeschränkt wirksam** | Maßnahme ist teilweise wirksam | Mindestens ein verknüpfter Nachweis ist nicht *Bestanden*, **oder** ein verknüpftes offenes Issue ist seit mehr als 30 Tagen überfällig |
+| **Nicht wirksam** | Maßnahme ist nicht wirksam (auch Default für neue Maßnahmen) | Es liegen keine Nachweise vor |
+| **Archiviert** | Maßnahme wurde stillgelegt | Manuell archiviert — wird in Control- und Trust-Center-Aggregaten ignoriert |
+
+<Callout type="info" title="Wann ein Issue als überfällig zählt">
+Ein offenes Issue zieht eine ansonsten wirksame Maßnahme auf *Eingeschränkt wirksam*, wenn:
+
+- es mit der Maßnahme verknüpft ist
+- ein `target_date` gesetzt ist
+- das `target_date` mehr als **30 Tage** in der Vergangenheit liegt
+- es noch nicht abgeschlossen ist (State-Gruppe ≠ *Erledigt* / *Abgebrochen*)
+
+Sobald das Issue geschlossen wird oder das `target_date` verlängert wird, fällt die Maßnahme zurück auf den nachweisbasierten Status.
+</Callout>
+
+<Callout type="info" title="Trust Center">
+Im Trust Center werden ausschließlich Maßnahmen mit Status *Wirksam* angezeigt. *Eingeschränkt wirksame* und *nicht wirksame* Maßnahmen tauchen dort nicht auf.
+</Callout>
 
 ### Owner
 
@@ -153,9 +170,10 @@ Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 4. Fülle aus:
    - **Titel**: Kurze Beschreibung
    - **Beschreibung**: Technische und organisatorische Details
-   - **Status**: Aktueller Umsetzungsstand
    - **Owner**: Verantwortliche Person
 5. Klicke **Erstellen**
+
+Die neue Maßnahme startet mit Status **Nicht wirksam**. Sobald du Nachweise verknüpfst, schaltet der Status automatisch um.
 
 Die Maßnahme ist jetzt mit dem Control verknüpft.
 
@@ -232,8 +250,8 @@ Alte Screenshots oder Reports verlieren an Aussagekraft. Plane regelmäßige Akt
 
 Der Owner ist verantwortlich für:
 - Aktualität der Beschreibung
-- Korrektheit des Status
-- Vollständigkeit der Evidenzen
+- Vollständigkeit und Aktualität der Nachweise (daraus leitet sich der Status automatisch ab)
+- Reaktion auf überfällige verknüpfte Issues, bevor sie die Maßnahme degradieren
 
 Wenn ein Owner das Unternehmen verlässt, sofort neu zuweisen.
 
