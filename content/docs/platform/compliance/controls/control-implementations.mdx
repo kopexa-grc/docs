@@ -107,31 +107,31 @@ Hier gehört das Detail hin:
 
 ### Status
 
-Der Status einer Maßnahme wird **automatisch** aus den verknüpften Nachweisen und offenen Issues abgeleitet — du setzt ihn nicht manuell. Damit spiegelt der Status immer den realen Wirksamkeitszustand wider, ohne dass jemand ihn nachpflegen muss.
+Der Status einer Maßnahme wird **automatisch** aus den verknüpften Nachweisen und offenen Aufgaben abgeleitet. Du setzt ihn nicht manuell. Damit spiegelt der Status immer den realen Wirksamkeitszustand wider, ohne dass jemand ihn nachpflegen muss.
 
 | Status | Bedeutung | Wann |
 |--------|-----------|------|
-| **Wirksam** | Maßnahme ist nachweislich wirksam | Alle verknüpften Nachweise haben den Status *Bestanden* **und** kein verknüpftes offenes Issue ist überfällig |
-| **Eingeschränkt wirksam** | Maßnahme ist teilweise wirksam | Mindestens ein verknüpfter Nachweis ist nicht *Bestanden*, **oder** ein verknüpftes offenes Issue ist seit mehr als 30 Tagen überfällig |
+| **Wirksam** | Maßnahme ist nachweislich wirksam | Alle verknüpften Nachweise haben den Status *Bestanden* **und** keine verknüpfte offene Aufgabe ist überfällig |
+| **Eingeschränkt wirksam** | Maßnahme ist teilweise wirksam | Mindestens ein verknüpfter Nachweis ist nicht *Bestanden*, **oder** eine verknüpfte offene Aufgabe ist seit mehr als 30 Tagen überfällig |
 | **Nicht wirksam** | Maßnahme ist nicht wirksam (auch Default für neue Maßnahmen) | Es liegen keine Nachweise vor |
-| **Archiviert** | Maßnahme wurde stillgelegt | Manuell archiviert — wird in Control- und Trust-Center-Aggregaten ignoriert |
+| **Archiviert** | Maßnahme wurde stillgelegt | Manuell archiviert. Wird in Kontroll- und Trust-Center-Aggregaten ignoriert |
 
-<Callout type="info" title="Wann ein Issue als überfällig zählt">
-Ein offenes Issue zieht eine ansonsten wirksame Maßnahme auf *Eingeschränkt wirksam*, wenn:
+<Callout type="info" title="Wann eine Aufgabe als überfällig zählt">
+Eine offene Aufgabe zieht eine ansonsten wirksame Maßnahme auf *Eingeschränkt wirksam*, wenn:
 
-- es mit der Maßnahme verknüpft ist
-- ein `target_date` gesetzt ist
-- das `target_date` mehr als **30 Tage** in der Vergangenheit liegt
-- es noch nicht abgeschlossen ist (State-Gruppe ≠ *Erledigt* / *Abgebrochen*)
+- sie mit der Maßnahme verknüpft ist
+- ein Fälligkeitsdatum gesetzt ist
+- das Fälligkeitsdatum mehr als **30 Tage** in der Vergangenheit liegt
+- sie noch nicht abgeschlossen ist (Status-Gruppe ist nicht *Erledigt* oder *Abgebrochen*)
 
-Sobald das Issue geschlossen wird oder das `target_date` verlängert wird, fällt die Maßnahme zurück auf den nachweisbasierten Status.
+Sobald du die Aufgabe schließt oder das Fälligkeitsdatum verlängerst, fällt die Maßnahme zurück auf den nachweisbasierten Status.
 </Callout>
 
 <Callout type="info" title="Trust Center">
 Im Trust Center werden ausschließlich Maßnahmen mit Status *Wirksam* angezeigt. *Eingeschränkt wirksame* und *nicht wirksame* Maßnahmen tauchen dort nicht auf.
 </Callout>
 
-### Owner
+### Verantwortliche:r
 
 Die Person, die für die Maßnahme verantwortlich ist. Bei technischen Maßnahmen oft jemand aus der IT, bei organisatorischen Maßnahmen oft der Prozessverantwortliche.
 
@@ -170,7 +170,7 @@ Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 4. Fülle aus:
    - **Titel**: Kurze Beschreibung
    - **Beschreibung**: Technische und organisatorische Details
-   - **Owner**: Verantwortliche Person
+   - **Verantwortliche:r**: Person, die für die Maßnahme zuständig ist
 5. Klicke **Erstellen**
 
 Die neue Maßnahme startet mit Status **Nicht wirksam**. Sobald du Nachweise verknüpfst, schaltet der Status automatisch um.
@@ -246,14 +246,14 @@ Alte Screenshots oder Reports verlieren an Aussagekraft. Plane regelmäßige Akt
 - Dokumentarische Evidenzen: Bei Dokumentenänderung
 - Prüfberichte: Nach jedem Audit oder Test
 
-### Owner aktiv halten
+### Verantwortliche:n aktiv halten
 
-Der Owner ist verantwortlich für:
+Die verantwortliche Person ist zuständig für:
 - Aktualität der Beschreibung
 - Vollständigkeit und Aktualität der Nachweise (daraus leitet sich der Status automatisch ab)
-- Reaktion auf überfällige verknüpfte Issues, bevor sie die Maßnahme degradieren
+- Reaktion auf überfällige verknüpfte Aufgaben, bevor sie die Maßnahme degradieren
 
-Wenn ein Owner das Unternehmen verlässt, sofort neu zuweisen.
+Wenn die verantwortliche Person das Unternehmen verlässt, sofort neu zuweisen.
 
 ## Zusammenhang im Überblick
 
