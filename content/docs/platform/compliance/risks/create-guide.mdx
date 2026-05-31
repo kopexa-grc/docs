@@ -47,7 +47,7 @@ Nach dem Speichern gelangst du in die **Detailansicht**. Hier siehst du **Bewert
 
 **Linke Seite (Inhalt)**  
 - **Beschreibung:** kurze, präzise Problem- und Kontextdarstellung  
-- **Risikobewertung:** Initiale Matrix mit **Likelihood**, **Impact** und abgeleitetem **Score**  
+- **Risikobewertung:** Initiale Matrix mit **Wahrscheinlichkeit**, **Konsequenz** und abgeleitetem **Score**  
 - **Risikobehandlung:** Strategie wählen (avoid/mitigate/transfer/accept) und begründen
 
 **Rechte Seite (Kontext & Aktionen)**  
@@ -64,8 +64,8 @@ Lege **sofort eine Aufgabe** an (Owner + Fälligkeitsdatum) und verknüpfe **Evi
 
 ## Bewertung & Behandlung – kurz erklärt
 
-- **Impact (Konsequenz):** Auswirkung auf Vertraulichkeit, Integrität, Verfügbarkeit oder Compliance  
-- **Likelihood (Wahrscheinlichkeit):** Wie wahrscheinlich ist das Ereignis?  
+- **Konsequenz (Impact):** Auswirkung auf Vertraulichkeit, Integrität, Verfügbarkeit oder Compliance  
+- **Wahrscheinlichkeit (Likelihood):** Wie wahrscheinlich ist das Ereignis?  
 - **Inherent vs. Residual:** Vor / nach Umsetzung von Maßnahmen  
 - **Behandlung (Treatment):**
   - **Avoid:** Risikoquelle eliminieren (Service abschalten)
@@ -91,7 +91,7 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
 <Accordions type="single">
   <Accordion title="Zu viele Risiken – wo anfangen?">
-    Priorisiere nach **Impact**. Starte bei **High Impact** + **Likely**.
+    Priorisiere nach **Konsequenz**. Starte bei **High Konsequenz** + **Likely**.
   </Accordion>
   <Accordion title="Restrisiko bleibt unverändert.">
     Maßnahmen (Work Items) sind ggf. noch **offen** oder **Evidence** fehlt. Nachpflegen, dann neu bewerten.

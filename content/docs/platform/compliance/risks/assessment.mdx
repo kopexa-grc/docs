@@ -1,12 +1,12 @@
 ---
 title: Bewertungshilfe für Risiko & Restrisiko
-description: Leitfaden zur Einstufung von Eintrittswahrscheinlichkeit und Auswirkung in Kopexa
+description: Leitfaden zur Einstufung von Wahrscheinlichkeit und Konsequenz in Kopexa
 ---
 
 Bei der Bewertung eines Risikos und des Restrisikos sind zwei Dimensionen entscheidend:
 
-- **Eintrittswahrscheinlichkeit (Likelihood)** – Wie wahrscheinlich ist das Ereignis?
-- **Auswirkung (Impact)** – Welche Folgen hätte es für dein Unternehmen?
+- **Wahrscheinlichkeit (Likelihood)** – Wie wahrscheinlich ist das Ereignis?
+- **Konsequenz (Impact)** – Welche Folgen hätte es für dein Unternehmen?
 
 Die Logik für **initiale** und **Restrisiko**-Bewertung ist identisch – beim Restrisiko berücksichtigst du die **Wirksamkeit umgesetzter oder geplanter Maßnahmen**.
 
@@ -14,7 +14,7 @@ Die Logik für **initiale** und **Restrisiko**-Bewertung ist identisch – beim 
 
 ## Schnelle Entscheidungshilfe (Rubrik)
 
-**Impact – Leitfragen**
+**Konsequenz – Leitfragen**
 
 - **5 Kritisch:** Existenzgefährdend, massive rechtliche Folgen (z. B. Millionenbußgeld, mehrtägiger Totalausfall)
 - **4 Hoch:** Erheblicher finanzieller/operativer Schaden (z. B. längerer Produktionsausfall)
@@ -22,7 +22,7 @@ Die Logik für **initiale** und **Restrisiko**-Bewertung ist identisch – beim 
 - **2 Niedrig:** Begrenzte Wirkung (z. B. kurzer Ausfall, geringe Mehrkosten)
 - **1 Sehr niedrig:** Kaum spürbar
 
-**Likelihood – Leitfragen**
+**Wahrscheinlichkeit – Leitfragen**
 
 - **4 Sehr hoch:** Tritt nahezu sicher ein (Beobachtung/Vorfälle mehrfach pro Jahr)
 - **3 Hoch:** Realistisch wahrscheinlich (Branchenlage, wenige Gegenmaßnahmen)
@@ -30,22 +30,22 @@ Die Logik für **initiale** und **Restrisiko**-Bewertung ist identisch – beim 
 - **1 Niedrig:** Eher selten
 - **0.5 Sehr niedrig:** Sehr unwahrscheinlich
 
-> **Score = Impact × Likelihood** → typischer Bereich **1–20**.  
+> **Score = Konsequenz × Wahrscheinlichkeit** → typischer Bereich **1–20**.  
 > Schwellen für _Kritisch/Hoch/Mittel/Niedrig_ legst du teamweit fest.
 
 ## Skalen & Beispiele
 
-### Auswirkung (Impact)
+### Konsequenz (Impact)
 
 | Stufe | Leitfragen | Beispiele |
 |---|---|---|
 | **5 Kritisch** | Existenz-/aufsichtsrechtlich gravierend? | Große Datenpanne mit Meldepflicht & hohen Bußgeldern |
 | **4 Hoch** | Erhebliche finanzielle/rechtliche Folgen? | Mehrtägiger Produktionsausfall, Vertragsstrafen |
 | **3 Mittel** | Spürbar, beherrschbar? | Kurzzeitige IT-Ausfälle, moderate Bußgelder |
-| **2 Niedrig** | Begrenzte Auswirkungen? | Kurzer Service-Hiccup, geringe Kosten |
+| **2 Niedrig** | Begrenzte Konsequenzen? | Kurzer Service-Hiccup, geringe Kosten |
 | **1 Sehr niedrig** | Kaum spürbar? | Geringfügige Prozessabweichung |
 
-### Eintrittswahrscheinlichkeit (Likelihood)
+### Wahrscheinlichkeit (Likelihood)
 
 | Stufe | Leitfragen | Beispiele |
 |---|---|---|
@@ -72,33 +72,33 @@ Begründe kurz, **warum** trotz Maßnahmen ein Rest bleibt oder warum du auf **�
 > Die folgenden Beispiele zeigen **Initial → Maßnahmen → Restrisiko** als Orientierung.
 
 ### 1) Ungepatchter VPN-Gateway (schwache TLS-Cipher)
-- **Initial:** Impact **3 Mittel**, Likelihood **3 Hoch** → **Score 9 (Mittel)**
+- **Initial:** Konsequenz **3 Mittel**, Wahrscheinlichkeit **3 Hoch** → **Score 9 (Mittel)**
 - **Maßnahmen:** TLS ≥ 1.2 erzwingen, schwache Cipher deaktivieren, FS aktivieren; Konfig-PR & sslyze-Report als Evidence
-- **Restrisiko:** Impact **3**, Likelihood **1 Niedrig** → **Score 3**
+- **Restrisiko:** Konsequenz **3**, Wahrscheinlichkeit **1 Niedrig** → **Score 3**
 - **Erläuterung:** Residual Crypto-Risiken bleiben (Protokoll-Implementierung), aber stark reduziert.
 
 ### 2) S3-Bucket public read (Fehlkonfiguration)
-- **Initial:** Impact **4 Hoch**, Likelihood **2 Mittel** → **Score 8**
+- **Initial:** Konsequenz **4 Hoch**, Wahrscheinlichkeit **2 Mittel** → **Score 8**
 - **Maßnahmen:** Bucket-Policy schließen, Block Public Access, CI-Policy Check; CloudTrail-Nachweis
-- **Restrisiko:** Impact **4**, Likelihood **0.5 Sehr niedrig** → **Score 2**
+- **Restrisiko:** Konsequenz **4**, Wahrscheinlichkeit **0.5 Sehr niedrig** → **Score 2**
 - **Erläuterung:** Restrisiko verbleibt durch menschliche Fehler; Prävention/Detektion verbessert.
 
 ### 3) Phishing ohne MFA
-- **Initial:** Impact **4 Hoch**, Likelihood **4 Sehr hoch** → **Score 16 (Kritisch)**
+- **Initial:** Konsequenz **4 Hoch**, Wahrscheinlichkeit **4 Sehr hoch** → **Score 16 (Kritisch)**
 - **Maßnahmen:** MFA für alle, Phishing-Simulator, Awareness-Training, Conditional Access
-- **Restrisiko:** Impact **4**, Likelihood **1 Niedrig** → **Score 4**
-- **Erläuterung:** Zielte Angriffe möglich, aber Eintrittswahrscheinlichkeit stark gesenkt.
+- **Restrisiko:** Konsequenz **4**, Wahrscheinlichkeit **1 Niedrig** → **Score 4**
+- **Erläuterung:** Zielte Angriffe möglich, aber Wahrscheinlichkeit stark gesenkt.
 
 ### 4) Drittanbieter-Ausfall (kritischer SaaS)
-- **Initial:** Impact **4 Hoch**, Likelihood **2 Mittel** → **Score 8**
+- **Initial:** Konsequenz **4 Hoch**, Wahrscheinlichkeit **2 Mittel** → **Score 8**
 - **Maßnahmen:** Vertragliche SLA, zweiter Anbieter/Failover, Datenauszug/Backups testen
-- **Restrisiko:** Impact **3 Mittel**, Likelihood **1 Niedrig** → **Score 3**
+- **Restrisiko:** Konsequenz **3 Mittel**, Wahrscheinlichkeit **1 Niedrig** → **Score 3**
 - **Erläuterung:** Operative Folgen reduziert durch Redundanz & Exit-Strategie.
 
 ### 5) Verlorener Laptop ohne Festplattenverschlüsselung
-- **Initial:** Impact **4 Hoch**, Likelihood **2 Mittel** → **Score 8**
+- **Initial:** Konsequenz **4 Hoch**, Wahrscheinlichkeit **2 Mittel** → **Score 8**
 - **Maßnahmen:** Full-Disk-Encryption, Remote-Wipe, Inventar-Kontrollen, Benutzer-Training
-- **Restrisiko:** Impact **2 Niedrig**, Likelihood **1 Niedrig** → **Score 2**
+- **Restrisiko:** Konsequenz **2 Niedrig**, Wahrscheinlichkeit **1 Niedrig** → **Score 2**
 - **Erläuterung:** Datenabfluss unwahrscheinlich; verbleibendes Risiko: verspätete Meldung/Fehlbedienung.
 
 ## Best Practices
@@ -106,5 +106,5 @@ Begründe kurz, **warum** trotz Maßnahmen ein Rest bleibt oder warum du auf **�
 - **Teamwork:** Bewertung mit IT-Ops, Security/DSB und Fachbereich durchführen.
 - **Konsistenz:** Skalen & Schwellenwerte teamweit festlegen und dokumentieren.
 - **Evidences sammeln:** Bewertung begründen (Kommentare) und **Evidence** anhängen.
-- **Regelmäßig prüfen:** Bei Reviews/Rezertifizierungen **Impact/Likelihood** neu bewerten.
+- **Regelmäßig prüfen:** Bei Reviews/Rezertifizierungen **Konsequenz/Wahrscheinlichkeit** neu bewerten.
 - **Kontext beachten:** Asset-Kritikalität, Datenarten (z. B. personenbezogen), externe Abhängigkeiten.
