@@ -1,6 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 import { AppWindow } from "lucide-react";
-import { i18n } from "./i18n";
 
 /**
  * Shared layout configurations
@@ -12,7 +11,6 @@ import { i18n } from "./i18n";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function baseOptions(_locale: string): BaseLayoutProps {
 	return {
-		i18n,
 		nav: {
 			transparentMode: "top",
 			title: (
