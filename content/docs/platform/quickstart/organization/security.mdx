@@ -44,19 +44,19 @@ Diese Architektur kombiniert Sicherheit, Compliance und Ausfallsicherheit – au
 
 ## Zugriffs- und Berechtigungsmodell
 
-Kopexa nutzt ein **Relationship-based Access Control (ReBAC)**-Modell, implementiert mit [OpenFGA](https://openfga.dev/):
+Kopexa nutzt ein **Relationship-based Access Kontrolle (ReBAC)**-Modell, implementiert mit [OpenFGA](https://openfga.dev/):
 
 - **Granulare Berechtigungen:** Zugriff basiert nicht nur auf Rollen, sondern auch auf Beziehungen und Kontext (z. B. „Benutzer ist Editor des Dokuments im Space“).
 - **Mandantenfähigkeit:** Klare Trennung und Isolation zwischen Organizations und Spaces.
-- **Dynamische Policies:** Feingranulare Regeln wie „Benutzer darf nur Evidences sehen, die zu seinen Assets gehören“.
+- **Dynamische Policies:** Feingranulare Regeln wie „Benutzer darf nur Nachweise sehen, die zu seinen Assets gehören“.
 - **Auditierbarkeit:** Jede Zugriffsentscheidung ist nachvollziehbar und protokollierbar.
-- **OWASP ASVS-konform:** Effektive Abwehr von Broken Access Control (OWASP A01).
+- **OWASP ASVS-konform:** Effektive Abwehr von Broken Access Kontrolle (OWASP A01).
 
 ## Bedrohungsmodelle & OWASP Bezug
 
 Wir adressieren Risiken aus [OWASP Top 10](https://owasp.org/www-project-top-ten/) und ASVS aktiv:
 
-- **A01 Broken Access Control:** ReBAC mit OpenFGA, konsequente Berechtigungsprüfungen.
+- **A01 Broken Access Kontrolle:** ReBAC mit OpenFGA, konsequente Berechtigungsprüfungen.
 - **A02 Cryptographic Failures:** Aktuelle TLS-Versionen, sichere Cipher Suites, geprüfte Kryptobibliotheken.
 - **A07 Identification & Authentication Failures:** Starke Authentifizierung über SSO, MFA und sichere Session-Handling.
 - **A10 SSRF & Injection:** Validierte Ausgänge/Requests und Eingaben, Härtung von APIs.

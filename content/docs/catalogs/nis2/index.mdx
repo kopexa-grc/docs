@@ -1,6 +1,6 @@
 ---
 title: NIS2-Richtlinie
-description: Umsetzung der EU NIS2-Anforderungen und Controls in Kopexa
+description: Umsetzung der EU NIS2-Anforderungen und Kontrollen in Kopexa
 ---
 
 Die **NIS2-Richtlinie (EU 2022/2555)** verschärft die Anforderungen an Cybersicherheit für Unternehmen aus kritischen und wichtigen Sektoren in der EU.  
@@ -39,13 +39,13 @@ NIS2 definiert 10 Themenfelder (Art. 21 NIS2). Die wichtigsten:
 | NIS2-Anforderung | Kopexa-Modul/Funktion |
 |------------------|-----------------------|
 | Sicherheitsrichtlinien & Management-Zuständigkeit | Dokumente (Policies) + Review-Zyklus + Owner |
-| Risikoanalyse & Behandlung | Risiko-Modul + Risiko-Matrix + Controls + Work Items |
+| Risikoanalyse & Behandlung | Risiko-Modul + Risiko-Matrix + Kontrollen + Work Items |
 | Incident Handling (24h/72h Meldung) | Incident-Module + Vorfallsregister (Work Items) |
-| BC/DR-Plan & Backup | Dokument + Work Items + Controls (Backup-Test) |
+| BC/DR-Plan & Backup | Dokument + Work Items + Kontrollen (Backup-Test) |
 | Lieferkettensicherheit | Vendor-Assets + Risikobewertung + Nachweise |
-| Zugriffsmanagement & MFA | Asset-Modul + Access-Policy + MFA-Control |
-| Awareness & Schulungen | Dokument (Policy) + Trainings-Modul + Evidenz |
-| Kontinuierliche Überwachung | Audit-Work Items + Control-Reviews + Reports |
+| Zugriffsmanagement & MFA | Asset-Modul + Access-Policy + MFA-Kontrolle |
+| Awareness & Schulungen | Dokument (Policy) + Trainings-Modul + Nachweis |
+| Kontinuierliche Überwachung | Audit-Work Items + Kontroll-Reviews + Reports |
 
 ---
 
@@ -83,7 +83,7 @@ graph LR
     style A fill:#f5f3ff,stroke:#a78bfa
 `} />
 
-- **Plan:** Policies, Risikoanalyse, Controls planen
+- **Plan:** Policies, Risikoanalyse, Kontrollen planen
 - **Do:** Maßnahmen implementieren
 - **Check:** Monitoring, Audits, Tests
 - **Act:** Anpassung & Verbesserung
@@ -95,7 +95,7 @@ graph LR
 ### Sicherheitsrichtlinien
 - Erfasse **InfoSec-Policy** als Dokument
 - Owner: CISO, Review jährlich
-- Verknüpfe mit Assets (z. B. Cloud-Plattform) und Controls (z. B. Zugriffskontrolle)
+- Verknüpfe mit Assets (z. B. Cloud-Plattform) und Kontrollen (z. B. Zugriffskontrolle)
 
 ### Risikomanagement
 - Risiken ins Modul eintragen
@@ -105,7 +105,7 @@ graph LR
 ### Incident Response
 - IR-Plan als Dokument
 - Meldungspflicht 24h: Work Item „Incident gemeldet“
-- Evidenz: Incident-Report PDF
+- Nachweis: Incident-Report PDF
 
 ### Lieferkettensicherheit
 - Vendor Assets anlegen (AWS, MS Azure)
@@ -121,11 +121,11 @@ graph LR
 - Incident-Response-Plan
 - BC/DR-Plan
 - Awareness- & Schulungsrichtlinie
-- Access-Control-Policy
+- Access-Kontroll-Policy
 - Vendor-Security-Policy
 - Audit-/Review-Protokolle
 
-> Alle als Dokumente + verknüpfte Evidenzen in Kopexa abbilden.
+> Alle als Dokumente + verknüpfte Nachweise in Kopexa abbilden.
 
 ---
 
@@ -151,5 +151,5 @@ Kopexa bietet hierfür:
 
 ---
 
-> **Hinweis:** NIS2-Controls sind in Kopexa bereits als Framework verfügbar.  
+> **Hinweis:** NIS2-Kontrollen sind in Kopexa bereits als Framework verfügbar.  
 > Du kannst sie aktivieren und mit bestehenden Prozessen mappen.

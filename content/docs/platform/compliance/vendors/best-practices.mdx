@@ -28,12 +28,12 @@ Vendor Management ist kein Selbstzweck. Es schützt dein Unternehmen UND erfüll
 - **Kritikalität:** Wie wichtig ist der Vendor für dein Geschäft? Hat er Zugriff auf sensible Daten?
 - **Risikostufe:** Bewertung von Eintrittswahrscheinlichkeit × Auswirkung.
 
-<Callout title="Hinweis zu TOMs & Controls">
+<Callout title="Hinweis zu TOMs & Kontrollen">
 Im Datenschutz-Kontext spricht man häufig von **TOMs (Technische und Organisatorische Maßnahmen)** gemäß DSGVO Art. 32.  
 
-In Kopexa müssen diese Maßnahmen **nicht zwingend „TOMs“ heißen** – wir modellieren sie als **Controls**.  
+In Kopexa müssen diese Maßnahmen **nicht zwingend „TOMs“ heißen** – wir modellieren sie als **Kontrollen**.  
 Dadurch schlagen wir die Brücke zwischen **ISMS** (Informationssicherheit) und **DSMS** (Datenschutz):  
-ein Control kann gleichzeitig eine ISO-27001-Anforderung, eine NIS2-Maßnahme **und** eine DSGVO-TOM abbilden.  
+eine Kontrolle kann gleichzeitig eine ISO-27001-Anforderung, eine NIS2-Maßnahme **und** eine DSGVO-TOM abbilden.  
 
 Das reduziert Doppelarbeit und sorgt für eine einheitliche Nachweisführung.
 </Callout>
@@ -135,7 +135,7 @@ graph TD
   A[Vorfall entdeckt] --> B[Incident in Kopexa erfassen]
   B --> C[Vendor & betroffene Assets verknüpfen]
   C --> D["Sofortmaßnahmen (Work Items)"]
-  D --> E[Lessons Learned / Controls anpassen]
+  D --> E[Lessons Learned / Kontrollen anpassen]
   E --> F[Risikoneubewertung & Review]
     '
  />
@@ -167,11 +167,11 @@ Auch das Ende einer Vendor-Beziehung muss sauber dokumentiert sein:
 * Zugangsentzug (Admin/API-Keys).
 * Sub-Prozessoren & Backups adressieren.
 
-In Kopexa als **Work Item-Checkliste** abbilden und Evidenz anhängen.
+In Kopexa als **Work Item-Checkliste** abbilden und Nachweis anhängen.
 
 ## Häufige Stolpersteine
 
-* **Nur Zertifikat statt gelebter Sicherheit:** fordere **Evidenzen** (Screens, Logs).
+* **Nur Zertifikat statt gelebter Sicherheit:** fordere **Nachweise** (Screens, Logs).
 * **Sub-Prozessoren vergessen:** immer vertraglich fixieren.
 * **Unklare Incident-Schnittstellen:** Meldewege in Dokumenten definieren.
 * **Kein Exit-Plan:** Offboarding-Checkliste nutzen.
@@ -189,5 +189,5 @@ graph LR
   V --> W[Work Items]
   V --> P["Processing Activities (VVT)"]
   V --> I[Incidents]
-  D --> E[Evidenz]
+  D --> E[Nachweis]
 ' />

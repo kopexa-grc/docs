@@ -9,7 +9,7 @@ Jeder Space in Kopexa führt seine eigenen Risiken, sodass eine klare Mandantent
 
 <Callout title="Kurzprinzip">
 _Risikoscore = Eintrittswahrscheinlichkeit × Auswirkung_.  
-Du senkst Risiken durch **Kontrollen** und belegst deren Wirksamkeit über **Evidence** (Nachweise).
+Du senkst Risiken durch **Kontrollen** und belegst deren Wirksamkeit über **Nachweis** (Nachweise).
 
 </Callout>
 
@@ -80,7 +80,7 @@ Typischer Ablauf:
 | Bedrohungen erkennen  | systematische Risikoerfassung | vollständiges Risikoregister, Auditfähigkeit |
 | Priorisieren          | Fokus auf Wesentliches         | effiziente Ressourcennutzung           |
 | Kontrollen ableiten   | risikobasierte Maßnahmen       | wirksame Risikominderung               |
-| Nachweis führen       | Evidence & Historie            | Prüfbarkeit, Reifegrad sichtbar        |
+| Nachweis führen       | Nachweis & Historie            | Prüfbarkeit, Reifegrad sichtbar        |
 
 ## Bewertung & Scoring
 
@@ -119,7 +119,7 @@ Typischer Ablauf:
 - **Accept** – bewusst akzeptieren (mit Begründung & Frist)  
 
 Mehrere Treatments lassen sich kombinieren.  
-**Best Practice:** Jede Behandlung erzeugt mindestens ein **Work Item** (Owner, Fälligkeit) und verlinkt **Evidence** (z. B. Config-PR, Scan-Report). Danach **Restrisiko** neu bewerten.
+**Best Practice:** Jede Behandlung erzeugt mindestens ein **Work Item** (Owner, Fälligkeit) und verlinkt **Nachweis** (z. B. Config-PR, Scan-Report). Danach **Restrisiko** neu bewerten.
 
 ## Praxisbeispiel
 
@@ -128,14 +128,14 @@ Mehrere Treatments lassen sich kombinieren.
 **Initial:** Likelihood _möglich_, Impact _moderat_ → Score ca. 9 (Mittel)  
 **Treatment:** Mitigate – TLS ≥ 1.2 erzwingen, schwache Cipher deaktivieren, Forward Secrecy  
 **Work Items:** „TLS-Konfiguration härten“, Owner NetSec, Due +14 Tage  
-**Evidence:** PR #842 (Config), sslyze/Nmap-Report nach Änderung  
+**Nachweis:** PR #842 (Config), sslyze/Nmap-Report nach Änderung  
 **Residual:** nach Umsetzung neu bewerten (i. d. R. 1–2 Stufen niedriger)
 
 ## Integration in Kopexa
 
 - **Assets:** betroffene Systeme/Daten referenzieren (Inventar)  
-- **Kontrollen:** passende Controls zuordnen, Wirksamkeit prüfen  
-- **Documents & Evidence:** Policies, Reports, Freigaben versioniert ablegen  
+- **Kontrollen:** passende Kontrollen zuordnen, Wirksamkeit prüfen  
+- **Documents & Nachweis:** Policies, Reports, Freigaben versioniert ablegen  
 - **Work Items:** Maßnahmen planen & Fortschritt im Board verfolgen  
 - **Reviews:** Überprüfungsintervall (z. B. quartalsweise bei High-Risks) setzen
 

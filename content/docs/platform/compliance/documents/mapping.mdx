@@ -10,7 +10,7 @@ Das bedeutet: **Verantwortlichkeiten setzen, Verknüpfungen herstellen, Reviewzy
 
 - **Kontext herstellen:** Ein Dokument ohne Bezug zu Assets/Risiken bleibt isoliert.  
   Auditoren wollen sehen, **wie Policies wirken und wofür sie gelten**.
-- **Nachweisführung:** Mapping zu Controls und Risiken zeigt, welche Anforderungen abgedeckt werden.
+- **Nachweisführung:** Mapping zu Kontrollen und Risiken zeigt, welche Anforderungen abgedeckt werden.
 - **Verantwortlichkeiten:** Jede Policy braucht einen fachlich Verantwortlichen.
 
 ## Mapping: Verknüpfungen herstellen
@@ -20,7 +20,7 @@ In der Published-Ansicht eines Dokuments kannst du folgende Relationen setzen:
 - **Verantwortliche (Owner):** Wer ist fachlich für Inhalt & Pflege verantwortlich?
 - **Business Units:** Welche Abteilungen/Org-Einheiten sind betroffen?
 - **Assets:** Auf welche Systeme oder Daten bezieht sich das Dokument?
-- **Kontrollen (Controls):** Welche Maßnahmen/Nachweise deckt das Dokument ab?
+- **Kontrollen (Kontrollen):** Welche Maßnahmen/Nachweise deckt das Dokument ab?
 - **Risiken:** Welche Risiken werden adressiert?
 - **Lieferanten (Vendors):** Falls z. B. AVVs oder Supplier-Policies betroffen sind.
 
@@ -34,7 +34,7 @@ graph TD
     M --> CO[Kontrollen]
     M --> RI[Risiken]
     M --> VE[Lieferanten]
-    P -.-> EV[Als Evidence in Audits nutzen]
+    P -.-> EV[Als Nachweis in Audits nutzen]
 
     %% Reviewzyklus
     P --> RC[Reviewzyklus: Intervall, Nächste Überprüfung, Reviewer]
@@ -61,7 +61,7 @@ graph TD
 />
 
 
-> **Best Practice:** Jede Policy sollte mindestens einem Owner, einer BU und passenden Controls zugeordnet sein.
+> **Best Practice:** Jede Policy sollte mindestens einem Owner, einer BU und passenden Kontrollen zugeordnet sein.
 
 ## Reviewzyklen planen
 
@@ -86,7 +86,7 @@ Falls beim Review Änderungen notwendig sind:
    - Owner: ISB
    - BU: Management
    - Assets: Cloud-Cluster, GitHub
-   - Controls: ISO 27001 A.5.1 Policies for Information Security
+   - Kontrollen: ISO 27001 A.5.1 Policies for Information Security
    - Risiken: „Unklare Sicherheitsrichtlinien“
 
 2. Reviewzyklus: jährlich, Reviewer = ISB  
@@ -104,7 +104,7 @@ Falls beim Review Änderungen notwendig sind:
 
 ## Best Practices
 
-- Mapping möglichst vollständig pflegen (Owner, Assets, Controls, Risiken).
+- Mapping möglichst vollständig pflegen (Owner, Assets, Kontrollen, Risiken).
 - Reviewzyklen realistisch festlegen (nicht zu lang, nicht zu kurz).
 - Änderungen und Reviews dokumentieren (Audit-Trail).
 
@@ -113,5 +113,5 @@ Falls beim Review Änderungen notwendig sind:
 ## Verwandte Themen
 
 - [Review & Freigabeprozess](./review.mdx)
-- [Risiken & Evidence](../risks/index.mdx)
+- [Risiken & Nachweis](../risks/index.mdx)
 - [Warum Dokumente mehr sind als Uploads](./index.mdx)

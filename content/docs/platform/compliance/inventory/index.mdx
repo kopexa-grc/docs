@@ -1,10 +1,10 @@
 ---
 title: Inventory
-description: Assets, Domains & Ressourcen im Space – Grundlage für Risiko, Controls und Nachweise
+description: Assets, Domains & Ressourcen im Space – Grundlage für Risiko, Kontrollen und Nachweise
 ---
 
 Das **Inventory** ist die fundierende Ressource eines jeden **Space**. Hier erfassen und verwalten Teams ihre **Assets**, **Domains** und weitere Ressourcen – vollständig **isoliert pro Space**.  
-Viele Kopexa-Features bauen direkt auf dem Inventory auf (Risiken, Kontrollen, Evidences, Issues).
+Viele Kopexa-Features bauen direkt auf dem Inventory auf (Risiken, Kontrollen, Nachweise, Issues).
 
 > **Scope:** Inventory gehört zum Space (siehe [Spaces](../../quickstart/spaces.mdx)). Zentrale SSO-Domains verwaltest du auf **Organization**-Ebene (siehe [Domains](../../quickstart/organization/domains/index.mdx)).
 
@@ -14,7 +14,7 @@ Viele Kopexa-Features bauen direkt auf dem Inventory auf (Risiken, Kontrollen, E
 
 - **Single Source of Truth:** Einheitlicher Bestand (Assets, Domains, Services) als Ausgangspunkt für Risiko- und Compliance-Arbeit.  
 - **Isolation & Compliance:** Trennung pro Space unterstützt ISO 27001, NIS2, DSGVO & TISAX.  
-- **Verknüpfbar:** Assets verbinden sich mit **Risks**, **Controls**, **Documents/Evidence** und **Issues**.
+- **Verknüpfbar:** Assets verbinden sich mit **Risks**, **Kontrollen**, **Documents/Nachweis** und **Issues**.
 
 ---
 
@@ -47,7 +47,7 @@ Typische Attribute eines Assets:
 - **Metadaten** – strukturierte Zusatzinfos (frei definierbar)  
 - **Business Units** – Zuordnung zu Organisationseinheiten  
 - **Owner** – fachlich/technisch Verantwortliche  
-- **Beziehungen** – Verweise auf Vendors, Risks, Controls, Documents/Evidence
+- **Beziehungen** – Verweise auf Vendors, Risks, Kontrollen, Documents/Nachweis
 
 Speziell bei **data-Assets**:  
 Ein strukturiertes Retention-Feld (Aufbewahrungsdauer & Kommentar) dokumentiert gesetzliche oder interne Anforderungen.  
@@ -62,15 +62,15 @@ Ein strukturiertes Retention-Feld (Aufbewahrungsdauer & Kommentar) dokumentiert 
 - Zertifikatsüberwachung  
 - Angriffsoberflächen-Scanning  
 
-Sie können mit **Risks**, **Issues** (Maßnahmen) und **Documents/Evidence** (Nachweise) verknüpft werden.
+Sie können mit **Risks**, **Issues** (Maßnahmen) und **Documents/Nachweis** (Nachweise) verknüpft werden.
 
 ---
 
 ## Beziehungen zu anderen Modulen
 
-- **Risks:** Risiken werden häufig **an Assets** bewertet und mit **Controls** verknüpft.  
-- **Catalogs & Controls:** Kontrollen adressieren Anforderungen (ISO, DSGVO, TISAX) und referenzieren relevante Assets.  
-- **Documents & Evidence:** Policies, Verfahren und Nachweise verweisen auf betroffene Assets.  
+- **Risks:** Risiken werden häufig **an Assets** bewertet und mit **Kontrollen** verknüpft.  
+- **Catalogs & Kontrollen:** Kontrollen adressieren Anforderungen (ISO, DSGVO, TISAX) und referenzieren relevante Assets.  
+- **Documents & Nachweis:** Policies, Verfahren und Nachweise verweisen auf betroffene Assets.  
 - **Vendors:** Drittsysteme/Provider, die Assets betreiben/hosten, können verknüpft werden.  
 - **Issues & Task Board:** Abgeleitete Maßnahmen aus Asset-Bewertungen oder Scans.
 
@@ -88,7 +88,7 @@ Sie können mit **Risks**, **Issues** (Maßnahmen) und **Documents/Evidence** (N
 
 - **Inventory zuerst pflegen:** Saubere Asset-Daten sind Voraussetzung für wirksames Risiko- und Kontrollmanagement.  
 - **Eigentümer benennen:** Für jedes Asset Owner definieren (fachlich & technisch).  
-- **Klassifikation nutzen:** Vertraulichkeit/Kritikalität pflegen – treibt Risiko, Controls und Priorisierung.  
+- **Klassifikation nutzen:** Vertraulichkeit/Kritikalität pflegen – treibt Risiko, Kontrollen und Priorisierung.  
 - **Retention setzen:** Für *data*-Assets Aufbewahrungsfristen und Begründungen dokumentieren.  
 - **Domains trennen:** SSO-Domain (Org) vs. Internet-Domain (Space) klar unterscheiden.  
 - **Rezertifizierung:** Regelmäßige Überprüfung von Beständen, Eigentümern und Klassifikationen.

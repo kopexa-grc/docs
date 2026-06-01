@@ -38,9 +38,9 @@ Innerhalb eines Spaces:
 |-------|----------|
 | **Inventory** | Assets, Lieferanten, Personen |
 | **Risks** | Risikobewertung, Maßnahmen |
-| **Controls** | Framework-Anforderungen |
+| **Kontrollen** | Framework-Anforderungen |
 | **Documents** | Policies, Prozesse |
-| **Evidence** | Nachweise |
+| **Nachweis** | Nachweise |
 | **Work Items** | Aufgaben |
 | **VVT** | Verarbeitungstätigkeiten (DSGVO) |
 | **Incidents** | Sicherheitsvorfälle |
@@ -54,14 +54,14 @@ Alle Module sind verknüpft:
   chart={`
 graph LR
     A[Asset] --> R[Risk]
-    R --> C[Control]
-    C --> E[Evidence]
+    R --> C[Kontrolle]
+    C --> E[Nachweis]
     D[Document] --> C
     D --> E
 `}
 />
 
-Asset → Risiko → Control → Evidence. Dokumente verknüpfen mit Controls und Evidence.
+Asset → Risiko → Kontrolle → Nachweis. Dokumente verknüpfen mit Kontrollen und Nachweis.
 
 ## Frameworks
 

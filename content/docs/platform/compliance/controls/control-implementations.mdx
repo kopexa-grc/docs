@@ -1,24 +1,24 @@
 ---
 title: Maßnahmen
-description: Technische und organisatorische Maßnahmen (TOMs) zur Umsetzung von Controls
+description: Technische und organisatorische Maßnahmen (TOMs) zur Umsetzung von Kontrollen
 ---
 
-Ein Control definiert **was** erreicht werden soll – eine Anforderung aus einem Framework wie ISO 27001 oder NIS2. Eine Maßnahme beschreibt **wie** du diese Anforderung konkret umsetzt.
+Eine Kontrolle definiert **was** erreicht werden soll – eine Anforderung aus einem Framework wie ISO 27001 oder NIS2. Eine Maßnahme beschreibt **wie** du diese Anforderung konkret umsetzt.
 
-Diese Trennung ist zentral für ein funktionierendes ISMS: Controls bleiben stabil (sie kommen aus dem Framework), während Maßnahmen sich ändern können (wenn du die Umsetzung anpasst).
+Diese Trennung ist zentral für ein funktionierendes ISMS: Kontrollen bleiben stabil (sie kommen aus dem Framework), während Maßnahmen sich ändern können (wenn du die Umsetzung anpasst).
 
 <Callout type="info" title="Für ISO 27001-Berater">
 In der deutschen Übersetzung der ISO 27001 werden Annex A Items oft als "Maßnahmen" bezeichnet. Kopexa unterscheidet präziser:
 
-- **Control** = Die Anforderung aus Annex A (z.B. A.9.4.2 "Secure log-on procedures")
+- **Kontrolle** = Die Anforderung aus Annex A (z.B. A.9.4.2 "Secure log-on procedures")
 - **Maßnahme** = Deine technische/organisatorische Umsetzung (z.B. "Azure AD mit MFA")
 
-Diese Trennung ermöglicht: Ein Control kann mehrere Maßnahmen haben, eine Maßnahme kann mehrere Controls erfüllen (cross-framework). Das entspricht dem Aufbau des Statement of Applicability (SoA).
+Diese Trennung ermöglicht: Eine Kontrolle kann mehrere Maßnahmen haben, eine Maßnahme kann mehrere Kontrollen erfüllen (cross-framework). Das entspricht dem Aufbau des Statement of Applicability (SoA).
 </Callout>
 
-## Control vs. Maßnahme
+## Kontrolle vs. Maßnahme
 
-| | Control | Maßnahme |
+| | Kontrolle | Maßnahme |
 |---|---------|----------|
 | **Fragt** | Was muss erfüllt werden? | Wie setzen wir es um? |
 | **Quelle** | Framework (ISO 27001, NIS2, etc.) | Dein Unternehmen |
@@ -29,11 +29,11 @@ Diese Trennung ermöglicht: Ein Control kann mehrere Maßnahmen haben, eine Maß
 
 **1. Audits werden einfacher**
 
-Der Auditor fragt: "Wie erfüllen Sie A.9.2.1?" Du zeigst die Maßnahme mit allen Evidenzen. Die Verbindung zwischen Anforderung und Umsetzung ist dokumentiert.
+Der Auditor fragt: "Wie erfüllen Sie A.9.2.1?" Du zeigst die Maßnahme mit allen Nachweise. Die Verbindung zwischen Anforderung und Umsetzung ist dokumentiert.
 
 **2. Wiederverwendung über Frameworks**
 
-Eine Maßnahme kann mehrere Controls aus verschiedenen Frameworks erfüllen:
+Eine Maßnahme kann mehrere Kontrollen aus verschiedenen Frameworks erfüllen:
 
 | Maßnahme | Erfüllt |
 |----------|---------|
@@ -41,45 +41,45 @@ Eine Maßnahme kann mehrere Controls aus verschiedenen Frameworks erfüllen:
 | Zentrales Patch-Management | ISO 27001 A.12.6.1, NIS2 Art. 21(2)(e), BSI C5 OPS-04 |
 | Verschlüsselte Backups | ISO 27001 A.12.3.1, DSGVO Art. 32(1)(c) |
 
-Du dokumentierst die Maßnahme einmal. Kopexa verknüpft sie mit allen relevanten Controls.
+Du dokumentierst die Maßnahme einmal. Kopexa verknüpft sie mit allen relevanten Kontrollen.
 
 **3. Änderungen sind nachvollziehbar**
 
-Wenn du die Maßnahme änderst (z.B. von Azure AD auf Okta wechselst), aktualisierst du eine Stelle. Alle verknüpften Controls sehen die neue Maßnahme.
+Wenn du die Maßnahme änderst (z.B. von Azure AD auf Okta wechselst), aktualisierst du eine Stelle. Alle verknüpften Kontrollen sehen die neue Maßnahme.
 
 ## ISO 27001: Mapping zum Statement of Applicability
 
-Das Statement of Applicability (SoA) ist das zentrale Dokument für ISO 27001. Es listet alle Annex A Controls und dokumentiert:
-- Ist das Control anwendbar? (Ja/Nein + Begründung)
+Das Statement of Applicability (SoA) ist das zentrale Dokument für ISO 27001. Es listet alle Annex A Kontrollen und dokumentiert:
+- Ist die Kontrolle anwendbar? (Ja/Nein + Begründung)
 - Wie wird es umgesetzt? (Verweis auf Maßnahmen)
 
 **So bildet Kopexa das SoA ab:**
 
 | SoA-Spalte | Kopexa-Entsprechung |
 |------------|---------------------|
-| Control-ID (A.9.4.2) | Control in Kopexa |
-| Anwendbar? | Control-Status: `FULFILLED` oder `OUT_OF_SCOPE` |
-| Begründung bei Nicht-Anwendbarkeit | Control-Beschreibung / Notizen |
+| Kontroll-ID (A.9.4.2) | Kontrolle in Kopexa |
+| Anwendbar? | Kontroll-Status: `FULFILLED` oder `OUT_OF_SCOPE` |
+| Begründung bei Nicht-Anwendbarkeit | Kontroll-Beschreibung / Notizen |
 | Umsetzung | Verknüpfte Maßnahme(n) |
-| Nachweis | Evidenzen der Maßnahme |
+| Nachweis | Nachweise der Maßnahme |
 
 <Callout>
-Kopexa generiert dein SoA automatisch aus den Control-Maßnahmen-Verknüpfungen. Kein manuelles Excel-Pflegen mehr.
+Kopexa generiert dein SoA automatisch aus den Kontroll-Maßnahmen-Verknüpfungen. Kein manuelles Excel-Pflegen mehr.
 </Callout>
 
 ### Audit-Workflow mit Kopexa
 
 **Stage 1 (Dokumentenprüfung):**
-- Auditor prüft: Sind alle Annex A Controls adressiert?
-- Kopexa zeigt: Control-Liste mit Status `FULFILLED` / `OUT_OF_SCOPE`
+- Auditor prüft: Sind alle Annex A Kontrollen adressiert?
+- Kopexa zeigt: Kontroll-Liste mit Status `FULFILLED` / `OUT_OF_SCOPE`
 
 **Stage 2 (Implementierungsprüfung):**
 - Auditor fragt: "Zeigen Sie mir A.9.4.2"
-- Du öffnest das Control → siehst die Maßnahme → zeigst die Evidenzen
+- Du öffnest die Kontrolle → siehst die Maßnahme → zeigst die Nachweise
 
 **Surveillance Audit:**
 - Auditor prüft Stichproben
-- Kopexa zeigt: Aktuelle Evidenzen mit Zeitstempel
+- Kopexa zeigt: Aktuelle Nachweise mit Zeitstempel
 
 ## Aufbau einer Maßnahme
 
@@ -135,7 +135,7 @@ Im Trust Center werden ausschließlich Maßnahmen mit Status *Wirksam* angezeigt
 
 Die Person, die für die Maßnahme verantwortlich ist. Bei technischen Maßnahmen oft jemand aus der IT, bei organisatorischen Maßnahmen oft der Prozessverantwortliche.
 
-### Evidenzen
+### Nachweise
 
 Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 
@@ -146,8 +146,8 @@ Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 | **Prüfberichte** | Audit-Reports, Penetration-Test-Ergebnisse |
 
 <Accordions>
-  <Accordion title="Evidence-Beispiele nach ISO 27001 Domänen">
-    | Annex A Bereich | Typische Evidenzen |
+  <Accordion title="Nachweis-Beispiele nach ISO 27001 Domänen">
+    | Annex A Bereich | Typische Nachweise |
     |-----------------|-------------------|
     | **A.5 Informationssicherheitsrichtlinien** | Freigegebene Policy-Dokumente mit Versionierung, Schulungsnachweise |
     | **A.6 Organisation** | Organigramm, RACI-Matrix, Rollenbeschreibungen, Ernennungsschreiben CISO |
@@ -164,7 +164,7 @@ Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 
 ## Maßnahme anlegen
 
-1. Öffne einen Control
+1. Öffne einen Kontrolle
 2. Gehe zum Tab **Maßnahmen**
 3. Klicke **Neue Maßnahme**
 4. Fülle aus:
@@ -175,20 +175,20 @@ Nachweise, dass die Maßnahme umgesetzt ist und funktioniert:
 
 Die neue Maßnahme startet mit Status **Nicht wirksam**. Sobald du Nachweise verknüpfst, schaltet der Status automatisch um.
 
-Die Maßnahme ist jetzt mit dem Control verknüpft.
+Die Maßnahme ist jetzt mit der Kontrolle verknüpft.
 
-## Maßnahme mit mehreren Controls verknüpfen
+## Maßnahme mit mehreren Kontrollen verknüpfen
 
-Eine Maßnahme kann mehrere Controls erfüllen. Das ist der Normalfall – die meisten technischen Maßnahmen adressieren Anforderungen aus verschiedenen Frameworks.
+Eine Maßnahme kann mehrere Kontrollen erfüllen. Das ist der Normalfall – die meisten technischen Maßnahmen adressieren Anforderungen aus verschiedenen Frameworks.
 
 1. Öffne die Maßnahme
-2. Gehe zum Tab **Verknüpfte Controls**
-3. Klicke **Control verknüpfen**
-4. Suche nach dem Control (z.B. "A.9.4.2" oder "access")
-5. Wähle das Control aus
+2. Gehe zum Tab **Verknüpfte Kontrollen**
+3. Klicke **Kontrolle verknüpfen**
+4. Suche nach der Kontrolle (z.B. "A.9.4.2" oder "access")
+5. Wähle die Kontrolle aus
 6. Klicke **Verknüpfen**
 
-Wiederhole für alle relevanten Controls.
+Wiederhole für alle relevanten Kontrollen.
 
 <Callout type="info">
 Wenn du ein Framework aktivierst, das ähnliche Anforderungen hat wie ein bereits aktives Framework, schlägt Kopexa automatisch vor, bestehende Maßnahmen zu verknüpfen.
@@ -196,27 +196,27 @@ Wenn du ein Framework aktivierst, das ähnliche Anforderungen hat wie ein bereit
 
 ## Maßnahme von Risiko aus verknüpfen
 
-Maßnahmen können auch direkt mit Risiken verknüpft werden. Das ist sinnvoll, wenn eine Maßnahme ein spezifisches Risiko adressiert, auch wenn kein Framework-Control existiert.
+Maßnahmen können auch direkt mit Risiken verknüpft werden. Das ist sinnvoll, wenn eine Maßnahme ein spezifisches Risiko adressiert, auch wenn kein Framework-Kontrolle existiert.
 
 1. Öffne das Risiko
 2. Gehe zum Tab **Maßnahmen**
 3. Klicke **Maßnahme verknüpfen** oder **Neue Maßnahme**
 
-Der Zusammenhang Risiko → Maßnahme → Evidence ist damit dokumentiert.
+Der Zusammenhang Risiko → Maßnahme → Nachweis ist damit dokumentiert.
 
-## Evidenzen hinzufügen
+## Nachweise hinzufügen
 
-Evidenzen gehören zur Maßnahme, nicht zum Control. Das ergibt Sinn: Du weist nach, dass die Maßnahme umgesetzt ist – nicht, dass ein Control existiert.
+Nachweise gehören zur Maßnahme, nicht zum Kontrolle. Das ergibt Sinn: Du weist nach, dass die Maßnahme umgesetzt ist – nicht, dass eine Kontrolle existiert.
 
 1. Öffne die Maßnahme
-2. Gehe zum Tab **Evidenzen**
-3. Klicke **Evidence hinzufügen**
+2. Gehe zum Tab **Nachweise**
+3. Klicke **Nachweis hinzufügen**
 4. Wähle eine Datei oder erstelle einen Text-Eintrag
-5. Füge eine Beschreibung hinzu (was zeigt diese Evidence?)
+5. Füge eine Beschreibung hinzu (was zeigt diese Nachweis?)
 6. Klicke **Hochladen**
 
 <Callout type="info">
-Evidenzen werden versioniert. Wenn du eine neue Version hochlädst, bleibt die alte erhalten. Bei Audits kannst du zeigen, wie sich der Nachweis über die Zeit entwickelt hat.
+Nachweise werden versioniert. Wenn du eine neue Version hochlädst, bleibt die alte erhalten. Bei Audits kannst du zeigen, wie sich der Nachweis über die Zeit entwickelt hat.
 </Callout>
 
 ## Best Practices
@@ -236,14 +236,14 @@ Eine Maßnahme pro logische Einheit. Nicht zu grob, nicht zu fein.
 
 ### Keine Doppelungen
 
-Wenn du feststellst, dass du dieselbe Maßnahme zweimal beschreibst, lösche eine und verknüpfe die andere mit beiden Controls.
+Wenn du feststellst, dass du dieselbe Maßnahme zweimal beschreibst, lösche eine und verknüpfe die andere mit beiden Kontrollen.
 
-### Evidenzen aktuell halten
+### Nachweise aktuell halten
 
 Alte Screenshots oder Reports verlieren an Aussagekraft. Plane regelmäßige Aktualisierungen:
 
-- Technische Evidenzen: Bei jedem Change oder mindestens jährlich
-- Dokumentarische Evidenzen: Bei Dokumentenänderung
+- Technische Nachweise: Bei jedem Change oder mindestens jährlich
+- Dokumentarische Nachweise: Bei Dokumentenänderung
 - Prüfberichte: Nach jedem Audit oder Test
 
 ### Verantwortliche:n aktiv halten
@@ -261,12 +261,12 @@ Wenn die verantwortliche Person das Unternehmen verlässt, sofort neu zuweisen.
   chart={`
 graph TD
     R[Risiko] --> M[Maßnahme]
-    C[Control] --> M
-    M --> E[Evidence]
+    C[Kontrolle] --> M
+    M --> E[Nachweis]
 
     R2[Risiko 2] --> M
-    C2[Control 2] --> M
-    C3[Control 3] --> M
+    C2[Kontrolle 2] --> M
+    C3[Kontrolle 3] --> M
 
     style M fill:#e0f2fe,stroke:#0284c7
     style E fill:#fef3c7,stroke:#f59e0b
@@ -279,8 +279,8 @@ graph TD
 />
 
 Eine Maßnahme kann:
-- Mehrere Controls erfüllen (aus verschiedenen Frameworks)
+- Mehrere Kontrollen erfüllen (aus verschiedenen Frameworks)
 - Mehrere Risiken adressieren
-- Mehrere Evidenzen haben
+- Mehrere Nachweise haben
 
-Die Evidenzen hängen an der Maßnahme. Wenn ein Auditor einen Control prüft, sieht er die verknüpfte Maßnahme und deren Evidenzen.
+Die Nachweise hängen an der Maßnahme. Wenn ein Auditor einen Kontrolle prüft, sieht er die verknüpfte Maßnahme und deren Nachweise.

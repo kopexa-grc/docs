@@ -3,7 +3,7 @@ title: Risiko anlegen
 description: Anleitung zum Erfassen eines neuen Risikos in Kopexa
 ---
 
-Mit **Risks** identifizierst, bewertest und behandelst du Risiken in deinem Space – verknüpft mit **Assets**, **Controls**, **Evidence** und **Work Items**.  
+Mit **Risks** identifizierst, bewertest und behandelst du Risiken in deinem Space – verknüpft mit **Assets**, **Kontrollen**, **Nachweis** und **Work Items**.  
 Diese Seite bündelt **Konzept**, **How-to**, **UI-Referenz** und **FAQ** auf einen Blick.
 
 > **Voraussetzungen**
@@ -37,7 +37,7 @@ Klicke auf **„Risiko hinzufügen“**. Der **Create-Drawer** öffnet sich:
 - **Hinweis:** Die **Matrix** berechnet daraus automatisch den initialen **Risikowert**.  
 - **Speichern** – das Risiko erscheint nun in der Liste.
 
-> **Tipp:** Verknüpfe das Risiko direkt mit dem betroffenen **Asset** (z. B. „vpn-gw-01“) und relevanten **Controls** (z. B. „Secure Configuration“, „Strong Crypto“), sobald du es gespeichert hast.
+> **Tipp:** Verknüpfe das Risiko direkt mit dem betroffenen **Asset** (z. B. „vpn-gw-01“) und relevanten **Kontrollen** (z. B. „Secure Configuration“, „Strong Crypto“), sobald du es gespeichert hast.
 
 ## Risiko-Detailseite
 
@@ -54,7 +54,7 @@ Nach dem Speichern gelangst du in die **Detailansicht**. Hier siehst du **Bewert
 - **Status & Verantwortliche:r**  
 - **Überprüfung & Überwachung:** Intervall (z. B. jährlich/vierteljährlich), nächste/letzte Prüfung, Reviewer  
 - **Aufgaben (Work Items):** Maßnahmen planen (z. B. „TLS konfigurieren & schwache Cipher verbieten“)  
-- **Kontrollen:** relevante **Controls** verlinken  
+- **Kontrollen:** relevante **Kontrollen** verlinken  
 - **Assets:** betroffene **Assets** referenzieren
 
 <Callout title="Best Practice">
@@ -76,7 +76,7 @@ Lege **sofort eine Aufgabe** an (Verantwortliche:r + Fälligkeitsdatum) und verk
 **Für das Beispiel „Ungepatchter VPN-Gateway“**  
 - **Treatment:** *Mitigate*  
 - **Work Item:** „TLS-Konfiguration härten: schwache Cipher deaktivieren, nur TLS ≥1.2, Forward Secrecy erzwingen“  
-- **Evidence:** „Konfig-PR #842“, „Nmap/sslyze Report nach Änderung“  
+- **Nachweis:** „Konfig-PR #842“, „Nmap/sslyze Report nach Änderung“  
 - **Restrisiko:** nach Umsetzung neu bewerten (oft 1–2 Stufen niedriger)
 
 ## Workflow, Reviews & Rezertifizierung
@@ -94,7 +94,7 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
     Priorisiere nach **Konsequenz**. Starte bei **High Konsequenz** + **Likely**.
   </Accordion>
   <Accordion title="Restrisiko bleibt unverändert.">
-    Maßnahmen (Work Items) sind ggf. noch **offen** oder **Evidence** fehlt. Nachpflegen, dann neu bewerten.
+    Maßnahmen (Work Items) sind ggf. noch **offen** oder **Nachweis** fehlt. Nachpflegen, dann neu bewerten.
   </Accordion>
   <Accordion title="Unklare:r Verantwortliche:r.">
     Setze pro Risiko fest, wer **verantwortlich** ist.

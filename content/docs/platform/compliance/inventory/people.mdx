@@ -16,8 +16,8 @@ Sie sind **kein Asset-Typ**, sondern eine eigene Entität innerhalb des Inventor
 - **Import & Sync** von Personen aus externen Quellen (z. B. **Microsoft Entra ID**).  
 - **Verknüpfte Accounts** pflegen (z. B. **Figma**, **GitHub**, weitere Business-Apps).  
 - **Onboarding-Aufgaben** zuweisen (z. B. Richtlinien lesen, Agent installieren).  
-- **Policy-Acknowledgements** und Nachweise (Evidence) dokumentieren.  
-- **Zuweisungen/Beziehungen** zu Assets, Vendors, Risks, Controls und Issues herstellen.
+- **Policy-Acknowledgements** und Nachweise (Nachweis) dokumentieren.  
+- **Zuweisungen/Beziehungen** zu Assets, Vendors, Risks, Kontrollen und Issues herstellen.
 
 **Navigation:**  
 - People im Space: `/s/{space_id}/people`
@@ -47,7 +47,7 @@ Jede Person kann **mehrere Accounts** besitzen, z. B.:
 **Ziele der Account-Verwaltung:**
 - **Transparenz:** Wer hat wo Zugriff?  
 - **Rezertifizierung:** Regelmäßige Prüfungen, ob Zugriffe noch erforderlich sind.  
-- **Compliance-Nachweise:** Dokumentation von Entzug/Änderung (Evidence).
+- **Compliance-Nachweise:** Dokumentation von Entzug/Änderung (Nachweis).
 
 > Best Practice: Lege **eindeutige externe IDs** (z. B. `figma_user_id`, `github_username`) ab, um Audits und Entzug zu vereinfachen.
 
@@ -60,7 +60,7 @@ Typische Personen- und Account-Status:
 **Lifecycle-Ereignisse** (Beispiele):
 - **Onboarding:** Aufgabenpaket (Richtlinien lesen, Tools, MFA-Hinweise)  
 - **Role/Team-Wechsel:** Zugriffe anpassen, Policy-Re-acknowledgement  
-- **Offboarding:** Zugriffe entziehen, Geräte/Accounts überführen, Evidence erstellen
+- **Offboarding:** Zugriffe entziehen, Geräte/Accounts überführen, Nachweis erstellen
 
 ---
 
@@ -69,8 +69,8 @@ Typische Personen- und Account-Status:
 - **Assets:** Zuweisung von Geräten/Applikationen/Services an Personen; relevante Verantwortlichkeiten und Eintritt/Austritt.  
 - **Vendors:** Personen als Kontaktrollen; Zuordnung in Assessments oder Due-Diligence-Prozessen.  
 - **Risks:** Personenbezogene Risiken (z. B. übermäßige Rechte) dokumentieren und Maßnahmen ableiten.  
-- **Catalogs & Controls:** Zuweisung von Kontrollen (z. B. Rezertifizierungs-Intervalle, Least-Privilege).  
-- **Documents & Evidence:** Policy-Acknowledgements, Schulungsnachweise, Offboarding-Evidences.  
+- **Catalogs & Kontrollen:** Zuweisung von Kontrollen (z. B. Rezertifizierungs-Intervalle, Least-Privilege).  
+- **Documents & Nachweis:** Policy-Acknowledgements, Schulungsnachweise, Offboarding-Nachweise.  
 - **Issues & Task Board:** Aufgaben aus On-/Offboarding, Rezertifizierungen, Audit-Findings.
 
 ---
@@ -97,7 +97,7 @@ Zugriffe werden über **ReBAC** mit **OpenFGA** gesteuert (siehe [Security](../.
 
 - **Primäre Identität festlegen:** Entra (oder zentraler IdP) als „Source of Truth“.  
 - **Kontinuierliche Rezertifizierung:** Regelmäßig prüfen, ob Accounts & Rollen noch nötig sind.  
-- **Automatisierung nutzen:** On-/Offboarding-Tasks standardisieren; Evidences automatisch erfassen.  
+- **Automatisierung nutzen:** On-/Offboarding-Tasks standardisieren; Nachweise automatisch erfassen.  
 - **Trennung beachten:** SSO-/Domains auf Org-Ebene verwalten, People-Operationen im Space halten.  
 - **Least Privilege:** Nur notwendige Informationen/Operationen pro Rolle freigeben.
 

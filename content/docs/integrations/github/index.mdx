@@ -34,9 +34,9 @@ Wir arbeiten daran, **weit über reine Sichtbarkeit hinauszugehen**. Geplante Fe
 - **Branch Protection Checks:** Automatische Überprüfung, ob Branch Protection Rules aktiv sind (z. B. PR-Reviews, Status-Checks).
 - **Vulnerability Scanning:** Anbindung an GitHub Advanced Security und Dependabot-Daten, um bekannte Schwachstellen zu erfassen.
 - **Secret Scanning:** Erkennung von geleakten Secrets/Keys in Repositories.
-- **Best-Practice-Reports:** Abgleich mit OWASP DevSecOps und ISO 27001 Annex A Controls (z. B. „Secure SDLC“, „Code Integrity“).
+- **Best-Practice-Reports:** Abgleich mit OWASP DevSecOps und ISO 27001 Annex A Kontrollen (z. B. „Secure SDLC“, „Code Integrity“).
 
-Diese Daten können zukünftig **automatisiert als Evidenz** für Kontrollen dienen (z. B. „Alle kritischen Repos haben Branch Protection aktiv“).
+Diese Daten können zukünftig **automatisiert als Nachweis** für Kontrollen dienen (z. B. „Alle kritischen Repos haben Branch Protection aktiv“).
 
 <Callout title="Roadmap">
 Die Security-Automation befindet sich auf unserer **Produkt-Roadmap**.  
@@ -70,7 +70,7 @@ graph TD
   A[GitHub Org] --> B[Repos als Assets]
   B --> C[Risiken]
   B --> D[Kontrollen]
-  D --> E["Evidenz (z.B. Branch Protection Check)"]
+  D --> E["Nachweis (z.B. Branch Protection Check)"]
   style A fill:#e0f2fe,stroke:#3b82f6
   style B fill:#ecfdf5,stroke:#10b981
   style C fill:#fff7ed,stroke:#fb923c
