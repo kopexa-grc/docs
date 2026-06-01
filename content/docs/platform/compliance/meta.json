@@ -2,6 +2,7 @@
 	"title": "Compliance",
 	"pages": [
 		"controls",
+		"control-implementations",
 		"documents",
 		"risks",
 		"vendors",
