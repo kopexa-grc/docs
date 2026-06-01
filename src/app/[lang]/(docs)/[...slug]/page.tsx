@@ -22,7 +22,7 @@ export default async function Page({ params }: Props) {
 
 	if (!page) notFound();
 
-	const { body: MDXContent, toc, lastModified } = await page.data.load();
+	const { body: MDXContent, toc } = await page.data.load();
 
 	return (
 		<DocsPage toc={toc}>

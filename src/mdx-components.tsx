@@ -2,30 +2,30 @@ import { ImageZoom } from "fumadocs-ui/components/image-zoom";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import type { MDXComponents } from "mdx/types";
 import { Accordion, Accordions } from "./components/accordion";
-import { Mermaid } from "./components/mdx/mermaid";
 import { FeatureCard, FeatureCards } from "./components/mdx/feature-card";
+import { Mermaid } from "./components/mdx/mermaid";
 import {
+	A,
+	Blockquote,
+	Em,
 	H1,
 	H2,
 	H3,
 	H4,
 	H5,
 	H6,
+	HR,
+	LI,
+	OL,
 	P,
 	Strong,
-	Em,
-	UL,
-	OL,
-	LI,
-	A,
-	Blockquote,
-	HR,
 	Table,
-	THead,
 	TBody,
-	TR,
-	TH,
 	TD,
+	TH,
+	THead,
+	TR,
+	UL,
 } from "./components/mdx/typography";
 
 // Custom typography components for better readability (Mistral-inspired)

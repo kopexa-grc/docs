@@ -15,7 +15,10 @@ export default async function Layout({
 
 	return (
 		<html lang={lang} suppressHydrationWarning>
-			<body className="flex flex-col min-h-screen bg-fd-muted font-sans" suppressHydrationWarning>
+			<body
+				className="flex flex-col min-h-screen bg-fd-muted font-sans"
+				suppressHydrationWarning
+			>
 				<NextProvider>
 					<TreeContextProvider tree={source.pageTree[lang]}>
 						<Provider lang={lang}>{children}</Provider>

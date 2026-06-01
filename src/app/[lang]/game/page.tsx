@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ComplianceRunner } from "@/components/compliance-runner";
-import { LegalFooter } from "@/components/LegalFooter";
 import { createMetadata } from "@/lib/metadata";
 
 export function generateMetadata(): Metadata {
@@ -34,6 +33,7 @@ export default async function GamePage({
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							aria-hidden="true"
 						>
 							<path
 								strokeLinecap="round"
@@ -56,14 +56,18 @@ export default async function GamePage({
 			</header>
 
 			{/* Main Content - using div instead of main to avoid fumadocs !important override */}
-			<div className="flex-1 flex flex-col items-center justify-center px-4 py-8" role="main">
+			{/* biome-ignore lint/a11y/useSemanticElements: <main> triggers fumadocs CSS override */}
+			<div
+				className="flex-1 flex flex-col items-center justify-center px-4 py-8"
+				role="main"
+			>
 				<div className="text-center mb-6">
 					<h1 className="text-3xl sm:text-4xl font-bold text-[#22d3ee] font-mono mb-2">
 						GRC INVADERS
 					</h1>
 					<p className="text-white/60 font-mono text-sm max-w-md mx-auto">
-						Defend your organization against compliance threats.
-						Survive audits, dodge shadow IT, and avoid those regulatory fines!
+						Defend your organization against compliance threats. Survive audits,
+						dodge shadow IT, and avoid those regulatory fines!
 					</p>
 				</div>
 
@@ -114,6 +118,7 @@ export default async function GamePage({
 							fill="none"
 							stroke="currentColor"
 							viewBox="0 0 24 24"
+							aria-hidden="true"
 						>
 							<path
 								strokeLinecap="round"
@@ -130,7 +135,8 @@ export default async function GamePage({
 			<footer className="border-t border-white/10 bg-black/20">
 				<div className="mx-auto max-w-6xl px-4 py-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 					<p className="text-white/40 font-mono text-xs">
-						© {new Date().getFullYear()} Kopexa GmbH - Made with 💜 for the GRC community
+						© {new Date().getFullYear()} Kopexa GmbH - Made with 💜 for the GRC
+						community
 					</p>
 					<nav className="flex gap-4 text-xs font-mono">
 						<Link

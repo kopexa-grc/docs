@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 
 export default async function HomePage({
-  params,
+	params,
 }: {
-  params: Promise<{ lang: string }>;
+	params: Promise<{ lang: string }>;
 }) {
-  const { lang } = await params;
-  redirect(`/${lang}/platform`);
+	const { lang } = await params;
+	redirect(`/${lang}/platform`);
 }

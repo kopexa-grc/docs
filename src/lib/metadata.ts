@@ -3,7 +3,7 @@ import type { Metadata } from "next/types";
 export const baseUrl = new URL(
 	process.env.NODE_ENV === "production"
 		? "https://docs.kopexa.com"
-		: "http://localhost:3000"
+		: "http://localhost:3000",
 );
 
 interface CreateMetadataOptions extends Metadata {
@@ -15,8 +15,12 @@ interface CreateMetadataOptions extends Metadata {
  * Uses /api/og route for image generation.
  */
 export function createMetadata(override: CreateMetadataOptions): Metadata {
-	const title = typeof override.title === "string" ? override.title : "Kopexa Documentation";
-	const description = override.description ?? "GRC Platform für moderne Unternehmen";
+	const title =
+		typeof override.title === "string"
+			? override.title
+			: "Kopexa Documentation";
+	const description =
+		override.description ?? "GRC Platform für moderne Unternehmen";
 	const slug = override.slug ?? "";
 
 	// Determine type based on slug
