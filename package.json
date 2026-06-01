@@ -6,6 +6,7 @@
 		"build": "next build",
 		"dev": "next dev --turbo",
 		"lint": "biome check",
+		"typecheck": "tsc --noEmit",
 		"format": "biome format --write",
 		"start": "next start",
 		"postinstall": "fumadocs-mdx"

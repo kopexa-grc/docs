@@ -68,19 +68,23 @@ The container listens on port 3000 and binds to 0.0.0.0. Entry command runs `nod
 
 ## Deployment
 
-- Docker standalone image, default `EXPOSE 3000`, listens on `0.0.0.0`.
-- Health endpoints for Kubernetes probes:
+`docs.kopexa.com` is deployed automatically on every push to `main` by **Coolify** (self-hosted on the Kopexa OVH cluster). Coolify watches this repository, builds the Dockerfile, and rolls the container out. A merge to `main` is sufficient to go live; no GitHub release is required.
+
+The Docker image:
+
+- Standalone Next.js build, `EXPOSE 3000`, listens on `0.0.0.0`
+- Health endpoints (used by Coolify):
 	- Liveness: `GET /api/healthz`
 	- Readiness: `GET /api/readyz`
-- Suitable for GitOps/ArgoCD style deployments.
 
 ## CI/CD
 
-- PR checks: `.github/workflows/pr.yml` (lint + build via reusable workflows)
-- Release & Docker image: `.github/workflows/release.yml` (builds and publishes to GHCR, then triggers `release-cd.yml`)
-- Reusable workflows: `.github/workflows/lint.yml`, `.github/workflows/build.yml`
-- Security scan (optional): `.github/workflows/docker-security-scan.yml`
-- Versioning: SemVer via GitHub Releases/Tags.
+GitHub Actions in this repo are **advisory only**. They give developers fast feedback but do not gate or trigger the production deploy (Coolify does that, see above).
+
+- PR checks: `.github/workflows/pr.yml` runs lint, typecheck and build (`.github/workflows/lint.yml`, `.github/workflows/build.yml`)
+- Release Docker image to GHCR (versioned): `.github/workflows/release.yml`, triggered when a GitHub Release is published via release-please
+- Security scan: `.github/workflows/docker-security-scan.yml`
+- Versioning: SemVer via release-please + GitHub Releases/Tags. The published image at `ghcr.io/kopexa-grc/docs:<version>` exists for downstream consumers; it is **not** what `docs.kopexa.com` runs.
 
 ## Contributing
 
@@ -89,6 +93,7 @@ We welcome fixes and improvements to keep docs accurate and helpful. For larger 
 - Branch naming: `feat/...`, `fix/...`, `chore/...`, `docs/...`
 - Commits: Conventional Commits (e.g., `docs: update spaces guide`)
 - Lint/Format: `pnpm lint` and `pnpm format` (Biome)
+- Typecheck: `pnpm typecheck` (TypeScript)
 - Local tasks: see `Taskfile.dist.yml` (`task dev`, `task lint`, `task docker:build IMAGE_TAG=...`)
 
 ## Credits (FOSS)
