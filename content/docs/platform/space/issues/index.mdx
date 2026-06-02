@@ -1,6 +1,108 @@
 ---
 title: Aufgaben
-description: Inhalt folgt.
+description: Aufgaben planen, zuweisen und bis zur Erledigung verfolgen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Aufgaben sind die operativen Arbeitspakete deines Space. Du legst sie für konkrete Tätigkeiten an, zum Beispiel um eine Maßnahme umzusetzen, einen Audit-Befund zu schließen oder eine Richtlinie zu überarbeiten. Jede Aufgabe hat einen Status, eine Priorität, Verantwortliche und ein Fälligkeitsdatum. So bleibt für alle nachvollziehbar, was zu tun ist, wer dran ist und was bis wann fertig sein muss.
+
+## Wann nutzt du es
+
+- Eine Maßnahme braucht eine konkrete Umsetzung, die jemand bearbeiten soll.
+- Aus einem Audit oder einer Risikoanalyse ergibt sich Handlungsbedarf.
+- Ein Vorfall ist abgearbeitet, die Folgearbeiten sind aber noch offen.
+- Du planst einen Meilenstein wie eine Zertifizierung und brauchst eine klare Aufgabenliste.
+- Du willst die Arbeit deines Teams in einem gemeinsamen Board sehen.
+
+## Das Wichtigste in Kürze
+
+- Aufgaben gehören immer zu einem Space und werden über ein Kanban-Board verwaltet.
+- Status, Meilensteine und Labels sind frei konfigurierbar, geordnet nach den fünf Standardgruppen Backlog, Nicht gestartet, In Bearbeitung, Abgeschlossen und Abgebrochen.
+- Jede Aufgabe lässt sich mit Maßnahmen, Risiken, Assets, Dokumenten, Vorfällen und weiteren Objekten verknüpfen.
+- Wird eine Aufgabe mit einer Maßnahme verknüpft, fliesst ihr Status automatisch in die Bewertung der Maßnahme ein.
+- Fälligkeitsdaten machen Überfälligkeit sichtbar, Meilensteine bündeln Aufgaben zu größeren Zielen.
+
+## Typischer Ablauf
+
+1. Aufgabe anlegen über die Schaltfläche "Aufgabe erstellen" im Board oder direkt aus einer Maßnahme, einem Risiko oder einem anderen Objekt.
+2. Titel und optional Beschreibung pflegen, Priorität wählen und ein Fälligkeitsdatum setzen.
+3. Verantwortliche zuweisen, bei Bedarf einem Meilenstein zuordnen und Labels vergeben.
+4. Aufgabe verknüpfen, zum Beispiel mit einer Maßnahme oder einem Risiko, damit der Kontext klar ist.
+5. Status pflegen, indem du die Aufgabe im Board verschiebst oder direkt in der Detailansicht aktualisierst.
+6. Aufgabe abschließen über die Aktion "Fertig" oder "Schließen", sobald die Arbeit erledigt ist.
+
+<Mermaid chart={`flowchart LR
+  A[Backlog] --> B[Nicht gestartet]
+  B --> C[In Bearbeitung]
+  C --> D[Abgeschlossen]
+  C --> E[Abgebrochen]
+  B --> E
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Kurze Bezeichnung der Aufgabe | Pflicht | Maximal 100 Zeichen | Klar und handlungsorientiert formulieren, etwa "Schulungsnachweis 2025 anfordern". |
+| Beschreibung | Details, Kontext, Anforderungen | Optional | Freitext | Hier auch Links zu Quellen oder Vorlagen ablegen. |
+| Status | Aktueller Zustand im Workflow | Pflicht | Wird automatisch auf den Standardstatus der Backlog-Gruppe gesetzt, wenn nichts angegeben ist | Eigene Status nur dort anlegen, wo sie sich vom Standard unterscheiden. |
+| Priorität | Kritisch, Hoch, Mittel, Niedrig | Optional | Eingabefeld | Kritisch nur für Themen mit unmittelbarem Geschäftsrisiko. |
+| Verantwortliche | Personen, die die Aufgabe bearbeiten | Optional | Mitglieder des Space | Genau eine Person als Hauptverantwortliche kennzeichnen, weitere als Unterstützung. |
+| Fälligkeitsdatum | Termin, bis zu dem erledigt werden soll | Optional | Datum in der Zukunft | Realistisch planen, damit Überfälligkeit aussagekräftig bleibt. |
+| Meilenstein | Übergeordnetes Ziel oder Termin | Optional | Muss im Space existieren | Audit-Termine und Zertifizierungen als Meilenstein abbilden. |
+| Labels | Frei vergebbare Kategorien | Optional | Mehrfachauswahl | Sparsam einsetzen, sonst leidet die Übersicht. |
+
+## Was im Hintergrund passiert
+
+- Beim Anlegen einer Aufgabe wird automatisch der Standardstatus der Backlog-Gruppe gesetzt, falls du nichts auswählst. So landet keine Aufgabe ohne Status im Board.
+- Wird eine Aufgabe mit einer Maßnahme verknüpft, prüft Kopexa automatisch deren Wirksamkeit neu. Eine überfällige offene Aufgabe kann die Maßnahme auf "Nicht wirksam" setzen, eine erledigte Aufgabe kann sie wieder auf "Wirksam" bringen.
+- Wenn du einen Status in eine andere Gruppe verschiebst, etwa von "In Bearbeitung" nach "Abgeschlossen", werden alle Maßnahmen, die an Aufgaben mit diesem Status hängen, automatisch neu bewertet.
+- Verantwortliche werden bei wichtigen Änderungen wie Statuswechsel, neuen Kommentaren oder Fälligkeit per Benachrichtigung informiert.
+
+## Verknüpfungen
+
+- [Maßnahmen](/platform/space/compliance) umsetzen und Wirksamkeit über Aufgaben absichern.
+- [Risiken](/platform/space/governance) reduzieren, indem konkrete Aufgaben angelegt werden.
+- [Dokumente](/platform/space/documents) überarbeiten oder freigeben über Aufgaben steuern.
+- [Vorfälle](/platform/space/governance) abarbeiten und Folgeaufgaben planen.
+- [Assets](/platform/space/governance) absichern und Maßnahmen daraus ableiten.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Aufgaben. Aufgaben erstellen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Verantwortliche dürfen "ihre" Aufgaben jederzeit aktualisieren, auch wenn sie sonst nur Leserechte hätten. Aufgaben löschen dürfen nur Admins des Space oder die Person, die die Aufgabe erstellt hat. Status, Meilensteine und Labels werden in den Einstellungen verwaltet, hier braucht es Admin-Rechte.
+
+## Best Practices
+
+- Pro Aufgabe einen klaren Ergebnistyp formulieren, damit "fertig" eindeutig ist.
+- Fälligkeitsdaten nicht zu großzügig wählen, sonst verliert das Board seinen Steuerungswert.
+- Aufgaben immer mit dem Auslöser verknüpfen, also mit der Maßnahme, dem Risiko oder dem Vorfall, aus dem sie entstehen.
+- Status-Workflow schlank halten, drei bis fünf aktive Status genügen meist.
+- Meilensteine für Audits, Zertifizierungen und größere Projekte nutzen, nicht für Alltagsarbeit.
+
+## Stolperfallen
+
+- Aufgaben ohne Verantwortliche bleiben unsichtbar liegen. Lege bei jeder neuen Aufgabe eine Hauptverantwortliche fest.
+- Wenn du einen Status löschen willst, der noch Aufgaben enthält, blockiert Kopexa das Löschen. Verschiebe die Aufgaben vorher in einen anderen Status.
+- Eine erledigte Aufgabe ohne abgeschlossene Verknüpfung zu einer Maßnahme verbessert deren Wirksamkeit nicht automatisch. Prüfe, ob die Verknüpfung gesetzt ist.
+- Zu viele Labels führen zu Wildwuchs. Definiere ein kleines Set und kommuniziere es im Team.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was passiert, wenn ich eine Aufgabe abbreche statt erledige?">
+Abgebrochene Aufgaben werden aus den offenen Listen entfernt, bleiben aber für Audits nachvollziehbar. Auf verknüpfte Maßnahmen wirkt eine abgebrochene Aufgabe nicht mehr als offen, sie zählt aber nicht als Erfolg.
+</Accordion>
+<Accordion title="Kann ich eigene Status anlegen?">
+Ja, in den Einstellungen unter "Status". Jeder eigene Status muss einer der fünf Standardgruppen zugeordnet werden. Die Gruppe steuert, wie sich der Status auf Maßnahmen auswirkt.
+</Accordion>
+<Accordion title="Wie hängen Meilensteine und Aufgaben zusammen?">
+Ein Meilenstein bündelt mehrere Aufgaben unter einem gemeinsamen Ziel, etwa "ISO 27001 Zertifizierung". Du siehst Fortschritt, Überfälligkeit und Auslastung pro Meilenstein.
+</Accordion>
+<Accordion title="Warum kippt meine Maßnahme auf 'Nicht wirksam', obwohl die Aufgabe geplant ist?">
+Wenn eine Aufgabe mit Fälligkeitsdatum offen und überfällig ist, bewertet Kopexa die verknüpfte Maßnahme automatisch neu. Sobald die Aufgabe erledigt oder das Datum angepasst ist, bessert sich die Bewertung wieder.
+</Accordion>
+<Accordion title="Kann ich Aufgaben aus einem anderen System importieren?">
+Ja, über die Import-Funktion in der Aufgabenliste. Wichtig ist, dass Verantwortliche per E-Mail-Adresse zu bestehenden Mitgliedern des Space passen.
+</Accordion>
+</Accordions>
