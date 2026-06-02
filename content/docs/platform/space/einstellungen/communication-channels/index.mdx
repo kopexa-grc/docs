@@ -1,6 +1,121 @@
 ---
 title: Kommunikationskanäle
-description: Inhalt folgt.
+description: Zentrale Liste der Kanäle, über die du mit Stakeholdern und Behörden kommunizierst.
 ---
 
-Inhalt folgt.
+Kommunikationskanäle beschreiben die Wege, über die du mit Stakeholdern, Behörden oder Partnern in Kontakt stehst: E-Mail, Berichte, Meetings, Behördenportale, Briefe und so weiter. In dieser Liste pflegst du sie einmal zentral und nutzt sie überall dort, wo du dokumentierst, wie ein bestimmter Vorgang oder Stakeholder erreicht wird.
+
+<Callout type="info">
+Diese Liste ist eine Konfigurationsliste. Sie bringt selbst keinen Workflow mit, sondern liefert Auswahlwerte für Stakeholder-Profile und andere Module, die Kommunikation dokumentieren.
+</Callout>
+
+## Worum geht's
+
+Im Audit- und Stakeholder-Management ist es nicht egal, ob du eine Behörde per E-Mail, über das Online-Portal oder per Brief erreichst. Wenn du Kanäle zentral als Liste führst, kannst du sie pro Stakeholder hinterlegen, in Berichten gruppieren und in Audits eindeutig nachweisen. Eine kleine, gepflegte Liste sorgt dafür, dass alle dieselbe Sprache sprechen.
+
+## Wann nutzt du es
+
+- Du legst einen neuen Stakeholder an und musst seinen Hauptkommunikationsweg festhalten.
+- Eine Behörde verlangt Meldungen über ein bestimmtes Portal. Das ist als eigener Kanal sinnvoll.
+- Du willst auswerten, wie viele deiner Stakeholder über E-Mail erreichbar sind.
+- Ein bestehender Kanal wird nicht mehr genutzt und soll entfernt werden.
+- Ein neuer Kanal entsteht, etwa eine Plattform-API.
+
+## Das Wichtigste in Kürze
+
+- **Reine Konfigurationsliste**: Name und Beschreibung. Mehr braucht es nicht.
+- **Eindeutigkeit pro Space**: Innerhalb eines Spaces darf jeder Kanalname nur einmal vorkommen.
+- **Wird von Stakeholdern referenziert**: Pro Stakeholder lassen sich ein oder mehrere Kanäle hinterlegen.
+- **Löschen prüft Verwendung**: Eine Kanaldatei zu entfernen, die noch verlinkt ist, kann die Datenbasis von Berichten verändern. Erst entkoppeln, dann löschen.
+
+## Typischer Ablauf
+
+1. **Liste öffnen**: In den Space-Einstellungen den Bereich Kommunikationskanäle aufrufen.
+2. **Bestand sichten**: Welche Kanäle gibt es, welche fehlen, welche sind doppelt.
+3. **Kanal anlegen**: Name (etwa "E-Mail", "Behördenportal", "Quartalsbericht") und optionale Beschreibung.
+4. **Stakeholder verknüpfen**: Im Stakeholder-Modul den passenden Kanal aus der Liste auswählen.
+5. **Pflegen und aufräumen**: Veraltete Kanäle entfernen, fehlende ergänzen, Beschreibungen schärfen.
+
+<Mermaid
+  chart={`
+graph LR
+    A[Kommunikationskanäle Liste] --> B[Stakeholder-Profile]
+    B --> C[Kontakthistorie]
+    B --> D[Berichte und Auswertungen]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Klare Bezeichnung des Kanals, etwa "E-Mail", "Meeting", "Bericht", "Behördenportal". Maximal 150 Zeichen, eindeutig pro Space. |
+| Beschreibung | Optional | Wann und wofür wird dieser Kanal genutzt. Hilft, ähnliche Kanäle voneinander abzugrenzen. |
+
+## Was im Hintergrund passiert
+
+- **Eindeutigkeit pro Space**: Doppelte Namen sind nicht erlaubt. Schon beim Speichern erscheint ein Hinweis.
+- **Verknüpfungen mit Stakeholdern**: Wenn ein Kanal in einem Stakeholder-Profil ausgewählt wird, entsteht eine Beziehung. Über sie lassen sich Stakeholder nach Kanal gruppieren.
+- **Soft-Delete**: Gelöschte Einträge sind markiert, nicht physisch entfernt. So bleiben historische Berichte konsistent.
+- **Berechtigungen über Hooks**: Wer Kanäle anlegen oder ändern darf, hängt an der Rolle im Space.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Stakeholder"
+    description="Pro Stakeholder werden ein oder mehrere Kommunikationskanäle hinterlegt."
+    href="/docs/platform/space/governance"
+    color="blue"
+  />
+  <FeatureCard
+    title="Behörden"
+    description="Behörden sind oft eigene Stakeholder mit klaren Meldewegen."
+    href="/docs/platform/space/einstellungen/authorities"
+    color="purple"
+  />
+  <FeatureCard
+    title="Vorfälle"
+    description="Bei Meldungen an Behörden oder Betroffene wird der genutzte Kanal dokumentiert."
+    href="/docs/platform/space/governance/incidents"
+    color="orange"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Kanäle anlegen, bearbeiten, löschen |
+| Mitglied | Lesen und in Modulen auswählen |
+| Viewer | Lesen |
+
+## Best Practices
+
+- **Konkrete Bezeichnungen**: "Behördenportal NRW" sagt mehr als "Portal".
+- **Liste schlank halten**: Pro Kanal-Typ ein Eintrag reicht meistens. Lieber Beschreibung schärfen als Duplikate erzeugen.
+- **Beschreibung als Mini-Definition**: Zwei Sätze, die das Abgrenzungsproblem lösen.
+- **Pflege nach Reorganisation**: Wenn dein Team einen neuen Kommunikationsweg etabliert, einmalig in der Liste ergänzen.
+
+## Stolperfallen
+
+- **Ähnliche Kanäle parallel**: "E-Mail", "Mail", "Mailkontakt" als separate Einträge erschweren Auswertungen.
+- **Zu spezifisch**: Eine konkrete Mailadresse gehört in den Stakeholder, nicht in die Kanalliste.
+- **Löschen während Verwendung**: Wenn ein Kanal noch verlinkt ist, fehlt er nach dem Löschen in den betroffenen Profilen. Vorher umhängen.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Was ist der Unterschied zwischen einem Kanal und einem konkreten Kontakt?">
+    Ein Kanal ist die Art der Kommunikation, etwa "E-Mail". Ein konkreter Kontakt mit Adresse und Person gehört in das Stakeholder-Profil.
+  </Accordion>
+  <Accordion title="Brauche ich überhaupt eine Kanalliste, wenn ich nur per E-Mail kommuniziere?">
+    Sobald Behörden, Portale, Briefe oder Meetings ins Spiel kommen, lohnt sich die Liste. Für rein interne, immer gleich verlaufende Kommunikation ist sie verzichtbar.
+  </Accordion>
+  <Accordion title="Kann ich einen Kanal in mehreren Stakeholdern nutzen?">
+    Ja. Die Liste ist genau dafür da: ein Kanal, viele Stakeholder.
+  </Accordion>
+  <Accordion title="Was passiert, wenn ich einen genutzten Kanal lösche?">
+    Die Verknüpfung in den betroffenen Stakeholdern wird entfernt. Plane einen Ersatz, bevor du löschst.
+  </Accordion>
+</Accordions>
