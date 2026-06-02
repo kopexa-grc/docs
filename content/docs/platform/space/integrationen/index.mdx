@@ -1,6 +1,117 @@
 ---
 title: Integrationen
-description: Inhalt folgt.
+description: Verbinde Kopexa mit deinen bestehenden Systemen und automatisiere Datenflüsse.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Integrationen verbinden Kopexa mit Tools, die in deiner Organisation schon im Einsatz sind. Statt Listen manuell zu pflegen, ziehst du Personen, Geräte, Anwendungen und Nachweise direkt aus den Quellsystemen. In deinem Space siehst du auf einen Blick, welche Verbindungen aktiv sind und wie es darum steht.
+
+## Wann nutzt du es
+
+- Du willst Personen und Rollen aus Microsoft 365, Google Workspace oder einem anderen Verzeichnis automatisch übernehmen.
+- Du möchtest Geräte und Anwendungen aus deiner IT-Umgebung in dein Inventar laden.
+- Du brauchst regelmäßige Nachweise, etwa zum MFA-Status, ohne sie jedes Mal selbst zu exportieren.
+- Du suchst eine zentrale Stelle, an der du alle verbundenen Systeme im Blick hast.
+
+## Das Wichtigste in Kürze
+
+- Der Bereich **Integrationen** im Space hat zwei Ansichten: **Integrationen** (aktive Verbindungen) und **Katalog** (verfügbare Anbieter).
+- Eine Integration wird über den Katalog gestartet, meist per OAuth-Login im Browser.
+- Nach erfolgreicher Verbindung erscheint die Integration in der Übersicht mit Status, Anbieter und letztem Lauf.
+- Zugangsdaten werden geschützt gespeichert und sind in der Oberfläche nicht einsehbar.
+- Nur Personen mit der passenden Berechtigung im Space können neue Integrationen anlegen.
+
+## Typischer Ablauf
+
+1. Im Space links zu **Integrationen** wechseln.
+2. Oben den Reiter **Katalog** öffnen.
+3. Den gewünschten Anbieter auswählen, zum Beispiel Microsoft 365.
+4. Auf **Verbinden** klicken. Es öffnet sich ein neues Fenster für die Anmeldung beim Anbieter.
+5. Beim Anbieter anmelden und die angefragten Berechtigungen bestätigen.
+6. Nach erfolgreicher Rückkehr erscheint die Bestätigungsseite **Integration erfolgreich eingerichtet**.
+7. Über **Alle Integrationen anzeigen** zurück in die Übersicht wechseln. Die Verbindung ist dort sichtbar.
+
+<Mermaid chart={`
+flowchart TD
+    A[Katalog öffnen] --> B[Anbieter auswählen]
+    B --> C{OAuth unterstützt?}
+    C -->|Ja| D[Anmeldung beim Anbieter]
+    C -->|Nein| E[Hinweis: noch nicht verfügbar]
+    D --> F[Berechtigungen bestätigen]
+    F --> G[Verbindung wird angelegt]
+    G --> H[Status in der Übersicht]
+    H --> I[Erster Abgleich im Hintergrund]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+| --- | --- | --- | --- |
+| Anbieter | Die Plattform, mit der du dich verbindest (z. B. Microsoft 365) | Pflicht | Im Katalog ausgewählt, nicht änderbar |
+| Anmeldung beim Anbieter | Benutzerkonto, mit dem du den Zugriff freigibst | Pflicht | Nutze ein technisches Konto mit den passenden Rollen, kein persönliches Postfach |
+| Bestätigte Berechtigungen | Lese- oder Schreibrechte, die der Anbieter abfragt | Pflicht | Bestätige nur, was du verstehst. Im Zweifel mit der IT abstimmen |
+| Status | Aktueller Zustand der Verbindung (Bereit, Läuft, Erfolgreich, Fehlgeschlagen) | wird automatisch gesetzt | Eine farbige Markierung zeigt sofort, ob etwas zu tun ist |
+
+<Callout type="info">
+Die Zugangsdaten selbst gibst du nicht in Kopexa ein. Du meldest dich direkt beim Anbieter an. Kopexa erhält nur einen verschlüsselten Schlüssel, mit dem die spätere Datenabholung läuft.
+</Callout>
+
+## Was im Hintergrund passiert
+
+- **Anmeldung über OAuth:** Beim Verbinden wirst du zum Anbieter weitergeleitet. Nach deiner Bestätigung schickt der Anbieter einen verschlüsselten Schlüssel an Kopexa zurück. Du selbst bekommst diesen Schlüssel nicht zu sehen.
+- **Geschützte Ablage:** Der Schlüssel wird verschlüsselt gespeichert und ist in der Oberfläche nicht einsehbar.
+- **Automatischer Abgleich:** Kopexa holt regelmäßig im Hintergrund die zugewiesenen Daten ab, zum Beispiel Personen oder Anwendungen. Der Zeitpunkt des letzten Abgleichs wird in der Übersicht angezeigt.
+- **Erneuerung der Anmeldung:** Läuft der Schlüssel ab, erneuert Kopexa ihn selbstständig, solange der Anbieter das zulässt. Verlangt der Anbieter eine neue Bestätigung, siehst du das am Status.
+- **Fehler werden sichtbar:** Bricht ein Abgleich ab, wechselt der Status auf **Fehlgeschlagen** und die letzte Fehlermeldung wird hinterlegt.
+
+## Verknüpfungen
+
+- **[Personen](/docs/platform/space/organisation/people):** Profile aus Microsoft 365 oder Google Workspace landen hier.
+- **[Geräte](/docs/platform/space/organisation/assets) und [Anwendungen](/docs/platform/space/organisation/information-assets):** Inventardaten aus angebundenen Systemen fließen in dein Inventar.
+- **[Domains](/docs/platform/space/organisation/domains) und SSO:** Single Sign-On wird auf Organisationsebene über Domains gepflegt, nicht über diesen Bereich.
+- **[Einstellungen → Benutzer](/docs/platform/space/einstellungen/users):** Neu synchronisierte Personen werden dort weiter zugeordnet.
+- **Detaillierte Anleitungen je Anbieter:** [Integrationen-Übersicht](/docs/integrations).
+
+## Berechtigungen
+
+- **Neue Integrationen anlegen:** nur Personen mit der Berechtigung, Integrationen im Space zu erstellen, üblicherweise Space-Administratorinnen und Administratoren.
+- **Liste und Katalog ansehen:** alle Mitglieder des Space.
+- **Verwaltung bestehender Integrationen:** auf die Rolle mit Bearbeitungsrechten im Space beschränkt.
+- **Anbieter-Konto:** unabhängig davon braucht das beim Anbieter genutzte Konto ausreichende Rechte, etwa als globaler Leser in Microsoft 365.
+
+## Best Practices
+
+- Nutze für die Verbindung ein dediziertes Dienstkonto beim Anbieter, kein persönliches Konto.
+- Verbinde pro Anbieter nur eine Integration je Space. Mehrfachverbindungen führen zu doppelten Datensätzen.
+- Beobachte nach der ersten Einrichtung den Status. Der erste vollständige Abgleich kann je nach Größe etwas dauern.
+- Halte fest, wer die Verbindung eingerichtet hat und welches Konto dafür verwendet wird. Das hilft bei Personalwechseln.
+- Prüfe regelmäßig, ob die Berechtigungen beim Anbieter noch dem entsprechen, was du brauchst.
+
+## Stolperfallen
+
+- **Hinweis „OAuth-Flow noch nicht verfügbar":** Der Anbieter ist im Katalog gelistet, die automatische Anmeldung ist aber noch nicht freigeschaltet. Verbinden ist dann noch nicht möglich.
+- **Pop-up-Blocker:** Beim Klick auf **Verbinden** öffnet sich ein neues Fenster. Wird es blockiert, lässt sich die Anmeldung nicht abschließen.
+- **Falsches Anbieter-Konto:** Wer sich am Anbieter mit einem schwach berechtigten Konto anmeldet, sieht später unvollständige Daten in Kopexa.
+- **Status bleibt auf „Fehlgeschlagen":** Häufige Ursachen sind zurückgezogene Zustimmung beim Anbieter, gesperrte Konten oder geänderte Berechtigungsrichtlinien.
+- **Doppelte Verbindungen:** Wer dieselbe Integration zweimal anlegt, bekommt doppelte Personen und Geräte. Vorhandene Verbindungen erscheinen im Katalog als **Verbunden**.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Sehe ich, welche Daten der Anbieter freigibt?">
+    Die angefragten Berechtigungen siehst du im Anmeldefenster des Anbieters, bevor du sie bestätigst. In Kopexa stehen anschließend Anbietername, Status und Zeitpunkt des letzten Abgleichs.
+  </Accordion>
+  <Accordion title="Kann ich eine Integration wieder trennen?">
+    Ja. Über die Übersicht lässt sich die Verbindung entfernen. Empfohlen ist, zusätzlich beim Anbieter die erteilte Zustimmung zurückzuziehen, damit der Schlüssel dort ungültig wird.
+  </Accordion>
+  <Accordion title="Werden meine Zugangsdaten in Kopexa gespeichert?">
+    Nein. Du gibst dein Passwort nur beim Anbieter ein. Kopexa speichert lediglich einen verschlüsselten Zugriffsschlüssel, der jederzeit widerrufen werden kann.
+  </Accordion>
+  <Accordion title="Wie oft werden Daten abgeglichen?">
+    Der Abgleich läuft im Hintergrund in regelmäßigen Abständen. Der Zeitpunkt des letzten Laufs wird je Integration angezeigt.
+  </Accordion>
+  <Accordion title="Wo finde ich Details zu einem bestimmten Anbieter?">
+    Im Bereich [Integrationen-Übersicht](/docs/integrations) findest du Anleitungen je Anbieter, zum Beispiel zu [Microsoft 365](/docs/integrations/microsoft-365) und [GitHub](/docs/integrations/github).
+  </Accordion>
+</Accordions>
