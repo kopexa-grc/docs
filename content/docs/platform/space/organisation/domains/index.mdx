@@ -1,6 +1,133 @@
 ---
 title: Domains
-description: Inhalt folgt.
+description: Internet-Domains erfassen, Eigentum verifizieren und Sicherheitsposture für DNSSEC, DMARC und TLS überwachen.
 ---
 
-Inhalt folgt.
+<Callout type="info">
+Dieses Modul ist als Preview verfügbar. Funktionen und Ansichten können sich noch ändern.
+</Callout>
+
+## Worum geht's
+
+Domains im Space sind deine operativen Internet-Domains, also die Adressen, unter denen dein Unternehmen erreichbar ist: Hauptdomain, Marken-Domains, Service-Domains. Kopexa erfasst pro Domain den Eigentumsnachweis (Verifikation), aggregierte Sicherheitsposture-Signale wie DNSSEC und DMARC sowie zugehörige Subdomains und Hosts. So entsteht ein laufender Überblick, ob deine Internet-Präsenz angemessen abgesichert ist und ob Audit-relevante Hygiene-Maßnahmen umgesetzt sind.
+
+<Callout type="warn">
+Dieses Modul beschreibt **operative Internet-Domains** auf Space-Ebene. Wenn du Domains für Single Sign-On (SSO) oder Auto-Join freischalten möchtest, nutze die [SSO-Domains auf Organisationsebene](/platform/quickstart/organization/domains).
+</Callout>
+
+## Wann nutzt du es
+
+- Du brauchst ein vollständiges Verzeichnis deiner Internet-Domains für Audits, ISO 27001 oder NIS2.
+- DSGVO-relevant: Welche Domains liegen unter deiner Verantwortung und mit welcher Hygiene?
+- Du willst veraltete TLS-Zertifikate, fehlendes DMARC oder fehlendes DNSSEC zentral sichtbar machen.
+- Du möchtest Subdomains identifizieren, die du selbst nicht mehr im Blick hast (Shadow IT, alte Marketing-Seiten).
+- Risiken am Internet-Perimeter sollen an konkreten Domains hängen, nicht nur abstrakt.
+
+## Das Wichtigste in Kürze
+
+- Domains gehören zu einem Space und werden in der Domain-Liste verwaltet.
+- Eine Domain ist die registrierte Domain auf eTLD+1-Ebene, etwa `kopexa.com` (nicht `www.kopexa.com`).
+- Eigentum wird über eine DNS-TXT-Verifizierung nachgewiesen.
+- Posture-Signale werden zentral pro Domain erhoben: DNSSEC-Status, DMARC-Policy, DMARC-Ausrichtungen, DMARC-Berichts-Adressen.
+- Subdomains und Hosts werden zur Domain gesammelt, sofern verifiziert.
+- Kopexa scannt nur verifizierte Domains.
+- Über Verknüpfungen lassen sich Domains mit Lieferanten, Risiken, Aufgaben, Abteilungen und Verantwortlichen verbinden.
+
+## Typischer Ablauf
+
+1. Domain hinzufügen über "Domain hinzufügen" in der Liste.
+2. Registrierte Domain (eTLD+1) eingeben, etwa `meinemarke.de`.
+3. Verifikation starten. Kopexa stellt eine DNS-TXT-Challenge aus.
+4. TXT-Eintrag bei deinem DNS-Provider hinzufügen.
+5. Auf die automatische Prüfung warten. Kopexa erkennt die Verifikation, sobald der TXT-Eintrag verbreitet ist.
+6. Nach Verifikation startet Kopexa den Scan: Subdomains werden über öffentliche Quellen wie crt.sh ermittelt, Dienste und TLS-Header werden erkannt.
+7. Posture-Werte (DNSSEC, DMARC) werden regelmäßig aktualisiert.
+8. Verantwortliche Person zuordnen, Domain einer Abteilung zuweisen und mit Lieferanten oder Risiken verknüpfen.
+9. Bei Problemen Aufgaben anlegen, etwa "DMARC-Policy auf quarantine setzen".
+
+<Mermaid chart={`flowchart LR
+  A[Domain anlegen] --> B[DNS-TXT-Challenge]
+  B --> C{Verifiziert?}
+  C -->|Nein| B
+  C -->|Ja| D[Scan & Posture-Erhebung]
+  D --> E[Posture-Werte verfügbar]
+  E -->|regelmaessig| D
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Domain | Registrierte Domain (eTLD+1) | Pflicht | Beispiel: `kopexa.com`, nicht `www.kopexa.com`. Wird nach Anlage nicht mehr geändert. |
+| Verifiziert | Eigentumsnachweis erbracht? | Wird automatisch gesetzt | Erst nach Verifikation startet der Scan. |
+| Registrar | DNS-Registrar | Optional | Hilfreich für interne Zuordnung. |
+| Verantwortliche Person | Domain-Owner | Optional | Bekommt Aufgaben und Benachrichtigungen. |
+| Abteilung | Organisationszuordnung | Optional | Welche Abteilung verantwortet diese Domain? |
+| DNSSEC-Status | Aggregierter DNSSEC-Wert | Wird automatisch gesetzt | Zeigt, ob DNSSEC für die Domain aktiv ist. |
+| DMARC-Status | Aggregierter DMARC-Wert | Wird automatisch gesetzt | Beschreibt Vorhandensein und Qualität der DMARC-Policy. |
+| DMARC-Policy | none, quarantine, reject | Wird automatisch erkannt | "reject" ist der strengste Wert. |
+| DMARC-Ausrichtung DKIM/SPF | "r" (relaxed) oder "s" (strict) | Wird automatisch erkannt | Strikte Ausrichtung erhöht die Sicherheit. |
+| DMARC-Reporting (rua, ruf) | Adressen für Berichte | Wird automatisch erkannt | Wichtig, um DMARC-Wirkung zu messen. |
+| Letzte Prüfung | Zeitpunkte der letzten Posture-Erhebung | Wird automatisch gesetzt | Hilfreich zur Einordnung der Aktualität. |
+
+## Was im Hintergrund passiert
+
+- Nach dem Anlegen erstellt Kopexa eine DNS-TXT-Challenge und prüft den Eintrag regelmäßig, bis die Verifikation gelingt oder du sie verwirfst.
+- Sobald die Domain verifiziert ist, ermittelt Kopexa Subdomains über öffentliche Quellen (zum Beispiel Certificate Transparency, Passive DNS) und erkennt Dienste sowie TLS-Konfiguration.
+- DNSSEC- und DMARC-Posture werden in geplanten Abständen aktualisiert. Aus den Rohdaten leitet Kopexa einen aggregierten Status pro Domain ab.
+- Wenn Posture-Werte sich verschlechtern, etwa bei abgelaufenem TLS-Zertifikat oder schwacher DMARC-Policy, kannst du daraus Risiken oder Aufgaben ableiten.
+- Verantwortliche werden bei wichtigen Änderungen benachrichtigt, zum Beispiel wenn eine Domain ihre Verifikation verliert.
+- Kopexa scannt ausschließlich verifizierte Domains. Ohne Eigentumsnachweis findet keine Erhebung statt.
+
+## Verknüpfungen
+
+- [Lieferanten](/platform/space/organisation/vendors), die unter dieser Domain Services bereitstellen.
+- [Risiken](/platform/space/compliance/risks) am Internet-Perimeter.
+- [Aufgaben](/platform/space/issues) für Posture-Verbesserungen.
+- [Abteilungen](/platform/space/organisation/business-units) zur organisatorischen Zuordnung.
+- SSO-Domains auf [Organisationsebene](/platform/quickstart/organization/domains) für die Anmeldung.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Domain-Liste. Domains anlegen und verifizieren dürfen Mitglieder mit Editor-Rechten im Space. Verantwortliche dürfen "ihre" Domain immer aktualisieren. Löschen dürfen Admins oder die erstellende Person. Die DNS-Verifikation erfordert Zugriff auf den DNS-Provider außerhalb von Kopexa.
+
+## Best Practices
+
+- Verifiziere zunächst die wichtigsten Geschäftsdomains. Für Audits zählt vor allem die Hauptdomain.
+- Pflege eine verantwortliche Person pro Domain. Domains ohne Owner werden vergessen.
+- Setze DMARC schrittweise scharf: starte mit "none", werte Berichte aus, gehe zu "quarantine" und dann zu "reject".
+- Aktiviere DNSSEC, wenn dein Registrar es unterstützt. Es ist eine wirksame Maßnahme gegen DNS-Manipulation.
+- Nutze die Subdomain-Erfassung, um vergessene Marketing- oder Test-Subdomains aufzudecken und gezielt abzuschalten.
+- Überprüfe Domains regelmäßig im Quartalsrhythmus, auch wenn die Posture-Werte automatisch aktualisiert werden.
+
+## Stolperfallen
+
+- Eine nicht verifizierte Domain wird nicht gescannt. Die Posture-Werte bleiben dann leer.
+- TXT-Einträge können je nach Provider Minuten bis Stunden bis zur Verbreitung brauchen. Geduld ist normal.
+- Eine geänderte Subdomain-Struktur (neue Hosts oder gelöschte Hosts) wird erst beim nächsten Scan sichtbar.
+- DMARC mit Policy "none" ist nur Beobachtung, keine Abwehr. Audits erwarten meist "quarantine" oder "reject".
+- Wenn du eine Domain löschst, gehen die historischen Posture-Daten und Verknüpfungen verloren. Lieber archivieren oder dokumentiert deaktivieren.
+- Dieses Modul ist nicht für SSO-Konfiguration vorgesehen. Für SSO-Domains gibt es ein eigenes Modul auf Organisationsebene.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Domains hier und den SSO-Domains?">
+Domains im Space sind operative Internet-Domains. Sie dienen der Erfassung, Posture-Überwachung und Verknüpfung mit Risiken und Lieferanten. SSO-Domains auf Organisationsebene steuern, mit welchen E-Mail-Adressen sich Personen über Single Sign-On bei Kopexa anmelden dürfen.
+</Accordion>
+<Accordion title="Was ist eTLD+1?">
+eTLD+1 ist die registrierte Domain auf der ersten Ebene unter der öffentlichen Endung. Bei `www.kopexa.com` ist `kopexa.com` die eTLD+1. Subdomains wie `www.` oder `mail.` werden im Modul nicht als eigene Einträge geführt, sondern unter der eTLD+1.
+</Accordion>
+<Accordion title="Warum erfasst Kopexa keine Posture-Werte für meine Domain?">
+Die Domain muss verifiziert sein. Bis der DNS-TXT-Eintrag erkannt und ausgewertet wurde, läuft kein Scan. Prüfe, ob der TXT-Eintrag korrekt gesetzt ist und ob dein DNS-Provider ihn schon ausliefert.
+</Accordion>
+<Accordion title="Wie aktuell sind die Posture-Werte?">
+Posture-Daten werden in geplanten Abständen erhoben. Die Zeitpunkte der letzten Prüfung erscheinen jeweils am Eintrag. Aus großen Mengen Rohdaten leitet Kopexa einen aggregierten Status ab.
+</Accordion>
+<Accordion title="Erfasst Kopexa auch Subdomains?">
+Ja. Nach Verifikation ermittelt Kopexa Subdomains über öffentliche Quellen wie Certificate Transparency. Sie erscheinen als Hosts unter der Domain.
+</Accordion>
+<Accordion title="Was passiert, wenn meine Domain die Verifikation verliert?">
+Wenn der TXT-Eintrag verschwindet, schlägt die nächste Prüfung fehl. Die Domain wechselt in den nicht verifizierten Zustand, und der Scan pausiert. Verantwortliche werden benachrichtigt.
+</Accordion>
+</Accordions>
