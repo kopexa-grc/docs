@@ -1,6 +1,132 @@
 ---
 title: Audits
-description: Inhalt folgt.
+description: Interne und externe Audits planen, durchführen, abschließen und nachweisen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Ein Audit ist eine geplante Überprüfung, ob Vorgaben, Kontrollen und Prozesse in der Praxis greifen. Im Audits-Bereich legst du Audits an, definierst den Umfang, lädst das Audit-Team ein, bewertest jede betroffene Kontrolle, dokumentierst Feststellungen und schließt das Audit revisionssicher ab. Damit hast du eine durchgehende Akte für interne Audits, Zweit- und Drittparteienprüfungen sowie Zertifizierungen.
+
+Ein abgeschlossenes Audit in Kopexa ist eingefroren. Der Stand der Kontrollen, Nachweise und Feststellungen zum Zeitpunkt des Abschlusses bleibt unverändert erhalten und steht als Schnappschuss für spätere Prüfungen bereit.
+
+## Wann nutzt du es
+
+- Du führst ein internes Audit als Erstpartei durch (Selbstprüfung).
+- Ein:e Kund:in oder Partner:in prüft dich als Zweitpartei.
+- Eine Zertifizierungsstelle oder Aufsichtsbehörde prüft dich als Drittpartei, etwa für ISO 27001 oder TISAX.
+- Du planst regelmäßige Folge- oder Überwachungsaudits.
+- Du brauchst einen revisionssicheren Nachweis, dass eine Kontrolle zu einem bestimmten Zeitpunkt wirksam war.
+
+## Das Wichtigste in Kürze
+
+- Jedes Audit gehört zu einem Space, hat einen Typ (intern, Zweitpartei, Drittpartei), einen Prüfungszeitraum und Phasen von "Geplant" bis "Abgeschlossen".
+- Der Umfang wird über Programme und einzelne Kontrollen festgelegt. Ausnahmen ("Out of Scope") können begründet ausgeschlossen werden.
+- Mit dem Start friert Kopexa einen Schnappschuss der ausgewählten Kontrollen ein. Bewertungen laufen ab dann gegen diesen festen Stand.
+- Das Audit-Team setzt sich aus Audit Client, Leitenden Prüfer:innen, Prüfer:innen, Auditees und Beobachter:innen zusammen. Jede Rolle hat klar abgegrenzte Rechte.
+- Für jede Kontrolle entsteht ein Kontrollergebnis mit Compliance-Status, Auditor- und Auditee-Notizen sowie verknüpften Nachweisen.
+- Beim Abschluss erzeugt Kopexa automatisch den Audit-Bericht als revisionsfeste Akte.
+
+## Typischer Ablauf
+
+1. Audit anlegen über den Wizard: Titel, Typ, Prüfungszeitraum und geplanter Durchführungszeitraum.
+2. Programme auswählen, deren Kontrollen geprüft werden sollen.
+3. Kontrollen im Scope überprüfen und einzelne Kontrollen mit Begründung ausschließen ("Out of Scope").
+4. Mitglieder einladen und ihre Audit-Rollen festlegen.
+5. Audit starten. Kopexa erstellt den Kontroll-Schnappschuss und aktiviert die Bewertung.
+6. Kontrollen bewerten: Status (konform, nicht konform, teilweise, ausstehend, nicht anwendbar), Anmerkungen, Stichproben, Auditee-Kommentar.
+7. Feststellungen erfassen, wo Abweichungen oder Beobachtungen auftreten.
+8. Audit in die Überprüfung schalten. Bewertungen sind danach gesperrt, Lead Auditor und Audit Client prüfen Ergebnisse, Fazit und Angemessenheit.
+9. Audit abschließen. Kopexa finalisiert die Wirksamkeit, schreibt den Bericht und sperrt das Audit dauerhaft.
+
+<Mermaid chart={`flowchart LR
+  A[Geplant] --> B[In Bearbeitung]
+  B --> C[Überprüfung]
+  C --> D[Abgeschlossen]
+  A --> E[Abgebrochen]
+  B --> E
+  C --> E
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Bezeichnung des Audits | Pflicht | Nicht leer | Klar und datierbar, etwa "Internes ISMS-Audit Q1 2026". |
+| Beschreibung | Kontext, Zweck und Schwerpunkte | Optional | Freitext | Hier den Auftraggeber, Anlass und Schwerpunkt vermerken. |
+| Audit-Typ | Intern (1st), Extern (2nd), Extern (3rd) | Pflicht | Eingabefeld | Bestimmt Erwartungen an Unabhängigkeit und Berichterstattung. |
+| Prüfungszeitraum | Zeitraum, der inhaltlich geprüft wird | Pflicht | Start vor Ende | Nicht zu verwechseln mit dem Durchführungszeitraum. |
+| Geplanter Durchführungszeitraum | Wann wird das Audit operativ durchgeführt | Optional | Start vor Ende | Hilft beim Kalender- und Ressourcenmanagement. |
+| Phase | Geplant, In Bearbeitung, Überprüfung, Abgeschlossen, Abgebrochen | Pflicht | Workflow-gesteuert | Wechsel werden in einem Dialog bestätigt. |
+| Standardreferenz | Norm oder Prüfgrundlage | Optional | Freitext | Etwa "ISO 19011:2018" oder "TISAX VDA". |
+| Vorheriges Audit | Bezug zu einem Vorgängeraudit | Optional | Eintrag im gleichen Space | Nutzbar für Follow-up- und Überwachungsaudits. |
+| Programme | Welche Programme gehören in den Scope | Pflicht | Mindestens eines | Über das Programm werden die zugehörigen Kontrollen vorausgewählt. |
+| Kontrollen im Scope | Konkret zu prüfende Kontrollen | Pflicht | Mindestens eine | Ausnahmen mit Begründung als "Out of Scope" kennzeichnen. |
+| Fazit | Gesamteinschätzung der Auditor:innen | Optional | Freitext | Wird beim Abschluss in den Bericht übernommen. |
+| Angemessenheit | Angemessen, Eingeschränkt angemessen, Unangemessen | Optional | Eingabefeld | Manuelle Bewertung gemäß ISO 19011, getrennt von der Wirksamkeit. |
+| Wirksamkeit | Wirksam, Begrenzte Wirksamkeit, Unwirksam | Automatisch | Algorithmus aus Feststellungen und Kontrollergebnissen | Wird automatisch berechnet, ist aber bis zum Abschluss erkennbar. |
+| Mitglieder | Audit Client, Lead Auditor, Auditor, Auditee, Beobachter | Pflicht | Mindestens ein Audit Client | Rollen steuern, wer bewerten, verwalten oder nur lesen darf. |
+
+## Was im Hintergrund passiert
+
+- **Schnappschuss beim Start:** Beim Wechsel von "Geplant" auf "In Bearbeitung" friert Kopexa die ausgewählten Kontrollen ein und erzeugt für jede ein Kontrollergebnis. Spätere Änderungen an den Originalkontrollen wirken nicht automatisch in das laufende Audit hinein. Bei Bedarf kannst du den Schnappschuss bewusst aktualisieren.
+- **Snapshot-Aktualisierung:** Wenn Feststellungen zwischenzeitlich behoben wurden, kannst du den Snapshot einer Kontrolle gezielt aktualisieren, um den aktuellen Stand für die Bewertung zu übernehmen. Das Audit selbst bleibt nachvollziehbar.
+- **Wirksamkeit:** Kopexa berechnet die Gesamt-Wirksamkeit automatisch in zwei Schritten. Offene Abweichungen mit Schweregrad Kritisch oder Hoch ergeben "Unwirksam", offene geringfügige Abweichungen "Begrenzte Wirksamkeit". Ohne offene Abweichungen entscheidet die Quote konformer Kontrollen: ab 90 Prozent "Wirksam", 70 bis 89 Prozent "Begrenzte Wirksamkeit", darunter "Unwirksam".
+- **Abschluss:** Beim Wechsel auf "Abgeschlossen" finalisiert Kopexa alle Kontrollergebnisse, erstellt den Audit-Bericht und sperrt das Audit dauerhaft. Verknüpfte Feststellungen werden unveränderlich. Kopexa friert den Stand beim Abschluss ein und erzeugt einen Schnappschuss für Nachweise.
+- **Aktivitätsprotokoll:** Jede Statusänderung, Mitgliederänderung, Bewertung und Nachweisaktion landet im Aktivitätsprotokoll. Damit ist nachvollziehbar, wer wann was getan hat.
+- **Unabhängigkeitswarnung:** Werden Auditor:innen Kontrollen zugewiesen, die sie selbst verantworten, weist Kopexa darauf hin. Die Unabhängigkeit bleibt damit überprüfbar.
+
+## Verknüpfungen
+
+- [Programme](/platform/space/compliance/frameworks) liefern die Kontrollen, die im Audit geprüft werden.
+- [Kontrollen](/platform/space/compliance/controls) sind die geprüften Vorgaben, [Maßnahmen](/platform/space/compliance/measures) die Umsetzung dahinter.
+- [Feststellungen](/platform/space/compliance/findings) entstehen aus dem Audit und tragen Abweichungen, Beobachtungen und Verbesserungen.
+- [Risiken](/platform/space/compliance/risks) leitest du aus systematischen Abweichungen ab.
+- [Aufgaben](/platform/space/issues) verfolgen die Behebung einzelner Feststellungen.
+- [Dokumente](/platform/space/documents) liefern Nachweise (Richtlinien, Logs, Screenshots) und nehmen den Abschlussbericht auf.
+
+## Berechtigungen
+
+Audits sind streng rollenbasiert. Der **Audit Client** verantwortet das Audit, kann Mitglieder verwalten, aber selbst keine Kontrollen bewerten. **Lead Auditor:innen** leiten das Audit-Team, bewerten Kontrollen und verwalten Mitglieder. **Auditor:innen** bewerten Kontrollen und erstellen Feststellungen, dürfen aber keine Mitglieder verwalten. **Auditees** vertreten den geprüften Bereich, laden Nachweise hoch und antworten auf Feststellungen. **Beobachter:innen** haben reinen Lesezugriff. Es muss immer mindestens einen Audit Client geben. Audits löschen darf nur die Space-Admin, abgeschlossene Audits können nicht mehr gelöscht werden, ohne dass alle abhängigen Daten verloren gehen.
+
+## Best Practices
+
+- Plane den Scope vor dem Start sauber. Spätere Änderungen sind möglich, aber teuer in der Durchführung.
+- Halte die Audit-Rolle der Verantwortlichen für die geprüften Kontrollen außerhalb der Auditor-Rolle. So bleibt die Unabhängigkeit unstrittig.
+- Hinterlege Nachweise direkt an der Kontrolle, nicht nur im Kommentar. Der Audit-Bericht zieht aus den Verknüpfungen.
+- Schreibe das Fazit, bevor du in die Überprüfung wechselst. Sonst fehlt die Position der Auditor:innen für die Endkontrolle.
+- Bewerte die Angemessenheit manuell und unabhängig von der automatisch berechneten Wirksamkeit. Beide Sichten gehören in den Bericht.
+- Sammle alle Feststellungen während der Bewertungsphase. Nachträgliche Feststellungen nach Abschluss sind nicht mehr möglich.
+
+## Stolperfallen
+
+- Wenn du das Audit startest, bevor die Mitglieder vollständig sind, müssen Auditees nachträglich nachpflegen. Das kostet Zeit und Reputation.
+- Eine Kontrolle, die du nach dem Start aus dem Scope nimmst, bleibt als Datensatz erhalten und muss begründet als "Ausgeschlossen" markiert werden.
+- Verschwindet eine verknüpfte Kontroll-Maßnahme im Original (etwa wegen Statusänderung), wirkt das nicht automatisch im Schnappschuss. Aktualisiere den Snapshot gezielt, wenn du den neuen Stand für die Bewertung übernehmen willst.
+- "Abgeschlossen" ist endgültig. Eine Rückwärtsbewegung gibt es nicht. Im Zweifel über "Überprüfung" arbeiten und vor dem Abschluss alles abgleichen.
+- Abgebrochene Audits bleiben in der Liste, fließen aber nicht in Auswertungen ein. Nutze den Abbruch nur, wenn ein Audit wirklich nicht zu Ende geführt wird.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Angemessenheit und Wirksamkeit?">
+Angemessenheit prüft, ob die Organisation ausreichende organisatorische, strukturelle und verfahrenstechnische Maßnahmen etabliert und dokumentiert hat. Sie wird von der Lead Auditor:in manuell bewertet. Wirksamkeit prüft, ob die Maßnahmen in der Praxis greifen, und wird automatisch aus Feststellungen und Kontrollergebnissen berechnet.
+</Accordion>
+<Accordion title="Warum ist mein Audit auf 'Unwirksam', obwohl die meisten Kontrollen konform sind?">
+Offene Abweichungen mit Schweregrad Kritisch oder Hoch ziehen die Wirksamkeit unabhängig von der Konformitätsquote auf "Unwirksam". Erst wenn diese Feststellungen behoben, akzeptiert oder als Fehlalarm geklärt sind, zählt die Quote der konformen Kontrollen.
+</Accordion>
+<Accordion title="Kann ich nach Abschluss noch Änderungen vornehmen?">
+Nein. Mit dem Abschluss wird das Audit eingefroren. Du behältst alle Daten als revisionssicheren Nachweis. Folgehandlungen verfolgst du über verknüpfte Maßnahmen und Aufgaben oder über ein neues Folge-Audit, das du als "vorheriges Audit" verknüpfst.
+</Accordion>
+<Accordion title="Was passiert, wenn ein Kontroll-Snapshot veraltet ist?">
+Wenn sich an einer Kontrolle nach dem Audit-Start etwas geändert hat oder Feststellungen behoben wurden, kannst du den Snapshot dieser einzelnen Kontrolle aktualisieren. Damit übernimmst du den aktuellen Stand für die Bewertung, ohne das gesamte Audit zurückzusetzen.
+</Accordion>
+<Accordion title="Welche Rollen darf ich kombinieren?">
+Eine Person sollte eine klare Rolle haben. Audit Client und Lead Auditor lassen sich in kleinen Teams kombinieren, Auditor und Auditee aus Gründen der Unabhängigkeit nicht. Kopexa warnt, wenn jemand eine Kontrolle bewerten soll, die er oder sie verantwortet.
+</Accordion>
+<Accordion title="Wie nutze ich Folge-Audits?">
+Lege ein neues Audit an und verknüpfe das vorherige Audit als "Parent". So entsteht eine nachvollziehbare Kette, etwa für jährliche Überwachungsaudits. Frühere Feststellungen bleiben für den Vergleich sichtbar.
+</Accordion>
+<Accordion title="Wann nutze ich 'Out of Scope'?">
+Wenn eine Kontrolle laut Statement of Applicability nicht für dich gilt oder im aktuellen Audit bewusst nicht geprüft wird. Begründe den Ausschluss, damit Auditor:innen die Entscheidung nachvollziehen können.
+</Accordion>
+</Accordions>
