@@ -36,19 +36,17 @@ Klicke auf **Organisation erstellen**.
 
 Damit dein Team sich per Single Sign-On anmelden kann, verifiziere zunächst die Domain.
 
-<Steps>
-<Step>Öffne **Einstellungen → Domains**.</Step>
-<Step>Klicke auf **Domain hinzufügen**.</Step>
-<Step>Trage deine Domain ein, zum Beispiel `mustermann-gmbh.de`.</Step>
-<Step>Kopexa zeigt dir einen DNS-Eintrag wie diesen:
+1. Öffne **Einstellungen → Domains**.
+2. Klicke auf **Domain hinzufügen**.
+3. Trage deine Domain ein, zum Beispiel `mustermann-gmbh.de`.
+4. Kopexa zeigt dir einen DNS-Eintrag wie diesen:
 
-```
-_kopexa-verification.mustermann-gmbh.de  TXT  "kopexa-verify=abc123xyz"
-```
-</Step>
-<Step>Trage diesen Eintrag bei deinem DNS-Provider ein (zum Beispiel Cloudflare, AWS Route 53).</Step>
-<Step>Warte ein bis fünf Minuten und klicke auf **Verifizieren**.</Step>
-</Steps>
+   ```
+   _kopexa-verification.mustermann-gmbh.de  TXT  "kopexa-verify=abc123xyz"
+   ```
+
+5. Trage diesen Eintrag bei deinem DNS-Provider ein (zum Beispiel Cloudflare, AWS Route 53).
+6. Warte ein bis fünf Minuten und klicke auf **Verifizieren**.
 
 <Callout type="info">
 Die weltweite Verteilung von DNS-Einträgen kann bis zu 24 Stunden dauern. In der Praxis sind es meist wenige Minuten.

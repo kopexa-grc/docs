@@ -19,14 +19,12 @@ flowchart LR
   RE --> B
 `} />
 
-<Steps>
-<Step>**Risiko anlegen**: Du erfasst ein Risiko mit Titel, Beschreibung und Bezug (Asset, Prozess oder Lieferant).</Step>
-<Step>**Bewerten**: Du bewertest Auswirkung und Eintrittswahrscheinlichkeit. Die Risikomatrix zeigt dir die Kritikalität.</Step>
-<Step>**Maßnahmen festlegen**: Du entscheidest, ob du das Risiko reduzierst, übernimmst, überträgst oder vermeidest.</Step>
-<Step>**Kontrollen verknüpfen**: Du verknüpfst das Risiko mit passenden Kontrollen aus deinen Frameworks.</Step>
-<Step>**Nachweise sammeln**: An Kontrollen und Maßnahmen hängst du Belege wie Reports, Verträge oder Konfigurations-Auszüge.</Step>
-<Step>**Regelmäßig überprüfen**: Zum festgelegten Termin prüfst oder eine Reviewerin das Risiko erneut.</Step>
-</Steps>
+1. **Risiko anlegen**: Du erfasst ein Risiko mit Titel, Beschreibung und Bezug (Asset, Prozess oder Lieferant).
+2. **Bewerten**: Du bewertest Auswirkung und Eintrittswahrscheinlichkeit. Die Risikomatrix zeigt dir die Kritikalität.
+3. **Maßnahmen festlegen**: Du entscheidest, ob du das Risiko reduzierst, übernimmst, überträgst oder vermeidest.
+4. **Kontrollen verknüpfen**: Du verknüpfst das Risiko mit passenden Kontrollen aus deinen Frameworks.
+5. **Nachweise sammeln**: An Kontrollen und Maßnahmen hängst du Belege wie Reports, Verträge oder Konfigurations-Auszüge.
+6. **Regelmäßig überprüfen**: Zum festgelegten Termin prüfst du oder eine Reviewerin das Risiko erneut.
 
 Beteiligte Module: [Risiken](/platform/space/compliance/risks), [Kontrollen](/platform/space/compliance/controls), [Maßnahmen](/platform/space/compliance/measures), [Assets](/platform/space/organisation/assets).
 
@@ -37,20 +35,18 @@ Vom ersten Kontakt mit einem Dienstleister bis zur fortlaufenden Überwachung.
 <Mermaid chart={`
 flowchart LR
   L[Lieferant anlegen] --> B[Risiko bewerten]
-  B --> V[Verträge & TOMs ablegen]
+  B --> V[Verträge ablegen]
   V --> A[Auftragsverarbeitung]
-  A --> P[Prüfen & Freigeben]
+  A --> P[Prüfen und Freigeben]
   P --> Z[Reviewzyklus aktivieren]
 `} />
 
-<Steps>
-<Step>**Lieferant anlegen**: Stammdaten, Kontakt, Dienstleistung.</Step>
-<Step>**Risiko bewerten**: Lieferantenrisiko nach Kritikalität und Datenarten.</Step>
-<Step>**Verträge und Nachweise**: Auftragsverarbeitungsvertrag, technische und organisatorische Maßnahmen, Zertifikate hinterlegen.</Step>
-<Step>**Auftragsverarbeitung**: Wenn personenbezogene Daten verarbeitet werden, verknüpfst du die Verarbeitungstätigkeit.</Step>
-<Step>**Prüfen und Freigeben**: Owner und Reviewer geben den Lieferanten frei.</Step>
-<Step>**Reviewzyklus**: Regelmäßige Überprüfung, etwa jährlich.</Step>
-</Steps>
+1. **Lieferant anlegen**: Stammdaten, Kontakt, Dienstleistung.
+2. **Risiko bewerten**: Lieferantenrisiko nach Kritikalität und Datenarten.
+3. **Verträge und Nachweise**: Auftragsverarbeitungsvertrag, technische und organisatorische Maßnahmen, Zertifikate hinterlegen.
+4. **Auftragsverarbeitung**: Wenn personenbezogene Daten verarbeitet werden, verknüpfst du die Verarbeitungstätigkeit.
+5. **Prüfen und Freigeben**: Owner und Reviewer geben den Lieferanten frei.
+6. **Reviewzyklus**: Regelmäßige Überprüfung, etwa jährlich.
 
 Beteiligte Module: [Lieferanten](/platform/space/organisation/vendors), [Risiken](/platform/space/compliance/risks), [Verarbeitungstätigkeiten](/platform/space/datenschutz/processing-activities), [Dokumente](/platform/space/documents).
 
@@ -62,18 +58,16 @@ Von der ersten Fassung einer Richtlinie bis zur regelmäßigen Überprüfung.
 flowchart LR
   E[Entwurf] --> P[In Überprüfung]
   P --> F[Freigegeben]
-  F --> V[Verteilt & Akzeptiert]
+  F --> V[Verteilt und Akzeptiert]
   V --> RE[Erinnerung zur Überprüfung]
   RE --> P
 `} />
 
-<Steps>
-<Step>**Entwurf**: Du legst ein Dokument an und schreibst den Inhalt.</Step>
-<Step>**In Überprüfung**: Du weist Reviewer zu und schickst das Dokument zur Überprüfung.</Step>
-<Step>**Freigegeben**: Nach Freigabe wird das Dokument zur verbindlichen Version.</Step>
-<Step>**Verteilt und akzeptiert**: Betroffene Mitarbeiterinnen und Mitarbeiter bestätigen Kenntnisnahme.</Step>
-<Step>**Erinnerung zur Überprüfung**: Kopexa erinnert dich rechtzeitig vor Ablauf des Reviewzyklus.</Step>
-</Steps>
+1. **Entwurf**: Du legst ein Dokument an und schreibst den Inhalt.
+2. **In Überprüfung**: Du weist Reviewer zu und schickst das Dokument zur Überprüfung.
+3. **Freigegeben**: Nach Freigabe wird das Dokument zur verbindlichen Version.
+4. **Verteilt und akzeptiert**: Betroffene Mitarbeiterinnen und Mitarbeiter bestätigen Kenntnisnahme.
+5. **Erinnerung zur Überprüfung**: Kopexa erinnert dich rechtzeitig vor Ablauf des Reviewzyklus.
 
 Beteiligte Module: [Dokumente](/platform/space/documents), [Kontrollen](/platform/space/compliance/controls).
 
@@ -90,14 +84,12 @@ flowchart LR
   M --> AB[Abschluss-Report]
 `} />
 
-<Steps>
-<Step>**Vorbereitung**: Du legst ein Audit an mit Zeitraum, Auditteam und Scope.</Step>
-<Step>**Scope festlegen**: Welche Kontrollen, welche Spaces, welcher Geltungsbereich.</Step>
-<Step>**Durchführung**: Während des Audits dokumentierst du Beobachtungen direkt an den geprüften Kontrollen.</Step>
-<Step>**Feststellungen**: Abweichungen, Empfehlungen und Stärken werden als Feststellungen festgehalten.</Step>
-<Step>**Maßnahmen ableiten**: Aus Feststellungen entstehen konkrete Maßnahmen mit Owner und Fälligkeit.</Step>
-<Step>**Abschluss**: Du erstellst den Audit-Report und schließt das Audit ab.</Step>
-</Steps>
+1. **Vorbereitung**: Du legst ein Audit an mit Zeitraum, Auditteam und Scope.
+2. **Scope festlegen**: Welche Kontrollen, welche Spaces, welcher Geltungsbereich.
+3. **Durchführung**: Während des Audits dokumentierst du Beobachtungen direkt an den geprüften Kontrollen.
+4. **Feststellungen**: Abweichungen, Empfehlungen und Stärken werden als Feststellungen festgehalten.
+5. **Maßnahmen ableiten**: Aus Feststellungen entstehen konkrete Maßnahmen mit Owner und Fälligkeit.
+6. **Abschluss**: Du erstellst den Audit-Report und schließt das Audit ab.
 
 Beteiligte Module: [Audits](/platform/space/compliance/audits), [Feststellungen](/platform/space/compliance/findings), [Kontrollen](/platform/space/compliance/controls), [Maßnahmen](/platform/space/compliance/measures).
 
@@ -111,17 +103,15 @@ flowchart LR
   K --> U[Untersuchen]
   U --> M[Maßnahmen ergreifen]
   M --> ME[Meldepflichten prüfen]
-  ME --> AB[Abschluss & Lessons Learned]
+  ME --> AB[Abschluss]
 `} />
 
-<Steps>
-<Step>**Meldung**: Eingang als Vorfall in Kopexa, manuell oder über eine Integration.</Step>
-<Step>**Klassifizieren**: Art, Schweregrad, betroffene Assets und Daten.</Step>
-<Step>**Untersuchen**: Ursache analysieren, Ausmaß bewerten.</Step>
-<Step>**Maßnahmen**: Sofortmaßnahmen und Folgemaßnahmen anlegen.</Step>
-<Step>**Meldepflichten**: Prüfen, ob Behörden oder Betroffene informiert werden müssen (zum Beispiel DSGVO Art. 33, NIS2).</Step>
-<Step>**Abschluss**: Dokumentation und Lessons Learned. Bei Bedarf passt du Kontrollen oder Dokumente an.</Step>
-</Steps>
+1. **Meldung**: Eingang als Vorfall in Kopexa, manuell oder über eine Integration.
+2. **Klassifizieren**: Art, Schweregrad, betroffene Assets und Daten.
+3. **Untersuchen**: Ursache analysieren, Ausmaß bewerten.
+4. **Maßnahmen**: Sofortmaßnahmen und Folgemaßnahmen anlegen.
+5. **Meldepflichten**: Prüfen, ob Behörden oder Betroffene informiert werden müssen (zum Beispiel DSGVO Art. 33, NIS2).
+6. **Abschluss**: Dokumentation und Lessons Learned. Bei Bedarf passt du Kontrollen oder Dokumente an.
 
 Beteiligte Module: [Vorfälle](/platform/space/compliance/incidents), [Maßnahmen](/platform/space/compliance/measures), [Kontrollen](/platform/space/compliance/controls), [Behörden](/platform/space/einstellungen/authorities).
 
@@ -133,19 +123,17 @@ Vom Eingang einer DSGVO-Anfrage bis zur dokumentierten Antwort.
 flowchart LR
   E[Anfrage eingegangen] --> I[Identität prüfen]
   I --> D[Daten sammeln]
-  D --> P[Prüfen & Aufbereiten]
+  D --> P[Prüfen und Aufbereiten]
   P --> A[Antworten]
   A --> DO[Dokumentieren]
 `} />
 
-<Steps>
-<Step>**Anfrage eingegangen**: Du legst eine Betroffenenanfrage an. Frist 1 Monat, in komplexen Fällen verlängerbar um 2 Monate.</Step>
-<Step>**Identität prüfen**: Du bestätigst die Identität der anfragenden Person.</Step>
-<Step>**Daten sammeln**: Über die verknüpften Verarbeitungstätigkeiten siehst du, wo personenbezogene Daten verarbeitet werden.</Step>
-<Step>**Prüfen und Aufbereiten**: Du prüfst, was offengelegt werden darf, und bereitest die Antwort auf.</Step>
-<Step>**Antworten**: Du sendest die Auskunft an die betroffene Person.</Step>
-<Step>**Dokumentieren**: Du schließt die Anfrage in Kopexa ab. Damit ist die Erfüllung nachgewiesen.</Step>
-</Steps>
+1. **Anfrage eingegangen**: Du legst eine Betroffenenanfrage an. Frist 1 Monat, in komplexen Fällen verlängerbar um 2 Monate.
+2. **Identität prüfen**: Du bestätigst die Identität der anfragenden Person.
+3. **Daten sammeln**: Über die verknüpften Verarbeitungstätigkeiten siehst du, wo personenbezogene Daten verarbeitet werden.
+4. **Prüfen und Aufbereiten**: Du prüfst, was offengelegt werden darf, und bereitest die Antwort auf.
+5. **Antworten**: Du sendest die Auskunft an die betroffene Person.
+6. **Dokumentieren**: Du schließt die Anfrage in Kopexa ab. Damit ist die Erfüllung nachgewiesen.
 
 Beteiligte Module: [Betroffenenanfragen](/platform/space/datenschutz/data-subject-requests), [Verarbeitungstätigkeiten](/platform/space/datenschutz/processing-activities), [Personen](/platform/space/organisation/people).
 
@@ -162,13 +150,11 @@ flowchart LR
   V --> AK[Aktualisieren]
 `} />
 
-<Steps>
-<Step>**Inhalte zusammenstellen**: Welche Frameworks, Zertifikate und Richtlinien möchtest du zeigen?</Step>
-<Step>**Zertifikate hinterlegen**: Lade aktuelle Zertifikate (ISO 27001, SOC 2 und ähnliches) hoch.</Step>
-<Step>**Richtlinien verlinken**: Öffentlich freigegebene Richtlinien wirst du im Trust Center anzeigen.</Step>
-<Step>**Freigabe**: Die zuständige Person (zum Beispiel Geschäftsführung oder Datenschutzbeauftragte) gibt die Veröffentlichung frei.</Step>
-<Step>**Veröffentlichen**: Du machst das Trust Center entweder öffentlich oder mit Zugangsschutz verfügbar.</Step>
-<Step>**Aktualisieren**: Halte Inhalte und Zertifikate aktuell. Kopexa erinnert dich an Zertifikatsabläufe.</Step>
-</Steps>
+1. **Inhalte zusammenstellen**: Welche Frameworks, Zertifikate und Richtlinien möchtest du zeigen?
+2. **Zertifikate hinterlegen**: Lade aktuelle Zertifikate (ISO 27001, SOC 2 und ähnliches) hoch.
+3. **Richtlinien verlinken**: Öffentlich freigegebene Richtlinien werden im Trust Center angezeigt.
+4. **Freigabe**: Die zuständige Person (zum Beispiel Geschäftsführung oder Datenschutzbeauftragte) gibt die Veröffentlichung frei.
+5. **Veröffentlichen**: Du machst das Trust Center entweder öffentlich oder mit Zugangsschutz verfügbar.
+6. **Aktualisieren**: Halte Inhalte und Zertifikate aktuell. Kopexa erinnert dich an Zertifikatsabläufe.
 
 Beteiligte Module: [Trust Center](/platform/space/trust-center), [Dokumente](/platform/space/documents), [Frameworks](/platform/space/compliance/frameworks).
