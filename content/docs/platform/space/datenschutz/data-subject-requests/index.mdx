@@ -1,6 +1,221 @@
 ---
 title: Betroffenenanfragen
-description: Inhalt folgt.
+description: Auskunfts-, Löschungs- und weitere Anträge betroffener Personen DSGVO-konform und fristgerecht bearbeiten.
 ---
 
-Inhalt folgt.
+Betroffenenanfragen (englisch: Data Subject Requests, kurz DSAR) sind Anträge, mit denen Menschen ihre Rechte aus der DSGVO geltend machen. Wer Daten von Beschäftigten, Kundinnen, Bewerbern oder anderen Personen verarbeitet, muss solche Anfragen annehmen, prüfen und innerhalb eines Monats beantworten. Das Modul Betroffenenanfragen bündelt Eingang, Identitätsprüfung, Bearbeitung und Abschluss in einem Vorgang.
+
+<Callout type="info">
+Eine Betroffenenanfrage ist kein Standardticket. Du hast eine gesetzliche Frist, eine Nachweispflicht und in vielen Fällen sensible personenbezogene Daten in der Hand. Kopexa führt dich durch die Pflichtschritte.
+</Callout>
+
+## Worum geht's
+
+Betroffene Personen haben nach Art. 15 bis 22 DSGVO konkrete Rechte gegenüber dir als verantwortlicher Stelle. Das Modul Betroffenenanfragen erfasst jeden Antrag als eigenen Vorgang, berechnet die Bearbeitungsfrist automatisch, dokumentiert die Identitätsprüfung und hält fest, welche Verarbeitungstätigkeiten betroffen sind. So entsteht ein lückenloser Nachweis gegenüber der Aufsichtsbehörde.
+
+## Wann nutzt du es
+
+- Eine Person fordert Auskunft über die zu ihr gespeicherten Daten an (Art. 15 DSGVO).
+- Daten sind falsch und sollen berichtigt werden (Art. 16 DSGVO).
+- Eine Person verlangt die Löschung ihrer Daten, das "Recht auf Vergessenwerden" (Art. 17 DSGVO).
+- Die Verarbeitung soll vorübergehend eingeschränkt werden (Art. 18 DSGVO).
+- Daten sollen in einem maschinenlesbaren Format mitgegeben werden (Art. 20 DSGVO).
+- Eine Person widerspricht der Verarbeitung, zum Beispiel gegen Direktwerbung (Art. 21 DSGVO).
+- Eine erteilte Einwilligung wird widerrufen.
+
+## Das Wichtigste in Kürze
+
+- **Frist 1 Monat**: Mit Eingang der Anfrage startet die Frist nach Art. 12 Abs. 3 DSGVO. Kopexa setzt das Fälligkeitsdatum automatisch.
+- **Verlängerung bis zu 2 Monate**: Bei komplexen oder zahlreichen Anfragen kannst du die Frist verlängern. Du musst die betroffene Person darüber informieren.
+- **Identitätsprüfung vor Auskunft**: Bei Zweifeln musst du die Identität nachweisen lassen (Art. 12 Abs. 6 DSGVO), bevor du Daten herausgibst.
+- **Mehrere Anfragetypen pro Vorgang**: Eine Person kann gleichzeitig Auskunft und Löschung verlangen. Du kannst beide Anfragetypen am selben Vorgang führen.
+- **Pro Verarbeitungstätigkeit dokumentieren**: Für jede beteiligte Verarbeitungstätigkeit hältst du fest, ob Daten gefunden, herausgegeben, gelöscht oder warum sie nicht bearbeitbar waren.
+
+## Typischer Ablauf
+
+1. **Anfrage erfassen**: Betroffenenanfrage anlegen mit Titel, Anfragedatum, Anfragemethode (z. B. E-Mail, Post) und den Angaben zur betroffenen Person.
+2. **Anfragetypen festlegen**: Welche Rechte werden geltend gemacht? Mehrfachauswahl ist möglich.
+3. **Empfang bestätigen**: Empfangsbestätigung manuell hinterlegen oder per System-E-Mail an die betroffene Person senden.
+4. **Identität prüfen**: Identifikation anfordern, gewählte Methode dokumentieren (z. B. Ausweiskopie, signierte E-Mail) und Bestätigung eintragen.
+5. **Verarbeitungstätigkeiten verknüpfen**: Alle Verarbeitungstätigkeiten zuordnen, in denen Daten der Person verarbeitet werden könnten.
+6. **Pro Verarbeitungstätigkeit prüfen**: Für jede Tätigkeit dokumentieren, ob Daten gefunden wurden und wie verfahren wurde. Falls etwas nicht bearbeitet werden kann, einen Grund für die Nichtbearbeitung hinterlegen.
+7. **Bei Bedarf verlängern oder ablehnen**: Falls die Frist nicht reicht, Verlängerung mit Grund hinterlegen. Falls die Anfrage zurückgewiesen wird, Ablehnungsgrund dokumentieren.
+8. **Abschließen**: Anfrage als abgeschlossen, zurückgezogen oder abgelehnt markieren. Antwort an die betroffene Person versenden.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Eingang] --> B[Empfang bestätigen]
+    B --> C{Identität klar?}
+    C -- Ja --> E[Verarbeitungstätigkeiten zuordnen]
+    C -- Nein --> D[Identifikation anfordern]
+    D --> E
+    E --> F[Pro Tätigkeit prüfen und dokumentieren]
+    F --> G{Frist reicht?}
+    G -- Ja --> H{Anfrage berechtigt?}
+    G -- Nein --> I[Frist verlängern und informieren]
+    I --> H
+    H -- Ja --> J[Abschluss und Antwort]
+    H -- Nein --> K[Ablehnung mit Begründung]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Titel | Ja | Kurzbezeichnung des Vorgangs, z. B. "Auskunft Schmidt 2026-06" |
+| Anfragedatum | Ja | Tag des Eingangs. Startet die gesetzliche Frist. Darf nicht in der Zukunft liegen. |
+| Anfragemethode | Ja | Wie kam die Anfrage rein (E-Mail, Post, Webformular u. a.) |
+| Anfragetyp | Ja | Mindestens einer aus Auskunft, Datenübertragung, Datenberichtigung, Widerruf Einwilligung, Datenlöschung, Widerspruch, Einschränkung Verarbeitung |
+| Vorname, Nachname | Ja | Name der betroffenen Person |
+| E-Mail, Telefon, Adresse | Nein | Kontaktdaten für die Antwort |
+| Interne ID | Nein | Eigene Aktenzeichen-Referenz |
+| Verantwortlich | Empfohlen | Person, die den Vorgang bearbeitet |
+| Fälligkeitsdatum | Automatisch | Wird auf Anfragedatum + 1 Monat gesetzt, bei Verlängerung neu berechnet |
+| Identifikationsmethode | Bedingt | Pflicht, sobald die Identität geprüft wurde |
+| Ablehnungsgrund | Bedingt | Pflicht, wenn die Anfrage abgelehnt wird |
+| Verlängerungsgrund | Bedingt | Pflicht, wenn die Frist verlängert wird |
+| Verarbeitungstätigkeiten | Empfohlen | Alle Tätigkeiten, in denen Daten der Person vorkommen können |
+
+### Status im Lebenszyklus
+
+| Status | Bedeutung |
+|---|---|
+| Eingegangen | Anfrage ist erfasst, Bearbeitung noch nicht gestartet |
+| Warten auf Identifikation | Identität wurde angefordert, noch keine Bestätigung |
+| In Bearbeitung | Identität bestätigt, Vorgang wird bearbeitet |
+| Abgeschlossen | Antwort wurde an die betroffene Person versendet |
+| Abgelehnt | Anfrage wurde mit dokumentiertem Grund zurückgewiesen |
+| Zurückgezogen | Betroffene Person hat den Antrag zurückgezogen |
+| Abgelaufen | Frist ohne Bearbeitung verstrichen |
+
+### Bausteine: Ablehnungsgründe
+
+Standardmäßig sind unter anderem folgende Ablehnungsgründe vorhanden. Du kannst eigene Gründe ergänzen.
+
+| Grund | Erklärung |
+|---|---|
+| Exzessive Anfragen | Person stellt offensichtlich überzogen viele oder wiederholte Anträge. |
+| Keine Identifikation möglich | Die Person konnte trotz Aufforderung ihre Identität nicht nachweisen. |
+| Offenkundig unbegründet | Der Antrag ist erkennbar grundlos. |
+| Ausübung des Rechts auf freie Meinungsäußerung (Art. 17 Abs. 3 a DSGVO) | Nur bei Löschanträgen relevant, schützt journalistische und ähnliche Zwecke. |
+| Erfüllung einer rechtlichen Verpflichtung (Art. 17 Abs. 3 b DSGVO) | Z. B. Aufbewahrungspflichten im Steuer- oder Handelsrecht. |
+| Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen (Art. 17 Abs. 3 e DSGVO) | Z. B. laufender Rechtsstreit. |
+
+### Bausteine: Gründe für Nichtbearbeitung
+
+Diese Gründe nutzt du pro Verarbeitungstätigkeit, wenn dort kein Ergebnis möglich ist. Beispiele:
+
+| Grund | Wann zutreffend |
+|---|---|
+| Keine personenbezogenen Daten vorhanden | Es liegen schlicht keine Daten der Person in dieser Tätigkeit vor. |
+| Verarbeitung basiert nicht auf Einwilligung oder Vertrag | Wichtig bei Datenübertragbarkeit, die nur in diesen Fällen greift. |
+| Verarbeitung ist nicht automatisiert | Datenübertragbarkeit gilt nur für automatisierte Verarbeitung. |
+| Alle Daten bereits korrekt | Bei einer Berichtigungsanfrage, wenn keine Korrektur nötig ist. |
+| Keine Einwilligung abgegeben | Bei einem Widerruf, wenn nie eine Einwilligung vorlag. |
+| Zwingende schutzwürdige Gründe für die Verarbeitung | Bei Widerspruch, wenn deine berechtigten Interessen überwiegen. |
+
+### Bausteine: Verlängerungsgründe
+
+Eine Verlängerung um bis zu zwei Monate kommt unter folgenden Gründen in Betracht:
+
+| Grund | Erklärung |
+|---|---|
+| Komplexe Anfrage | Umfangreiche oder rechtlich anspruchsvolle Sachverhalte. |
+| Anzahl der Anfragen | Eine Welle gleichartiger Anfragen, die Ressourcen bindet. |
+| Sonstige Gründe | Andere nachvollziehbare Gründe, die eine Fristverlängerung rechtfertigen. |
+
+### Bausteine: Identifikationsmethoden
+
+Standardmäßig sind diese Methoden hinterlegt:
+
+| Methode | Anwendung |
+|---|---|
+| Elektronisch signierte E-Mail | Anfrage kommt mit qualifizierter Signatur, Identität ist belegt. |
+| Persönlich bekannt | Z. B. eigene Beschäftigte oder bekannte Geschäftspartner. |
+| Kopie des Ausweises | Klassische Identitätsprüfung. Schwärzung nicht benötigter Daten empfohlen. |
+| Andere Identifikationsmethoden | Z. B. Video-Ident, Postident, Rückfrage über bekannte Kanäle. |
+
+## Was im Hintergrund passiert
+
+- **Frist wird automatisch gesetzt**: Beim Anlegen rechnet Kopexa Anfragedatum + 1 Monat. Ändert sich das Anfragedatum, wird die Frist neu berechnet, solange du sie nicht manuell überschrieben hast.
+- **Verlängerung verlängert die Frist**: Wählst du einen Verlängerungsgrund, addiert Kopexa die im Grund hinterlegte Dauer (Standard zwei Monate) auf die bestehende Frist.
+- **Status pro Verarbeitungstätigkeit**: Sobald du eine Verarbeitungstätigkeit verknüpfst, entsteht für jeden Anfragetyp automatisch ein eigener Bearbeitungsstand. So siehst du auf einen Blick, was noch offen ist.
+- **Bereinigung bei Änderungen**: Entfernst du einen Anfragetyp oder eine Verarbeitungstätigkeit, werden die zugehörigen Bearbeitungsstände automatisch aufgeräumt.
+- **Empfangsbestätigung per E-Mail**: Wenn Name und E-Mail der betroffenen Person hinterlegt sind, kannst du eine vorgefertigte Empfangsbestätigung versenden. Andernfalls trägst du das Datum manuell ein.
+- **Standardbausteine pro Bereich**: Jeder neu angelegte Bereich erhält automatisch die DSGVO-üblichen Identifikationsmethoden, Verlängerungs-, Ablehnungs- und Nichtbearbeitungsgründe. Du kannst sie nach Bedarf anpassen.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Verarbeitungstätigkeiten"
+    description="Pro Anfrage prüfst du, welche Tätigkeiten Daten der Person verarbeiten."
+    href="/docs/platform/space/datenschutz/processing-activities"
+    color="purple"
+  />
+  <FeatureCard
+    title="Dokumente"
+    description="Antwortschreiben, Ausweiskopien und Nachweise an den Vorgang anhängen."
+    href="/docs/platform/space/documents"
+    color="blue"
+  />
+  <FeatureCard
+    title="Datenpannen"
+    description="Wenn eine Anfrage eine Datenpanne sichtbar macht, eskaliere in das Datenpannen-Modul."
+    href="/docs/platform/space/datenschutz/data-breaches"
+    color="orange"
+  />
+  <FeatureCard
+    title="Aufgaben"
+    description="Recherche- und Rückfrage-Aufgaben an Kolleginnen und Kollegen vergeben."
+    href="/docs/platform/space/issues"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Datenschutzbeauftragte:r, Admin | Vorgänge anlegen, bearbeiten, abschließen, löschen. Bausteine pflegen. |
+| Bearbeiter:in (Owner) | Vorgang bearbeiten, Status setzen, Verarbeitungstätigkeiten zuordnen. |
+| Mitwirkende | Lesezugriff und Beitrag über Aufgaben oder Kommentare, je nach Bereichsrolle. |
+| Externe | Kein Zugriff. Antworten an betroffene Personen laufen außerhalb der Plattform. |
+
+## Best Practices
+
+- **Anfragedatum sauber erfassen**: Stelle auf den tatsächlichen Eingangstag ab, nicht auf den Tag deiner Erfassung. Die Frist hängt davon ab.
+- **Identität zügig prüfen**: Bei Zweifeln gleich nach Eingang anfordern. Spart wertvolle Tage der Monatsfrist.
+- **Eine zentrale Anlaufstelle**: Lege eine bekannte E-Mail-Adresse für Betroffenenanfragen fest. So landet nichts in privaten Postfächern.
+- **Vollständigkeit pro Verarbeitungstätigkeit**: Lieber eine Tätigkeit zu viel prüfen als eine vergessen. Pro Tätigkeit dokumentieren, was du gefunden oder nicht gefunden hast.
+- **Antwortvorlagen vorbereiten**: Vorlagen für Auskunft, Löschung und Ablehnung sparen Zeit und sichern eine einheitliche Tonalität.
+
+## Stolperfallen
+
+- **Frist ignorieren**: Eine versäumte Antwort kann zu einer Beschwerde bei der Aufsichtsbehörde führen. Achte auf das Fälligkeitsdatum.
+- **Auskunft ohne Identitätsprüfung**: Wer Daten an den Falschen herausgibt, verursacht selbst eine Datenpanne.
+- **Pauschal ablehnen**: "Zu aufwendig" reicht nicht. Die Ablehnung braucht einen DSGVO-konformen Grund und eine Begründung.
+- **Verlängerung ohne Information**: Eine Fristverlängerung musst du der betroffenen Person innerhalb des ersten Monats mitteilen.
+- **Nur Hauptsystem prüfen**: Daten liegen oft auch in Backups, E-Mail-Archiven, CRM-Exporten oder bei Auftragsverarbeitern. Verarbeitungstätigkeiten helfen, alles im Blick zu behalten.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Ab wann läuft die Monatsfrist?">
+    Ab dem Tag, an dem die Anfrage bei dir eingegangen ist. Du trägst diesen Tag als Anfragedatum ein. Kopexa setzt das Fälligkeitsdatum automatisch auf einen Monat später.
+  </Accordion>
+  <Accordion title="Wann darf ich die Frist verlängern?">
+    Bei besonders komplexen Anfragen oder bei einer großen Zahl gleichzeitiger Anfragen. Du musst die betroffene Person innerhalb des ersten Monats über die Verlängerung und deren Gründe informieren.
+  </Accordion>
+  <Accordion title="Muss ich immer eine Ausweiskopie verlangen?">
+    Nein. Nur wenn berechtigte Zweifel an der Identität bestehen. Bei eigenen Beschäftigten oder bei einer Anfrage über ein verifiziertes Kundenkonto reicht meist die bestehende Kennung.
+  </Accordion>
+  <Accordion title="Wie reagiere ich auf offenkundig unbegründete oder exzessive Anträge?">
+    Du kannst die Anfrage ablehnen oder ein angemessenes Entgelt verlangen. Dokumentiere den Grund sorgfältig. Im Zweifel die Datenschutzaufsicht oder Rechtsabteilung einbeziehen.
+  </Accordion>
+  <Accordion title="Was tun, wenn eine Löschung wegen gesetzlicher Aufbewahrung nicht möglich ist?">
+    Nutze den Ablehnungsgrund "Erfüllung einer rechtlichen Verpflichtung" und erläutere, welche Vorschrift greift. Die Verarbeitung kann in diesem Fall stattdessen eingeschränkt werden, bis die Aufbewahrungspflicht endet.
+  </Accordion>
+</Accordions>
