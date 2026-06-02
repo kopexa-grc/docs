@@ -1,6 +1,138 @@
 ---
 title: Risiken
-description: Inhalt folgt.
+description: Risiken identifizieren, bewerten, behandeln und nachweisen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Risiken sind potenzielle Ereignisse, die deine Ziele, deine Compliance oder deine Werte gefährden. Im Risiken-Bereich erfasst, bewertest und steuerst du sie an einem Ort. Jedes Risiko hat eine Verantwortliche, eine Bewertung aus Wahrscheinlichkeit und Konsequenz, eine Behandlungsstrategie und eine Überprüfungsfrequenz. Damit baust du dein Risikoregister auf, das du jederzeit gegenüber Auditoren, Geschäftsleitung und Aufsichtsbehörden vorzeigen kannst.
+
+Risiken in Kopexa decken sowohl Gefahren als auch Chancen ab. Gefahren willst du vermeiden, mindern, übertragen oder akzeptieren. Chancen willst du ausschöpfen, verbessern, teilen oder akzeptieren.
+
+## Wann nutzt du es
+
+- Du baust ein ISMS, DSMS oder Risikomanagementsystem auf und brauchst ein Risikoregister.
+- Eine Norm wie ISO 27001, TISAX oder NIS2 verlangt eine systematische Risikobeurteilung.
+- Du willst neue Bedrohungen oder Schwachstellen strukturiert dokumentieren.
+- Du leitest aus einem Audit, einem Vorfall oder einer Lieferantenbewertung neue Risiken ab.
+- Du musst die DSGVO-Folgenabschätzung oder eine DORA-relevante Risikoanalyse nachweisen.
+
+## Das Wichtigste in Kürze
+
+- Jedes Risiko gehört zu einem Space und enthält eine initiale Bewertung und ein Restrisiko.
+- Kopexa berechnet den Risikowert automatisch aus Wahrscheinlichkeit und Konsequenz, sowohl für das initiale Risiko als auch für das Restrisiko.
+- Die Behandlungsstrategie steuert, welche weiteren Schritte erwartet werden. Vermeiden archiviert das Risiko automatisch, Mindern verlangt wirksame Maßnahmen.
+- Der Status eines Risikos wird automatisch abgeleitet. Du setzt ihn nicht manuell.
+- Risikokategorien bündeln Risiken thematisch und tragen die Toleranzgrenze des Restrisikos.
+- Risiken lassen sich mit Assets, Lieferanten, Prozessen, Kontrollen, Maßnahmen, Aufgaben, Dokumenten und Vorfällen verknüpfen.
+
+## Typischer Ablauf
+
+1. Risiko anlegen über "Risiko hinzufügen", entweder leer oder importiert aus dem Risikokatalog.
+2. Titel, Beschreibung, Kategorie und Risikotyp (Gefahr oder Chance) pflegen.
+3. Verantwortliche zuweisen und die Risikobewertung erfassen, also Wahrscheinlichkeit und Konsequenz.
+4. Kontext herstellen, indem du betroffene Assets, Lieferanten, Prozesse und Kontrollen verknüpfst.
+5. Behandlungsstrategie wählen und begründen.
+6. Maßnahmen und Aufgaben anlegen, um die Strategie umzusetzen.
+7. Restrisiko bewerten, sobald Maßnahmen wirken.
+8. Überprüfungsintervall setzen, damit Kopexa an die nächste Prüfung erinnert.
+
+<Mermaid chart={`flowchart LR
+  A[Identifizieren] --> B[Bewerten]
+  B --> C[Behandeln]
+  C --> D[Restrisiko bewerten]
+  D --> E[Überprüfen]
+  E --> B
+  C --> F[Vermeiden]
+  F --> G[Archiviert]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Kurze Bezeichnung des Risikos | Pflicht | 3 bis 100 Zeichen, eindeutig im Space | Konkret formulieren, etwa "Phishing-Angriff auf Finanzbuchhaltung". |
+| Beschreibung | Kontext, Ursachen, betroffene Bereiche | Optional | Maximal 1.000 Zeichen | Beschreibe Auslöser und mögliche Folgen, nicht die Lösung. |
+| Risikotyp | Gefahr oder Chance | Pflicht | Wird beim Anlegen festgelegt und ist danach nicht mehr änderbar | Chancen nur dort, wo du aktiv von einem Ereignis profitieren willst. |
+| Kategorie | Themenfeld, z. B. Cyber, Datenschutz, Lieferkette | Optional | Muss im Space existieren | Über die Kategorie kannst du eine Risikotoleranz setzen. |
+| Wahrscheinlichkeit | Skala 1 bis 5 | Pflicht für vollständige Bewertung | Ganzzahl 1 bis 5 | Nutze Leitfragen wie "Wie oft kam es in den letzten zwölf Monaten vor?". |
+| Konsequenz | Skala 1 bis 5 | Pflicht für vollständige Bewertung | Ganzzahl 1 bis 5 | Bewerte Auswirkungen auf Vertraulichkeit, Integrität, Verfügbarkeit, Reputation und Finanzen. |
+| Erläuterung | Begründung der Bewertung | Optional | Freitext | Pflicht in der Praxis bei hoher Konsequenz, damit die Bewertung nachvollziehbar ist. |
+| Behandlungsstrategie | Vermeiden, Mindern, Übertragen, Akzeptieren (bei Chancen: Ausschöpfen, Verbessern, Teilen, Akzeptieren) | Optional bis zur Aktivierung | Eine Strategie pro Risiko | Die Wahl steuert, welche Schritte für den Status "Aktiv" nötig sind. |
+| Begründung der Strategie | Warum diese Strategie | Optional | Freitext | Pflicht bei Akzeptieren, damit klar ist, warum kein Handeln folgt. |
+| Restrisiko | Wahrscheinlichkeit und Konsequenz nach Maßnahmen | Optional bis zur Aktivierung | Ganzzahl 1 bis 5 je Achse | Erst sinnvoll, wenn mindestens eine Maßnahme wirkt. |
+| Verantwortliche | Person mit Risiko-Verantwortung | Optional bis zur Aktivierung | Mitglied des Space | Genau eine Person zuweisen, sonst zerfasert die Verantwortung. |
+| Überprüfungsintervall | Wie oft das Risiko geprüft wird | Optional | Quartalsweise, halbjährlich, jährlich, zweijährlich | Für kritische Risiken kürzere Intervalle wählen. |
+| DORA kritisch | Markierung für DORA-relevante Risiken | Optional | Boolean | Setzen, wenn das Risiko kritische Funktionen im Sinne von DORA betrifft. |
+| NIS2 wesentlich | Markierung für NIS2-relevante Risiken | Optional | Boolean | Setzen, wenn das Risiko wesentliche Dienste im Sinne von NIS2 betrifft. |
+
+## Was im Hintergrund passiert
+
+- **Risikowert:** Sobald du Wahrscheinlichkeit und Konsequenz speicherst, berechnet Kopexa den Risikowert automatisch aus dem Produkt beider Werte. Das gilt für das initiale Risiko und das Restrisiko gleichermaßen.
+- **Status:** Der Status (Aktiv, Handlungsbedarf, Archiviert) wird bei jeder Änderung am Risiko, an einer verknüpften Maßnahme oder Aufgabe neu berechnet. Fehlen Pflichtangaben, ist die Überprüfung überfällig, überschreitet das Restrisiko die Toleranz oder ist eine Maßnahme nicht wirksam, schaltet das Risiko auf "Handlungsbedarf".
+- **Risikotoleranz:** Ist für die Kategorie eine Toleranzgrenze hinterlegt, prüft Kopexa nach jeder Bewertung, ob das Restrisiko die Schwelle überschreitet. Risiken oberhalb der Toleranz sind als "Toleranz überschritten" markiert.
+- **Vermeiden:** Wählst du die Strategie "Vermeiden", archiviert Kopexa das Risiko automatisch, weil die risikobehaftete Aktivität nicht mehr stattfindet.
+- **Überprüfungs-Reminder:** Eine tägliche Hintergrundprüfung erkennt überfällige Überprüfungen und überfällige Aufgaben an verknüpften Maßnahmen. Beides kann den Status auf "Handlungsbedarf" ziehen, auch wenn niemand das Risiko anfasst.
+- **Benachrichtigungen:** Verantwortliche werden bei Statuswechseln, neuen Verknüpfungen oder fälligen Überprüfungen informiert.
+
+## Verknüpfungen
+
+- [Maßnahmen](/platform/space/compliance/measures) setzen die gewählte Behandlungsstrategie operativ um.
+- [Aufgaben](/platform/space/issues) treiben die Umsetzung einzelner Maßnahmen und Reviews.
+- [Kontrollen](/platform/space/compliance/controls) decken Risiken durch dauerhaft etablierte Vorgaben ab.
+- [Feststellungen](/platform/space/compliance/findings) und [Audits](/platform/space/compliance/audits) sind häufige Auslöser für neue Risiken.
+- [Vorfälle](/platform/space/compliance/incidents) zeigen, dass sich ein Risiko realisiert hat, und führen oft zu einer Neubewertung.
+- [Assets](/platform/space/governance), Lieferanten und Prozesse beschreiben den Kontext, in dem das Risiko wirkt.
+- [Dokumente](/platform/space/documents) belegen Bewertung und Behandlung auditfest.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Risiken. Risiken anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten. Die Verantwortliche darf "ihr" Risiko jederzeit aktualisieren, auch wenn sie sonst nur Leserechte hätte. Risiken archivieren darf, wer das Risiko bearbeiten darf. Risiken löschen ist Admins des Space vorbehalten. Risikokategorien und Toleranzgrenzen werden zentral verwaltet und brauchen Admin-Rechte.
+
+## Best Practices
+
+- Starte mit den drei bis fünf Top-Risiken deiner Organisation und etabliere früh eine regelmäßige Überprüfung.
+- Halte die Bewertungsskala teamweit verbindlich fest, sonst sind Risiken nicht vergleichbar.
+- Begründe jede Bewertung kurz im Kommentar, damit die Entscheidung auch in einem Audit standhält.
+- Verknüpfe Risiken sofort mit den betroffenen Assets und Kontrollen, damit der Kontext nicht verloren geht.
+- Erfasse das Restrisiko erst, wenn Maßnahmen wirklich wirken und Nachweise vorliegen.
+- Nutze Risikokategorien mit Toleranzgrenzen, damit Kopexa Überschreitungen automatisch sichtbar macht.
+- Plane Überprüfungen so eng, wie es die Kritikalität verlangt, und so weit, wie es realistisch durchhaltbar ist.
+
+## Stolperfallen
+
+- Risiken ohne Verantwortliche bleiben unbeachtet liegen. Weise eine Hauptverantwortliche zu, sobald das Risiko bewertet ist.
+- Wird die Bewertung nur "geschätzt" und nicht begründet, wirkt sie in einem Audit schwach. Halte die Argumentation im Kommentar fest.
+- Eine Maßnahme ist "geplant", aber nicht "wirksam"? Dann bleibt das Risiko auf "Handlungsbedarf", auch wenn das Restrisiko bereits niedriger aussieht.
+- Wenn du den Risikotyp falsch wählst, kannst du ihn später nicht mehr ändern. Lege bei Bedarf ein neues Risiko an.
+- Eine überfällige Überprüfung kippt den Status automatisch auf "Handlungsbedarf". Verlängere das Intervall oder schließe die Überprüfung ab.
+- Die Strategie "Akzeptieren" ohne Begründung und Frist hält keiner Prüfung stand. Dokumentiere immer, warum und wie lange du das Risiko in Kauf nimmst.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wie berechnet Kopexa den Risikowert?">
+Kopexa berechnet den Risikowert automatisch aus dem Produkt von Wahrscheinlichkeit und Konsequenz. Beide Werte liegen auf einer Skala von 1 bis 5, der Risikowert reicht damit von 1 bis 25. Sobald du eine der beiden Achsen änderst, wird der Wert sofort neu berechnet, sowohl für das initiale Risiko als auch für das Restrisiko.
+</Accordion>
+<Accordion title="Was ist der Unterschied zwischen initialem Risiko und Restrisiko?">
+Das initiale Risiko ist die Bewertung vor jeder Maßnahme. Das Restrisiko ist die Bewertung nach Umsetzung aller wirksamen Maßnahmen. Den Unterschied zwischen beiden zeigt die Wirkung deiner Behandlung. Bleibt das Restrisiko gleich, wirkt die Maßnahme nicht.
+</Accordion>
+<Accordion title="Warum steht mein Risiko auf 'Handlungsbedarf'?">
+Es fehlt mindestens eine Bedingung für "Aktiv". Häufige Auslöser: Verantwortliche oder Bewertungen sind unvollständig, die nächste Überprüfung ist überfällig, das Restrisiko überschreitet die Toleranz der Kategorie, eine verknüpfte Maßnahme ist nicht wirksam, oder es ist keine Behandlungsstrategie gewählt.
+</Accordion>
+<Accordion title="Was passiert, wenn ich 'Vermeiden' als Strategie wähle?">
+Kopexa archiviert das Risiko automatisch, weil die zugrundeliegende Aktivität nicht mehr stattfindet. Das Risiko bleibt für Audits und Historie erhalten, taucht aber nicht mehr in der Standard-Liste auf.
+</Accordion>
+<Accordion title="Wie erinnert mich Kopexa an fällige Überprüfungen?">
+Eine tägliche Hintergrundprüfung markiert Risiken mit überfälliger Überprüfung als "Handlungsbedarf". Außerdem erscheinen fällige Überprüfungen im Dashboard. Verantwortliche werden per Benachrichtigung informiert.
+</Accordion>
+<Accordion title="Kann ich Risiken aus einem Katalog übernehmen?">
+Ja. Im Reiter "Katalog" findest du vorbereitete Risiken, die du einzeln oder gebündelt in deinen Space übernehmen kannst. Titel, Beschreibung und Kategorie sind dann vorausgefüllt, Bewertung und Verantwortliche pflegst du selbst.
+</Accordion>
+<Accordion title="Wie wirkt sich die Risikotoleranz der Kategorie aus?">
+Setzt du in der Kategorie einen Schwellenwert für das Restrisiko, prüft Kopexa nach jeder Bewertung, ob ein Risiko diesen Wert überschreitet. Überschreitende Risiken werden als "Toleranz überschritten" gekennzeichnet und kippen automatisch auf "Handlungsbedarf".
+</Accordion>
+<Accordion title="Was unterscheidet eine Chance von einer Gefahr?">
+Eine Gefahr ist ein Ereignis mit negativer Auswirkung, das du vermeiden, mindern, übertragen oder akzeptieren willst. Eine Chance ist ein Ereignis mit positiver Auswirkung, das du ausschöpfen, verbessern, teilen oder akzeptieren willst. Beide nutzen dieselbe Bewertungslogik, aber unterschiedliche Behandlungsstrategien.
+</Accordion>
+</Accordions>
