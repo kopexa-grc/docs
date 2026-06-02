@@ -1,6 +1,119 @@
 ---
 title: Assets
-description: Inhalt folgt.
+description: Hardware, Software, Services und physische Geräte als Asset-Inventar verwalten.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Assets sind die Bausteine deiner IT- und Geschäftslandschaft. Du erfasst Hardware (Laptops, Server), Software (Anwendungen, Betriebssysteme), Services (Cloud-Dienste, APIs) und physische Objekte (Standorte, Räume, Geräte) als ein einheitliches Inventar. Jedes Asset hat einen Namen, eine Art, einen Status und eine verantwortliche Person. Über Verknüpfungen zu Risiken, Lieferanten, Prozessen und Personen wird sichtbar, welche Werte du schützen musst, wer sie nutzt und wo sie betroffen sein können.
+
+## Wann nutzt du es
+
+- Du brauchst ein zentrales Verzeichnis aller IT-Ressourcen für ISO 27001, NIS2 oder TISAX.
+- Ein Audit verlangt eine vollständige Asset-Liste mit Verantwortlichkeiten und Kritikalität.
+- Du willst Risiken nicht abstrakt, sondern konkret an einzelnen Anwendungen oder Geräten festmachen.
+- Bei einem Sicherheitsvorfall musst du schnell erkennen, welche Systeme betroffen sind.
+- Du planst Lebenszyklen, etwa Hardware-Austausch oder die Außerbetriebnahme einer Anwendung.
+
+## Das Wichtigste in Kürze
+
+- Assets gehören immer zu einem Space und werden über die Asset-Liste verwaltet.
+- Vier Arten stehen zur Verfügung: Service, Software, Hardware und Physisch.
+- Jedes Asset bekommt einen Status (Aktiv, Ausstehend, Aktion erforderlich, Veraltet, Entsorgt).
+- Über die Klassifizierung nach Vertraulichkeit, Integrität und Verfügbarkeit (CIA) entsteht eine Kritikalitätsbewertung.
+- Assets lassen sich hierarchisch verschachteln, etwa Server unter Anwendung oder Anwendung unter Dienst.
+- Kopexa kann Assets automatisch erfassen, wenn du eine entsprechende Integration aktiviert hast.
+
+## Typischer Ablauf
+
+1. Asset anlegen über die Schaltfläche "Asset hinzufügen" in der Liste.
+2. Art wählen (Service, Software, Hardware, Physisch) und Name vergeben.
+3. Beschreibung und Zweck ergänzen, damit dein Team versteht, wofür das Asset existiert.
+4. Verantwortliche Person und optional eine Vertretung zuweisen.
+5. Klassifizierung pflegen, also Vertraulichkeit, Integrität und Verfügbarkeit bewerten.
+6. Verknüpfungen setzen, zum Beispiel zu Lieferanten, Prozessen, Personen oder übergeordneten Assets.
+7. Status aktualisieren, sobald das Asset produktiv geht, abgelöst wird oder entsorgt ist.
+
+<Mermaid chart={`flowchart LR
+  A[Ausstehend] --> B[Aktion erforderlich]
+  B --> C[Aktiv]
+  A --> C
+  C --> D[Veraltet]
+  D --> E[Entsorgt]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Name | Kurze Bezeichnung des Assets | Pflicht | Klar formulieren, etwa "CRM-System" oder "MacBook Pro Vertrieb 2024". |
+| Art | Service, Software, Hardware oder Physisch | Pflicht | Hilft bei der Filterung und beim Risiko-Mapping. |
+| Beschreibung | Zweck und Kontext | Optional | Beschreibe, wofür das Asset im Geschäft genutzt wird. |
+| Verantwortliche Person | Hauptansprechpartner | Optional | Genau eine Person als Verantwortliche kennzeichnen. |
+| Vertretung | Stellvertretende Person | Optional | Wird bei Abwesenheit der Verantwortlichen benachrichtigt. |
+| Status | Lebenszyklus-Phase | Pflicht | Wird bei Anlage auf "Ausstehend" gesetzt. |
+| Vertraulichkeit | Niedrig, Mittel, Hoch | Optional | Spiegelt, wie sensibel die Daten oder das Asset sind. |
+| Integrität | Niedrig, Mittel, Hoch | Optional | Wie kritisch ist es, dass die Daten unverändert bleiben? |
+| Verfügbarkeit | Niedrig, Mittel, Hoch | Optional | Wie wichtig ist permanente Erreichbarkeit? |
+| Kritikalität | Auswirkung bei Ausfall | Optional | Aus der CIA-Bewertung abgeleitet, kann auch manuell gesetzt werden. |
+| Seriennummer, Modell, Hersteller, Betriebssystem | Hardware-spezifisch | Optional | Für Audits und Lebenszyklusplanung hilfreich. |
+| Standort, Gebäude, Etage, Raum | Physisch-spezifisch | Optional | Für physische Assets wichtig, etwa Server oder Notfall-Geräte. |
+| Sicherheitszonen-Level | Physisches Schutzniveau | Optional | Steuert, wer Zugang haben darf. |
+| Interne ID | Eigene Kennung aus deinem System | Optional | Pro Space eindeutig, hilft beim Import und Abgleich. |
+
+## Was im Hintergrund passiert
+
+- Wenn du eine Integration wie Microsoft 365 oder Okta aktivierst, kann Kopexa verbundene Anwendungen, Geräte und Personen automatisch erfassen und als Assets anlegen. Die Quelle wird im Asset hinterlegt, damit du erkennst, ob ein Eintrag manuell oder automatisch entstanden ist.
+- Wird ein Asset mit einem Risiko verknüpft, fließt die Kritikalität in die Risikobewertung ein.
+- Klassifizierung und Eigentümerschaft können auf untergeordnete Assets vererbt werden, wenn du das beim Pflegen aktivierst.
+- Bei wichtigen Änderungen werden Verantwortliche und Vertretung benachrichtigt.
+- Aus dem Status leitet Kopexa ab, welche Assets aktiv in der Bewertung berücksichtigt werden.
+
+## Verknüpfungen
+
+- [Risiken](/platform/space/compliance/risks) für ein Asset erfassen und bewerten.
+- [Lieferanten](/platform/space/organisation/vendors) zuordnen, wenn ein Asset von einem Dienstleister bereitgestellt wird.
+- [Prozesse](/platform/space/organisation/processes) verknüpfen, in denen das Asset eine Rolle spielt.
+- [Personen](/platform/space/organisation/people) und [Abteilungen](/platform/space/organisation/business-units) zuweisen, die das Asset nutzen oder verantworten.
+- [Informationswerte](/platform/space/organisation/information-assets) hängen an Assets, die diese Daten verarbeiten oder speichern.
+- [Aufgaben](/platform/space/issues), [Vorfälle](/platform/space/governance) und [Dokumente](/platform/space/documents) am Asset dokumentieren.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht das Asset-Inventar. Assets anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Verantwortliche und Vertretung dürfen "ihre" Assets immer aktualisieren. Löschen dürfen nur Admins oder die Person, die das Asset erstellt hat. Automatisch erfasste Assets können in der Regel nicht direkt gelöscht werden, solange die Integration aktiv ist, sie werden über den Status "Entsorgt" oder "Veraltet" geführt.
+
+## Best Practices
+
+- Beginne mit den Assets, die für deine wichtigsten Geschäftsprozesse zentral sind. Lückenlosigkeit kommt schrittweise.
+- Klassifiziere jedes Asset zumindest grob nach CIA, sonst bleibt die Risikoanalyse abstrakt.
+- Nutze die Hierarchie für komplexe Systeme. Ein "CRM" als übergeordnetes Asset und darunter Server, Datenbank und Integration ergibt ein klareres Bild als eine flache Liste.
+- Pflege die Quelle und die externe ID, wenn du Daten aus mehreren Systemen zusammenführst.
+- Setze für jedes kritische Asset eine Vertretung, damit es nie ohne Ansprechpartner ist.
+
+## Stolperfallen
+
+- Ohne Verantwortliche bleibt ein Asset bei Audits unsichtbar. Lege bei jeder Anlage eine Person fest.
+- Automatisch erfasste Assets brauchen oft eine fachliche Ergänzung, etwa Kritikalität und Zweck. Die reine Discovery reicht nicht für Compliance.
+- Wenn du dasselbe System manuell und über eine Integration anlegst, entstehen Duplikate. Prüfe vor dem manuellen Anlegen, ob es schon aus einer Quelle existiert.
+- Eine fehlende CIA-Klassifizierung blockiert nichts, lässt aber abgeleitete Risikobewertungen unscharf.
+- Sub-Assets können verwaisen, wenn das übergeordnete Asset gelöscht wird. Aktiviere die Vererbung mit Bedacht.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wie unterscheiden sich Assets und Informationswerte?">
+Assets sind die Werkzeuge und Systeme. Ein Server, eine Software, ein Service. Informationswerte sind die Daten, die in oder durch Assets fließen. Ein CRM ist ein Asset, die Kundendaten darin sind ein Informationswert. Du verknüpfst beide miteinander, damit klar ist, welche Daten wo verarbeitet werden.
+</Accordion>
+<Accordion title="Kann ich Assets aus einer Excel-Liste importieren?">
+Ja, über die Import-Funktion in der Asset-Liste. Wichtig ist, dass Verantwortliche per E-Mail-Adresse zu bestehenden Mitgliedern des Space passen und die Art (Service, Software, Hardware, Physisch) korrekt gesetzt ist.
+</Accordion>
+<Accordion title="Was bedeutet die CIA-Klassifizierung?">
+CIA steht für Confidentiality (Vertraulichkeit), Integrity (Integrität) und Availability (Verfügbarkeit). Du bewertest pro Dimension, wie hoch der Schutzbedarf ist. Aus den drei Werten leitet Kopexa eine Gesamt-Kritikalität ab und verbindet diese mit Risiken.
+</Accordion>
+<Accordion title="Wer wird informiert, wenn sich ein Asset ändert?">
+Verantwortliche und Vertretung erhalten Benachrichtigungen bei Statuswechsel, Eigentümerwechsel und bei neuen Verknüpfungen, etwa wenn ein Risiko angehängt wird.
+</Accordion>
+<Accordion title="Kann Kopexa automatisch Assets erkennen?">
+Ja. Wenn du eine Integration aktivierst, zum Beispiel mit Microsoft 365 oder einem Identity-Provider, erfasst Kopexa verbundene Anwendungen, Konten und Geräte automatisch. Die Einträge werden mit der Quelle markiert. Du ergänzt anschließend Kontext wie Verantwortliche und Kritikalität.
+</Accordion>
+</Accordions>
