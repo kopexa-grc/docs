@@ -1,6 +1,155 @@
 ---
-title: Einstellungen
-description: Inhalt folgt.
+title: Organisations-Einstellungen
+description: Profil, Mitglieder, Domains, Abonnement und administrative Aktionen deiner Organisation
 ---
 
-Inhalt folgt.
+In den **Organisations-Einstellungen** verwaltest du alles, was deine Organisation als Ganzes betrifft: Profil und Adresse, Mitglieder, Domains, Abonnement sowie sensible Aktionen wie Übertragung oder Löschung. Du findest sie auf Organisations-Ebene unter `/o/{slug}/settings/`.
+
+## Worum geht's
+
+Diese Einstellungen liegen oberhalb der einzelnen Spaces. Was du hier änderst, gilt für die gesamte Organisation. Dazu gehören Stammdaten wie Name und Logo, die Mitgliederliste, deine Domains für Single Sign-On und Auto-Join, dein Abonnement sowie die Gefahrenzone für Übertragung und Löschung der Organisation.
+
+## Wann nutzt du es
+
+- Du willst Name, Logo oder Adresse deiner Organisation aktualisieren.
+- Du musst neue Mitglieder einladen oder Rollen anpassen.
+- Du richtest eine eigene Domain mit Single Sign-On ein.
+- Du möchtest dein Abonnement einsehen oder anpassen.
+- Du willst die Organisation an ein anderes Mitglied übertragen oder dauerhaft löschen.
+
+## Das Wichtigste in Kürze
+
+- **Allgemein**: Name, Logo, Slug, Beschreibung, Webseite und Adresse.
+- **Mitglieder**: aktive Mitglieder und ausstehende Einladungen, Rollen ändern, Mitglieder entfernen.
+- **Domains**: eigene Domains hinzufügen, per DNS-TXT-Eintrag verifizieren, Auto-Join und SAML SSO konfigurieren.
+- **Spaces**: Überblick über alle Spaces der Organisation, neue Spaces anlegen.
+- **Abrechnung**: Tarif, Rechnungsadresse und Zahlungsmethode.
+- **Gefahrenzone**: Eigentumsübertragung und Löschung der Organisation, beide abgesichert mit 2FA und E-Mail-Bestätigung.
+
+## Typischer Ablauf
+
+1. Du öffnest die Einstellungen über die Seitenleiste.
+2. Du wählst den passenden Bereich (z. B. **Mitglieder**).
+3. Du nimmst die Änderung vor.
+4. Bei sensiblen Aktionen (Übertragung, Löschung, Slug-Wechsel) bestätigst du zusätzlich per E-Mail oder 2FA.
+
+<Mermaid chart={`
+graph TD
+    A[Einstellungen] --> B[Allgemein]
+    A --> C[Mitglieder]
+    A --> D[Domains]
+    A --> E[Spaces]
+    A --> F[Abrechnung]
+    A --> G[Gefahrenzone]
+    G --> H[Eigentum übertragen]
+    G --> I[Organisation löschen]
+    H --> J[E-Mail + 2FA]
+    I --> J
+    style G fill:#ffebee
+    style J fill:#fff3e0
+`} />
+
+## Felder & Eingaben
+
+### Allgemein
+
+| Feld | Bedeutung |
+|---|---|
+| Name | Anzeigename deiner Organisation. |
+| Logo | Bild bis 2 MB, wird in der Navigation und auf Berichten genutzt. |
+| URL-Slug | Teil der URL. Eine Änderung wirkt sich auf alle bestehenden Links aus. |
+| Beschreibung | Kurze Erklärung, was deine Organisation tut. |
+| Webseite | Öffentliche Webseite. |
+| Adresse | Straße, Postleitzahl, Stadt, Bundesland, Land. |
+
+### Mitglieder
+
+| Feld | Bedeutung |
+|---|---|
+| E-Mail-Adresse | Einladung wird per E-Mail verschickt. |
+| Rolle | Mitglied, Admin, Betrachter (Eigentümer entsteht nur durch Übertragung). |
+| Persönliche Nachricht | Optionaler Text in der Einladungsmail. |
+
+### Domains
+
+| Feld | Bedeutung |
+|---|---|
+| Domain | Vollständige Domain (z. B. `acme.de`). |
+| DNS-TXT-Eintrag | Wert, den du im DNS deiner Domain setzen musst, um sie zu verifizieren. |
+| Auto-Join | Steuert, ob neue Nutzer mit passender E-Mail-Domain automatisch beitreten und mit welcher Rolle. |
+| SAML SSO | Konfiguration für Single Sign-On gegen deinen Identity Provider. |
+
+### Abrechnung
+
+| Feld | Bedeutung |
+|---|---|
+| Tarif | Aktueller Produkttarif (z. B. Starter). |
+| Rechnungs-Mail | Empfänger-Adresse für Rechnungen. |
+| Rechnungsadresse | Vollständige Adresse für die Rechnungsstellung. |
+
+## Was im Hintergrund passiert
+
+- **Slug-Änderung**: Alle bestehenden Links zur Organisation ändern sich. Lesezeichen werden ungültig. Der neue Slug muss global eindeutig sein.
+- **Mitglied einladen**: Es wird eine E-Mail mit einem Einladungslink versendet, der 14 Tage gültig ist.
+- **Domain hinzufügen**: Erst nach erfolgreicher DNS-Verifizierung lassen sich Auto-Join und SSO aktivieren.
+- **Eigentumsübertragung**: Drei Schritte sichern den Vorgang: Du wählst das Mitglied, bestätigst per E-Mail und der neue Eigentümer bestätigt ebenfalls per E-Mail und 2FA. Eine Übertragung läuft nach drei Tagen automatisch ab.
+- **Löschung**: Du beantragst die Löschung mit 2FA, erhältst eine Bestätigungs-E-Mail und musst dort erneut deinen 2FA-Code eingeben. Die Anfrage läuft nach 24 Stunden ab. Spaces müssen vor der Löschung manuell entfernt werden.
+
+## Verknüpfungen
+
+- [Quickstart: SSO einrichten](../../quickstart/) für die Konfiguration deines Identity Providers.
+- [Kunden](../customers/) und [Partner](../partners/) für externe Beziehungen.
+- [Partner-Dashboard](../dashboard/) für Provisionen, sofern du Partner-Organisation bist.
+- [Spaces](../../space/) für die Arbeitsbereiche innerhalb deiner Organisation.
+
+## Berechtigungen
+
+- **Eigentümer**: alle Einstellungen, inklusive Übertragung und Löschung.
+- **Admin**: Profil, Mitglieder, Domains, Spaces, Abrechnung. Keine Übertragung, keine Löschung.
+- **Mitglied**: Profil einsehen, eigene Mitgliedschaft sehen.
+- **Betrachter**: Profil einsehen.
+
+## Best Practices
+
+- Hinterlege ein Logo und eine vollständige Adresse, damit Rechnungen und Exporte sauber aussehen.
+- Vergebe die Rolle **Admin** sparsam. Für die meisten Mitarbeitenden reicht **Mitglied**.
+- Verifiziere mindestens eine Domain, damit du Auto-Join und SSO nutzen kannst.
+- Aktiviere SSO, wenn dein Identity Provider es unterstützt. Es vereinfacht Onboarding und Offboarding deutlich.
+- Halte die Rechnungsadresse aktuell. Falsche Adressen führen zu Verzögerungen.
+- Wechsle den Slug nur, wenn es wirklich nötig ist. Bestehende Links brechen.
+
+## Stolperfallen
+
+- **Slug-Wechsel**: Vorhandene Lesezeichen und geteilte Links funktionieren nicht mehr.
+- **Übertragung**: Nach Annahme durch den Empfänger wirst du selbst zum normalen Mitglied. Eine Übertragung lässt sich nicht starten, solange eine Löschung aussteht.
+- **Löschung**: Sie ist endgültig. Alle Daten, Mitglieder und Einstellungen werden entfernt. Spaces müssen vorher gelöscht sein.
+- **Domain-Verifizierung**: Ohne TXT-Eintrag bleibt die Domain unverifiziert und SSO/Auto-Join sind nicht möglich.
+- **Eigentümer entfernen**: Ein Eigentümer kann sich nicht selbst aus der Organisation entfernen. Übertrage zuerst das Eigentum.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wie unterscheiden sich Eigentümer, Admin, Mitglied und Betrachter?">
+Der **Eigentümer** kann alles, inklusive Übertragen und Löschen. **Admins** verwalten Mitglieder, Profil und Domains, aber keine Eigentumswechsel. **Mitglieder** arbeiten in Spaces. **Betrachter** dürfen nur lesen.
+</Accordion>
+
+<Accordion title="Wie richte ich SSO mit meinem Identity Provider ein?">
+Füge zuerst deine Domain hinzu und verifiziere sie per DNS-TXT-Eintrag. Aktiviere dann SAML SSO in den Domain-Einstellungen, kopiere die Service-Provider-Werte zu deinem Identity Provider und trage dessen Metadaten in Kopexa ein. Den vollständigen Ablauf findest du im [Quickstart](../../quickstart/).
+</Accordion>
+
+<Accordion title="Was bedeutet Auto-Join?">
+Neue Nutzer mit einer E-Mail-Adresse auf einer verifizierten Domain treten automatisch deiner Organisation bei. Du legst fest, mit welcher Rolle.
+</Accordion>
+
+<Accordion title="Kann ich eine Übertragung abbrechen?">
+Ja. Solange der Empfänger noch nicht endgültig bestätigt hat, kannst du die Übertragung in den Einstellungen abbrechen.
+</Accordion>
+
+<Accordion title="Was passiert nach der Löschung mit unseren Daten?">
+Die Organisation und alle zugehörigen Daten werden dauerhaft entfernt. Eine Wiederherstellung ist nicht vorgesehen. Plane gegebenenfalls vorher einen Export deiner Spaces.
+</Accordion>
+
+<Accordion title="Wieso sehe ich die Gefahrenzone nicht?">
+Nur der Eigentümer der Organisation darf Übertragung und Löschung anstoßen. Für andere Rollen ist der Bereich ausgeblendet.
+</Accordion>
+</Accordions>
