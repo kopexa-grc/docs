@@ -1,6 +1,136 @@
 ---
 title: Behörden
-description: Inhalt folgt.
+description: Aufsichts- und Meldebehörden mit Zuständigkeit und Kontaktdaten zentral pflegen.
 ---
 
-Inhalt folgt.
+Im Bereich Behörden pflegst du die Aufsichtsbehörden, die für deinen Space relevant sind: Datenschutzaufsicht, Meldestellen, Branchenaufsichten. Pro Behörde hältst du Name, Zuständigkeit und Kontaktdaten fest. Diese Liste nutzt du, wenn du Vorfälle melden, Verstöße anzeigen oder einfach nur dokumentieren willst, wer im Ernstfall zu informieren ist.
+
+<Callout type="info">
+Diese Liste ist eine Konfigurationsliste. Sie liefert Stammdaten für Vorfälle, Datenpannenmeldungen und ähnliche Module. Im Ernstfall sparst du wertvolle Minuten, wenn die Kontakte stimmen.
+</Callout>
+
+## Worum geht's
+
+Wenn eine Datenpanne passiert oder ein meldepflichtiger Vorfall vorliegt, läuft die Uhr. Art. 33 DSGVO verlangt eine Meldung innerhalb von 72 Stunden. Wer in diesem Moment erst die zuständige Behörde suchen muss, verliert wertvolle Zeit. Mit einer gepflegten Behörden-Liste hast du sofort die richtigen Kontaktdaten, die richtige Sprache, das passende Portal und die zuständige Person zur Hand.
+
+## Wann nutzt du es
+
+- Du legst einen meldepflichtigen Vorfall an und musst die zuständige Aufsichtsbehörde benennen.
+- Eine neue Aufsicht wird relevant, etwa eine neue Landesbehörde oder eine internationale Stelle.
+- Du willst pro Jurisdiktion festlegen, welche Behörde zuständig ist.
+- Eine Behörde hat ihre Kontaktdaten geändert.
+- Eine Behörde ist nicht mehr zuständig und kann entfernt werden.
+
+## Das Wichtigste in Kürze
+
+- **Name als Hauptidentität**: Etwa "Bayerisches Landesamt für Datenschutzaufsicht" oder "CNIL".
+- **Zuständigkeit klären**: Welches Land, welche Region, welche Themen.
+- **Kontaktdaten pro Behörde**: E-Mail, Telefon, Website. Mindestens eine Adresse, an die du dich tatsächlich wenden kannst.
+- **Verknüpfung mit Vorfällen**: Pro Vorfall lassen sich eine oder mehrere zuständige Behörden benennen.
+- **Soft-Delete**: Gelöschte Einträge bleiben markiert, damit historische Vorfälle weiterhin korrekt referenzieren.
+
+## Typischer Ablauf
+
+1. **Liste öffnen**: In den Space-Einstellungen den Bereich Behörden aufrufen.
+2. **Behörde anlegen**: Name, Zuständigkeit, Kontakt-E-Mail eintragen.
+3. **Optionale Felder pflegen**: Telefon, Website und Notizen zur Behörde.
+4. **In anderen Modulen nutzen**: Bei Vorfällen, Datenpannen und Meldungen die zuständige Behörde aus der Liste auswählen.
+5. **Pflegen**: Kontaktdaten und Zuständigkeit aktuell halten. Bei Reorganisationen Behörden zusammenführen oder ergänzen.
+
+<Mermaid
+  chart={`
+graph LR
+    A[Behörden Liste] --> B[Vorfälle]
+    A --> C[Datenpannenmeldungen]
+    A --> D[Compliance-Reports]
+    A --> E[Kontaktverzeichnis]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Offizieller Name der Aufsichtsbehörde, etwa "Bayerisches Landesamt für Datenschutzaufsicht". |
+| Kontakt-E-Mail | Empfohlen | Offizielle Adresse für Meldungen und Anfragen. |
+| Telefon | Optional | Für dringende Anliegen. |
+| Website | Optional | Offizielle Website der Behörde, oft mit Meldeformularen. |
+| Zuständigkeit | Optional | Region oder Themenfeld, das die Behörde abdeckt. Interne Hinweise und besondere Anforderungen. |
+
+## Was im Hintergrund passiert
+
+- **Verknüpfungen mit Vorfällen**: Eine Behörde lässt sich an mehrere Vorfälle hängen. So entsteht ein klarer Meldepfad.
+- **Soft-Delete**: Gelöschte Behörden bleiben für historische Vorfälle referenzierbar, erscheinen aber nicht mehr in Auswahllisten.
+- **Pflegen über die Plattform**: Berechtigungen und Lebenszyklus laufen wie bei anderen Stammdatenlisten in den Space-Einstellungen.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Vorfälle"
+    description="Bei Meldungen wird die zuständige Behörde aus dieser Liste ausgewählt."
+    href="/docs/platform/space/governance/incidents"
+    color="orange"
+  />
+  <FeatureCard
+    title="Datenpannen"
+    description="Datenpannenmeldungen referenzieren die zuständige Datenschutzaufsicht."
+    href="/docs/platform/space/datenschutz/data-breaches"
+    color="purple"
+  />
+  <FeatureCard
+    title="Kommunikationskanäle"
+    description="Pro Behörde lässt sich der bevorzugte Meldeweg dokumentieren."
+    href="/docs/platform/space/einstellungen/communication-channels"
+    color="blue"
+  />
+  <FeatureCard
+    title="Betroffenenanfragen"
+    description="Bei Beschwerden bei der Aufsichtsbehörde kannst du die zuständige Stelle direkt referenzieren."
+    href="/docs/platform/space/datenschutz/data-subject-requests"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Behörden anlegen, bearbeiten, löschen |
+| Mitglied | Lesen und in Modulen auswählen |
+| Viewer | Lesen |
+
+## Best Practices
+
+- **Offizielle Bezeichnungen verwenden**: "Bayerisches Landesamt für Datenschutzaufsicht" statt "BayLDA" im Namen. Abkürzungen passen besser in die Zuständigkeit oder in Notizen.
+- **Eine zentrale E-Mail pflegen**: Die offizielle Adresse für Meldungen. Nicht die persönliche Adresse einer Ansprechperson.
+- **Zuständigkeit klar abgrenzen**: Welche Themen deckt die Behörde ab (Datenschutz, IT-Sicherheit, Branchenaufsicht). So findet ihr im Ernstfall schneller die richtige Stelle.
+- **Periodisch prüfen**: Aufsichtsbehörden ändern Adressen, Portale und Zuständigkeiten. Einmal pro Jahr durchgehen lohnt sich.
+- **Branchenaufsichten ergänzen**: Datenschutz ist nicht die einzige Aufsicht. Auch Finanzaufsichten, Gesundheits- oder Telekommunikationsaufsichten gehören in die Liste, wenn sie für deinen Space relevant sind.
+
+## Stolperfallen
+
+- **Nur die Datenschutzaufsicht erfassen**: Bei IT-Sicherheitsvorfällen oder Branchenmeldungen sind oft andere Stellen zuständig. Frühzeitig ergänzen.
+- **Veraltete Kontakte**: Eine E-Mail, an die niemand antwortet, ist im Ernstfall fatal. Mindestens jährlich validieren.
+- **Internationale Aufsichten vergessen**: Wer Daten in mehrere EU-Länder verarbeitet, hat oft mehrere zuständige Behörden, im worst case eine federführende und mehrere betroffene.
+- **Generische Namen**: "Datenschutz" als Eintrag hilft niemandem. Immer die konkrete Behörde benennen.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Wer ist meine zuständige Datenschutzaufsicht in Deutschland?">
+    In der Regel die Aufsichtsbehörde des Bundeslandes, in dem deine Niederlassung sitzt. Bei mehreren Niederlassungen gilt die Hauptniederlassung. Pflege beide in der Liste, wenn sinnvoll, und markiere die federführende.
+  </Accordion>
+  <Accordion title="Brauche ich auch internationale Aufsichten?">
+    Wenn deine Organisation Daten in mehreren EU-Ländern verarbeitet, ja. Die federführende Aufsicht plus die betroffenen Aufsichten gehören in die Liste.
+  </Accordion>
+  <Accordion title="Was, wenn eine Aufsicht ihre Zuständigkeit ändert?">
+    Trag die neue Zuständigkeit in die bestehende Behörde ein und passe gegebenenfalls den Namen an. So bleiben historische Verknüpfungen erhalten.
+  </Accordion>
+  <Accordion title="Was passiert mit einer gelöschten Behörde in alten Vorfällen?">
+    Bestehende Vorfälle behalten den Verweis. Die Behörde erscheint nur nicht mehr in Auswahllisten für neue Vorfälle.
+  </Accordion>
+  <Accordion title="Kann ich neben Aufsichtsbehörden auch andere Stellen pflegen, etwa CERT-Stellen?">
+    Ja. Die Liste ist offen für alle relevanten Aufsichts-, Melde- und Koordinationsstellen, die du im Ernstfall ansprechen musst.
+  </Accordion>
+</Accordions>
