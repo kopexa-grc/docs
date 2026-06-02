@@ -9,9 +9,8 @@ Diese Anleitung führt dich durch die ersten Schritte in Kopexa. Am Ende hast du
 - ein laufendes Programm auf Basis eines Frameworks (zum Beispiel ISO 27001)
 - ein Asset im Inventar
 - ein bewertetes Risiko
-- eine zugewiesene Kontrolle
-- eine umgesetzte Maßnahme
-- einen ersten Nachweis
+- eine angelegte Maßnahme, die das Risiko reduziert und eine Kontrolle erfüllt
+- einen ersten Nachweis an der Maßnahme
 
 ## Voraussetzungen
 
@@ -155,26 +154,13 @@ Kopexa berechnet den Risikowert automatisch aus dem Produkt: 12 (Hoch).
 3. Erfasse optional eine **Erläuterung** der Bewertung.
 4. Wähle eine **Behandlungsstrategie** (Vermeiden, Mindern, Übertragen, Akzeptieren) und begründe sie kurz.
 
-## 7. Kontrolle verknüpfen
+## 7. Maßnahme anlegen und mit Kontrolle verknüpfen
 
-Verknüpfe das Risiko mit einer passenden Kontrolle aus deinem Programm.
+Maßnahmen sind in Kopexa das Bindeglied zwischen Risiken und Kontrollen. Eine Maßnahme beschreibt, *wie* du etwas in deiner Organisation tust, und verknüpft sich mit den Risiken, die sie reduziert, und den Kontrollen, deren Anforderung sie erfüllt.
 
-1. In der Detailansicht des Risikos: Bereich **Kontrollen** öffnen.
-2. Klicke auf **Kontrolle verknüpfen**.
-3. Suche zum Beispiel nach "Zugang" oder "Access".
-4. Wähle eine passende Kontrolle aus deinem ISO-27001-Programm, etwa **A.5.15 Access Control**.
-5. Bestätige die Verknüpfung.
-
-Die Kontrolle beschreibt das *Was*: die Anforderung aus dem Framework.
-
-## 8. Maßnahme anlegen
-
-Eine Maßnahme beschreibt, *wie* du eine Kontrolle in deiner Organisation umsetzt.
-
-1. Öffne die eben verknüpfte Kontrolle.
-2. Wechsle in den Bereich **Maßnahmen**.
-3. Klicke auf **Maßnahme erstellen**.
-4. Trage ein:
+1. In der Detailansicht des Risikos: Bereich **Maßnahmen** öffnen.
+2. Klicke auf **Maßnahme erstellen**.
+3. Trage ein:
 
 | Feld | Beispiel | Hinweis |
 |------|----------|---------|
@@ -185,24 +171,35 @@ Eine Maßnahme beschreibt, *wie* du eine Kontrolle in deiner Organisation umsetz
 | Automatisierungsgrad | Teilautomatisiert | optional |
 | Verantwortliche | Max Mustermann | optional |
 | Umsetzungsdatum | 01.02.2026 | optional, wann die Maßnahme umgesetzt wurde |
+| Verknüpfte Kontrollen | A.5.15 Access Control | aus deinem Programm; Maßnahmen können mehrere Kontrollen erfüllen |
 
-5. Klicke auf **Erstellen**.
+4. Klicke auf **Erstellen**. Die Maßnahme ist automatisch mit dem Risiko verknüpft, weil du sie von dort aus angelegt hast.
 
 <Callout type="info">
-**Kontrolle gegen Maßnahme:** Die Kontrolle sagt "Benutzerregistrierung muss gesteuert ablaufen" (Was). Die Maßnahme sagt "Wir nutzen AD mit Ticket-basiertem Onboarding" (Wie).
+**Kontrolle gegen Maßnahme:** Die Kontrolle sagt "Benutzerregistrierung muss gesteuert ablaufen" (Was, Framework-Anforderung). Die Maßnahme sagt "Wir nutzen AD mit Ticket-basiertem Onboarding" (Wie, deine Umsetzung). Im Risiko siehst du die zugeordneten Kontrollen anschließend aggregiert über die verknüpften Maßnahmen.
 </Callout>
 
-## 9. Nachweis anhängen
+## 8. Nachweis an Maßnahme hängen
 
-Dokumentiere abschließend, dass die Maßnahme umgesetzt ist. Ein Nachweis ist immer ein Dokument. Du hast drei Wege:
+Dokumentiere abschließend, dass die Maßnahme umgesetzt ist. Nachweise hängen immer an Maßnahmen und sind in Kopexa immer ein Dokument.
 
-1. Öffne die Maßnahme oder die zugehörige Kontrolle.
+1. Öffne die eben angelegte Maßnahme.
 2. Wechsle in den Bereich **Nachweise**.
 3. Klicke auf **Nachweis hinzufügen**. Es öffnet sich ein Dialog mit drei Reitern:
    - **Vorhandenes Dokument**: ein bereits in Kopexa angelegtes Dokument auswählen.
    - **Datei hochladen**: eine Datei (zum Beispiel PDF, DOCX, Screenshot) hochladen. Kopexa legt automatisch ein Dokument an, dem du Titel und Kategorie gibst.
    - **Dokument erstellen**: ein neues Dokument direkt in Kopexa schreiben.
 4. Wähle einen Reiter, fülle die nötigen Felder und bestätige.
+
+Über die Kontrolle siehst du den Nachweis später automatisch, weil er an der Maßnahme hängt, die die Kontrolle erfüllt.
+
+## 9. Restrisiko bewerten und Reviewzyklus setzen
+
+Sobald die Maßnahme wirkt, bewertest du das Restrisiko.
+
+1. Öffne das Risiko erneut.
+2. Bewerte das **Restrisiko** mit Wahrscheinlichkeit und Konsequenz, jetzt nach Wirkung deiner Maßnahmen.
+3. Setze ein **Überprüfungsintervall** (zum Beispiel jährlich), damit Kopexa rechtzeitig an die nächste Bewertung erinnert.
 
 ## Geschafft
 
@@ -211,17 +208,16 @@ Du hast jetzt:
 - eine Organisation und einen Space
 - ein Programm auf Basis von ISO 27001
 - ein Asset im Inventar
-- ein bewertetes Risiko
-- eine zugewiesene Kontrolle
-- eine angelegte Maßnahme
-- einen ersten Nachweis
+- ein bewertetes Risiko mit Restrisiko und Reviewzyklus
+- eine Maßnahme, die das Risiko reduziert und eine Kontrolle erfüllt
+- einen Nachweis an der Maßnahme
 
 Das ist der Kern-Ablauf in Kopexa:
 
-**Asset → Risiko → Kontrolle → Maßnahme → Nachweis**
+**Asset → Risiko → Maßnahme → Kontrolle**, mit **Nachweisen an der Maßnahme**
 
 - **Kontrolle**: Was muss erfüllt werden (Framework-Anforderung)
-- **Maßnahme**: Wie setzen wir es um (konkrete Umsetzung)
+- **Maßnahme**: Wie setzen wir es um (deine konkrete Umsetzung). Sie verknüpft Risiken und Kontrollen miteinander und sammelt die Nachweise.
 
 ## Nächste Schritte
 

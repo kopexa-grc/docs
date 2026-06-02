@@ -12,21 +12,23 @@ Vom identifizierten Risiko bis zum Nachweis im Audit.
 <Mermaid chart={`
 flowchart LR
   R[Risiko anlegen] --> B[Bewerten]
-  B --> M[Maßnahmen festlegen]
-  M --> K[Kontrollen verknüpfen]
-  K --> N[Nachweise sammeln]
-  N --> RE[Regelmäßig überprüfen]
+  B --> S[Behandlungsstrategie wählen]
+  S --> M[Maßnahmen anlegen]
+  M --> K[Maßnahme mit Kontrolle verknüpfen]
+  K --> N[Nachweise an Maßnahme]
+  N --> RE[Restrisiko bewerten und überprüfen]
   RE --> B
 `} />
 
-1. **Risiko anlegen**: Du erfasst ein Risiko mit Titel, Beschreibung und Bezug (Asset, Prozess oder Lieferant).
-2. **Bewerten**: Du bewertest Auswirkung und Eintrittswahrscheinlichkeit. Die Risikomatrix zeigt dir die Kritikalität.
-3. **Maßnahmen festlegen**: Du entscheidest, ob du das Risiko reduzierst, übernimmst, überträgst oder vermeidest.
-4. **Kontrollen verknüpfen**: Du verknüpfst das Risiko mit passenden Kontrollen aus deinen Frameworks.
-5. **Nachweise sammeln**: An Kontrollen und Maßnahmen hängst du Belege wie Reports, Verträge oder Konfigurations-Auszüge.
-6. **Regelmäßig überprüfen**: Zum festgelegten Termin prüfst du oder eine Reviewerin das Risiko erneut.
+1. **Risiko anlegen**: Du erfasst ein Risiko mit Titel, Kategorie und Bezug (Asset, Prozess oder Lieferant).
+2. **Bewerten**: Du bewertest Wahrscheinlichkeit und Konsequenz. Kopexa berechnet den Risikowert automatisch.
+3. **Behandlungsstrategie wählen**: Vermeiden, Mindern, Übertragen oder Akzeptieren.
+4. **Maßnahmen anlegen**: Du legst pro Risiko eine oder mehrere Maßnahmen an, die die Behandlung operativ umsetzen.
+5. **Maßnahme mit Kontrolle verknüpfen**: Wenn die Maßnahme eine Framework-Anforderung erfüllt, verknüpfst du sie mit der passenden Kontrolle aus deinem Programm. Im Risiko siehst du die Kontrollen anschließend aggregiert über die verknüpften Maßnahmen.
+6. **Nachweise an Maßnahme**: An jeder Maßnahme hängst du Belege wie Reports, Verträge oder Konfigurations-Auszüge.
+7. **Restrisiko bewerten und überprüfen**: Sobald Maßnahmen wirken, bewertest du das Restrisiko. Zum festgelegten Termin wird das Risiko regelmäßig überprüft.
 
-Beteiligte Module: [Risiken](/platform/space/compliance/risks), [Kontrollen](/platform/space/compliance/controls), [Maßnahmen](/platform/space/compliance/measures), [Assets](/platform/space/organisation/assets).
+Beteiligte Module: [Risiken](/platform/space/compliance/risks), [Maßnahmen](/platform/space/compliance/measures), [Kontrollen](/platform/space/compliance/controls), [Assets](/platform/space/organisation/assets).
 
 ## Lieferanten-Onboarding
 

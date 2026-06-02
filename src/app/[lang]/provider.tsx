@@ -1,3 +1,4 @@
+"use client";
 import { defineI18nUI } from "fumadocs-ui/i18n";
 import { RootProvider } from "fumadocs-ui/provider/base";
 import type { ReactNode } from "react";
@@ -26,7 +27,8 @@ export function Provider({
 				hotKey: [
 					{
 						display: "K",
-						key: "k", // key code, or a function determining whether the key is pressed
+						key: (e) =>
+							(e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k",
 					},
 				],
 			}}
