@@ -1,6 +1,116 @@
 ---
 title: Kontrollen
-description: Inhalt folgt.
+description: Anforderungen aus Frameworks als Kontrollen abbilden, gegen Maßnahmen prüfen und den Erfüllungsgrad sichtbar machen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Eine Kontrolle ist eine konkrete Sicherheits- oder Compliance-Anforderung. Sie beschreibt, **was** dein Unternehmen erfüllen muss, zum Beispiel "Zugriffsrechte werden regelmäßig überprüft" oder "Sensible Daten werden verschlüsselt übertragen". Die Kontrolle stellt also die Frage. Die Antwort kommt aus den verknüpften Maßnahmen, die das "Wie" der Umsetzung beschreiben. Damit ist die Kontrolle der gemeinsame Bezugspunkt zwischen einem Framework-Standard und deiner tatsächlichen Umsetzung im Unternehmen.
+
+## Wann nutzt du es
+
+- Du arbeitest dich durch ein aktiviertes Framework und musst jede Anforderung gezielt adressieren.
+- Du willst nachvollziehen, ob eine konkrete Anforderung aus ISO 27001, NIS2 oder einem anderen Standard erfüllt ist.
+- Du möchtest dokumentieren, dass eine Anforderung für deinen Geltungsbereich nicht relevant ist (Statement of Applicability).
+- Du brauchst eine Anforderung, die in keinem Framework steht, etwa aus einem internen Richtliniendokument.
+- Du willst sehen, welche Maßnahmen und Nachweise eine bestimmte Anforderung abdecken.
+
+## Das Wichtigste in Kürze
+
+- Kontrollen sagen **was**, Maßnahmen sagen **wie**. Eine Kontrolle wird nicht direkt umgesetzt, sondern durch eine oder mehrere [Maßnahmen](/platform/space/compliance/measures) abgedeckt.
+- Der Status einer Kontrolle (Umgesetzt, Teilweise umgesetzt, Nicht umgesetzt, Nicht anwendbar) wird automatisch aus dem Status der verknüpften Maßnahmen abgeleitet.
+- "Nicht anwendbar" ist der einzige Status, den du bewusst selbst setzt. Damit dokumentierst du, dass eine Anforderung in deinem Scope nicht relevant ist.
+- Eine Kontrolle kann zu mehreren Frameworks gehören. Dieselbe Anforderung wird nur einmal gepflegt, deckt aber mehrere Standards ab.
+- Kontrollen kommen entweder aus einem aktivierten Framework, aus einem Katalog oder du legst sie selbst an.
+
+## Typischer Ablauf
+
+1. Über das Programm oder die Kontrollen-Übersicht eine Kontrolle öffnen, die aus einem aktivierten Framework stammt.
+2. Verantwortliche Person zuweisen, damit klar ist, wer den Stand pflegt.
+3. Passende Maßnahme verknüpfen oder neu anlegen, wenn die Kontrolle umgesetzt werden soll.
+4. Nachweise an die Maßnahme hängen, nicht direkt an die Kontrolle. So entsteht die durchgehende Kette von Anforderung über Umsetzung bis Nachweis.
+5. Status entstehen lassen: Sobald alle verknüpften Maßnahmen wirksam sind, schaltet die Kontrolle auf "Umgesetzt".
+6. Wenn die Anforderung für deinen Scope nicht relevant ist, die Kontrolle bewusst auf "Nicht anwendbar" setzen und kurz begründen.
+
+<Mermaid chart={`flowchart LR
+  A[Nicht umgesetzt] -->|Maßnahme verknüpft| B[Teilweise umgesetzt]
+  B -->|alle Maßnahmen wirksam| C[Umgesetzt]
+  C -->|Maßnahme verliert Wirksamkeit| B
+  A -.->|manuell gesetzt| D[Nicht anwendbar]
+  B -.->|manuell gesetzt| D
+  C -.->|manuell gesetzt| D
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Kurzer, klarer Name der Anforderung | Pflicht | Maximal 255 Zeichen | Bei Standards den offiziellen Wortlaut übernehmen. |
+| Referenzcode | ID im Framework, etwa A.5.1 oder AC-2 | Pflicht | Buchstaben, Ziffern, Bindestriche, Unterstriche, Punkte. Eindeutig je Framework | So lässt sich die Kontrolle einem Standard zuordnen. |
+| Beschreibung | Detaillierte Beschreibung der Anforderung | Pflicht | Freitext | Ziel, Umfang und gewünschtes Ergebnis. Standardwortlaut übernehmen, wo passend. |
+| Verantwortliche | Person, die für die Kontrolle zuständig ist | Optional | Mitglied des Space | Genau eine Hauptverantwortliche pflegen. |
+| Typ | Präventiv, Detektivisch, Korrektiv oder Abschreckend | Optional | Eingabefeld | Hilft bei der Auswertung der Kontrolllandschaft. |
+| Status | Aktueller Erfüllungsgrad | Berechnet | Wird automatisch aus den Maßnahmen abgeleitet, ausgenommen "Nicht anwendbar" | Manuell nur "Nicht anwendbar" setzen, alles andere ergibt sich. |
+| Begründung | Erläuterung bei "Nicht anwendbar" | Optional, aber empfohlen | Freitext | Wichtig für das Statement of Applicability. |
+| Umsetzungshinweise | Empfehlungen, wie die Kontrolle erfüllt werden kann | Optional | Strukturierte Liste mit Schritten | Hilft Personen, die später die Maßnahme planen. |
+| Beispielnachweise | Typische Belege, die zur Kontrolle passen | Optional | Strukturierte Liste | Erleichtert Prüfern und Verantwortlichen den Einstieg. |
+
+## Was im Hintergrund passiert
+
+- Beim Aktivieren eines Frameworks über ein Programm werden alle Kontrollen des Frameworks in deinen Space übernommen. Aus Standard-Frameworks von Kopexa entstehen dabei eigene Kontroll-Kopien, damit du sie unabhängig pflegen kannst.
+- Wird eine Maßnahme mit einer Kontrolle verknüpft oder verliert die Verknüpfung, berechnet Kopexa den Status der Kontrolle neu. Archivierte Maßnahmen werden dabei ignoriert.
+- Sind alle verknüpften, nicht archivierten Maßnahmen wirksam, steht die Kontrolle auf "Umgesetzt". Ist mindestens eine Maßnahme nicht voll wirksam, fällt sie auf "Teilweise umgesetzt".
+- Die Status "Nicht anwendbar" und ein eventueller "Ungültig"-Marker sind sticky. Sie bleiben erhalten, auch wenn sich die Maßnahmen ändern, bis du sie wieder umsetzt.
+- Aus einem [Katalog von Maßnahmen](/platform/space/compliance/measures) heraus schlägt Kopexa für viele Kontrollen passende Umsetzungen vor. Aktivierst du eine empfohlene Maßnahme, wird sie automatisch mit der passenden Kontrolle verknüpft.
+
+## Verknüpfungen
+
+- [Frameworks](/platform/space/compliance/frameworks) liefern die Kontrollen, an denen ein Programm gemessen wird.
+- [Maßnahmen](/platform/space/compliance/measures) setzen Kontrollen konkret um und bestimmen ihren Status.
+- [Risiken](/platform/space/compliance/risks) können auf Kontrollen verweisen, um Risiko-Behandlung und Compliance zu verbinden.
+- [Findings](/platform/space/compliance/findings) aus Audits hängen an Kontrollen, deren Wirksamkeit unzureichend war.
+- [Verarbeitungstätigkeiten](/platform/space/datenschutz/processing-activities) referenzieren Kontrollen, die für eine Tätigkeit gelten.
+- [Aufgaben](/platform/space/issues) tragen die Arbeit, die an einer Kontrolle ansteht, zum Beispiel über die Maßnahmen-Verknüpfung.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Kontrollen. Kontrollen anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space oder im jeweiligen Programm. Den Status "Nicht anwendbar" setzen dürfen Editoren mit Schreibrecht auf der Kontrolle. Verantwortliche dürfen "ihre" Kontrollen jederzeit pflegen, auch wenn sie sonst nur Leserechte hätten. Löschen dürfen Kontrollen nur Space-Admins. Kontrollen aus Standard-Frameworks lassen sich nicht direkt löschen, sondern nur über das zugehörige Programm aus dem Scope nehmen.
+
+## Best Practices
+
+- Den offiziellen Titel und Beschreibungstext aus dem Standard übernehmen. Auditoren erkennen Anforderungen so sofort wieder.
+- Eine Kontrolle pro Anforderung, nicht pro Umsetzungsdetail. Details gehören in die [Maßnahme](/platform/space/compliance/measures).
+- "Nicht anwendbar" bewusst und mit kurzer Begründung setzen. Das ist die Grundlage für das Statement of Applicability bei ISO 27001 und vergleichbaren Reports.
+- Verantwortliche aktiv halten. Wechselt jemand das Unternehmen, sofort neu zuweisen, damit die Kontrolle gepflegt bleibt.
+- Beispielnachweise hinterlegen, sobald sich gute Belegtypen herauskristallisieren. Neue Teammitglieder finden so schneller den richtigen Nachweis.
+
+## Stolperfallen
+
+- Eine Kontrolle hat keinen eigenen Nachweis. Nachweise gehören an die Maßnahme. Wenn dort nichts hängt, wird die Kontrolle nie "Umgesetzt".
+- Status manuell überschreiben funktioniert nur für "Nicht anwendbar". Alle anderen Status ergeben sich aus den Maßnahmen, eine manuelle Umstellung wäre im Audit nicht haltbar.
+- Wenn du eine Maßnahme archivierst, ohne eine neue zu verknüpfen, fällt die Kontrolle möglicherweise zurück auf "Nicht umgesetzt". Erst die Folge-Maßnahme aktivieren, dann archivieren.
+- Werden Kontrollen aus einem Standard kopiert und stark verändert, verlierst du den Bezug zum Standard. Lieber den Originaltext stehen lassen und die konkrete Umsetzung in der Maßnahme dokumentieren.
+- "Teilweise umgesetzt" wird oft als "fast fertig" verstanden. Tatsächlich heißt es: Mindestens eine verknüpfte Maßnahme ist nicht voll wirksam. Schau dir die Maßnahmen-Liste an, dort liegt der Hebel.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Kontrolle und Maßnahme?">
+Die Kontrolle beschreibt **was** erfüllt sein muss, etwa "Zugriffsrechte werden regelmäßig überprüft". Die [Maßnahme](/platform/space/compliance/measures) beschreibt **wie** ihr es umsetzt, etwa "Quartalsweise Zugriffsüberprüfung in Azure AD". Eine Kontrolle kann mehrere Maßnahmen haben, eine Maßnahme kann mehrere Kontrollen erfüllen.
+</Accordion>
+<Accordion title="Warum berechnet Kopexa den Status automatisch?">
+Damit Compliance konsistent und nachvollziehbar bleibt, unabhängig davon, wer pflegt. Manuelle Statuspflege führt erfahrungsgemäß zu Inkonsistenzen, die im Audit auffallen. Du steuerst den Status indirekt über Maßnahmen und Nachweise.
+</Accordion>
+<Accordion title="Kann ich den Status manuell überschreiben?">
+Nur in einem Fall: "Nicht anwendbar". Damit dokumentierst du, dass die Anforderung in deinem Scope nicht relevant ist. Alle anderen Status ergeben sich aus den verknüpften Maßnahmen.
+</Accordion>
+<Accordion title="Was bedeutet 'Nicht anwendbar' genau?">
+Du hast die Anforderung geprüft und festgestellt, dass sie in deinem Geltungsbereich nicht greift, zum Beispiel weil eine Technologie nicht im Einsatz ist. Im Statement of Applicability bei ISO 27001 ist das ein bewusstes Statement und muss kurz begründet werden.
+</Accordion>
+<Accordion title="Kann eine Kontrolle mehrere Frameworks abdecken?">
+Ja. Eine Maßnahme an einer Kontrolle deckt häufig Anforderungen aus mehreren Standards ab, etwa ISO 27001 A.9.4.2, NIS2 Artikel 21 und TISAX 3.2.1. So vermeidest du Doppelarbeit über Frameworks hinweg.
+</Accordion>
+<Accordion title="Was passiert, wenn ich eine Maßnahme archiviere?">
+Archivierte Maßnahmen werden bei der Statusberechnung der Kontrolle ignoriert. Wenn keine aktive Maßnahme mehr übrig ist, fällt die Kontrolle zurück auf "Nicht umgesetzt". Hänge vorher eine neue Maßnahme an, wenn die Anforderung weiter gelten soll.
+</Accordion>
+</Accordions>
