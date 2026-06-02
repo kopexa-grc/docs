@@ -1,6 +1,118 @@
 ---
 title: Informationswerte
-description: Inhalt folgt.
+description: Daten und Informationsobjekte als eigenständige Werte erfassen, klassifizieren und mit Verarbeitungen verknüpfen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Informationswerte sind die Daten, die du in deinem Unternehmen schützt. Personenbezogene Daten, Geschäftsgeheimnisse, technische Daten, Trainingsdaten. Anders als Assets, die die Werkzeuge beschreiben, modellieren Informationswerte die Daten selbst. Jeder Informationswert hat eine Art, eine Kritikalität, Datenquellen, eine Rechtsgrundlage und Aufbewahrungsregeln. Über Verknüpfungen zu Assets, Prozessen, Verarbeitungstätigkeiten und Risiken bleibt nachvollziehbar, welche Daten in welchen Systemen liegen und wofür sie verwendet werden.
+
+## Wann nutzt du es
+
+- Du baust dein Verzeichnis von Verarbeitungstätigkeiten (VVT) nach DSGVO Art. 30 auf und brauchst saubere Datenobjekte.
+- ISO 27001 oder TISAX verlangt eine Klassifizierung deiner Informationen.
+- Du willst nachvollziehen, wo personenbezogene Daten gespeichert werden und welche Rechtsgrundlage greift.
+- Bei Trainingsdaten oder Datensätzen für KI musst du Herkunft, Synthetizität und Einwilligung dokumentieren.
+- Aufbewahrungsfristen sollen sichtbar an den Daten hängen, nicht nur in Richtlinien.
+
+## Das Wichtigste in Kürze
+
+- Informationswerte gehören zu einem Space und werden in der eigenen Liste verwaltet.
+- Mehrere Arten sind kombinierbar, zum Beispiel "Personenbezogene Daten" und "Sensible Daten".
+- Die Kritikalität wird über Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität bestimmt.
+- Rechtsgrundlagen lassen sich pro Informationswert hinterlegen, ebenso Aufbewahrungsrichtlinien.
+- Verknüpfungen zu Assets, Prozessen, Verarbeitungstätigkeiten und betroffenen Parteien machen Datenflüsse sichtbar.
+- Status sind Entwurf, Aktiv und Archiviert.
+
+## Typischer Ablauf
+
+1. Informationswert anlegen über "Informationswert erstellen" in der Liste.
+2. Name und optional eine Beschreibung pflegen.
+3. Eine oder mehrere Arten auswählen, etwa "Personenbezogene Daten", "Trainingsdaten" oder "Geschäftsgeheimnis".
+4. Klassifizierung nach Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität festlegen.
+5. Wenn nötig, "Einwilligung erforderlich" aktivieren und passende Rechtsgrundlagen zuordnen.
+6. Aufbewahrungsfrist setzen und optional eine Aufbewahrungsrichtlinie verknüpfen.
+7. Mit Assets, Prozessen und Verarbeitungstätigkeiten verknüpfen, in denen die Daten verarbeitet werden.
+8. Status auf "Aktiv" setzen, sobald der Informationswert produktiv genutzt wird.
+
+<Mermaid chart={`flowchart LR
+  A[Entwurf] --> B[Aktiv]
+  B --> C[Archiviert]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Name | Bezeichnung des Informationswerts | Pflicht | Konkret formulieren, etwa "Kundendaten CRM" oder "HR-Personalakten". |
+| Beschreibung | Inhalt und Kontext | Optional | Was umfasst der Datensatz, woher kommt er, wie wird er genutzt? |
+| Arten | Eine oder mehrere Kategorien | Optional | Personenbezogen, Sensibel, Geschäftsgeheimnis, Trainingsdaten, Technische Daten, Klassifizierung, Betroffenendaten, Synthetisch, Sonstiges. |
+| Status | Entwurf, Aktiv, Archiviert | Pflicht | Wird bei Anlage auf Entwurf gesetzt. |
+| Kritikalität | Nicht bewertet bis Sehr Hoch | Optional | Lässt sich auch aus CIA-Werten ableiten. |
+| Vertraulichkeit | Schutzbedarf | Optional | Wie sensibel sind die Daten? |
+| Integrität | Schutzbedarf | Optional | Wie kritisch ist es, dass die Daten unverändert bleiben? |
+| Verfügbarkeit | Schutzbedarf | Optional | Müssen die Daten jederzeit nutzbar sein? |
+| Authentizität | Schutzbedarf | Optional | Muss die Herkunft eindeutig bleiben? |
+| Einwilligung erforderlich | Schalter | Optional | Aktiviere, wenn personenbezogene Daten auf Einwilligung beruhen. |
+| Aufbewahrungsfrist | Wie lange darf gespeichert werden? | Optional | Setze die Frist, bevor du eine Aufbewahrungsrichtlinie verknüpfst. |
+| Aufbewahrungskommentar | Begründung | Optional | Hilfreich für Audits, etwa Verweis auf gesetzliche Pflicht. |
+| Rechtsgrundlagen | Begründung der Verarbeitung | Optional | Beispiele: Einwilligung, Vertrag, gesetzliche Pflicht, berechtigtes Interesse. |
+| Datenquellen | Herkunft der Daten | Optional | Direkt, Intern, Öffentlich, Synthetisch, Drittanbieter. |
+| Verantwortliche Person, Vertretung | Hauptansprechpartner | Optional | Damit klar ist, wer das Datenobjekt pflegt. |
+
+## Was im Hintergrund passiert
+
+- Aus den vier Schutzbedarfs-Dimensionen leitet Kopexa eine Gesamt-Kritikalität ab. Du kannst die Bewertung auch manuell überschreiben.
+- Wird ein Informationswert mit einer Verarbeitungstätigkeit verknüpft, erscheint er automatisch im VVT-Eintrag.
+- Aufbewahrungsrichtlinien lassen sich erst verknüpfen, wenn eine Aufbewahrungsfrist gesetzt ist.
+- Verknüpfungen vererben sich nicht automatisch, du steuerst sie pro Beziehung.
+- Im Hintergrund hält Kopexa die Beziehungen zu Assets, Prozessen, Risiken und betroffenen Parteien konsistent, sodass Auswertungen wie das VVT immer den aktuellen Stand zeigen.
+
+## Verknüpfungen
+
+- [Assets](/platform/space/organisation/assets), in denen die Daten verarbeitet oder gespeichert werden.
+- [Prozesse](/platform/space/organisation/processes), die diese Daten konsumieren oder erzeugen.
+- [Verarbeitungstätigkeiten](/platform/space/datenschutz) für das VVT.
+- [Risiken](/platform/space/compliance/risks), die sich auf diese Daten beziehen.
+- [Aufgaben](/platform/space/issues) und [Vorfälle](/platform/space/governance) zur Bearbeitung von Datenschutzthemen.
+- Betroffene Parteien zur Dokumentation, welche Personenkreise enthalten sind.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Informationswerte. Anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Verantwortliche und Vertretung dürfen "ihre" Informationswerte immer aktualisieren. Löschen dürfen Admins oder die Person, die den Eintrag erstellt hat. Für sensible Datenkategorien empfehlen wir, die Verantwortlichkeit gezielt zu vergeben und das Vier-Augen-Prinzip über Reviewer umzusetzen.
+
+## Best Practices
+
+- Modelliere Informationswerte fachlich, nicht technisch. "Kundendaten" statt "MySQL-Tabelle customers".
+- Halte das Verzeichnis schlank. Lieber 30 saubere Informationswerte als 300 schlecht gepflegte.
+- Wenn mehrere Datenarten zutreffen, wähle alle relevanten aus. Das vereinfacht spätere Filter, etwa "alle personenbezogenen und sensiblen Daten".
+- Pflege Rechtsgrundlage und Aufbewahrungsfrist zusammen. Beides gehört zusammen, eines ohne das andere bleibt unvollständig.
+- Verknüpfe Informationswerte mit den Assets, in denen sie tatsächlich liegen, nicht mit allen denkbaren Systemen.
+
+## Stolperfallen
+
+- Eine Aufbewahrungsrichtlinie ohne Aufbewahrungsfrist wirkt nicht. Setze immer zuerst die Frist.
+- "Personenbezogene Daten" und "Sensible Daten" sind nicht gleich. Sensibel meint besondere Kategorien wie Gesundheit oder Religion (DSGVO Art. 9).
+- Ein Informationswert ohne Verknüpfung zu Assets oder Verarbeitungstätigkeiten bleibt theoretisch. Der Wert entsteht erst über die Beziehungen.
+- Trainingsdaten und synthetische Daten brauchen oft besondere Dokumentation der Herkunft. Nutze die Datenquellen-Felder konsequent.
+- Wenn du eine Art nachträglich änderst, prüfe die abgeleitete Kritikalität und die Rechtsgrundlage erneut.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Assets und Informationswerten?">
+Assets sind Systeme und Werkzeuge, etwa Server, Anwendungen oder Geräte. Informationswerte sind die Daten, die in diesen Systemen verarbeitet werden. Du verknüpfst beides, damit klar bleibt, welche Daten wo liegen.
+</Accordion>
+<Accordion title="Brauche ich für jedes Datenfeld einen eigenen Informationswert?">
+Nein. Modelliere fachlich auf der Ebene, die für deine Governance sinnvoll ist. "Kundendaten CRM" als ein Informationswert ist meist besser als ein Eintrag pro Datenbankspalte.
+</Accordion>
+<Accordion title="Wie hängen Informationswerte und das Verzeichnis von Verarbeitungstätigkeiten zusammen?">
+Eine Verarbeitungstätigkeit beschreibt einen Zweck und einen Prozess. Die Informationswerte daran beschreiben die Daten, die in diesem Zweck verarbeitet werden. Die Verknüpfung erscheint automatisch im VVT.
+</Accordion>
+<Accordion title="Kann ich mehrere Arten kombinieren?">
+Ja. Ein Informationswert kann gleichzeitig "Personenbezogene Daten" und "Sensible Daten" sein. Wähle alle zutreffenden Kategorien.
+</Accordion>
+<Accordion title="Was passiert beim Archivieren?">
+Archivierte Informationswerte werden aus den aktiven Listen entfernt, bleiben aber für Audits und historische Bewertungen sichtbar. Verknüpfungen bleiben bestehen.
+</Accordion>
+</Accordions>
