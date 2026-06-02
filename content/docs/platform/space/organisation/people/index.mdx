@@ -1,6 +1,115 @@
 ---
 title: Personen
-description: Inhalt folgt.
+description: Natürliche Personen im Inventar erfassen, mit Accounts, Geräten und Verantwortlichkeiten verknüpfen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Personen sind die natürlichen Menschen, die für deine Sicherheits- und Compliance-Arbeit relevant sind: Mitarbeitende, Werkvertragskräfte, Partner oder externe Berater. Anders als die Nutzer von Kopexa sind Personen ein Inventar-Objekt. Du erfasst Name, E-Mail, Berufsbezeichnung, Standort und Beschäftigungsstatus, ordnest sie Abteilungen zu und verknüpfst sie mit ihren Konten in anderen Systemen (zum Beispiel Microsoft 365, GitHub, Figma) sowie mit zugewiesenen Assets. So entsteht eine Identitätssicht für Onboarding, Offboarding, Zugriffsprüfungen und Audits.
+
+## Wann nutzt du es
+
+- Du brauchst ein Verzeichnis aller Personen mit sicherheits- oder datenschutzrelevanten Zugriffen.
+- ISO 27001 oder TISAX verlangt einen Überblick über Berechtigungen pro Mitarbeitenden.
+- Bei Onboarding sollen pro Person Aufgaben (Schulungen, Richtlinien, Geräte) zugewiesen werden.
+- Beim Austritt einer Person müssen Zugänge dokumentiert entzogen werden.
+- Du willst nachvollziehen, wer welches Asset oder welches Konto verantwortet.
+
+## Das Wichtigste in Kürze
+
+- Personen gehören zu einem Space und sind keine Kopexa-Nutzer, sondern Inventar-Einträge.
+- Pro Person speicherst du Name, E-Mail, Berufsbezeichnung, Standort, Start- und Enddatum sowie Beschäftigungsstatus.
+- Beschäftigungsstatus sind Aktiv, Abwesend und Ausgeschieden.
+- Verknüpfte Konten bilden ab, in welchen Systemen die Person Zugang hat.
+- Verknüpfungen zu Assets und Abteilungen machen Verantwortlichkeiten sichtbar.
+- Kopexa kann Personen automatisch aus Identity-Quellen wie Microsoft Entra erfassen, wenn du die Integration aktivierst.
+
+## Typischer Ablauf
+
+1. Person anlegen über die Schaltfläche in der Liste oder über eine Integration synchronisieren.
+2. Name und E-Mail erfassen. E-Mail muss pro Space eindeutig sein.
+3. Berufsbezeichnung und Standort ergänzen.
+4. Beschäftigungsstatus setzen, also Aktiv, Abwesend oder Ausgeschieden.
+5. Start- und Enddatum pflegen, soweit bekannt.
+6. Person einer Abteilung zuordnen.
+7. Konten in anderen Systemen verknüpfen, sofern bekannt.
+8. Bei Austritt: Enddatum setzen, Status auf "Ausgeschieden" stellen, Zugänge in den verknüpften Konten entziehen und dokumentieren.
+
+<Mermaid chart={`flowchart LR
+  A[Aktiv] --> B[Abwesend]
+  B --> A
+  A --> C[Ausgeschieden]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Vorname | Persönlicher Name | Optional | Aus der Quelle übernommen oder manuell pflegen. |
+| Nachname | Persönlicher Name | Optional | Pflicht für sinnvolle Suche und Übersicht. |
+| E-Mail | Geschäftliche Adresse | Optional | Pro Space eindeutig, dient dem Abgleich mit Integrationen. |
+| Berufsbezeichnung | Rolle im Unternehmen | Optional | Etwa "Senior Developer" oder "HR-Manager". |
+| Standort | Büro, Remote, Stadt | Optional | Erleichtert Auswertungen, etwa für regionale Audits. |
+| Startdatum | Beginn der Beschäftigung | Optional | Hilfreich für Onboarding-Reports. |
+| Enddatum | Ende der Beschäftigung | Optional | Auslöser für Offboarding-Aufgaben. |
+| Beschäftigungsstatus | Aktiv, Abwesend, Ausgeschieden | Optional | Standardmäßig Aktiv. |
+| Abteilungsmitgliedschaften | Zugehörige Abteilungen | Optional | Eine Person kann in mehreren Abteilungen Mitglied sein. |
+| Verknüpfte Konten | Externe Identitäten | Optional | Beispiele: Entra-ID, GitHub, Figma. |
+| Verknüpfte Assets | Geräte oder Anwendungen | Optional | Wem ist das Notebook zugewiesen, wer nutzt das CRM? |
+
+## Was im Hintergrund passiert
+
+- Wenn du eine Identity-Integration wie Microsoft Entra aktivierst, übernimmt Kopexa Personen und gleicht bestehende Einträge anhand der E-Mail ab.
+- Konten in anderen Systemen werden über automatische Zuordnung an die zugehörige Person geknüpft, sofern die E-Mail-Adressen übereinstimmen.
+- E-Mail-Adressen werden vor dem Speichern normalisiert, damit Groß- und Kleinschreibung keine Duplikate erzeugt.
+- Beim Austritt aktualisierte Daten wirken nicht automatisch auf verknüpfte Konten. Den Zugangsentzug dokumentierst du in den jeweiligen Konten und über Aufgaben.
+- Personen sind Space-isoliert. Datenschutz und Datenminimierung gelten pro Space.
+
+## Verknüpfungen
+
+- [Abteilungen](/platform/space/organisation/business-units) als Mitgliedschaften der Person.
+- [Assets](/platform/space/organisation/assets), die der Person zugewiesen sind.
+- Konten in externen Systemen (über Integrationen).
+- [Aufgaben](/platform/space/issues) für Onboarding, Schulungen, Offboarding.
+- [Dokumente](/platform/space/documents) für Richtlinien-Bestätigungen und Schulungsnachweise.
+- [Vorfälle](/platform/space/governance), wenn eine Person betroffen ist.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Personenliste. Personen anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Löschen dürfen Admins oder die erstellende Person. Personen sind keine Kopexa-Nutzer, sondern Inventar. Die Anmeldung an Kopexa läuft weiterhin über das zentrale Identity-Management auf Organisationsebene.
+
+## Best Practices
+
+- Halte das Verzeichnis aktuell. Eine Person, die nicht mehr im Unternehmen ist, gehört auf "Ausgeschieden", nicht gelöscht.
+- Nutze eine Identity-Integration als primäre Quelle, wenn möglich. Manuelles Pflegen lohnt nur für Personen ohne zentrale Identität.
+- Lege beim Onboarding standardisierte Aufgaben an, etwa "Richtlinien lesen", "Gerät empfangen", "Zugänge bestellen".
+- Verknüpfe Personen sparsam mit Assets. Nicht jeder Klick in einer Software erfordert eine Asset-Zuweisung, aber Geräte und kritische Anwendungen sollten zugeordnet sein.
+- Datenminimierung beachten. Speichere nur Felder, die du wirklich für Governance, Compliance oder Sicherheit brauchst.
+
+## Stolperfallen
+
+- Personen sind nicht gleich Kopexa-Nutzer. Ein Inventar-Eintrag bedeutet keinen Zugang zu Kopexa.
+- Wenn E-Mails nicht eindeutig sind oder Adressen sich ändern, entstehen Konflikte mit Integrationen.
+- Eine "Ausgeschiedene" Person ohne dokumentierten Zugangsentzug in den verknüpften Konten ist ein Audit-Befund.
+- Manuell angelegte Personen, die später per Integration kommen, können Duplikate erzeugen. Vor manueller Anlage suchen.
+- Verknüpfte Assets bleiben nach Austritt einer Person zugewiesen, bis du sie aktiv übertragen oder entziehst.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Sind Personen dasselbe wie Kopexa-Nutzer?">
+Nein. Kopexa-Nutzer sind Personen, die sich an der Plattform anmelden. Personen im Sinne dieses Moduls sind Inventar-Einträge für Governance, Sicherheit und Compliance, unabhängig davon, ob die Person Kopexa nutzt.
+</Accordion>
+<Accordion title="Wie importiere ich Personen aus Microsoft Entra?">
+Über die Integrationen aktivierst du die Verbindung zu Entra. Kopexa übernimmt Personen, gleicht über die E-Mail ab und legt fehlende Einträge an. Manuelle Korrekturen bleiben erhalten.
+</Accordion>
+<Accordion title="Was passiert beim Setzen von 'Ausgeschieden'?">
+Der Status ändert sich, das Enddatum wird sichtbar, und die Person bleibt im Verzeichnis für historische Auswertungen erhalten. Zugänge in externen Systemen musst du separat entziehen und dokumentieren.
+</Accordion>
+<Accordion title="Wie pflege ich Konten in mehreren Systemen?">
+Konten werden als eigenständige Einträge geführt und über E-Mail-Abgleich oder manuelle Zuordnung der Person zugeordnet. Eine Person hat in der Regel mehrere Konten: Entra, GitHub, Figma und weitere.
+</Accordion>
+<Accordion title="Worin unterscheiden sich Personen und Mitgliedschaften in Abteilungen?">
+Eine Person ist der Inventar-Eintrag. Mitgliedschaften beschreiben, in welchen Abteilungen die Person organisatorisch zugeordnet ist. Eine Person kann mehrere Mitgliedschaften haben.
+</Accordion>
+</Accordions>
