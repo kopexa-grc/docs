@@ -92,19 +92,19 @@ graph TD
   <FeatureCard
     title="Mitglieder"
     description="Persönliche Zugriffe laufen über Mitgliedschaften, nicht über Tokens."
-    href="/docs/platform/space/einstellungen/users"
+    href="/platform/space/einstellungen/users"
     color="blue"
   />
   <FeatureCard
     title="Integrationen"
     description="Vorgefertigte Anbindungen nutzen die gleichen Tokens unter der Haube."
-    href="/docs/platform/space/integrationen"
+    href="/platform/space/integrationen"
     color="purple"
   />
   <FeatureCard
     title="Allgemein"
     description="Tokens sind an den Space gebunden, in dem sie erstellt wurden."
-    href="/docs/platform/space/einstellungen/allgemein"
+    href="/platform/space/einstellungen/allgemein"
     color="green"
   />
 </FeatureCards>
@@ -124,7 +124,7 @@ graph TD
 - **Regelmäßig rotieren**: Plane Token-Rotation als wiederkehrende Aufgabe, etwa quartalsweise oder halbjährlich.
 - **Ablaufdatum ist Pflicht**: "Unbegrenzt" nur ausnahmsweise und mit gutem Grund vergeben.
 - **Sichere Aufbewahrung**: Tokens gehören in einen Secrets-Manager, nicht in Konfigurationsdateien im Git und nicht in Tickets.
-- **Naming-Konvention**: Ein klares Schema wie "{System}-{Zweck}-{Datum}" hilft beim Aufräumen alter Tokens.
+- **Naming-Konvention**: Ein klares Muster wie `[System]-[Zweck]-[Datum]` hilft beim Aufräumen alter Tokens.
 - **Alte Tokens aktiv aufräumen**: Wenn die Spalte "Zuletzt genutzt" leer bleibt oder mehrere Wochen alt ist, widerrufen.
 
 ## Stolperfallen
