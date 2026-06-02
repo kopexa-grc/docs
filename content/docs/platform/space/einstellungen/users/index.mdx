@@ -1,6 +1,162 @@
 ---
-title: Benutzer
-description: Inhalt folgt.
+title: Mitglieder
+description: Wer auf den Space zugreift, in welcher Rolle und mit welchen Rechten.
 ---
 
-Inhalt folgt.
+Im Bereich Mitglieder steuerst du, wer in diesem Space mitarbeitet. Du fügst Personen aus deiner Organisation hinzu, weist ihnen eine Rolle zu und entfernst sie wieder, wenn sie den Space verlassen sollen. Über die Rolle entscheidet sich, was eine Person sehen und ändern darf.
+
+<Callout type="info">
+Mitgliedschaften steuern den Zugriff auf alle Inhalte dieses Spaces: Risiken, Dokumente, Vorfälle, Verarbeitungstätigkeiten und mehr. Plane neue Mitglieder mit Bedacht und prüfe Bestehende regelmäßig.
+</Callout>
+
+## Worum geht's
+
+Ein Space ist nur so gut wie die Personen, die ihn pflegen. Mitglieder bekommen Zugriff auf Inhalte, Aufgaben und Berichte und werden in Workflows als Verantwortliche, Mitwirkende oder Empfänger von Benachrichtigungen einbezogen. Im Bereich Mitglieder pflegst du diese Beziehungen pro Space und legst über die Rolle fest, wie weit der Zugriff reicht.
+
+## Wann nutzt du es
+
+- Eine neue Kollegin soll im Space mitarbeiten.
+- Jemand soll vom Mitwirkenden zum Admin werden oder umgekehrt.
+- Eine Mitgliedschaft endet, weil eine Person das Team verlässt oder den Verantwortungsbereich wechselt.
+- Du willst nachvollziehen, wer aktuell Zugriff hat und seit wann.
+- Du möchtest ausstehende Einladungen verwalten, etwa erneut versenden oder zurückziehen.
+
+## Das Wichtigste in Kürze
+
+- **Mitglieder kommen aus deiner Organisation**: Wer Zugriff auf einen Space bekommen soll, muss vorher in der Organisation existieren. Neue Personen lädst du über die Organisationseinstellungen ein.
+- **Drei Rollen pro Space**: Admin, Mitglied und Viewer. Jede Rolle bestimmt, was eine Person tun darf.
+- **Ausstehende Einladungen sichtbar**: Wer noch nicht angenommen hat, erscheint in der Liste ausstehender Einladungen mit Versanddatum und Aktionen.
+- **Entfernen wirkt sofort**: Wer entfernt wird, verliert umgehend den Zugriff auf alle Inhalte des Spaces.
+- **Rollen lassen sich jederzeit ändern**: Heraufstufen und Herabstufen ist Sache der Admins.
+
+## Typischer Ablauf
+
+1. **Mitglieder öffnen**: Auf Einstellungen, Mitglieder gehen.
+2. **Vorhandene prüfen**: Liste durchsehen, Rollen kontrollieren, veraltete Mitgliedschaften entfernen.
+3. **Neue hinzufügen**: Aus der Organisation auswählen oder Einladung per E-Mail versenden.
+4. **Rolle wählen**: Admin, Mitglied oder Viewer, abhängig vom Verantwortungsbereich.
+5. **Einladung verfolgen**: Wenn jemand noch nicht beigetreten ist, in den ausstehenden Einladungen die Erinnerung versenden oder die Einladung widerrufen.
+6. **Regelmäßig überprüfen**: Mindestens einmal pro Jahr die Liste durchsehen, vor allem nach Reorganisationen.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Person in Organisation vorhanden?] -->|Nein| B[Über Organisations-Einstellungen einladen]
+    A -->|Ja| C[In Space-Mitglieder hinzufügen]
+    B --> C
+    C --> D[Rolle wählen]
+    D --> E[Mitglied aktiv im Space]
+    E --> F{Rolle passt noch?}
+    F -- Ja --> E
+    F -- Nein --> G[Rolle ändern]
+    G --> E
+    E --> H{Person verlässt Bereich?}
+    H -- Ja --> I[Mitgliedschaft entfernen]
+    H -- Nein --> E
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Person | Ja | Wer Zugriff auf den Space erhalten soll. Auswahl aus den Organisationsmitgliedern. |
+| Rolle | Ja | Admin, Mitglied oder Viewer. |
+| Hinzugefügt am | Automatisch | Datum, an dem die Mitgliedschaft entstand. |
+| E-Mail | Anzeige | Adresse der Person, dient zur Identifikation. |
+
+### Rollen im Detail
+
+| Rolle | Darf |
+|---|---|
+| Admin | Alle Inhalte erstellen, bearbeiten, löschen. Mitglieder verwalten. Einstellungen ändern. |
+| Mitglied | Inhalte erstellen und an eigenen Aufgaben arbeiten. Keine Verwaltung der Mitglieder oder Einstellungen. |
+| Viewer | Inhalte lesen, kommentieren wo erlaubt, keine schreibenden Aktionen. |
+
+### Ausstehende Einladungen
+
+| Aktion | Wirkung |
+|---|---|
+| Erinnerung erneut senden | Versendet die Einladungs-E-Mail neu. |
+| Einladung widerrufen | Macht die Einladung ungültig. Die eingeladene Person kann nicht mehr beitreten. |
+
+## Was im Hintergrund passiert
+
+- **Berechtigungen werden pro Mitgliedschaft gesetzt**: Jede Mitgliedschaft erzeugt Berechtigungseinträge, die in jedem Modul des Spaces wirken.
+- **Cascade beim Entfernen**: Persönliche Einstellungen, die nur für diesen Space gelten, werden mitentfernt. Aufgaben, an denen die Person beteiligt war, bleiben mit ihrem Namen erhalten, der Zugriff endet jedoch.
+- **Benachrichtigungen ab Beitritt**: Sobald eine Person Mitglied ist, kann sie Benachrichtigungen, E-Mails und Digest-Mails für diesen Space erhalten.
+- **Eindeutige Mitgliedschaft pro Person**: Eine Person kann pro Space nur eine Rolle haben. Ein zweites Hinzufügen ändert die Rolle, statt eine zweite Mitgliedschaft anzulegen.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Allgemein"
+    description="Stammdaten des Spaces, in dem die Mitgliedschaften gelten."
+    href="/docs/platform/space/einstellungen/allgemein"
+    color="blue"
+  />
+  <FeatureCard
+    title="Organisation"
+    description="Personen müssen zuerst in der Organisation existieren."
+    href="/docs/platform/organisation"
+    color="purple"
+  />
+  <FeatureCard
+    title="Aufgaben"
+    description="Mitglieder werden in Aufgaben und Reviews verantwortlich."
+    href="/docs/platform/space/issues"
+    color="green"
+  />
+  <FeatureCard
+    title="API-Tokens"
+    description="Programmatische Zugriffe laufen über separate Service-Identitäten, nicht über Mitgliedschaften."
+    href="/docs/platform/space/einstellungen/api-tokens"
+    color="orange"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf in diesem Bereich |
+|---|---|
+| Organisations-Owner | Mitglieder aller Spaces verwalten |
+| Space-Admin | Mitglieder im eigenen Space hinzufügen, entfernen, Rolle ändern |
+| Mitglied | Mitgliederliste lesen, keine Änderungen |
+| Viewer | Mitgliederliste lesen, keine Änderungen |
+
+## Best Practices
+
+- **Rolle so klein wie nötig**: Vergib Admin nur dort, wo wirklich gesteuert werden muss. Für die meisten Aufgaben reicht Mitglied.
+- **Periodischer Zugriffs-Review**: Plane mindestens jährlich eine Überprüfung der Mitgliederliste, vor allem nach Reorganisationen oder Personalwechseln.
+- **Onboarding mit Beschreibung**: Wenn neue Mitglieder dazukommen, ergänze sie um eine kurze Aufgabe oder Notiz, die ihren Verantwortungsbereich beschreibt.
+- **Eingeladene zeitnah erinnern**: Einladungen verblassen schnell. Eine erneute Erinnerung nach drei bis fünf Tagen erhöht die Annahmequote spürbar.
+- **Trennung vom Unternehmen sofort spiegeln**: Sobald jemand das Unternehmen verlässt, Mitgliedschaft in allen Spaces entfernen, am besten zentral über die Organisation.
+
+## Stolperfallen
+
+- **Person nicht in Organisation**: Wer noch nicht in der Organisation ist, kann auch keinen Space-Zugriff bekommen. Erst über Organisations-Einstellungen einladen.
+- **Letzten Admin entfernen**: Wenn der einzige Admin aus dem Space geht, kann niemand mehr Einstellungen ändern. Vorher Vertretung einrichten.
+- **Viewer mit Aufgaben überfordern**: Viewer können keine Aufgaben abschließen oder Inhalte bearbeiten. Wer mitarbeiten soll, braucht mindestens die Rolle Mitglied.
+- **Einladung mit alter E-Mail-Adresse**: Personen wechseln Mailadressen. Vor dem Versenden prüfen, ob die hinterlegte Adresse noch aktuell ist.
+- **Externe in falscher Rolle**: Externe Partner brauchen meist keinen Vollzugriff. Viewer oder ein dedizierter Partner-Space sind oft die bessere Wahl.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Wer darf neue Mitglieder hinzufügen?">
+    Space-Admins für ihren eigenen Space, Organisations-Owner für alle Spaces.
+  </Accordion>
+  <Accordion title="Kann eine Person in mehreren Spaces Mitglied sein?">
+    Ja, mit beliebig vielen Spaces. Die Rolle wird pro Space separat festgelegt.
+  </Accordion>
+  <Accordion title="Was passiert mit den Aufgaben einer Person, die entfernt wird?">
+    Bestehende Aufgaben und Beiträge bleiben dokumentiert. Die Person verliert aber den Zugriff und kann nichts mehr bearbeiten. Offene Verantwortlichkeiten solltest du vorher neu zuweisen.
+  </Accordion>
+  <Accordion title="Wie unterscheiden sich Admin und Organisations-Owner?">
+    Ein Space-Admin steuert genau diesen einen Space. Ein Organisations-Owner hat zusätzlich Zugriff auf alle Spaces der Organisation und kann diese auch löschen.
+  </Accordion>
+  <Accordion title="Lassen sich Mitgliedschaften per API verwalten?">
+    Aktuell ist die Mitgliederverwaltung über die Oberfläche vorgesehen. API-Tokens erhalten Zugriff über eine separate Service-Identität, nicht über die Mitgliederliste.
+  </Accordion>
+</Accordions>
