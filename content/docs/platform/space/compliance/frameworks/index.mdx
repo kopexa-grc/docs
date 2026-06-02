@@ -1,6 +1,113 @@
 ---
 title: Frameworks
-description: Inhalt folgt.
+description: Standards wie ISO 27001, NIS2 oder TISAX als Grundlage für deine Kontrollen aktivieren und im Space pflegen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Ein Framework ist ein Compliance-Standard, der vorgibt, welche Anforderungen dein Unternehmen erfüllen muss. Beispiele sind ISO 27001, NIS2, TISAX oder das BSI C5. In Kopexa machst du ein Framework in deinem Space verfügbar und arbeitest dann mit den darin enthaltenen Kontrollen weiter. Ein Framework liefert die Struktur und den Wortlaut der Anforderungen, deine Umsetzung passiert auf der Ebene von Kontrollen und Maßnahmen.
+
+## Wann nutzt du es
+
+- Ihr beginnt eine Zertifizierung wie ISO 27001 und wollt die Kontrollen aus dem offiziellen Annex A nutzen.
+- Eine gesetzliche Anforderung wie NIS2 oder DORA wird relevant und ihr wollt sie systematisch abdecken.
+- Ihr macht eine Gap-Analyse gegen einen Standard, ohne sofort zertifizieren zu wollen.
+- Ihr braucht ein eigenes, internes Framework, weil keiner der etablierten Standards genau passt.
+- Ihr habt mehrere Frameworks parallel und wollt Kontrollen über alle hinweg wiederverwenden.
+
+## Das Wichtigste in Kürze
+
+- Kopexa liefert eine Reihe von Standard-Frameworks (z. B. ISO 27001, NIS2) als gemeinsame Bibliothek aus. Du kannst dazu eigene Frameworks anlegen oder per OSCAL-Datei importieren.
+- Ein Framework wird im Space aktiviert, indem du es in einem Programm referenzierst. Dadurch werden die Kontrollen in deinen Space übernommen und du kannst sie konkret bearbeiten.
+- Frameworks sind in Gruppen strukturiert, zum Beispiel ISO 27001 Annex A oder einzelne Kapitel. Gruppen ordnen die Kontrollen logisch.
+- Jedes Framework hat einen Code und eine Version. Die Kombination ist innerhalb des Space eindeutig, damit zwei Stände desselben Standards parallel laufen können.
+- Eine Kontrolle aus einem Framework kann auch Anforderungen anderer Frameworks abdecken. Du dokumentierst die Umsetzung damit nur einmal, auch wenn drei Auditoren danach fragen.
+
+## Typischer Ablauf
+
+1. Frameworks-Übersicht öffnen und das gewünschte Standard-Framework auswählen oder über "Importieren" eine OSCAL-Datei hochladen.
+2. Bei Bedarf ein eigenes Framework erstellen und Grundinformationen, Code, Version und Sichtbarkeit pflegen.
+3. Framework strukturieren, indem du Gruppen anlegst (z. B. nach Kapiteln des Standards) und Kontrollen darin organisierst.
+4. Framework im Space aktivieren, indem du ein Programm anlegst und dieses Framework als Grundlage wählst. Dabei werden alle Kontrollen in deinen Space übernommen.
+5. Kontrollen bearbeiten, Maßnahmen verknüpfen und Nachweise pflegen. Den Status der Kontrollen pflegt Kopexa automatisch.
+6. Bei Bedarf eine neue Version des Frameworks anlegen, etwa wenn ein Standard aktualisiert wurde. Die alte Version bleibt für laufende Audits verfügbar.
+
+<Mermaid chart={`flowchart LR
+  A[Framework auswählen oder importieren] --> B[Im Space aktivieren über Programm]
+  B --> C[Kontrollen werden in den Space übernommen]
+  C --> D[Maßnahmen verknüpfen und Nachweise pflegen]
+  D --> E[Status der Kontrollen ergibt sich automatisch]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Name | Anzeigename des Frameworks | Pflicht | Maximal 100 Zeichen | Den offiziellen Namen verwenden, etwa "ISO/IEC 27001:2022". |
+| Code | Eindeutiger Kurzcode | Pflicht | Kleinbuchstaben, Ziffern, Bindestriche; in Kombination mit Version eindeutig im Space | Zum Beispiel iso27001 oder nis2. |
+| Version | Versionsbezeichner des Standards | Optional | Werte wie 1, 1.2, 2022, latest oder draft | Bei Standards das Veröffentlichungsjahr nutzen. |
+| Beschreibung | Längere Erläuterung zum Framework | Optional | Freitext | Worum geht es, an wen richtet es sich, Geltungsbereich. |
+| Zusammenfassung | Kurzer Einleitungstext | Optional | Freitext | Erscheint in der Übersicht und in Suchergebnissen. |
+| Domäne | Themengebiet des Frameworks | Pflicht | Freitext | Beispiele: Informationssicherheit, Datenschutz, Lieferkette. |
+| Herausgeber | Organisation, die den Standard veröffentlicht | Optional | Freitext | ISO, NIST, BSI, ENISA und so weiter. |
+| Sprache | Sprache der Inhalte | Optional | ISO-Sprachcode, Standard ist Englisch | Wichtig bei mehrsprachigen Audits. |
+| Sichtbarkeit | Öffentlich oder privat | Pflicht | Öffentlich ist nur für System-Frameworks von Kopexa möglich | Eigene Frameworks bleiben innerhalb deines Space. |
+
+## Was im Hintergrund passiert
+
+- Standard-Frameworks von Kopexa sind systemweit verfügbar und werden zentral gepflegt. Du nutzt sie, ohne sie zu kopieren, solange du sie nur lesen willst.
+- Sobald du ein Programm anlegst und dieses Framework auswählt, werden die zugehörigen Kontrollen in deinen Space übernommen. Dadurch kannst du sie bearbeiten, ohne den globalen Standard zu verändern.
+- Wird der Code oder die Version eines eigenen Frameworks geändert, aktualisiert Kopexa automatisch die Referenzen aller Kontrollen, die zu diesem Framework gehören.
+- Beim Löschen prüft Kopexa, ob noch laufende Programme das Framework verwenden. Solange es Programme gibt, ist das Löschen blockiert.
+- Aktualisierst du ein importiertes Framework, werden bestehende Kontrollen anhand ihrer Referenz-Codes aktualisiert. Neue Kontrollen kommen hinzu, deine bisherigen Verknüpfungen zu Maßnahmen bleiben erhalten.
+
+## Verknüpfungen
+
+- [Programme](/platform/space/governance/programs) aktivieren ein Framework im Space und übernehmen dessen Kontrollen.
+- [Kontrollen](/platform/space/compliance/controls) sind die Anforderungen, die ein Framework definiert.
+- [Maßnahmen](/platform/space/compliance/measures) setzen die Kontrollen aus den aktivierten Frameworks konkret um.
+- [Audits](/platform/space/compliance/audits) prüfen die Erfüllung der Kontrollen eines Frameworks.
+- [Trust Center](/platform/space/trust-center) zeigt Auszüge aus Frameworks und Maßnahmen extern an.
+
+## Berechtigungen
+
+Standard-Frameworks von Kopexa sind für alle eingeloggten Nutzer sichtbar, eine Bearbeitung ist nur durch Kopexa möglich. Eigene Frameworks im Space sehen alle Mitglieder mit Lesezugriff. Frameworks anlegen, bearbeiten, importieren oder duplizieren dürfen Mitglieder mit Editor-Rechten im Space. Löschen oder Veröffentlichen dürfen nur Space-Admins. Die Aktivierung über ein Programm folgt der Berechtigung des Programms, nicht des Frameworks.
+
+## Best Practices
+
+- Standard-Frameworks von Kopexa nutzen, wo immer es passt. Damit erhältst du Aktualisierungen automatisch und musst die Anforderungen nicht selbst pflegen.
+- Eigene Frameworks nur dort anlegen, wo wirklich keine passende Vorlage existiert, etwa für interne Richtlinien oder branchenspezifische Anforderungen.
+- Frameworks in Gruppen strukturieren, die der offiziellen Kapitelstruktur folgen. So findet sich auch eine Auditorin sofort zurecht.
+- Version pflegen, sobald ein Standard aktualisiert wird. Die alte Version sollte erst archiviert werden, wenn alle laufenden Audits abgeschlossen sind.
+- Eine Maßnahme mehreren Kontrollen aus verschiedenen Frameworks zuordnen, statt sie zu duplizieren. Das reduziert Pflegeaufwand und Audit-Vorbereitung.
+
+## Stolperfallen
+
+- Ein Framework allein bewirkt noch nichts. Erst durch ein Programm werden die Kontrollen in deinem Space verfügbar und können bearbeitet werden.
+- Werden Code und Version nicht eindeutig vergeben, lehnt Kopexa den Import oder das Duplizieren ab. Ändere Code oder Version, bevor du es erneut versuchst.
+- Ein Framework lässt sich nicht löschen, solange noch ein Programm darauf basiert. Lösche oder ändere zuerst die Programme.
+- Importierte OSCAL-Dateien müssen einen Code enthalten. Fehlt er, fragt Kopexa beim Upload danach.
+- Eine direkte Statusänderung am Framework gibt es nicht. Status entsteht aus den enthaltenen Kontrollen und ihren Maßnahmen.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen einem Standard-Framework und einem eigenen Framework?">
+Standard-Frameworks wie ISO 27001 stellt Kopexa systemweit bereit. Sie werden zentral gepflegt und automatisch aktualisiert. Eigene Frameworks erstellst du in deinem Space, zum Beispiel für interne Richtlinien oder branchenspezifische Anforderungen.
+</Accordion>
+<Accordion title="Wie aktiviere ich ein Framework in meinem Space?">
+Du legst ein Programm an und wählst das gewünschte Framework als Grundlage. Sobald das Programm gespeichert ist, werden die Kontrollen des Frameworks in deinen Space übernommen und du kannst sie konkret bearbeiten.
+</Accordion>
+<Accordion title="Kann ich ein Framework aus OSCAL importieren?">
+Ja. Kopexa unterstützt das OSCAL-Format des NIST. Lade die JSON- oder XML-Datei über "Importieren" hoch. Wenn die Datei keinen Code enthält, kannst du ihn beim Import nachtragen.
+</Accordion>
+<Accordion title="Was passiert, wenn ein Standard eine neue Version bekommt?">
+Du legst eine neue Version desselben Frameworks an, zum Beispiel über "Framework duplizieren" oder einen erneuten OSCAL-Import. Beide Versionen können parallel bestehen, bis du mit der alten Version fertig bist.
+</Accordion>
+<Accordion title="Eine Kontrolle taucht in zwei Frameworks fast identisch auf. Muss ich sie doppelt pflegen?">
+Nein. Verknüpfe dieselbe Maßnahme mit Kontrollen aus beiden Frameworks. Pflege und Nachweise liegen nur an einer Stelle, jeder Auditor sieht trotzdem den passenden Anforderungsbezug.
+</Accordion>
+<Accordion title="Wer darf ein Framework löschen?">
+Space-Admins. Voraussetzung ist, dass kein laufendes Programm mehr darauf basiert. Andernfalls verweist Kopexa auf die betroffenen Programme und blockiert das Löschen.
+</Accordion>
+</Accordions>
