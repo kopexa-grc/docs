@@ -1,6 +1,140 @@
 ---
 title: Rechtsgrundlagen
-description: Inhalt folgt.
+description: DSGVO-Rechtsgrundlagen zentral pflegen und in Verarbeitungstätigkeiten, Aufbewahrung und Vereinbarungen wiederverwenden.
 ---
 
-Inhalt folgt.
+Jede Verarbeitung personenbezogener Daten braucht eine Rechtsgrundlage nach Art. 6 DSGVO. In dieser Liste pflegst du die Rechtsgrundlagen, die in deinem Bereich relevant sind: Einwilligung, Vertrag, gesetzliche Verpflichtung, berechtigtes Interesse und mehr. Jede Rechtsgrundlage hat einen klaren Code, einen Namen und idealerweise einen Verweis auf die konkrete Norm.
+
+<Callout type="info">
+Diese Liste ist eine Konfigurationsliste. Sie liefert Werte für andere Module: Verarbeitungstätigkeiten, Lieferanten, Informationswerte, Stakeholder und Aufbewahrungsrichtlinien greifen darauf zu.
+</Callout>
+
+## Worum geht's
+
+Ohne Rechtsgrundlage ist eine Verarbeitung personenbezogener Daten unzulässig. Damit du sie systematisch zuordnen kannst, brauchst du eine saubere Liste der in deinem Bereich anwendbaren Rechtsgrundlagen. Mit dem Code "vertrag" für Art. 6 Abs. 1 lit. b DSGVO sprichst du immer dieselbe Sache an, ob in einer Verarbeitungstätigkeit, in einer Aufbewahrungsrichtlinie oder in einem Lieferantenvertrag. So entsteht ein konsistentes Bild gegenüber Aufsichtsbehörden und Datenschutzbeauftragten.
+
+## Wann nutzt du es
+
+- Du legst eine neue Verarbeitungstätigkeit an und musst eine Rechtsgrundlage benennen.
+- Du baust eine Aufbewahrungsrichtlinie und verweist auf die Rechtsgrundlage der Speicherung.
+- Eine neue Norm muss aufgenommen werden, etwa eine spezialgesetzliche Vorschrift.
+- Du willst nachvollziehen, welche Verarbeitungen sich auf eine bestimmte Norm stützen.
+- Du übernimmst die DSGVO-Standardrechtsgrundlagen einmalig in deinen Space.
+
+## Das Wichtigste in Kürze
+
+- **Code ist die Identität**: Der Code (z. B. "vertrag", "einwilligung", "gesetz") ist nach dem Anlegen nicht mehr änderbar. Wähle ihn knapp, in Kleinbuchstaben.
+- **Name und Beschreibung erklären**: Der Name ist die menschenlesbare Bezeichnung. Die Beschreibung erläutert, wann diese Rechtsgrundlage gilt.
+- **Rechtsnorm verlinken**: Die Rechtsnorm verweist auf die konkrete Vorschrift, etwa "Art. 6 Abs. 1 lit. b DSGVO".
+- **Standardset auf Knopfdruck**: Mit "Standard erstellen" lädt Kopexa ein vordefiniertes Set typischer DSGVO-Rechtsgrundlagen, ohne bestehende Einträge zu überschreiben.
+- **Eindeutigkeit pro Space**: Ein Code darf pro Space nur einmal vorkommen.
+
+## Typischer Ablauf
+
+1. **Liste öffnen**: In den Space-Einstellungen den Bereich Rechtsgrundlagen aufrufen.
+2. **Standardset laden**: Wenn der Space neu ist, einmalig die DSGVO-Standardgrundlagen erstellen.
+3. **Bedarf ergänzen**: Branchen- oder unternehmensspezifische Rechtsgrundlagen anlegen, etwa spezialgesetzliche Vorschriften.
+4. **Code festlegen**: Knapp, eindeutig, in Kleinbuchstaben, ohne Sonderzeichen. Nach dem Speichern nicht mehr änderbar.
+5. **Beschreibung pflegen**: Wann gilt diese Rechtsgrundlage, welche Voraussetzungen müssen erfüllt sein.
+6. **Verknüpfungen aus anderen Modulen**: Verarbeitungstätigkeiten, Aufbewahrungsrichtlinien und weitere Module wählen die Rechtsgrundlagen aus dieser Liste.
+
+<Mermaid
+  chart={`
+graph LR
+    A[Rechtsgrundlagen Liste] --> B[Verarbeitungstätigkeiten]
+    A --> C[Aufbewahrungsrichtlinien]
+    A --> D[Lieferanten]
+    A --> E[Informationswerte]
+    A --> F[Stakeholder]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Beschreibender Titel, etwa "Vertrag", "Gesetzliche Verpflichtung", "Berechtigtes Interesse". |
+| Code | Ja | Eindeutiger Kurzname in Kleinbuchstaben. Nach dem Anlegen gesperrt. |
+| Beschreibung | Empfohlen | Wann gilt diese Rechtsgrundlage, welche Voraussetzungen müssen erfüllt sein. |
+| Rechtsnorm | Empfohlen | Verweis auf die konkrete Vorschrift, etwa "Art. 6 Abs. 1 lit. b DSGVO". |
+| Labels | Optional | Schlagworte zur Kategorisierung. |
+
+### Standardset auf Knopfdruck
+
+Per Schaltfläche "Standard erstellen" lädt Kopexa ein vordefiniertes Set mit den typischen DSGVO-Rechtsgrundlagen, etwa Einwilligung, Vertrag, gesetzliche Verpflichtung, lebenswichtiges Interesse, öffentliche Aufgabe und berechtigtes Interesse. Vorhandene Einträge mit gleichem Code bleiben unverändert.
+
+## Was im Hintergrund passiert
+
+- **Code ist immutabel**: Nach dem Speichern lässt sich der Code nicht mehr ändern. Sonst würden überall verknüpfte Module ins Leere zeigen.
+- **Eindeutigkeit pro Space**: Doppelte Codes innerhalb eines Spaces sind ausgeschlossen.
+- **Mehrere Beziehungstypen**: Rechtsgrundlagen werden in zwei Rollen genutzt, einmal als Grundlage der Aufbewahrung und einmal als Grundlage einer verlängerten Aufbewahrung in einer Übergangsfrist.
+- **Berechtigungen über Hooks**: Wer eine Rechtsgrundlage anlegen oder ändern darf, hängt an der Rolle im Space.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Verarbeitungstätigkeiten"
+    description="Jede Verarbeitung verweist auf eine oder mehrere Rechtsgrundlagen."
+    href="/docs/platform/space/datenschutz/processing-activities"
+    color="purple"
+  />
+  <FeatureCard
+    title="Aufbewahrungsrichtlinien"
+    description="Aufbewahrung und Übergangsfrist greifen jeweils eine Rechtsgrundlage auf."
+    href="/docs/platform/space/einstellungen/retention-policies"
+    color="blue"
+  />
+  <FeatureCard
+    title="Lieferanten"
+    description="Lieferantenbeziehungen können auf eine Rechtsgrundlage verweisen."
+    href="/docs/platform/space/vendor"
+    color="orange"
+  />
+  <FeatureCard
+    title="Informationswerte"
+    description="Informationswerte halten ihre Rechtsgrundlagen fest."
+    href="/docs/platform/space/governance/information-assets"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Rechtsgrundlagen anlegen, bearbeiten, löschen, Standardset laden |
+| Mitglied | Lesen und in Modulen auswählen |
+| Viewer | Lesen |
+
+## Best Practices
+
+- **Codes wie Tags denken**: "einwilligung", "vertrag", "gesetz" sind besser als "art_6_abs_1_lit_a". Codes sind kurz und sprechen ohne Lesehilfe.
+- **Rechtsnorm immer verlinken**: Verweist sauber auf den DSGVO-Artikel oder die spezialgesetzliche Vorschrift.
+- **Spezialgesetze separat führen**: SGB, AO, HGB-Vorgaben gehören als eigene Einträge in die Liste, sonst werden sie über das berechtigte Interesse verwässert.
+- **Beschreibung mit Voraussetzungen**: Eine Einwilligung braucht klare Aufklärung, ein berechtigtes Interesse eine Abwägung. Notiere diese Voraussetzungen direkt in der Beschreibung.
+- **Standardset zuerst laden**: Bei neuen Spaces immer mit dem Standardset starten, dann ergänzen.
+
+## Stolperfallen
+
+- **Falscher Code**: Codes lassen sich nach dem Speichern nicht ändern. Sorgfältig wählen, bevor du auf Speichern klickst.
+- **Mehrere Rechtsgrundlagen pro Verarbeitung**: Manche Verarbeitungen stützen sich auf mehrere Grundlagen. Beim Anlegen in der Verarbeitungstätigkeit alle relevanten auswählen, nicht nur die wichtigste.
+- **Berechtigtes Interesse ohne Abwägung**: Berechtigtes Interesse erfordert eine dokumentierte Abwägung. Diese gehört nicht in die Liste, sondern in die jeweilige Verarbeitungstätigkeit.
+- **Allgemeines "DSGVO" als Eintrag**: Eine Rechtsgrundlage ist konkret. "DSGVO" als Eintrag ist zu unspezifisch.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Warum ist der Code nach dem Speichern gesperrt?">
+    Der Code dient als interne Identität und wird in anderen Modulen referenziert. Ein nachträgliches Ändern würde Verknüpfungen brechen.
+  </Accordion>
+  <Accordion title="Was passiert mit Verknüpfungen, wenn ich eine Rechtsgrundlage lösche?">
+    Wenn die Rechtsgrundlage noch verwendet wird, blockt Kopexa die Löschung oder warnt deutlich. Ersetze sie vorher in den betroffenen Modulen.
+  </Accordion>
+  <Accordion title="Brauche ich pro Spezialgesetz einen eigenen Eintrag?">
+    Wenn das Spezialgesetz eigenständig dokumentiert sein soll und in mehreren Verarbeitungen genutzt wird, ja. Andernfalls reicht ein Eintrag "Gesetzliche Verpflichtung" mit Verweis im jeweiligen Vorgang.
+  </Accordion>
+  <Accordion title="Wo finde ich später, welche Verarbeitungen sich auf eine bestimmte Rechtsgrundlage stützen?">
+    In der Detailansicht der Rechtsgrundlage. Dort siehst du die Anzahl und die Liste der verknüpften Verarbeitungstätigkeiten und weiteren Module.
+  </Accordion>
+</Accordions>
