@@ -1,6 +1,119 @@
 ---
 title: Kunden
-description: Inhalt folgt.
+description: Verbindungen zu Kundenorganisationen verwalten – nur für Partner-Organisationen relevant
 ---
 
-Inhalt folgt.
+Der Bereich **Kunden** zeigt dir alle Organisationen, mit denen deine Partner-Organisation verbunden ist. Du findest ihn auf Organisations-Ebene unter `/o/{slug}/customers/`.
+
+<Callout title="Nur für Partner">
+Dieser Bereich erscheint ausschließlich, wenn deine Organisation den Typ **Partner** hat. Kunden- und Auditor-Organisationen sehen stattdessen den Bereich [Partner](../partners/).
+</Callout>
+
+## Worum geht's
+
+Als Partner unterstützt du andere Organisationen bei ihrer Compliance-Arbeit. Hier verwaltest du alle aktiven Verbindungen, sendest neue Anfragen und behältst den Überblick über deine Mandate. Eine Verbindung legt fest, in welcher Rolle du den Kunden unterstützt und auf welche Spaces du zugreifen darfst.
+
+## Wann nutzt du es
+
+- Du willst eine neue Kundenbeziehung anfragen.
+- Du möchtest sehen, welche Kunden dich bereits eingeladen haben.
+- Du musst eine offene Anfrage zurückziehen.
+- Du brauchst einen Überblick über deine aktiven Mandate und deren Status.
+
+## Das Wichtigste in Kürze
+
+- Eine Kundenbeziehung entsteht in zwei Schritten: Anfrage senden, Kunde nimmt an.
+- Beide Seiten können die Verbindung jederzeit beenden.
+- Die Rolle (z. B. DSB, ISB, allgemeiner Berater) legt fest, in welcher Funktion du den Kunden begleitest.
+- Die Zugriffsebene steuert, ob du nur lesen, kommentieren oder bearbeiten darfst.
+- Pro Kundenorganisation existiert genau eine Verbindung.
+
+## Typischer Ablauf
+
+1. Du klickst auf **Kunde verbinden** und gibst die Organisations-ID deines Kunden ein.
+2. Du wählst deine Rolle (z. B. Datenschutzbeauftragter).
+3. Der Kunde erhält die Anfrage in seinem Bereich **Partner** und bestätigt sie.
+4. Sobald der Kunde annimmt, wird die Verbindung aktiv und du erhältst Zugriff auf die vereinbarten Spaces.
+5. Bei Bedarf kannst du die Verbindung später beenden.
+
+<Mermaid chart={`
+graph LR
+    A[Anfrage senden] --> B{Kunde prüft}
+    B -->|nimmt an| C[Aktive Verbindung]
+    B -->|lehnt ab| D[Abgelehnt]
+    C --> E[Zugriff auf Spaces]
+    C -->|beenden| F[Beendet]
+    style C fill:#e8f5e8
+    style D fill:#ffebee
+    style F fill:#f3e5f5
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung |
+|---|---|
+| Kunden-Organisations-ID | Eindeutige Kennung der Kundenorganisation. Den Wert erhältst du vom Kunden. |
+| Rolle | In welcher Funktion du den Kunden begleitest: Allgemeiner Berater, DSB, ISB, Qualitätsmanagement oder Regulatory Affairs. |
+| Zugriffsbereich | Alle Spaces des Kunden oder nur ausgewählte Spaces. |
+| Zugriffsebene | Nur Ansicht, eingeschränkt (lesen plus kommentieren) oder Vollzugriff (bearbeiten). |
+| Status | Ausstehend, Aktiv, Gesperrt, Beendet oder Abgelehnt. |
+| Verbunden seit | Datum, an dem die Verbindung aktiv wurde. |
+
+## Was im Hintergrund passiert
+
+- Beim Senden einer Anfrage prüft Kopexa, ob die angegebene Kundenorganisation existiert.
+- Der Kunde wird über die offene Anfrage in seinem Partner-Bereich informiert.
+- Nach Annahme erhalten alle Mitglieder deiner Partner-Organisation in den vereinbarten Rollen Zugriff auf die freigegebenen Spaces.
+- Beim Beenden einer Verbindung wird der Zugriff sofort entzogen.
+- Wenn dein Vertrag eine Vermittlungsgebühr vorsieht, werden im Hintergrund automatisch Provisionsereignisse für jede aktive Kundenbeziehung erzeugt. Sie tauchen in deinem [Partner-Dashboard](../dashboard/) auf.
+
+## Verknüpfungen
+
+- [Partner-Dashboard](../dashboard/) zeigt deine Provisionen und Auszahlungen auf einen Blick.
+- [Organisations-Einstellungen](../einstellungen/) für Profil, Adresse und Rechnungsdaten deiner Partner-Organisation.
+- [Spaces](../../space/) sind die Arbeitsbereiche, auf die du nach Annahme zugreifst.
+
+## Berechtigungen
+
+- **Inhaber und Admin** der Partner-Organisation: Verbindungen anfragen, annehmen, beenden.
+- **Mitglied**: Liste einsehen, sofern für die Kundenspaces berechtigt.
+- **Betrachter**: Liste einsehen.
+
+## Best Practices
+
+- Frage die Organisations-ID direkt beim Kunden ab. Falsche IDs führen zu Fehleranfragen.
+- Wähle die niedrigste Zugriffsebene, die deine Arbeit erlaubt. Erweitern geht später jederzeit.
+- Beschränke den Zugriffsbereich auf die Spaces, die du wirklich brauchst.
+- Halte Rollenbezeichnungen konsistent mit deinem Vertrag (z. B. DSB).
+- Beende Verbindungen, sobald ein Mandat endet.
+
+## Stolperfallen
+
+- Die Anfrage ist erst aktiv, wenn der Kunde sie bestätigt. Bis dahin stehst du auf **Ausstehend** und siehst die Spaces des Kunden noch nicht.
+- Die Kunden-ID ist eine UUID, kein Slug. Wenn du den Slug einträgst, schlägt die Anfrage fehl.
+- Pro Kunde gibt es nur eine Verbindung. Eine zweite Anfrage an dieselbe Organisation wird blockiert.
+- Wer die Verbindung beendet, entzieht den Zugriff sofort. Sprich dich vorher mit dem Kunden ab.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wo finde ich die Organisations-ID eines Kunden?">
+Der Kunde sieht seine Organisations-ID in den Organisations-Einstellungen unter dem Punkt Details. Du brauchst die UUID, nicht den Slug.
+</Accordion>
+
+<Accordion title="Was passiert, wenn der Kunde meine Anfrage ablehnt?">
+Die Verbindung wechselt auf den Status **Abgelehnt** und bleibt zur Nachvollziehbarkeit in der Liste. Du kannst eine neue Anfrage stellen, nachdem du mit dem Kunden gesprochen hast.
+</Accordion>
+
+<Accordion title="Kann ich für denselben Kunden mehrere Rollen wahrnehmen?">
+Nein. Pro Kunde existiert eine Verbindung mit genau einer Rolle. Wenn du z. B. zusätzlich als ISB tätig wirst, sprich mit dem Kunden über eine Anpassung der bestehenden Verbindung.
+</Accordion>
+
+<Accordion title="Bekomme ich für jeden Kunden eine Provision?">
+Nur wenn dein Vertrag mit Kopexa das vorsieht. Aktive Provisionen siehst du im [Partner-Dashboard](../dashboard/).
+</Accordion>
+
+<Accordion title="Was ist der Unterschied zwischen Beenden und Ablehnen?">
+**Beenden** löst eine bestehende, aktive Verbindung auf. **Ablehnen** weist eine noch offene Anfrage zurück, sodass nie eine Verbindung entsteht.
+</Accordion>
+</Accordions>
