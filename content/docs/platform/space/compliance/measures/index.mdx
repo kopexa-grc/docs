@@ -1,6 +1,117 @@
 ---
 title: Maßnahmen
-description: Inhalt folgt.
+description: Technische und organisatorische Maßnahmen, die Kontrollen konkret umsetzen und deren Wirksamkeit nachgewiesen wird.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Eine Maßnahme beschreibt, **wie** dein Unternehmen eine Anforderung konkret umsetzt. Während die [Kontrolle](/platform/space/compliance/controls) sagt "Zugriffsrechte müssen regelmäßig überprüft werden", beschreibt die Maßnahme die Realität: "Wir nutzen Azure AD mit MFA und führen quartalsweise eine Zugriffsüberprüfung durch". An die Maßnahme hängst du auch die Nachweise, mit denen du belegst, dass sie tatsächlich wirkt. So entsteht die durchgehende Kette von der Anforderung bis zum prüfbaren Beleg.
+
+## Wann nutzt du es
+
+- Du musst eine Kontrolle aus einem Framework konkret umsetzen und brauchst eine Stelle, an der die Umsetzung dokumentiert ist.
+- Ihr habt eine technische oder organisatorische Lösung im Einsatz und wollt sie als Beleg für mehrere Frameworks gleichzeitig nutzen.
+- Ein Risiko wird durch eine konkrete Maßnahme reduziert, etwa Verschlüsselung oder ein Notfallplan.
+- Du brauchst Vorschläge für die Umsetzung einer Kontrolle und willst aus dem Maßnahmen-Katalog wählen.
+- Eine Maßnahme verliert ihre Wirksamkeit, weil ein Nachweis abgelaufen ist, und du willst sehen, wo Handlungsbedarf besteht.
+
+## Das Wichtigste in Kürze
+
+- Maßnahmen sagen **wie**, Kontrollen sagen **was**. Eine Maßnahme kann mehrere [Kontrollen](/platform/space/compliance/controls) gleichzeitig erfüllen, auch aus verschiedenen Frameworks.
+- Der Status einer Maßnahme (Wirksam, Eingeschränkt wirksam, Nicht wirksam, Archiviert) wird automatisch aus den verknüpften Nachweisen und offenen Aufgaben abgeleitet.
+- Nachweise hängen an der Maßnahme, nicht an der Kontrolle. So entsteht ein klarer Ort für Belege.
+- Im Maßnahmen-Katalog findest du fertige, lokalisierte Vorlagen, die du in deinen Space übernehmen kannst. Empfohlene Maßnahmen werden Kontrollen automatisch zugeordnet.
+- Ist eine Maßnahme archiviert, wird sie nicht mehr für Kontrollen oder das Trust Center gezählt. Sie bleibt aber für Audits einsehbar.
+
+## Typischer Ablauf
+
+1. Aus einer Kontrolle heraus oder über die Maßnahmen-Übersicht eine neue Maßnahme anlegen, alternativ aus dem Katalog importieren.
+2. Titel und Beschreibung pflegen, Art der Umsetzung wählen (Organisatorisch, Technisch, Physisch, Personell oder Hybrid) und den Automatisierungsgrad angeben.
+3. Verantwortliche Person setzen, die die Maßnahme aktuell hält.
+4. Die Maßnahme mit allen Kontrollen verknüpfen, die sie abdeckt. Eine Maßnahme darf gerne mehrere Frameworks gleichzeitig bedienen.
+5. Nachweise hochladen oder Dokumente verknüpfen, die belegen, dass die Maßnahme umgesetzt ist und funktioniert.
+6. Offene Aufgaben verknüpfen, wenn es noch Arbeit gibt. Sobald alles in Ordnung ist, wechselt der Status automatisch auf "Wirksam".
+
+<Mermaid chart={`flowchart LR
+  A[Nicht wirksam] -->|Nachweis hinzugefügt| B[Eingeschränkt wirksam]
+  B -->|alle Nachweise gültig, keine überfällige Aufgabe| C[Wirksam]
+  C -->|Nachweis verfällt oder Aufgabe 30 Tage überfällig| B
+  A -.->|manuell| D[Archiviert]
+  B -.->|manuell| D
+  C -.->|manuell| D
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Name | Kurzer, klarer Titel der Maßnahme | Pflicht | Maximal 100 Zeichen | Eine Maßnahme pro Idee. Beispiel: "Azure AD mit MFA". |
+| Beschreibung | Was ist umgesetzt, mit welchen Parametern, durch wen | Optional | Freitext | Hier gehört das Detail hin, etwa Konfiguration, Prozess, Verantwortlichkeit. |
+| Art der Maßnahme | Organisatorisch, Technisch, Physisch, Personell oder Hybrid | Optional | Auswahlliste | Hilft bei der Auswertung. Bei Mischformen "Hybrid" wählen. |
+| Automatisierungsgrad | Manuell, Teilautomatisiert oder Vollautomatisiert | Optional | Auswahlliste | Vollautomatisiert ist robuster, Manuell braucht klare Verantwortliche. |
+| Verantwortliche | Person, die die Maßnahme pflegt | Optional | Mitglied des Space | Bei technischen Maßnahmen oft IT, bei organisatorischen oft die Prozessverantwortliche. |
+| Umsetzungsdatum | Wann die Maßnahme in Betrieb gegangen ist | Optional | Datumsfeld | Hilft im Audit, das Reifedatum nachzuvollziehen. |
+| Status | Aktuelle Wirksamkeit | Berechnet | Wird automatisch aus Nachweisen und Aufgaben abgeleitet, "Archiviert" wird manuell gesetzt | Den Status nicht "schönrechnen", sondern Nachweise und Aufgaben pflegen. |
+| SDM-Kategorien | Schutzziele aus dem Standard-Datenschutzmodell | Optional | Auswahl mehrerer Kategorien | Wichtig bei Datenschutz-Maßnahmen. |
+| Verknüpfte Kontrollen | Anforderungen, die diese Maßnahme erfüllt | Empfohlen | Mehrfachauswahl | Wirklich alle passenden Kontrollen verknüpfen, auch aus anderen Frameworks. |
+
+## Was im Hintergrund passiert
+
+- Der Status einer Maßnahme wird neu berechnet, sobald sich etwas Relevantes ändert: ein Nachweis kommt hinzu, ein Dokument läuft ab, eine Aufgabe wird erledigt oder überfällig. Zusätzlich läuft einmal täglich eine automatische Überprüfung im Hintergrund, damit auch zeitgetriebene Wechsel (etwa eine Aufgabe, die über die 30-Tage-Schwelle rutscht) ankommen.
+- Eine Maßnahme ist "Wirksam", wenn mindestens ein Nachweis gültig ist und kein verknüpfter Nachweis ungültig ist. Liegen keine Nachweise vor, ist sie "Nicht wirksam". Alles dazwischen gilt als "Eingeschränkt wirksam".
+- Offene Aufgaben mit Fälligkeitsdatum ziehen eine ansonsten wirksame Maßnahme auf "Eingeschränkt wirksam", wenn das Fälligkeitsdatum mehr als 30 Tage in der Vergangenheit liegt. Sobald die Aufgabe erledigt oder das Datum angepasst ist, erholt sich der Status.
+- Wird eine Maßnahme aus dem Katalog importiert, übernimmt Kopexa die empfohlenen Kontroll-Verknüpfungen. Sobald die passenden Kontrollen im Space verfügbar sind, werden sie automatisch verbunden.
+- Eine archivierte Maßnahme bleibt sichtbar, fließt aber nicht mehr in den Status der Kontrollen, in das Trust Center oder in die Audit-Berichte ein.
+
+## Verknüpfungen
+
+- [Kontrollen](/platform/space/compliance/controls) sind die Anforderungen, die Maßnahmen erfüllen.
+- [Dokumente](/platform/space/documents) liefern oft den Nachweis für eine Maßnahme.
+- [Risiken](/platform/space/compliance/risks) werden durch Maßnahmen reduziert.
+- [Aufgaben](/platform/space/issues) tragen die operative Arbeit an einer Maßnahme.
+- [Audits](/platform/space/compliance/audits) bewerten die Wirksamkeit der Maßnahmen.
+- [Findings](/platform/space/compliance/findings) entstehen, wenn Maßnahmen nicht ausreichend wirken.
+- [Trust Center](/platform/space/trust-center) zeigt nur wirksame Maßnahmen extern an.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Maßnahmen. Maßnahmen anlegen, bearbeiten und mit Kontrollen verknüpfen dürfen Mitglieder mit Editor-Rechten im Space. Eine Maßnahme als Verantwortliche pflegt die zugewiesene Person, auch wenn sie sonst nur Leserechte hätte. Archivieren oder Löschen dürfen nur Space-Admins oder die Person, die die Maßnahme ursprünglich angelegt hat. Den Katalog pflegt Kopexa systemweit, du nutzt ihn nur lesend.
+
+## Best Practices
+
+- Eine Maßnahme pro logische Einheit. Nicht zu grob, sonst lässt sich Wirksamkeit nicht bewerten. Nicht zu fein, sonst entstehen hunderte Maßnahmen.
+- Dieselbe Maßnahme an mehrere Kontrollen hängen, statt sie zu duplizieren. So pflegst du Nachweise nur einmal.
+- Verantwortliche aktiv halten. Bei Personalwechsel sofort neu zuweisen, sonst veralten Nachweise unbemerkt.
+- Nachweise frisch halten: technische Belege bei jedem relevanten Change, dokumentarische Belege bei jeder Dokumentenänderung, Prüfberichte nach jedem Audit oder Test.
+- Den Katalog nutzen, wenn passend. Die Vorlagen sind bereits gegen typische Frameworks ausgerichtet und sparen Anlegezeit.
+
+## Stolperfallen
+
+- Nachweise an die Kontrolle zu hängen funktioniert nicht. Belege gehören an die Maßnahme, sonst wirken sie nicht auf den Status.
+- Eine Maßnahme ohne verknüpfte Kontrolle wird im Audit nichts bewirken. Verknüpfungen sind die Brücke zur Anforderung.
+- Wird ein Dokument archiviert, das als Nachweis dient, fällt der Nachweis weg. Die Maßnahme kann auf "Eingeschränkt wirksam" oder "Nicht wirksam" wechseln. Vorher prüfen, ob du das wirklich willst.
+- Eine überfällige Aufgabe an einer Maßnahme zieht deren Status nach unten, auch wenn die Nachweise sonst in Ordnung sind. Aufgaben abschließen oder Fälligkeitsdatum anpassen.
+- Archivierte Maßnahmen aus alten Audits einfach stehen lassen ist in Ordnung. Reaktivieren erst, wenn sie wieder wirklich in Betrieb sind.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Kontrolle und Maßnahme?">
+Die [Kontrolle](/platform/space/compliance/controls) ist die Anforderung aus einem Framework, etwa ISO 27001 A.9.4.2. Die Maßnahme ist deine konkrete Umsetzung, etwa "Azure AD mit MFA". Eine Maßnahme kann mehrere Kontrollen erfüllen, eine Kontrolle kann mehrere Maßnahmen brauchen.
+</Accordion>
+<Accordion title="Warum berechnet Kopexa den Status automatisch?">
+Damit Wirksamkeit nicht von der Tagesform abhängt. Du pflegst Nachweise und Aufgaben, der Status ergibt sich daraus konsistent und prüfbar. Manuelles "Wirksam"-Setzen wäre im Audit nicht haltbar.
+</Accordion>
+<Accordion title="Wann ist eine Maßnahme 'Eingeschränkt wirksam'?">
+Wenn mindestens ein Nachweis nicht gültig ist oder eine verknüpfte offene Aufgabe seit mehr als 30 Tagen überfällig ist. Beides ist ein Signal, dass die Maßnahme zwar grundsätzlich existiert, aber nicht voll greift.
+</Accordion>
+<Accordion title="Kann ich Maßnahmen aus dem Katalog mehrfach importieren?">
+Ja. Jede importierte Maßnahme wird als eigene Instanz in deinem Space angelegt. Du kannst sie danach unabhängig pflegen, anpassen und verknüpfen.
+</Accordion>
+<Accordion title="Was passiert, wenn ich eine Maßnahme archiviere?">
+Sie verschwindet aus aktiven Auswertungen, Kontroll-Status und Trust Center. Für Audits bleibt sie aber sichtbar. Verknüpfte Kontrollen werden sofort neu bewertet und fallen typischerweise zurück, wenn keine aktive Maßnahme mehr übrig ist.
+</Accordion>
+<Accordion title="Wie hängt eine Maßnahme mit einem Risiko zusammen?">
+Eine Maßnahme kann auch direkt an einem [Risiko](/platform/space/compliance/risks) hängen, um dessen Eintrittswahrscheinlichkeit oder Auswirkung zu reduzieren. So entsteht die Kette Risiko, Maßnahme, Nachweis, die für die Risikobehandlung wichtig ist.
+</Accordion>
+</Accordions>
