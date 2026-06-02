@@ -60,6 +60,63 @@ Aufgaben sind die operativen Arbeitspakete deines Space. Du legst sie für konkr
 - Wenn du einen Status in eine andere Gruppe verschiebst, etwa von "In Bearbeitung" nach "Abgeschlossen", werden alle Maßnahmen, die an Aufgaben mit diesem Status hängen, automatisch neu bewertet.
 - Verantwortliche werden bei wichtigen Änderungen wie Statuswechsel, neuen Kommentaren oder Fälligkeit per Benachrichtigung informiert.
 
+## Eigene Status und Kanban-Lanes
+
+Jeder Space hat seine eigenen Status. Die Lanes deines Kanban-Boards sind direkt die Status. Du kannst beliebig viele Status anlegen, sie umbenennen, ihnen Farben geben und ihre Reihenfolge ändern. Damit der Workflow stabil bleibt, gehört jeder Status zu einer von fünf festen Gruppen.
+
+### Die fünf Gruppen
+
+Die Gruppen sind fix und können nicht geändert werden. Sie steuern, wie ein Status sich auf verknüpfte Maßnahmen und Reports auswirkt.
+
+| Gruppe | Bedeutung | Standard-Verhalten |
+|---|---|---|
+| **Backlog** | Nicht priorisiert, noch zu sichten | Neue Aufgaben landen standardmäßig hier |
+| **Nicht gestartet** | Bereit zum Start | Aufgabe ist priorisiert, aber Bearbeitung läuft noch nicht |
+| **In Bearbeitung** | Arbeit hat begonnen | Aufgabe ist aktiv |
+| **Abgeschlossen** | Erfolgreich beendet | Die Aktion "Erledigt" verschiebt Aufgaben hierher |
+| **Abgebrochen** | Wird nicht umgesetzt | Die Aktion "Abbrechen" verschiebt Aufgaben hierher |
+
+Pro Gruppe kannst du mehrere Status anlegen, etwa "In Arbeit", "Wartet auf Rückmeldung" und "In Prüfung", alle in der Gruppe "In Bearbeitung".
+
+### Status verwalten
+
+1. Öffne den Space.
+2. Wechsle in den Bereich **Einstellungen → Status** des Aufgaben-Moduls.
+3. Klicke auf **Status hinzufügen** oder bearbeite einen bestehenden Status.
+4. Pflege:
+
+| Feld | Bedeutung |
+|---|---|
+| Name | Wie der Status im Board angezeigt wird, zum Beispiel "In Prüfung" |
+| Farbe | Kennfarbe der Lane im Board |
+| Gruppe | Eine der fünf festen Gruppen, steuert das Verhalten |
+| Beschreibung | Wofür dieser Status steht, hilft dem Team bei der Abgrenzung |
+| Standardstatus | Nur für Backlog, Abgeschlossen und Abgebrochen verfügbar. Pro Gruppe genau einer. |
+
+### Standardstatus
+
+In den drei kritischen Gruppen Backlog, Abgeschlossen und Abgebrochen gibt es genau einen Standardstatus. Auf diesen verschiebt Kopexa Aufgaben automatisch:
+
+- **Backlog-Standard**: Neue Aufgaben werden in diesem Status angelegt, wenn nichts anderes gewählt wird.
+- **Abgeschlossen-Standard**: Die Aktion "Erledigen" verschiebt Aufgaben hierher.
+- **Abgebrochen-Standard**: Die Aktion "Abbrechen" verschiebt Aufgaben hierher.
+
+In den Gruppen Nicht gestartet und In Bearbeitung gibt es keinen Standardstatus, weil hier verschiedene Phasen üblich sind.
+
+### Was passiert beim Wechsel der Gruppe
+
+Wenn du einen Status nachträglich in eine andere Gruppe verschiebst, etwa von "In Bearbeitung" nach "Abgeschlossen", bewertet Kopexa alle Aufgaben mit diesem Status und ihre verknüpften Maßnahmen neu. Damit bleibt die automatische Wirksamkeitsbewertung der Maßnahmen konsistent. Plane Gruppenwechsel daher bewusst und nicht nebenbei.
+
+### Status löschen
+
+Status, die noch Aufgaben enthalten, kannst du nicht löschen. Verschiebe die Aufgaben vorher in einen anderen Status. Auch der einzige Standardstatus einer kritischen Gruppe kann nicht gelöscht werden, sonst gäbe es kein Ziel für die automatischen Aktionen.
+
+### Empfehlung
+
+- Halte den Workflow schlank: drei bis fünf aktive Status genügen meist.
+- Nutze unterschiedliche Status nur, wenn die Unterscheidung sichtbares Verhalten verändert (zum Beispiel ein Reporting darauf basiert).
+- Vergib für jede Lane eine eigene Farbe. So erkennst du auf einen Blick, wo Aufgaben stauen.
+
 ## Verknüpfungen
 
 - [Maßnahmen](/platform/space/compliance) umsetzen und Wirksamkeit über Aufgaben absichern.

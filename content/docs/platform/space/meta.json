@@ -1,21 +1,20 @@
 {
     "title": "Space",
     "pages": [
-        "index",
         "issues",
         "documents",
         "trust-center",
         "---Governance---",
-        "governance",
+        "...governance",
         "---Compliance---",
-        "compliance",
+        "...compliance",
         "---Organisation---",
-        "organisation",
+        "...organisation",
         "---Datenschutz---",
-        "datenschutz",
+        "...datenschutz",
         "---Integrationen---",
         "integrationen",
         "---Einstellungen---",
-        "einstellungen"
+        "...einstellungen"
     ]
 }
