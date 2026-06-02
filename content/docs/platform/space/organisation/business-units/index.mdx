@@ -1,6 +1,107 @@
 ---
-title: Organisationseinheiten
-description: Inhalt folgt.
+title: Abteilungen
+description: Organisationsstruktur abbilden, Verantwortlichkeiten zuweisen und Mitglieder Abteilungen zuordnen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Abteilungen bilden die Organisationsstruktur deines Unternehmens innerhalb eines Space ab. Du legst Abteilungen wie "IT", "Vertrieb", "Personal" oder "Produktion" an, ordnest ihnen eine verantwortliche Person zu und kannst Mitglieder, Assets, Prozesse und Domains daran hängen. Über die Hierarchie lassen sich übergeordnete und untergeordnete Abteilungen abbilden, sodass das interne Organigramm entsteht. Verarbeitungstätigkeiten und Prozesse referenzieren Abteilungen, damit sichtbar wird, wer im Unternehmen welche Daten verantwortet.
+
+## Wann nutzt du es
+
+- Du brauchst eine klare Zuordnung, welche Abteilung welches Asset, welchen Prozess oder welche Domain verantwortet.
+- Verarbeitungstätigkeiten sollen pro verantwortlicher Abteilung dokumentiert werden.
+- Du baust eine Organisationssicht für ISO 27001, ISO 9001 oder TISAX.
+- Onboarding-Prozesse sollen pro Abteilung eigene Aufgaben und Verantwortliche kennen.
+- Audit-Befunde müssen einer organisatorischen Einheit zugeordnet werden.
+
+## Das Wichtigste in Kürze
+
+- Abteilungen gehören zu einem Space und werden in der Liste verwaltet.
+- Jede Abteilung hat eine verantwortliche Person und optional eine Beschreibung.
+- Über die Hierarchie bildest du das Organigramm ab: eine Abteilung kann eine übergeordnete und beliebig viele untergeordnete Abteilungen haben.
+- Mitglieder werden über Mitgliedschaften zugewiesen, eine Person kann in mehreren Abteilungen Mitglied sein.
+- Verknüpfungen zu Assets, Prozessen, Domains, Personen und Verarbeitungstätigkeiten machen die Verantwortlichkeit operativ.
+
+## Typischer Ablauf
+
+1. Abteilung anlegen über "Abteilung erstellen" in der Liste.
+2. Name und Beschreibung pflegen.
+3. Verantwortliche Person zuweisen.
+4. Falls vorhanden, übergeordnete Abteilung auswählen.
+5. Mitglieder hinzufügen, also Personen aus dem Space.
+6. Verknüpfungen setzen: Assets, Prozesse, Domains, Personen, Verarbeitungstätigkeiten.
+7. Bei Bedarf untergeordnete Abteilungen anlegen, etwa Teams innerhalb einer größeren Abteilung.
+
+<Mermaid chart={`flowchart TD
+  A[Geschäftsführung] --> B[IT]
+  A --> C[Vertrieb]
+  A --> D[Personal]
+  B --> E[Betrieb]
+  B --> F[Entwicklung]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Name | Bezeichnung der Abteilung | Pflicht | Pro Space eindeutig. |
+| Beschreibung | Aufgaben und Zuschnitt | Optional | Hilft, Abgrenzungen klarzumachen. |
+| Verantwortliche Person | Leitung der Abteilung | Optional | Sichtbar in der Liste und in allen Auswertungen. |
+| Übergeordnete Abteilung | Position im Organigramm | Optional | Erlaubt eine baumartige Struktur. |
+| Mitglieder | Personen aus dem Space | Optional | Mehrfache Mitgliedschaften sind möglich. |
+
+## Was im Hintergrund passiert
+
+- Mitgliedschaften werden als eigenständige Beziehungen geführt. Wenn du eine Person hinzufügst, prüft Kopexa, dass sie zum Space gehört.
+- Verknüpfungen zu Assets, Prozessen und Domains bleiben bestehen, auch wenn die verantwortliche Person wechselt.
+- Die Hierarchie wird nicht für Berechtigungen genutzt, sondern dient der Organisationssicht. Berechtigungen laufen weiterhin über Space-Rollen.
+- Wenn du eine Abteilung umbenennst, aktualisieren sich abhängige Anzeigen automatisch.
+
+## Verknüpfungen
+
+- [Personen](/platform/space/organisation/people) als Mitglieder der Abteilung.
+- [Assets](/platform/space/organisation/assets), die der Abteilung gehören oder die sie betreut.
+- [Prozesse](/platform/space/organisation/processes), die in der Abteilung verantwortet werden.
+- [Domains](/platform/space/organisation/domains), die der Abteilung zugeordnet sind.
+- [Verarbeitungstätigkeiten](/platform/space/datenschutz) mit verantwortlicher Abteilung.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Abteilungen. Anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Verantwortliche dürfen "ihre" Abteilung immer aktualisieren. Mitgliedschaften können von Editoren verwaltet werden. Löschen dürfen Admins oder die erstellende Person. Die Abteilungsstruktur dient der Übersicht und Zuordnung, sie steuert aktuell keine Zugriffsrechte.
+
+## Best Practices
+
+- Halte die Hierarchie flach. Drei bis vier Ebenen reichen meist, ein zu tiefer Baum macht die Übersicht unleserlich.
+- Eine Abteilung sollte mindestens eine verantwortliche Person haben. Ohne Verantwortliche bleibt sie unsichtbar in Bewertungen.
+- Nutze die Mitgliedschaft sparsam. Wer wirklich Mitglied einer Abteilung ist, sollte hier auftauchen, nicht jeder gelegentliche Kontakt.
+- Verknüpfe Assets und Prozesse mit der Abteilung, die sie operativ verantwortet, nicht mit der, die formal "alles" verantwortet.
+- Spiegle nicht das ganze Unternehmensorganigramm. Modelliere die Einheiten, die für deine Compliance- und Governance-Arbeit relevant sind.
+
+## Stolperfallen
+
+- Wenn du eine übergeordnete Abteilung löschst, werden untergeordnete Abteilungen nicht automatisch mitgelöscht, sie verlieren aber den Bezug.
+- Mitgliedschaft bedeutet nicht Verantwortlichkeit. Eine Person kann Mitglied sein, aber für Assets oder Prozesse zählt die jeweilige Verantwortliche.
+- Eine Abteilung ohne Beschreibung wirkt klar, ist es aber selten. Eine kurze Aufgabenbeschreibung erleichtert spätere Audits.
+- Dieselbe Abteilung im selben Space kann nicht doppelt existieren. Achte bei Imports auf Duplikate.
+- Das Organigramm-Modul ist nur eine Ansicht. Der Zuschnitt entsteht über die Hierarchie- und Mitgliedschaftspflege.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wie unterscheiden sich Abteilungen und Personen?">
+Personen sind einzelne natürliche Personen im Inventar. Abteilungen sind organisatorische Einheiten. Du ordnest Personen über Mitgliedschaften einer oder mehreren Abteilungen zu.
+</Accordion>
+<Accordion title="Kann eine Person in mehreren Abteilungen Mitglied sein?">
+Ja. Mitgliedschaften sind Many-to-Many. Eine Person kann zum Beispiel im IT-Betrieb und in der Entwicklung Mitglied sein.
+</Accordion>
+<Accordion title="Beeinflusst die Hierarchie Berechtigungen?">
+Nein. Die Hierarchie dient nur der Organisationssicht. Zugriffsrechte werden über die Space-Rollen und Verantwortlichkeiten an den jeweiligen Objekten gesteuert.
+</Accordion>
+<Accordion title="Wie nutze ich Abteilungen für das VVT?">
+Verknüpfe Verarbeitungstätigkeiten mit der verantwortlichen Abteilung. Im VVT erscheint die Abteilung dann als verantwortliche Organisationseinheit.
+</Accordion>
+<Accordion title="Gibt es ein Organigramm?">
+Eine Organigramm-Ansicht ist in Vorbereitung. Aktuell baust du die Struktur über die Hierarchie und siehst Eltern- und Kindabteilungen auf der Detailseite.
+</Accordion>
+</Accordions>
