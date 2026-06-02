@@ -1,6 +1,129 @@
 ---
 title: Vorfälle
-description: Inhalt folgt.
+description: Vorfälle erfassen, klassifizieren, melden und nachverfolgen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Ein Vorfall ist ein konkretes Ereignis, das deine Sicherheit, deinen Betrieb oder den Schutz personenbezogener Daten beeinträchtigt. Im Vorfälle-Bereich dokumentierst du jeden Vorfall mit seinen Eckdaten, ordnest ihn nach Schweregrad und Priorität ein, stellst die Meldepflicht fest und arbeitest ihn strukturiert ab. Damit hast du eine durchgehende Akte vom ersten Erkennen bis zum Abschluss und kannst gegenüber Aufsichtsbehörden und Auditoren belegen, wie du reagiert hast.
+
+## Wann nutzt du es
+
+- Eine Datenpanne ist eingetreten und die 72-Stunden-Frist der DSGVO läuft.
+- Ein schwerwiegender IKT-Vorfall fällt unter DORA und muss innerhalb weniger Stunden gemeldet werden.
+- Ein erheblicher Sicherheitsvorfall trifft wesentliche Dienste unter NIS2 und braucht eine 24-Stunden-Frühwarnung.
+- Du dokumentierst einen Phishing-Fall, einen Lieferantenausfall oder einen Verstoß gegen interne Richtlinien.
+- Ein Audit oder eine Feststellung verlangt, dass du Vorfälle systematisch erfasst und auswertest.
+
+## Das Wichtigste in Kürze
+
+- Jeder Vorfall gehört zu einem Space und hat Titel, Beschreibung, Vorfallsdatum, Schweregrad, Priorität und Status.
+- Vorfalltypen klassifizieren das Ereignis fachlich, zum Beispiel Datenpanne, Sicherheitsvorfall oder Service-Ausfall.
+- Die Meldepflicht steuerst du als eigenes Feld. Kopexa zeigt dir die Fristen nach DSGVO (72h), DORA (4h) und NIS2 (24h) und erinnert automatisch.
+- Status, Erkennungs-, Behebungs- und Abschlussdatum bilden den Lebenszyklus von "Offen" bis "Geschlossen" ab.
+- Du verknüpfst Vorfälle mit Assets, Lieferanten, Kontrollen, Risiken, Dokumenten, Aufgaben, Behörden und betroffenen Parteien.
+- DORA-relevante Felder bilden Kunden, Finanzpartner und Transaktionen detailliert ab.
+
+## Typischer Ablauf
+
+1. Vorfall anlegen über "Neuer Vorfall" und Grundangaben pflegen: Titel, Beschreibung, Vorfallsdatum.
+2. Klassifizieren über Schweregrad, Priorität und passende Vorfalltypen.
+3. Meldepflicht prüfen und gegebenenfalls aktivieren. Kopexa zeigt dir die gesetzlichen Fristen an.
+4. Beziehungen herstellen: betroffene Assets, Kontrollen, Lieferanten, Risiken, betroffene Parteien, zuständige Behörden.
+5. Auswirkungen erfassen, zum Beispiel Anzahl betroffener Kunden, Finanzpartner oder Transaktionen.
+6. Maßnahmen einleiten und Aufgaben anlegen, um den Vorfall einzudämmen und zu beheben.
+7. Behebung dokumentieren, Behörden informieren und das Datum der Meldung pflegen.
+8. Vorfall abschließen, sobald alle Maßnahmen umgesetzt und Nachweise hinterlegt sind.
+
+<Mermaid chart={`flowchart LR
+  A[Offen] --> B[In Arbeit]
+  B --> C[Gelöst]
+  C --> D[Geschlossen]
+  B --> E[Auf Eis]
+  E --> B
+  A --> F[Abgebrochen]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Kurze Bezeichnung des Vorfalls | Pflicht | Nicht leer | Konkret formulieren, zum Beispiel "Phishing-Welle auf Finanzbuchhaltung am 14.05.". |
+| Beschreibung | Was ist passiert, wann und was war betroffen | Optional | Freitext | Beschreibe Ablauf und Auswirkungen, keine Schuldzuweisungen. |
+| Vorfallsdatum | Tatsächlicher Zeitpunkt des Vorfalls | Pflicht | Datum/Uhrzeit | Das ist der Zeitpunkt, an dem der Vorfall begonnen hat. |
+| Erkannt am | Wann hat dein Team es bemerkt | Pflicht | Nicht vor Vorfallsdatum | Startet die Meldepflicht-Frist der DSGVO. |
+| Gelöst am | Wann war die Eindämmung abgeschlossen | Optional | Nicht vor Erkennungsdatum | Setzen, sobald keine Auswirkung mehr besteht. |
+| Geschlossen am | Wann war der Vorfall final dokumentiert | Optional | Nach Lösungsdatum | Wird automatisch beim Wechsel auf "Geschlossen" gesetzt. |
+| Schweregrad | Kritisch, Hoch, Mittel, Niedrig | Pflicht | Eingabefeld | Misst die tatsächliche oder potenzielle Auswirkung. |
+| Priorität | Steuert die Reihenfolge der Bearbeitung | Pflicht | Eingabefeld | Hohe Priorität trotz mittlerem Schweregrad ist möglich, wenn die Frist drängt. |
+| Status | Offen, In Arbeit, Auf Eis, Gelöst, Geschlossen, Abgebrochen | Pflicht | Workflow-gesteuert | Statuswechsel werden bestätigt, damit niemand versehentlich abschließt. |
+| Vorfalltyp | Eine oder mehrere fachliche Kategorien | Optional | Aus Vorlagen wählbar | Mehrfachauswahl möglich, etwa Datenpanne + Lieferantenausfall. |
+| Meldepflicht | Muss eine Behörde informiert werden | Pflicht | Boolean | Mit Aktivierung erscheinen DSGVO-, DORA- und NIS2-Fristen. |
+| Meldung an Behörden am | Zeitpunkt der Behördenmeldung | Optional | Datum/Uhrzeit | Nachweis für die Einhaltung der gesetzlichen Frist. |
+| Verantwortliche | Person, die den Vorfall steuert | Optional | Mitglied des Space | Eine Hauptverantwortliche, optional eine Vertretung. |
+| Auswirkungen auf Kunden | Boolean, Anzahl, Prozentsatz, Schätzung | Optional | Zahlen, Prozente | Wichtig für DORA-Meldungen. |
+| Auswirkungen auf Finanzpartner | Boolean, Anzahl, Prozentsatz, Schätzung | Optional | Zahlen, Prozente | DORA-relevant, etwa für IKT-bezogene Vorfälle. |
+| Auswirkungen auf Transaktionen | Anzahl, Wert, Prozentsatz | Optional | Zahlen | Setzen, wenn Zahlungsprozesse betroffen waren. |
+| Reputationsauswirkung | Medien, Kundenbeschwerden, Behörde, Kundenverlust | Optional | Mehrfachauswahl | Zusatznotiz im Beschreibungsfeld hilft im Audit. |
+| Grenzüberschreitende Wirkung | Liste betroffener Länder | Optional | Länder-Codes | Wichtig für NIS2 und länderübergreifende DSGVO-Meldungen. |
+
+## Was im Hintergrund passiert
+
+- **Zeitstempel:** Beim Anlegen setzt Kopexa das Erkennungsdatum automatisch, falls du nichts angibst. Beim Wechsel auf "Gelöst" wird das Lösungsdatum gesetzt, beim Wechsel auf "Geschlossen" zusätzlich das Abschlussdatum.
+- **Fristen-Reminder:** Ist die Meldepflicht aktiv, prüft Kopexa regelmäßig die Restzeit bis zur DSGVO-Frist (72 Stunden), DORA-Frist (4 Stunden) und NIS2-Frist (24 Stunden). Vor Ablauf erinnert Kopexa die Verantwortlichen automatisch.
+- **Status-Übergänge:** Wechsel zwischen Status werden in einer Bestätigung abgesichert, damit niemand versehentlich abschließt. Ungültige Übergänge sind gesperrt.
+- **Benachrichtigungen:** Verantwortliche und Beteiligte werden bei Statuswechseln, neuen Kommentaren und nahenden Fristen informiert.
+
+## Verknüpfungen
+
+- [Risiken](/platform/space/compliance/risks) werden oft aus einem Vorfall abgeleitet, damit das Ereignis nicht erneut eintritt.
+- [Maßnahmen](/platform/space/compliance/measures) und [Aufgaben](/platform/space/issues) steuern Eindämmung, Behebung und Nachsorge.
+- [Kontrollen](/platform/space/compliance/controls) und [Feststellungen](/platform/space/compliance/findings) zeigen, wo eine Kontrolle versagt hat.
+- [Assets](/platform/space/governance), Lieferanten und Prozesse beschreiben den Kontext, in dem der Vorfall stattfand.
+- Behörden und betroffene Parteien dokumentieren, wer informiert wurde und wer betroffen war.
+- [Dokumente](/platform/space/documents) sichern Meldungen, Beweise und Post-Mortems auditfest.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Vorfälle. Vorfälle anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten. Verantwortliche und Vertretung dürfen "ihre" Vorfälle jederzeit aktualisieren. Vorfälle löschen ist Admins des Space vorbehalten, weil ein Vorfall in der Regel auditrelevant bleibt. Vorfalltypen werden zentral gepflegt und brauchen Admin-Rechte.
+
+## Best Practices
+
+- Erfasse den Vorfall früh und ergänze Details nachträglich. Eine späte Erfassung gefährdet Fristen.
+- Halte Erkennungsdatum und Vorfallsdatum getrennt sauber, denn die Frist beginnt mit dem Erkennen.
+- Aktiviere die Meldepflicht so früh wie möglich, dann erinnert Kopexa rechtzeitig.
+- Verknüpfe sofort betroffene Assets, Lieferanten und Risiken, damit der Kontext für Folgeentscheidungen vorliegt.
+- Lege für jede Eindämmungs- und Behebungsmaßnahme eine Aufgabe an, damit nichts verloren geht.
+- Dokumentiere die Ursachenanalyse als Beschreibung oder verknüpftes Dokument, sonst fehlt im Audit der rote Faden.
+- Schließe einen Vorfall erst, wenn alle Maßnahmen umgesetzt und Nachweise hinterlegt sind.
+
+## Stolperfallen
+
+- Wenn du die Meldepflicht erst spät aktivierst, sieht Kopexa die Frist erst spät. Setze sie sofort beim Anlegen, sobald klar ist, dass eine Meldepflicht besteht.
+- Statuswechsel von "Geschlossen" zurück sind nicht möglich. Prüfe vor dem Abschluss, ob wirklich alles erledigt ist.
+- Auswirkungs-Zahlen ohne Häkchen "geschätzt" wirken in einer DORA-Meldung wie exakte Werte. Markiere Schätzungen klar.
+- Vorfälle ohne Verantwortliche sind ein Risiko an sich. Weise sofort jemanden zu, der steuert.
+- Ein Vorfall ohne verknüpfte Assets oder Prozesse ist im Audit schwer zu verteidigen. Stelle den Kontext immer her.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wann muss ich einen Vorfall melden?">
+Bei einer Datenpanne mit personenbezogenen Daten gilt die 72-Stunden-Frist der DSGVO ab Erkennen. Bei schwerwiegenden IKT-Vorfällen unter DORA gilt eine Erstmeldung innerhalb von 4 Stunden. Unter NIS2 muss eine Frühwarnung bei erheblichen Vorfällen innerhalb von 24 Stunden, eine vollständige Meldung innerhalb von 72 Stunden erfolgen. Kopexa zeigt dir die jeweilige Restzeit und erinnert automatisch.
+</Accordion>
+<Accordion title="Was ist der Unterschied zwischen Schweregrad und Priorität?">
+Der Schweregrad misst, wie groß die Auswirkung des Vorfalls ist oder sein könnte. Die Priorität steuert, in welcher Reihenfolge dein Team reagiert. Ein Vorfall kann mittleren Schweregrad und trotzdem hohe Priorität haben, etwa wenn eine gesetzliche Frist drängt.
+</Accordion>
+<Accordion title="Welche DORA-Felder sind relevant?">
+Für DORA dokumentierst du Auswirkungen auf Kunden, Finanzpartner und Transaktionen sowie grenzüberschreitende Wirkung und Reputationsauswirkungen. Markiere geschätzte Zahlen als solche, damit die Meldung sauber unterscheidet.
+</Accordion>
+<Accordion title="Kann ein Vorfall mehrere Typen haben?">
+Ja. Ein Vorfall lässt sich mit mehreren Vorfalltypen verknüpfen, etwa "Datenpanne" und "Lieferantenausfall" gleichzeitig. Das erleichtert das Filtern und die Auswertung.
+</Accordion>
+<Accordion title="Was passiert, wenn ich einen Vorfall abbreche?">
+"Abgebrochen" nutzt du, wenn sich herausstellt, dass es kein Vorfall war (etwa Fehlalarm). Der Vorfall bleibt zur Nachvollziehbarkeit in der Liste, beeinflusst aber keine offenen Kennzahlen.
+</Accordion>
+<Accordion title="Wie hängen Vorfall und Risiko zusammen?">
+Ein Vorfall ist ein eingetretenes Ereignis, ein Risiko ist die Möglichkeit eines Ereignisses. Nach jedem Vorfall solltest du prüfen, ob ein zugehöriges Risiko neu zu bewerten oder neu anzulegen ist. Verknüpfe Vorfall und Risiko direkt, damit der Zusammenhang erhalten bleibt.
+</Accordion>
+</Accordions>
