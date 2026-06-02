@@ -1,6 +1,172 @@
 ---
 title: Aufbewahrungsrichtlinien
-description: Inhalt folgt.
+description: Wie lange welche Daten aufbewahrt werden und was nach Ablauf der Frist passiert.
 ---
 
-Inhalt folgt.
+Aufbewahrungsrichtlinien beschreiben die Spielregeln für die Speicherung personenbezogener und sonstiger Daten: wie lange du sie aufbewahrst, ab welchem Ereignis die Frist läuft, ob nach Ablauf gelöscht oder anonymisiert wird und welche Rechtsgrundlage das alles trägt. In dieser Liste pflegst du diese Richtlinien einmal und nutzt sie überall, wo Daten mit klaren Aufbewahrungsregeln liegen, vor allem bei Informationswerten.
+
+<Callout type="info">
+Eine Aufbewahrungsrichtlinie ist mehr als eine Dauer. Sie beantwortet drei Fragen: Wie lange? Ab wann? Was danach? Und sie verweist auf die Rechtsgrundlage, die die Aufbewahrung trägt.
+</Callout>
+
+## Worum geht's
+
+Art. 5 Abs. 1 lit. e DSGVO verlangt eine Speicherbegrenzung. Daten dürfen nur so lange aufbewahrt werden, wie es für den Zweck erforderlich ist, oder solange eine gesetzliche Aufbewahrungspflicht besteht. Eine saubere Liste von Aufbewahrungsrichtlinien hilft, diese Begrenzung konsequent umzusetzen. Pro Richtlinie hältst du fest:
+
+- Dauer
+- Auslöser (zum Beispiel Vertragsende oder Jahresende)
+- Maßnahme nach Ablauf (Löschen oder Anonymisieren)
+- Rechtsgrundlage der Aufbewahrung
+- Optional eine Übergangsfrist mit eigener Rechtsgrundlage
+
+So entsteht eine nachvollziehbare Kette: Diese Richtlinie gilt für diesen Informationswert, mit dieser Frist, ab diesem Auslöser, gestützt auf diese DSGVO-Norm.
+
+## Wann nutzt du es
+
+- Du legst einen neuen Informationswert an und musst seine Aufbewahrungsregel benennen.
+- Steuer- oder handelsrechtliche Pflichten verlangen klar definierte Mindestaufbewahrungszeiten.
+- Du willst nachvollziehen, wann ein bestimmter Bestand zur Löschung ansteht.
+- Eine neue Datenklasse braucht eine eigene Richtlinie.
+- Du musst eine bestehende Richtlinie nachschärfen, etwa wegen einer neuen Vorschrift.
+
+## Das Wichtigste in Kürze
+
+- **Name eindeutig pro Space**: Jede Richtlinie braucht einen klaren, sprechenden Namen.
+- **Dauer als Freitext mit klarer Einheit**: Etwa "10 Jahre", "6 Monate" oder "30 Tage".
+- **Auslöser bestimmt den Fristbeginn**: bei Erstellung, bei Vertragsende oder zum Jahresende.
+- **Maßnahme entscheidet das Ende**: Löschen oder Anonymisieren.
+- **Rechtsgrundlage der Aufbewahrung pflicht**: Mindestens eine, mehrere möglich.
+- **Übergangsfrist optional**: Wenn nach der eigentlichen Frist noch eine verlängerte Aufbewahrung läuft, etwa zur Rechtsverteidigung, braucht sie eigene Rechtsgrundlagen.
+
+## Typischer Ablauf
+
+1. **Liste öffnen**: In den Space-Einstellungen den Bereich Aufbewahrungsrichtlinien aufrufen.
+2. **Richtlinie planen**: Welche Daten gehen rein, wie lange werden sie gebraucht, was sagt die Norm.
+3. **Anlegen**: Name, Beschreibung, Dauer, Auslöser, Maßnahme.
+4. **Rechtsgrundlagen verknüpfen**: Mindestens eine Rechtsgrundlage für die Aufbewahrung wählen.
+5. **Übergangsfrist optional setzen**: Wenn nach Ablauf der Frist eine verlängerte Aufbewahrung gilt, Dauer und Rechtsgrundlagen der Übergangsfrist eintragen.
+6. **Speichern und nutzen**: Die Richtlinie wird ab sofort in Informationswerten und ähnlichen Modulen ausgewählt.
+7. **Pflegen**: Bei Gesetzesänderungen Dauer, Auslöser oder Maßnahme anpassen.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Richtlinie definieren] --> B[Dauer + Auslöser + Maßnahme]
+    B --> C[Rechtsgrundlagen verknüpfen]
+    C --> D{Übergangsfrist nötig?}
+    D -- Ja --> E[Übergangsfrist + eigene Rechtsgrundlagen]
+    D -- Nein --> F[Speichern]
+    E --> F
+    F --> G[In Informationswerten und Modulen wiederverwenden]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Sprechende Bezeichnung, etwa "Kundendaten 10 Jahre", "Bewerberunterlagen 6 Monate". |
+| Beschreibung | Empfohlen | Zweck und Geltungsbereich der Richtlinie. |
+| Aufbewahrungsfrist | Ja | Zeitraum als Freitext mit Einheit, etwa "10 Jahre" oder "6 Monate". |
+| Fristbeginn | Ja | Auslöser für den Beginn der Frist: bei Erstellung, bei Vertragsende, zum Jahresende. |
+| Maßnahme | Ja | Was passiert nach Ablauf: Löschen oder Anonymisieren. |
+| Rechtsgrundlagen der Aufbewahrung | Ja | Mindestens eine Rechtsgrundlage, die die Speicherung legitimiert. |
+| Übergangsfrist vor Löschung | Optional | Zusätzlicher Zeitraum, etwa "30 Tage" für Prüfung oder Archivierung. |
+| Rechtsgrundlagen der Übergangsfrist | Bedingt | Pflicht, wenn eine Übergangsfrist gesetzt ist. Begründet die verlängerte Aufbewahrung. |
+| Labels | Optional | Schlagworte zur Kategorisierung. |
+
+### Auslöser-Optionen
+
+| Auslöser | Wirkung |
+|---|---|
+| Bei Erstellung | Frist beginnt mit der Erstellung des Datensatzes. |
+| Bei Vertragsende | Frist beginnt mit dem Ende eines Vertrags, etwa Kündigung oder Vertragsende. |
+| Zum Jahresende | Frist beginnt am 31. Dezember des Jahres, in dem das auslösende Ereignis stattfand (typisch für Steuer- und Handelsrecht). |
+
+### Maßnahmen nach Ablauf
+
+| Maßnahme | Bedeutung |
+|---|---|
+| Löschen | Daten werden nach Ablauf der Frist entfernt. |
+| Anonymisieren | Daten werden so verändert, dass kein Personenbezug mehr besteht, bleiben aber für statistische Zwecke nutzbar. |
+
+## Was im Hintergrund passiert
+
+- **Übergangsfrist erzwingt Rechtsgrundlage**: Sobald eine Übergangsfrist gesetzt ist, fordert Kopexa mindestens eine Rechtsgrundlage für die Übergangsfrist. Ohne diese Begründung lässt sich nicht speichern.
+- **Eindeutigkeit pro Space**: Doppelte Namen sind innerhalb eines Spaces ausgeschlossen.
+- **Verknüpfungen mit Informationswerten**: Pro Informationswert lässt sich eine Aufbewahrungsrichtlinie hinterlegen. Über sie laufen Filter und Reports.
+- **Mehrere Rechtsgrundlagen pro Phase**: Sowohl die Aufbewahrungs- als auch die Übergangsphase können mehrere Rechtsgrundlagen aus der Liste der Rechtsgrundlagen referenzieren.
+- **Berechtigungen über Hooks**: Wer Richtlinien anlegen oder ändern darf, hängt an der Rolle im Space.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Rechtsgrundlagen"
+    description="Jede Richtlinie verweist auf eine oder mehrere Rechtsgrundlagen."
+    href="/docs/platform/space/einstellungen/lawful-basis"
+    color="blue"
+  />
+  <FeatureCard
+    title="Informationswerte"
+    description="Informationswerte hängen sich an eine Aufbewahrungsrichtlinie."
+    href="/docs/platform/space/governance/information-assets"
+    color="purple"
+  />
+  <FeatureCard
+    title="Verarbeitungstätigkeiten"
+    description="Verarbeitungstätigkeiten profitieren von einer klaren Aufbewahrungsregel je beteiligtem Bestand."
+    href="/docs/platform/space/datenschutz/processing-activities"
+    color="orange"
+  />
+  <FeatureCard
+    title="Dokumente"
+    description="Dokumentbestände können mit einer Aufbewahrungsrichtlinie versehen sein."
+    href="/docs/platform/space/documents"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Richtlinien anlegen, bearbeiten, löschen |
+| Mitglied | Lesen und in Modulen auswählen |
+| Viewer | Lesen |
+
+## Best Practices
+
+- **Sprechende Namen**: "Buchhaltung 10 Jahre" sagt mehr als "Standard 10".
+- **Auslöser bewusst wählen**: "Zum Jahresende" passt für steuer- und handelsrechtliche Pflichten, "Bei Vertragsende" für vertragsbezogene Daten.
+- **Übergangsfrist nur mit Grund**: Eine Übergangsfrist ist sinnvoll, wenn nach der eigentlichen Aufbewahrung noch ein berechtigtes Interesse zur Rechtsverteidigung oder Archivierung besteht. Ohne eigene Rechtsgrundlage gehört sie nicht in die Richtlinie.
+- **Mit Standardfristen starten**: 10 Jahre für Steuer- und Handelsunterlagen, 6 Monate für Bewerbungen, 3 Jahre für Vertragsdaten als Daumenregeln, immer mit Blick auf die konkrete Rechtsgrundlage.
+- **Beschreibung mit Beispielen**: Beispiele für betroffene Datenklassen erleichtern die Auswahl der richtigen Richtlinie im Alltag.
+
+## Stolperfallen
+
+- **Maßnahme zu lasch**: "Anonymisieren" klingt einfach, ist es aber nicht. Echte Anonymisierung muss prüfbar sein.
+- **Übergangsfrist ohne Rechtsgrundlage**: Kopexa erzwingt die Rechtsgrundlage. Ohne sie scheitert das Speichern.
+- **Falscher Auslöser**: "Bei Erstellung" für Vertragsdaten erzeugt frühe Löschtermine. Lieber "Bei Vertragsende" wählen.
+- **Doppelte Richtlinien**: "Kundendaten 10 Jahre" und "Kunden 10 Jahre" parallel sind verwirrend. Konsolidieren statt parallel führen.
+- **Ohne Verknüpfung in Informationswerten**: Eine schöne Richtlinie nützt nichts, wenn kein Informationswert darauf zeigt. Nach dem Anlegen direkt verknüpfen.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Wie ist das Verhältnis zur Rechtsgrundlage in einer Verarbeitungstätigkeit?">
+    Die Rechtsgrundlage in der Verarbeitungstätigkeit beantwortet, warum verarbeitet werden darf. Die Rechtsgrundlagen in der Aufbewahrungsrichtlinie beantworten, warum gespeichert werden darf. Beides ergänzt sich, ist aber nicht identisch.
+  </Accordion>
+  <Accordion title="Was passiert nach Ablauf der Frist automatisch?">
+    Kopexa zeigt fällige Löschungen oder Anonymisierungen an. Die tatsächliche Ausführung erfolgt in deinem Datenbestand. Die Plattform unterstützt die Steuerung und Nachweisführung.
+  </Accordion>
+  <Accordion title="Kann eine Richtlinie mehrere Maßnahmen kombinieren?">
+    Aktuell genau eine Maßnahme pro Richtlinie. Wenn unterschiedliche Maßnahmen nötig sind, lege zwei Richtlinien an.
+  </Accordion>
+  <Accordion title="Wie funktioniert die Übergangsfrist genau?">
+    Nach Ablauf der eigentlichen Aufbewahrungsfrist beginnt die Übergangsfrist. Während dieser Zeit gelten die separat hinterlegten Rechtsgrundlagen. Erst nach Ablauf der Übergangsfrist wird die Maßnahme ausgeführt.
+  </Accordion>
+  <Accordion title="Lassen sich Richtlinien als Vorlagen importieren?">
+    Die Standardgrundlagen lassen sich beim Anlegen eines Spaces übernehmen. Eigene Richtlinien pflegst du danach manuell.
+  </Accordion>
+</Accordions>
