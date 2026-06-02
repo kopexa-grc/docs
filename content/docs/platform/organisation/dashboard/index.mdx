@@ -1,6 +1,116 @@
 ---
-title: Dashboard
-description: Inhalt folgt.
+title: Partner-Dashboard
+description: Überblick über deine Provisionen, Auszahlungen und Partner-Aktivitäten
 ---
 
-Inhalt folgt.
+Das **Partner-Dashboard** gibt dir auf einen Blick einen Überblick über deine Provisionen und die Entwicklung deines Partner-Geschäfts. Du findest es auf Organisations-Ebene unter `/o/{slug}/dashboard/`.
+
+<Callout title="Nur für Partner">
+Das Dashboard ist für Organisationen vom Typ **Partner** gedacht. Wenn dein Vertrag mit Kopexa eine Vermittlungsgebühr vorsieht, siehst du hier deine Zahlen.
+</Callout>
+
+## Worum geht's
+
+Das Dashboard fasst die wichtigsten Kennzahlen für dein Partner-Geschäft zusammen: Provisionen im laufenden Monat, Prognose für die kommenden Monate, Gesamtsumme seit Beginn der Partnerschaft sowie die nächste anstehende Auszahlung. Du springst von hier aus schnell in deine Kundenliste oder die Organisations-Einstellungen.
+
+## Wann nutzt du es
+
+- Du willst sehen, wie viel Provision dir im aktuellen Monat zusteht.
+- Du brauchst einen schnellen Blick auf die nächste Auszahlung.
+- Du möchtest die Entwicklung deiner Provisionen über die Zeit verfolgen.
+- Du wechselst von hier zu deinen Kunden oder Einstellungen.
+
+## Das Wichtigste in Kürze
+
+- Aktueller Monat, Prognose und Gesamtsumme als Kennzahlen-Karten oben.
+- Eine Verlaufsgrafik zeigt die Entwicklung deiner Provisionen über die letzten Monate.
+- Datum und voraussichtlicher Betrag der nächsten Auszahlung sind prominent platziert.
+- Aktionen wie Auszahlungshistorie, Rechnungen und Steuer-Export sind direkt erreichbar.
+- Das Dashboard ist ein Vorschau-Feature. Die exakten Zahlen werden schrittweise mit echten Werten unterlegt.
+
+## Typischer Ablauf
+
+1. Du öffnest das Dashboard und prüfst die aktuelle Provision.
+2. Du wirfst einen Blick auf den Verlauf, um Trends zu erkennen.
+3. Du siehst, wann die nächste Auszahlung fällig ist und mit welchem Betrag du rechnen kannst.
+4. Bei Bedarf öffnest du die Auszahlungshistorie oder lädst Rechnungen herunter.
+5. Über die Schnelllinks springst du zu deinen [Kunden](../customers/) oder den [Einstellungen](../einstellungen/).
+
+<Mermaid chart={`
+graph LR
+    A[Aktive Kunden] --> B[Provisionsereignisse]
+    B --> C[Monatliche Aggregation]
+    C --> D[Dashboard-Kennzahlen]
+    C --> E[Auszahlung]
+    E --> F[Auszahlungshistorie]
+    style D fill:#e1f5fe
+    style E fill:#e8f5e8
+`} />
+
+## Felder & Eingaben
+
+Das Dashboard ist eine reine Ansichtsseite. Du gibst hier nichts ein. Folgende Kennzahlen siehst du:
+
+| Kennzahl | Bedeutung |
+|---|---|
+| Aktueller Monat | Bereits aufgelaufene Provision im laufenden Monat. |
+| Prognose | Erwartete Provision für die kommenden Monate, basierend auf aktiven Kunden. |
+| Gesamt | Summe aller Provisionen seit Beginn deiner Partnerschaft. |
+| Nächste Auszahlung | Datum und voraussichtlicher Betrag der nächsten Überweisung. |
+| Provisionsverlauf | Grafische Darstellung der monatlichen Provisionen über die Zeit. |
+
+## Was im Hintergrund passiert
+
+- Für jede aktive Kundenbeziehung erzeugt Kopexa fortlaufend Provisionsereignisse, in der Regel monatlich.
+- Diese Ereignisse werden für die Anzeige zu den oben genannten Kennzahlen verdichtet.
+- Auszahlungen bündeln offene Provisionsereignisse zu einer Überweisung. Sobald eine Auszahlung erfolgt ist, taucht sie in der Auszahlungshistorie auf.
+- Korrekturen (z. B. bei Storno einer Kundenbeziehung) erscheinen als Gegenbuchungen und reduzieren den Gesamtbetrag.
+
+## Verknüpfungen
+
+- [Kunden](../customers/) listet alle Kundenbeziehungen, aus denen Provisionen entstehen.
+- [Organisations-Einstellungen](../einstellungen/) für Rechnungsdaten und Adresse deiner Partner-Organisation.
+
+## Berechtigungen
+
+- **Inhaber und Admin**: Vollständiger Zugriff inklusive Auszahlungshistorie und Rechnungen.
+- **Mitglied**: Kennzahlen einsehen, sofern für die Partner-Organisation freigeschaltet.
+- **Betrachter**: Kennzahlen einsehen.
+
+## Best Practices
+
+- Schau einmal im Monat ins Dashboard und gleiche die Werte mit deiner eigenen Buchhaltung ab.
+- Nutze den Steuer-Export einmal pro Quartal für deine Buchhaltung.
+- Beobachte die Prognose, um die Entwicklung deines Partner-Geschäfts zu planen.
+- Halte deine Rechnungsdaten in den Einstellungen aktuell, damit Auszahlungen reibungslos laufen.
+
+## Stolperfallen
+
+- Das Dashboard ist als Vorschau gekennzeichnet. Einzelne Kennzahlen können sich im Detail noch ändern.
+- Die Prognose ist eine Schätzung. Sie kann von der tatsächlichen Auszahlung abweichen, wenn Kunden kündigen oder neue dazukommen.
+- Korrekturbuchungen können den Gesamtbetrag rückwirkend verändern.
+- Auszahlungen folgen einem festen Rhythmus. Kleine Beträge können auf den Folgemonat verschoben werden.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wann werden Provisionen ausgezahlt?">
+Provisionen werden in einem festen Rhythmus ausgezahlt. Datum und Betrag der nächsten Auszahlung siehst du im Dashboard.
+</Accordion>
+
+<Accordion title="Warum weicht die Prognose von der Auszahlung ab?">
+Die Prognose basiert auf den aktuell aktiven Kunden und deren Abonnements. Ändern Kunden ihren Tarif oder kündigen, passt sich die tatsächliche Auszahlung an.
+</Accordion>
+
+<Accordion title="Wo finde ich meine Rechnungen?">
+Über die Schaltfläche **Rechnungen** im Dashboard. Sie öffnet die Liste aller bisher erstellten Rechnungen.
+</Accordion>
+
+<Accordion title="Was ist der Steuer-Export?">
+Eine Zusammenfassung deiner Provisionen pro Steuerjahr, die du an deine Buchhaltung weitergeben kannst.
+</Accordion>
+
+<Accordion title="Bekomme ich Provision für jeden Kunden?">
+Nur wenn dein Vertrag mit Kopexa das vorsieht. Bei reinen Reseller-Verträgen oder eigener Abrechnung erscheinen keine Provisionsereignisse.
+</Accordion>
+</Accordions>
