@@ -1,0 +1,14 @@
+{
+    "title": "Einstellungen",
+    "pages": [
+        "allgemein",
+        "users",
+        "api-tokens",
+        "surveys",
+        "affected-parties",
+        "lawful-basis",
+        "communication-channels",
+        "retention-policies",
+        "authorities"
+    ]
+}

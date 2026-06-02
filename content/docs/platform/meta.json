@@ -1,15 +1,18 @@
 {
-	"title": "Platform",
-	"description": "Documentation",
-	"root": true,
+    "title": "Plattform",
+    "description": "Dokumentation",
+    "root": true,
     "pages": [
         "...index",
-        "...was-ist-kopexa",
-        "...wie-kopexa-funktioniert",
-        "---Quick Start---",
         "...quickstart",
-        "---Manage---",
-        "...governance",
-        "...compliance"
+        "...konzepte",
+        "...glossar",
+        "...workflows",
+        "---Space---",
+        "...space",
+        "---Organisation---",
+        "...organisation",
+        "---Hilfe---",
+        "...support"
     ]
 }
