@@ -1,6 +1,120 @@
 ---
 title: Prozesse
-description: Inhalt folgt.
+description: Geschäftsprozesse beschreiben, klassifizieren und mit Verantwortlichkeiten, Kennzahlen und Continuity-Anforderungen versehen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Prozesse beschreiben, wie dein Unternehmen tatsächlich arbeitet. Ein Prozess hat einen Namen, einen Zweck, einen Geltungsbereich, Ein- und Ausgaben sowie eine verantwortliche Person. Über die Verknüpfung mit Assets, Lieferanten, Abteilungen und Informationswerten wird sichtbar, was in einem Prozess passiert und welche Werte daran hängen. Für ISO 9001 lassen sich Kennzahlen (KPIs) hinterlegen, für ISO 22301 und BCM die Werte für MTPD, RTO und RPO. So entsteht aus reinen Tätigkeiten ein steuerbarer Prozess mit Bewertung, Wirksamkeit und Wiederanlaufpfad.
+
+## Wann nutzt du es
+
+- Du brauchst eine Prozesslandkarte als Grundlage für ISO 9001, ISO 27001 oder das Datenschutzmanagement.
+- Für Business Continuity musst du dokumentieren, wie schnell ein Prozess wieder laufen muss und wie viel Datenverlust akzeptabel ist.
+- Du willst pro Prozess KPIs messen und über die Zeit beobachten.
+- Verarbeitungstätigkeiten im VVT sollen an konkreten Geschäftsprozessen aufgehängt sein, nicht nur an Abteilungen.
+- Audits verlangen klare Prozessgrenzen, Inputs, Outputs und Verantwortlichkeiten.
+
+## Das Wichtigste in Kürze
+
+- Prozesse gehören zu einem Space und werden über die Prozessliste verwaltet.
+- Jeder Prozess hat einen Status (Entwurf, Aktiv, Veraltet) und eine BCM-Klassifizierung.
+- Über die Hierarchie bildest du übergeordnete Prozesse und Unterprozesse ab.
+- Kategorien gruppieren Prozesse fachlich, etwa "Vertrieb", "IT-Betrieb" oder "HR".
+- Ein Flussdiagramm lässt sich pro Prozess hinterlegen und beschreiben.
+- KPIs messen die Effektivität, MTPD, RTO und RPO steuern die Continuity-Planung.
+
+## Typischer Ablauf
+
+1. Prozess anlegen über die Schaltfläche in der Prozessliste.
+2. Name und Beschreibung pflegen, optional einer Kategorie zuordnen.
+3. Zweck, Geltungsbereich, Eingaben und Ausgaben dokumentieren.
+4. Verantwortliche Person und Vertretung zuweisen, bei Bedarf einen Genehmiger ergänzen.
+5. BCM-Klasse setzen und die Werte für MTPD, RTO und RPO mit Begründung pflegen.
+6. KPIs definieren, etwa Durchlaufzeit, Fehlerquote oder Erstlösungsquote.
+7. Verknüpfungen setzen: Assets, Lieferanten, Abteilungen, Informationswerte, Kontrollen, Risiken.
+8. Flussdiagramm hochladen und kurz erklären.
+9. Status auf "Aktiv" setzen, sobald der Prozess gelebt wird.
+
+<Mermaid chart={`flowchart LR
+  A[Entwurf] --> B[Aktiv]
+  B --> C[Veraltet]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Name | Prozessname | Pflicht | Eindeutig und sprechend, etwa "Mitarbeiter-Onboarding". |
+| Beschreibung | Prozesskontext | Optional | Was, warum und wie? In zwei bis vier Sätzen. |
+| Zweck | Hauptziel des Prozesses | Optional | Wofür existiert dieser Prozess? |
+| Geltungsbereich | Was ist im Scope, was nicht? | Optional | Hilft bei Audits und bei der Abgrenzung. |
+| Eingaben | Auslöser, Daten, Materialien | Optional | Mit welchem Ereignis startet der Prozess? |
+| Ausgaben | Lieferergebnisse | Optional | Was steht am Ende? |
+| Kategorie | Fachliche Gruppierung | Optional | Beispiel: "Vertrieb", "IT-Betrieb", "HR". |
+| Status | Entwurf, Aktiv, Veraltet | Pflicht | Wird bei Anlage auf Entwurf gesetzt. |
+| BCM-Klasse | Continuity-Einstufung | Optional | Setze für jeden kritischen Prozess eine Klasse. |
+| MTPD (Minuten) | Maximaler tolerierbarer Ausfall | Optional | Wie lange darf der Prozess höchstens stillstehen? |
+| RTO (Minuten) | Zielwert für Wiederanlauf | Optional | Bis wann muss der Prozess wieder laufen? |
+| RPO (Minuten) | Maximaler Datenverlust | Optional | Wie viel verlorene Arbeit ist akzeptabel? |
+| Verantwortliche Person, Vertretung, Genehmiger | Rollen am Prozess | Optional | Die Verantwortliche steuert, der Genehmiger gibt frei. |
+| Flussdiagramm + Erläuterung | Visualisierung | Optional | Diagramm hochladen und Schritte kurz erklären. |
+| KPIs | Kennzahlen mit Zielwert, Einheit, Frequenz | Optional | Für ISO 9001 oft Pflicht. |
+
+## Was im Hintergrund passiert
+
+- Aus Asset-Verknüpfungen und Informationswerten ergibt sich automatisch eine effektive Bewertung des Prozesses, etwa wie kritisch er aus Datensicht ist.
+- Die BCM-Werte fließen in die Continuity-Planung ein und werden in entsprechenden Auswertungen sichtbar.
+- KPI-Definitionen können regelmäßig gemessen werden (monatlich, quartalsweise, halbjährlich, jährlich). Aktuelle Werte erfasst du manuell oder lässt sie über die Kopexa-Schnittstelle aus deinen Systemen einspeisen.
+- Über die Revisionierung bleiben Änderungen am Prozess nachvollziehbar.
+- Im Hintergrund werden Reviews fällig, wenn ein Überprüfungsintervall gesetzt ist, und die Verantwortliche wird benachrichtigt.
+
+## Verknüpfungen
+
+- [Assets](/platform/space/organisation/assets), die der Prozess nutzt oder verändert.
+- [Lieferanten](/platform/space/organisation/vendors), die am Prozess beteiligt sind.
+- [Abteilungen](/platform/space/organisation/business-units) als organisatorische Heimat.
+- [Informationswerte](/platform/space/organisation/information-assets), die in diesem Prozess verarbeitet werden.
+- [Verarbeitungstätigkeiten](/platform/space/datenschutz) für das VVT.
+- [Kontrollen](/platform/space/compliance/controls) und [Risiken](/platform/space/compliance/risks) mit dem Prozess verbinden.
+- [Aufgaben](/platform/space/issues), [Vorfälle](/platform/space/governance) und [Dokumente](/platform/space/documents) am Prozess verankern.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Prozesse. Anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Verantwortliche, Vertretung und Genehmiger dürfen "ihre" Prozesse immer aktualisieren. Löschen dürfen Admins oder die erstellende Person. Genehmiger sind eine eigene Rolle pro Prozess und werden in Reviews und bei wichtigen Statuswechseln einbezogen.
+
+## Best Practices
+
+- Beginne mit deinen Kern-Geschäftsprozessen, nicht mit Detailprozessen. Top-down funktioniert besser als bottom-up.
+- Halte die Prozessbeschreibung knapp. Ein Prozess ist keine Arbeitsanweisung, sondern eine Steuerungssicht.
+- Setze MTPD, RTO und RPO immer mit Begründung. Werte ohne Begründung sind im Audit wertlos.
+- Definiere pro Prozess zwei bis drei KPIs, nicht zehn. Lieber wenige Kennzahlen konsequent messen.
+- Verknüpfe Prozesse mit Informationswerten und Assets, damit Datenflüsse und Continuity sichtbar werden.
+
+## Stolperfallen
+
+- Prozesse ohne Verantwortliche werden nicht aktualisiert. Lege bei jeder Anlage eine Person fest.
+- Die BCM-Klasse "Keine" und fehlende Werte für MTPD, RTO, RPO machen den Prozess für Continuity-Planung unsichtbar.
+- KPIs ohne Zielwert oder ohne Messfrequenz bleiben Karteileichen. Setze beides immer gemeinsam.
+- Wenn du Prozesse zu fein modellierst, wird das Verzeichnis unübersichtlich. Eine Daumenregel: pro Geschäftsbereich fünf bis fünfzehn Prozesse.
+- Hierarchien zwischen Prozessen helfen, können aber zu komplex werden. Nutze sie nur, wenn die Beziehung wirklich vererbt werden soll.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Prozess und Verarbeitungstätigkeit?">
+Ein Prozess beschreibt deinen Geschäftsablauf. Eine Verarbeitungstätigkeit ist die DSGVO-Sicht auf einen Teil des Prozesses, in dem personenbezogene Daten verarbeitet werden. Du verknüpfst beide, damit das VVT direkt aus deiner Prozesslandkarte entsteht.
+</Accordion>
+<Accordion title="Was bedeuten MTPD, RTO und RPO?">
+MTPD ist der maximal tolerierbare Ausfall, also wie lange der Prozess höchstens stillstehen darf. RTO ist die Zielzeit für den Wiederanlauf, RPO der maximal akzeptierte Datenverlust. Alle drei Werte gibst du in Minuten an und begründest sie.
+</Accordion>
+<Accordion title="Wie messe ich KPIs?">
+Du definierst KPI-Name, Zielwert, Einheit und Frequenz. Die Werte erfasst du manuell oder über die Kopexa-Schnittstelle aus deinen operativen Systemen. KPIs eines Prozesses erscheinen auch in der Prozessübersicht.
+</Accordion>
+<Accordion title="Kann ich einen Prozess archivieren?">
+Setze den Status auf "Veraltet". Der Prozess verschwindet aus den aktiven Auswertungen, bleibt aber für Audits sichtbar.
+</Accordion>
+<Accordion title="Wie nutze ich die Prozesshierarchie?">
+Übergeordnete Prozesse bündeln Unterprozesse, zum Beispiel "Kundenbestellung" mit den Unterprozessen "Auftragsannahme", "Produktion", "Versand". Die Hierarchie ist optional und sollte nur dort genutzt werden, wo sie wirklich Mehrwert bringt.
+</Accordion>
+</Accordions>
