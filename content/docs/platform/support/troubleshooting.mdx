@@ -1,6 +1,51 @@
 ---
 title: Problembehebung
-description: Inhalt folgt.
+description: Typische Probleme und Lösungswege
 ---
 
-Inhalt folgt.
+Bei vielen Problemen helfen ein paar einfache Schritte. Diese Seite sammelt die häufigsten Fälle.
+
+## Anmeldung schlägt fehl
+
+1. Lösche den Browser-Cache und versuche es erneut.
+2. Probiere einen anderen Browser oder ein Inkognito-Fenster.
+3. Wenn deine Organisation Single Sign-On nutzt: deine IT prüft, ob du in der richtigen Benutzergruppe bist.
+4. Schau auf der [Statusseite](https://status.kopexa.com/), ob Kopexa läuft.
+
+Wenn nichts hilft: schreib uns mit Angabe deiner E-Mail-Adresse und dem Browser an [support@kopexa.com](mailto:support@kopexa.com).
+
+## Single Sign-On (SSO) funktioniert nicht
+
+- Prüfe mit deiner IT, ob die Domain in Kopexa verifiziert ist und ob die SAML-Konfiguration aktuell ist.
+- Bei Microsoft Entra ID: stelle sicher, dass dein Benutzer der zugewiesenen Gruppe angehört.
+- Bei wiederholten Fehlern: kontaktiere den Support mit der genauen Fehlermeldung. Ein Screenshot der Anmeldeseite hilft sehr.
+
+## Berechtigungen fehlen
+
+Du siehst ein Modul nicht oder kannst nichts speichern. Berechtigungen werden in Kopexa pro Space und pro Objekt vergeben. Wende dich an deinen Administrator und schildere, welche Aktion du ausführen möchtest. Er passt die Rolle oder Sichtbarkeit an.
+
+## Domain-Verifizierung hängt
+
+Nach Anlegen einer Domain musst du einen DNS-Eintrag bei deinem Domain-Provider hinzufügen. So geht's:
+
+1. Prüfe, dass der DNS-Eintrag exakt so gesetzt ist, wie Kopexa es vorgibt (kein Tippfehler).
+2. Die Aktualisierung im weltweiten DNS-Netz kann bis zu 24 Stunden dauern.
+3. Wenn nach 24 Stunden noch nichts passiert, kontaktiere den Support.
+
+## Automatische Abläufe scheinen verzögert
+
+Bestimmte Aktionen in Kopexa laufen im Hintergrund, zum Beispiel das Aktualisieren von Status-Werten nach einer Massenänderung oder das Erzeugen einer Export-Datei. Eine kurze Wartezeit ist normal. Wenn nach mehr als 30 Minuten nichts passiert, melde dich beim Support.
+
+## Hochgeladene Datei wird nicht erkannt
+
+- Prüfe das Dateiformat. Unterstützt werden gängige Formate wie PDF, DOCX, XLSX, PNG, JPG.
+- Maximale Größe pro Datei liegt meist bei 100 MB. Größere Dateien teilst du in kleinere Pakete auf.
+- Bei kaputten oder leeren Dateien: in der Quellanwendung erneut exportieren und neu hochladen.
+
+## Inhalte werden in der falschen Sprache angezeigt
+
+In deinen Benutzereinstellungen kannst du die Anzeigesprache umstellen. Manche Inhalte (zum Beispiel selbst erstellte Dokumente, eigene Risiken) werden nicht automatisch übersetzt, da sie von dir oder deiner Organisation gepflegt werden.
+
+## Etwas anderes funktioniert nicht
+
+Schreib uns an [support@kopexa.com](mailto:support@kopexa.com). Die Angaben aus der [Übersichtsseite](/platform/support#bevor-du-support-kontaktierst) helfen uns, deine Anfrage schnell zu bearbeiten.
