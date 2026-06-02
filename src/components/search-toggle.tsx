@@ -2,9 +2,24 @@
 import { useI18n } from "fumadocs-ui/contexts/i18n";
 import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { Search } from "lucide-react";
-import type { ComponentProps } from "react";
+import { type ComponentProps, useEffect, useState } from "react";
 import { cn } from "../lib/cn";
 import { type ButtonProps, buttonVariants } from "./ui/button";
+
+function useModifierLabel() {
+	const [label, setLabel] = useState("Ctrl");
+
+	useEffect(() => {
+		const platform =
+			(navigator as Navigator & { userAgentData?: { platform?: string } })
+				.userAgentData?.platform ??
+			navigator.platform ??
+			"";
+		setLabel(/Mac|iPhone|iPad|iPod/i.test(platform) ? "⌘" : "Strg");
+	}, []);
+
+	return label;
+}
 
 interface SearchToggleProps
 	extends Omit<ComponentProps<"button">, "color">,
@@ -50,6 +65,7 @@ export function LargeSearchToggle({
 }) {
 	const { enabled, hotKey, setOpenSearch } = useSearchContext();
 	const { text } = useI18n();
+	const modifier = useModifierLabel();
 	if (hideIfDisabled && !enabled) return null;
 
 	return (
@@ -68,6 +84,9 @@ export function LargeSearchToggle({
 			<Search className="size-4" />
 			{text.search}
 			<div className="ms-auto inline-flex gap-0.5">
+				<kbd className="rounded-md border bg-fd-background px-1.5">
+					{modifier}
+				</kbd>
 				{hotKey.map((k, i) => (
 					<kbd
 						key={i.toString()}
