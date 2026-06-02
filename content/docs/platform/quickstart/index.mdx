@@ -3,25 +3,24 @@ title: Quickstart
 description: In 15 Minuten zum ersten dokumentierten Risiko mit Kontrolle und Maßnahme
 ---
 
-Am Ende dieses Tutorials hast du:
-- Eine Organization mit verifizierter Domain
-- Einen Space für dein Team
-- Ein Framework (ISO 27001) aktiviert
-- Dein erstes Risiko dokumentiert
-- Einen Kontrolle zugewiesen
-- Eine Maßnahme angelegt (wie du die Kontrolle umsetzt)
-- Nachweis hochgeladen
+Diese Anleitung führt dich durch die ersten Schritte in Kopexa. Am Ende hast du:
+
+- eine Organisation mit verifizierter Domain
+- einen Space für dein Team
+- ein aktiviertes Framework (ISO 27001)
+- ein dokumentiertes Risiko
+- eine zugewiesene Kontrolle
+- eine angelegte Maßnahme
+- einen ersten Nachweis
 
 ## Voraussetzungen
 
-- Ein Kopexa-Account ([hier anmelden](https://app.kopexa.com/auth/login))
-- Zugriff auf deine Domain-DNS-Einstellungen (für SSO-Setup)
+- Ein Kopexa-Account (Login unter [app.kopexa.com](https://app.kopexa.com/auth/login))
+- Zugriff auf die DNS-Einstellungen deiner Domain (für die Verifizierung)
 
----
+## 1. Organisation erstellen
 
-## 1. Organization erstellen
-
-Nach dem Login landest du im Onboarding. Gib die Daten deiner Organization ein:
+Nach dem ersten Login startet der Einrichtungs-Assistent. Trage die Eckdaten deiner Organisation ein:
 
 | Feld | Beispiel |
 |------|----------|
@@ -29,75 +28,67 @@ Nach dem Login landest du im Onboarding. Gib die Daten deiner Organization ein:
 | Slug | mustermann-gmbh |
 | Branche | IT-Dienstleistungen |
 
-Der Slug wird Teil deiner URL: `app.kopexa.com/mustermann-gmbh`
+Der Slug wird Teil deiner URL: `app.kopexa.com/o/mustermann-gmbh`.
 
-Klicke **Create Organization**.
-
----
+Klicke auf **Organisation erstellen**.
 
 ## 2. Domain verifizieren
 
-Damit dein Team sich per SSO anmelden kann, musst du deine Domain verifizieren.
+Damit dein Team sich per Single Sign-On anmelden kann, verifiziere zunächst die Domain.
 
-1. Gehe zu **Settings → Domains**
-2. Klicke **Add Domain**
-3. Gib deine Domain ein: `mustermann-gmbh.de`
-4. Kopexa zeigt dir einen TXT-Record:
+<Steps>
+<Step>Öffne **Einstellungen → Domains**.</Step>
+<Step>Klicke auf **Domain hinzufügen**.</Step>
+<Step>Trage deine Domain ein, zum Beispiel `mustermann-gmbh.de`.</Step>
+<Step>Kopexa zeigt dir einen DNS-Eintrag wie diesen:
 
 ```
 _kopexa-verification.mustermann-gmbh.de  TXT  "kopexa-verify=abc123xyz"
 ```
-
-5. Füge diesen Record bei deinem DNS-Provider hinzu (Cloudflare, AWS Route53, etc.)
-6. Warte 1-5 Minuten, dann klicke **Verify**
+</Step>
+<Step>Trage diesen Eintrag bei deinem DNS-Provider ein (zum Beispiel Cloudflare, AWS Route 53).</Step>
+<Step>Warte ein bis fünf Minuten und klicke auf **Verifizieren**.</Step>
+</Steps>
 
 <Callout type="info">
-DNS-Propagation kann bis zu 24 Stunden dauern. In der Praxis sind es meist wenige Minuten.
+Die weltweite Verteilung von DNS-Einträgen kann bis zu 24 Stunden dauern. In der Praxis sind es meist wenige Minuten.
 </Callout>
-
----
 
 ## 3. Ersten Space anlegen
 
-Spaces trennen Arbeitsbereiche. Für den Start reicht ein Space.
+Ein Space ist ein abgegrenzter Arbeitsbereich. Für den Einstieg reicht einer.
 
-1. Klicke **Spaces → New Space**
-2. Fülle aus:
+1. Klicke auf **Spaces → Neuer Space**.
+2. Trage Name und Beschreibung ein:
 
 | Feld | Beispiel |
 |------|----------|
 | Name | Hauptunternehmen |
 | Beschreibung | ISMS für die Mustermann GmbH |
 
-3. Klicke **Create Space**
-
-Du wirst automatisch in den neuen Space weitergeleitet.
-
----
+3. Klicke auf **Space erstellen**. Du wirst direkt in den neuen Space weitergeleitet.
 
 ## 4. Framework aktivieren
 
-Jetzt aktivierst du ISO 27001 als Basis für deine Kontrollen.
+Jetzt aktivierst du ISO 27001 als Grundlage für deine Kontrollen.
 
-1. Im Space: **Settings → Frameworks**
-2. Finde **ISO 27001:2022** in der Liste
-3. Klicke **Activate**
+1. Im Space: **Frameworks** öffnen.
+2. **ISO 27001** in der Liste finden.
+3. Auf **Aktivieren** klicken.
 
-Kopexa importiert jetzt alle Annex-A-Kontrollen. Das dauert wenige Sekunden.
+Im Hintergrund werden alle zugehörigen Kontrollen aus dem Katalog übernommen. Das dauert nur wenige Sekunden.
 
 <Callout type="info">
-Du kannst später weitere Frameworks aktivieren (NIS2, DSGVO, TISAX®). Die Kontrollen werden automatisch gemappt, wo sie sich überschneiden.
+Du kannst später weitere Frameworks aktivieren, etwa NIS2, DSGVO oder TISAX®. Überschneidende Anforderungen werden automatisch verknüpft.
 </Callout>
-
----
 
 ## 5. Erstes Asset anlegen
 
-Bevor du Risiken bewertest, brauchst du ein Asset. Starte mit etwas Konkretem.
+Bevor du Risiken bewertest, brauchst du etwas Konkretes, auf das sie sich beziehen. Lege als Beispiel ein Asset an.
 
-1. Gehe zu **Inventory → Assets**
-2. Klicke **New Asset**
-3. Fülle aus:
+1. Öffne **Assets** im Bereich Organisation.
+2. Klicke auf **Neues Asset**.
+3. Trage ein:
 
 | Feld | Beispiel |
 |------|----------|
@@ -107,133 +98,124 @@ Bevor du Risiken bewertest, brauchst du ein Asset. Starte mit etwas Konkretem.
 | Owner | IT-Abteilung |
 | Kritikalität | Hoch |
 
-4. Klicke **Create**
-
----
+4. Klicke auf **Erstellen**.
 
 ## 6. Erstes Risiko dokumentieren
 
 Jetzt dokumentierst du ein Risiko für dieses Asset.
 
-1. Gehe zu **Risks → New Risk**
-2. Fülle aus:
+1. Öffne **Risiken**.
+2. Klicke auf **Neues Risiko**.
+3. Trage ein:
 
 | Feld | Wert |
 |------|------|
-| Titel | Unauthorisierter Zugriff auf Produktionsserver |
-| Beschreibung | Angreifer könnten durch gestohlene Credentials oder ungepatchte Schwachstellen Zugriff erlangen |
-| Asset | Produktionsserver (aus Dropdown wählen) |
+| Titel | Unautorisierter Zugriff auf Produktionsserver |
+| Beschreibung | Angreifende könnten durch gestohlene Zugangsdaten oder ungepatchte Lücken Zugang erlangen |
+| Asset | Produktionsserver |
 | Kategorie | Vertraulichkeit |
 
-3. Bewerte das Risiko:
+4. Bewerte das Risiko:
 
 | Dimension | Wert | Begründung |
 |-----------|------|------------|
-| **Impact** | Hoch (4) | Kundendaten betroffen, Reputationsschaden |
-| **Likelihood** | Mittel (3) | Server ist exponiert, aber grundlegend gehärtet |
+| Auswirkung | Hoch (4) | Kundendaten betroffen, Reputationsschaden |
+| Eintrittswahrscheinlichkeit | Mittel (3) | Server ist exponiert, aber grundlegend gehärtet |
 
-Die Risikomatrix zeigt: **Risikowert 12** (Hoch)
+Die Risikomatrix zeigt: Risikowert 12 (Hoch).
 
-4. Klicke **Create**
-
----
+5. Klicke auf **Erstellen**.
 
 ## 7. Kontrolle zuweisen
 
-Jetzt verknüpfst du das Risiko mit einem passenden Kontrolle aus ISO 27001.
+Verknüpfe das Risiko mit einer passenden Kontrolle aus ISO 27001.
 
-1. Öffne das eben erstellte Risiko
-2. Gehe zum Tab **Kontrollen**
-3. Klicke **Link Kontrolle**
-4. Suche nach "access" oder "Zugriff"
-5. Wähle **A.9.2.1 - User registration and de-registration**
-6. Klicke **Link**
+1. Öffne das eben erstellte Risiko.
+2. Wechsle in den Bereich **Kontrollen**.
+3. Klicke auf **Kontrolle verknüpfen**.
+4. Suche nach "Zugang" oder "Access".
+5. Wähle zum Beispiel **A.5.15 Access Control**.
+6. Bestätige die Verknüpfung.
 
-Die Kontrolle definiert das **Was** – die Anforderung aus dem Framework.
-
----
+Die Kontrolle beschreibt das *Was*: die Anforderung aus dem Framework.
 
 ## 8. Maßnahme anlegen
 
-Jetzt erstellst du eine Maßnahme (Kontrolle Implementation), die beschreibt **wie** du die Kontrolle umsetzt.
+Eine Maßnahme beschreibt, *wie* du die Kontrolle in deiner Organisation umsetzt.
 
-1. Öffne das verknüpfte Kontrolle
-2. Gehe zum Tab **Maßnahmen**
-3. Klicke **Neue Maßnahme**
-4. Fülle aus:
+1. Öffne die verknüpfte Kontrolle.
+2. Wechsle in den Bereich **Maßnahmen**.
+3. Klicke auf **Neue Maßnahme**.
+4. Trage ein:
 
 | Feld | Wert |
 |------|------|
-| Titel | Zentrales User-Management via Active Directory |
-| Beschreibung | Alle Benutzerkonten werden über AD verwaltet. Onboarding/Offboarding erfolgt via Ticket-System mit 4-Augen-Prinzip. |
-| Status | Partially Implemented |
+| Titel | Zentrale Benutzerverwaltung über Active Directory |
+| Beschreibung | Alle Benutzerkonten werden zentral über AD gepflegt. Onboarding und Offboarding laufen über das Ticket-System mit Vier-Augen-Prinzip. |
+| Status | Teilweise umgesetzt |
 | Owner | Max Mustermann |
 | Fälligkeit | In 30 Tagen |
 
-5. Klicke **Create**
+5. Klicke auf **Erstellen**.
 
 <Callout type="info">
-**Kontrolle vs. Maßnahme:** Die Kontrolle sagt "Benutzerregistrierung muss kontrolliert erfolgen" (Was). Die Maßnahme sagt "Wir nutzen AD mit Ticket-basiertem Onboarding" (Wie).
+**Kontrolle gegen Maßnahme:** Die Kontrolle sagt "Benutzerregistrierung muss gesteuert ablaufen" (Was). Die Maßnahme sagt "Wir nutzen AD mit Ticket-basiertem Onboarding" (Wie).
 </Callout>
-
----
 
 ## 9. Nachweis hochladen
 
-Zum Schluss dokumentierst du, dass die Maßnahme umgesetzt ist.
+Dokumentiere abschließend, dass die Maßnahme umgesetzt ist.
 
-1. In der Maßnahme: Tab **Nachweis**
-2. Klicke **Add Nachweis**
-3. Wähle eine Datei (z.B. Screenshot deiner AD-Konsole oder Onboarding-Ticket)
-4. Beschreibung: "AD User-Management Stand Q1 2025"
-5. Klicke **Upload**
-
----
+1. In der Maßnahme: Bereich **Nachweise**.
+2. Klicke auf **Nachweis hinzufügen**.
+3. Wähle eine Datei aus (zum Beispiel einen Screenshot deiner AD-Konsole oder ein Onboarding-Ticket).
+4. Beschreibung: "AD-Benutzerverwaltung, Stand Q1 2026".
+5. Klicke auf **Hochladen**.
 
 ## Geschafft
 
 Du hast jetzt:
 
-- ✓ Eine Organization mit Domain
-- ✓ Einen Space
-- ✓ ISO 27001 aktiviert
-- ✓ Ein Asset dokumentiert
-- ✓ Ein Risiko bewertet (Impact × Likelihood)
-- ✓ Einen Kontrolle zugewiesen
-- ✓ Eine Maßnahme angelegt
-- ✓ Nachweis hochgeladen
+- eine Organisation mit verifizierter Domain
+- einen Space
+- ISO 27001 aktiviert
+- ein Asset dokumentiert
+- ein Risiko bewertet
+- eine Kontrolle zugewiesen
+- eine Maßnahme angelegt
+- einen Nachweis hochgeladen
 
-Das ist der Kern-Workflow in Kopexa:
+Das ist der Kern-Ablauf in Kopexa:
 
 **Asset → Risiko → Kontrolle → Maßnahme → Nachweis**
 
-- **Kontrolle** = Was muss erfüllt werden? (Framework-Anforderung)
-- **Maßnahme** = Wie setzen wir es um? (Konkrete Implementierung)
+- **Kontrolle**: Was muss erfüllt werden (Framework-Anforderung)
+- **Maßnahme**: Wie setzen wir es um (konkrete Umsetzung)
 
 ## Nächste Schritte
 
 <FeatureCards columns={2}>
   <FeatureCard
     title="Weitere Risiken"
-    description="Top-10 Risiken deiner Organisation dokumentieren"
-    href="/platform/compliance/risks"
+    description="Die wichtigsten Risiken deiner Organisation dokumentieren"
+    href="/platform/space/compliance/risks"
     color="orange"
   />
   <FeatureCard
-    title="Policies schreiben"
+    title="Dokumente schreiben"
     description="Erste Richtlinie erstellen und freigeben"
-    href="/platform/compliance/documents"
+    href="/platform/space/documents"
     color="purple"
   />
   <FeatureCard
     title="Team einladen"
-    description="Kollegen in die Organization einladen"
-    href="/platform/quickstart/organization/members"
+    description="Kolleginnen und Kollegen einladen"
+    href="/platform/quickstart/organization"
     color="blue"
   />
   <FeatureCard
-    title="SSO einrichten"
-    description="SAML-Provider konfigurieren"
+    title="Single Sign-On einrichten"
+    description="Anmeldung per Microsoft Entra ID, Google oder anderen Anbietern"
     href="/platform/quickstart/organization/domains"
     color="green"
   />

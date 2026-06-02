@@ -3,10 +3,11 @@ title: SSO mit Entra ID
 description: Single Sign-On mit Microsoft Entra ID (Azure AD) für Kopexa einrichten
 ---
 
-Diese Anleitung zeigt dir, wie du **SAML-SSO** zwischen Kopexa und **Microsoft Entra ID (ehemals Azure AD)** einrichtest.  
-Voraussetzung ist eine **verifizierte Domain** (siehe [Setup & Verifizierung](./setup.mdx)).
+Diese Anleitung zeigt dir, wie du SAML-SSO zwischen Kopexa und **Microsoft Entra ID** (ehemals Azure AD) einrichtest. Voraussetzung ist eine [verifizierte Domain](./setup.mdx).
 
-> **Hinweis:** Jeder Tarif (Free, Lite, Pro, Enterprise) unterstützt SAML/SSO – Sicherheit ist kein Premium-Feature.
+<Callout type="info">
+SAML und Single Sign-On stehen in allen Tarifen zur Verfügung.
+</Callout>
 
 ## Gruppe in Entra ID erstellen (empfohlen)
 
@@ -86,36 +87,33 @@ Diese Informationen trägst du später in Kopexa ein.
 
 In Kopexa:
 
-1. **Settings → Organization → Domains → [Verifizierte Domain] → SSO einrichten**
+1. Öffne **Einstellungen → Organisation → Domains**, wähle die verifizierte Domain und gehe auf **SSO einrichten**.
 2. Aktiviere den Schalter **SSO aktivieren**.
-3. Trage **entweder** die **Metadata-URL** deines IdP **oder** das komplette **XML-Metadaten-Dokument** ein:
+3. Trage entweder die **Metadata-URL** deines Identity-Providers oder das komplette **XML-Metadaten-Dokument** ein:
 
-   - **Option 1 – Metadata-URL:**  
-     Beispiel für Entra: `https://login.microsoftonline.com/<tenant-id>/federationmetadata/2007-06/federationmetadata.xml`
-   - **Option 2 – XML-Metadata:**  
-     Kopiere den Inhalt der von Entra exportierten XML-Datei in das Feld „XML Metadata“.
+   - **Option 1, Metadata-URL**: Beispiel für Entra: `https://login.microsoftonline.com/<tenant-id>/federationmetadata/2007-06/federationmetadata.xml`
+   - **Option 2, XML-Metadata**: Kopiere den Inhalt der von Entra exportierten XML-Datei in das Feld "XML Metadata".
 
 <Callout title="Hinweis">
-Du musst **nur eine der beiden Varianten** ausfüllen – Kopexa verwendet entweder die URL oder das XML, nicht beides.
+Du füllst nur eine der beiden Varianten aus. Kopexa verwendet entweder die URL oder das XML, nicht beides.
 </Callout>
 
-4. **Speichern** und **SSO-Test** ausführen, um die Konfiguration zu prüfen.
+4. Speichere und führe den SSO-Test aus, um die Konfiguration zu prüfen.
 
 ![Screenshot: SSO-Konfiguration in Kopexa mit URL- oder XML-Option](./images/kopexa-sso-config.png)
 
-## Benutzerzuordnung & Test
+## Benutzerzuordnung und Test
 
-- Weise der Entra-App die **Gruppe _Kopexa SSO Users_** zu (oder eine eigene Gruppe).  
-- Führe den **Test-Login** in Kopexa aus.  
-- Bei Erfolg können berechtigte Nutzer der verifizierten Domain via SSO anmelden.
+- Weise der Entra-App die Gruppe **Kopexa SSO Users** zu (oder eine eigene Gruppe).
+- Führe den Test-Login in Kopexa aus.
+- Bei Erfolg können berechtigte Benutzer der verifizierten Domain sich per SSO anmelden.
 
-## Auto-Provisioning
+## Automatische Benutzeranlage
 
-Aktivierbar in Kopexa: Benutzer werden beim ersten SSO-Login automatisch erstellt.  
-Stelle sicher, dass Claims für **E-Mail**, optional **Vorname/Nachname** übermittelt werden.
+In Kopexa kannst du die automatische Benutzeranlage aktivieren. Benutzer werden dann beim ersten SSO-Login automatisch in Kopexa angelegt. Stelle sicher, dass Entra die Felder E-Mail (und optional Vorname und Nachname) übermittelt.
 
-## 9. Sicherheitstipps
+## Sicherheitstipps
 
-- **Least Privilege:** Nur benötigte Gruppen/Benutzer zuweisen  
-- **Zertifikatsrotation:** Vor Ablauf tauschen und in Kopexa aktualisieren  
-- **Audits/Logs:** Fehlversuche in Entra & Kopexa prüfen
+- **Least Privilege**: Weise nur die benötigten Gruppen oder Benutzer zu.
+- **Zertifikatsrotation**: Tausche das Zertifikat rechtzeitig vor Ablauf und aktualisiere es in Kopexa.
+- **Protokolle prüfen**: Sichte fehlgeschlagene Anmeldungen sowohl in Entra als auch in Kopexa.
