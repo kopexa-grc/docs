@@ -1,6 +1,142 @@
 ---
 title: Lieferanten
-description: Inhalt folgt.
+description: Externe Dienstleister und Lieferanten zentral verwalten, klassifizieren, bewerten und regelmäßig überprüfen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Lieferanten sind alle externen Organisationen, von denen dein Unternehmen Leistungen bezieht: Cloud-Anbieter, SaaS-Tools, IT-Dienstleister, Berater, HR-Software. Jeder dieser Lieferanten kann Daten verarbeiten, Systeme betreiben oder kritische Funktionen übernehmen. Im Lieferantenmodul erfasst du sie zentral mit Kontakten, Verträgen (SLA), Authentifizierung, Datenspeicherung, Verarbeitungsstandort und einer Risikobewertung. Reviews stellen sicher, dass die Bewertung nicht veraltet, und Verknüpfungen zu Risiken, Verarbeitungstätigkeiten und Vorfällen machen das Lieferantennetz transparent.
+
+## Wann nutzt du es
+
+- Du brauchst ein vollständiges Lieferantenverzeichnis für ISO 27001 (A.5.19 bis A.5.23), NIS2, TISAX oder DORA.
+- Datenschutz verlangt einen Überblick über alle Auftragsverarbeiter mit AVV und TOMs.
+- Du willst kritische Lieferanten erkennen und regelmäßig überprüfen.
+- Ein Audit fordert Nachweise, welche Sicherheitsanforderungen pro Lieferant vereinbart sind.
+- Bei einem Sicherheitsvorfall musst du sofort wissen, welche Lieferanten betroffen sind.
+- DORA verlangt, kritische und wichtige Funktionen (CIF) eindeutig zu markieren.
+
+## Das Wichtigste in Kürze
+
+- Lieferanten gehören zu einem Space und erscheinen im Lieferantenverzeichnis.
+- Jeder Lieferant hat einen Status (Handlungsbedarf, Ausstehende Überprüfung, Aktiv, Überprüft, Archiviert).
+- Die Risikobewertung wird automatisch aus SLA-Daten und Authentifizierungseinstellungen berechnet, kann aber manuell angepasst werden.
+- Eine Geschäftskritikalität bewertet, ob der Lieferant eine kritische oder wichtige Funktion (CIF) im Sinne von DORA übernimmt.
+- Reviews werden über ein Intervall gesteuert und automatisch fällig gestellt.
+- Lieferanten lassen sich mit Assets, Risiken, Verarbeitungstätigkeiten, Vorfällen, Dokumenten, Prozessen und Domains verknüpfen.
+- Kopexa kann Lieferanten automatisch erfassen, wenn du eine Integration wie Microsoft 365 oder Okta aktivierst.
+
+## Typischer Ablauf
+
+1. Lieferant anlegen über "Lieferant hinzufügen" im Lieferantenverzeichnis.
+2. Name, Beschreibung und Webseite eintragen. Wenn du eine Domain pflegst, kann Kopexa weitere Daten andocken.
+3. Verantwortliche Person und Prüfer (Reviewer) zuweisen.
+4. Geschäftskritikalität einschätzen, etwa "Hoch" für einen Cloud-Provider oder "Niedrig" für ein Catering.
+5. SLA-Daten pflegen: Vertragslaufzeit, Verfügbarkeitsgarantie, Reaktions- und Lösungszeiten, Supportzeiten.
+6. Authentifizierung dokumentieren: SSO, Passwort, 2FA, OAuth oder keine Authentifizierung.
+7. Datenspeicherung erfassen: Welche Datenkategorien (PII, ePHI, andere) verarbeitet der Lieferant?
+8. Datenschutzangaben pflegen: Verarbeitungsstandort, internationaler Transfer, Transfermechanismus, AVV-Datum.
+9. Dokumente verknüpfen (AVV, Sicherheitszertifikate, SLA, Datenschutzerklärung).
+10. Mit Assets, Risiken, Verarbeitungstätigkeiten und Vorfällen verbinden.
+11. Review-Intervall festlegen und mit "Review erledigt" den ersten Durchgang abschließen.
+
+<Mermaid chart={`flowchart LR
+  A[Handlungsbedarf] --> B[Ausstehende Überprüfung]
+  B --> C[Überprüft]
+  C -->|Intervall fällig| B
+  C -->|Bei SLA- oder Risikoänderung| A
+  C --> D[Archiviert]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Tipp |
+|---|---|---|---|
+| Name | Bezeichnung des Lieferanten | Pflicht | Pro Space eindeutig. |
+| Beschreibung | Leistungsumfang | Optional | Was bezieht ihr genau von diesem Anbieter? |
+| Webseite, Datenschutz, Nutzungsbedingungen | Öffentliche URLs | Optional | Erleichtert Reviews und Audits. |
+| Domain | Hauptdomain des Anbieters | Optional | Wird für automatischen Abgleich und Discovery verwendet. |
+| Status | Lebenszyklus im Verzeichnis | Pflicht | Wird bei Anlage auf "Handlungsbedarf" gesetzt. |
+| Risikobewertung | Niedrig bis Hoch | Optional | Wird automatisch berechnet, kann überschrieben werden. |
+| Geschäftskritikalität (CIF) | Auswirkung auf den Geschäftsbetrieb | Optional | "Hoch" oder "Sehr Hoch" markiert eine kritische oder wichtige Funktion im DORA-Sinn. |
+| Verantwortliche Person | Hauptansprechpartner | Optional | Verantwortet die Beziehung und das Risiko. |
+| Prüfer (Reviewer) | Wer überprüft? | Optional | Wird bei Fälligkeit benachrichtigt. |
+| Überprüfungsintervall | Monatlich, Quartalsweise, Halbjährlich, Jährlich, Nie | Optional | Risikoorientiert wählen, kritische Lieferanten öfter prüfen. |
+| Verarbeitungsstandort | Land oder Region | Optional | Wichtig für DSGVO und internationale Transfers. |
+| Internationaler Transfer | Schalter | Optional | Aktivieren, wenn Daten außerhalb des EWR verarbeitet werden. |
+| Transfermechanismus | Standardvertragsklauseln, Angemessenheitsbeschluss, BCR, Keiner | Optional | Begründung der Übermittlung in Drittländer. |
+| AVV unterzeichnet am | Datum | Optional | Liefert für Audits die Aktualität. |
+| SLA-Daten | Vertragsbeginn/-ende, Verfügbarkeit, Reaktions- und Lösungszeiten, Wartungsfenster | Optional | Vollständige SLA-Felder erleichtern die spätere Risikobewertung. |
+| Authentifizierungsmethode | Passwort, SSO, OAuth, Keine | Optional | Mit Passwortregeln und 2FA-Pflicht ergänzen. |
+| Datenspeicherung | Speichert Kundendaten, Datenkategorien (PII, ePHI, Andere) | Optional | Bei sensiblen Kategorien fragt Kopexa nach Vereinbarungen. |
+| Kontakte | Technik, Vertrag, Notfall | Optional | Mindestens einen technischen und einen Vertrags-Ansprechpartner pflegen. |
+
+## Was im Hintergrund passiert
+
+- Aus SLA- und Authentifizierungsdaten berechnet Kopexa automatisch die Risikobewertung. Ändert sich eine Eingabe, wird das Ergebnis neu bestimmt.
+- Wenn das Überprüfungsintervall abläuft, setzt Kopexa den Lieferanten automatisch auf "Ausstehende Überprüfung". Der Prüfer wird benachrichtigt, und in der Liste erscheint eine Erinnerung.
+- Vor Fälligkeit gehen Erinnerungen an die zuständigen Personen, damit Überprüfungen nicht überraschend kommen.
+- Wenn du eine Integration aktivierst, erkennt Kopexa Lieferanten anhand der Domain und legt sie als Einträge an. Die Quelle wird im Lieferanten hinterlegt.
+- Bei sensiblen Datenkategorien (PII, ePHI) erinnert Kopexa daran, geeignete Verträge und Maßnahmen sicherzustellen.
+- Reviews werden mit Datum, Prüfer und nächstem Fälligkeitsdatum dokumentiert und sind im Audit-Trail nachvollziehbar.
+
+## Verknüpfungen
+
+- [Assets](/platform/space/organisation/assets), die vom Lieferanten betrieben oder bereitgestellt werden.
+- [Risiken](/platform/space/compliance/risks) am Lieferanten erfassen und behandeln.
+- [Verarbeitungstätigkeiten](/platform/space/datenschutz) mit dem Lieferanten als Auftragsverarbeiter.
+- [Vorfälle](/platform/space/governance) mit Lieferantenbeteiligung dokumentieren.
+- [Dokumente](/platform/space/documents) wie AVV, SLA, Zertifikate, Sicherheitskonzepte.
+- [Aufgaben](/platform/space/issues) für offene Reviewpunkte oder Sicherheitsanforderungen.
+- [Prozesse](/platform/space/organisation/processes), die der Lieferant unterstützt.
+- [Kontrollen](/platform/space/compliance/controls), die der Lieferant erfüllen muss.
+- Internet-Domains des Lieferanten (siehe [Domains](/platform/space/organisation/domains)).
+- Trust Center: Subprozessoren-Liste lässt sich aus Lieferantendaten ableiten.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht das Lieferantenverzeichnis. Anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten. Verantwortliche und Prüfer dürfen "ihre" Lieferanten immer aktualisieren. Löschen oder Archivieren dürfen Admins oder die Person, die den Eintrag erstellt hat. Automatisch erfasste Lieferanten lassen sich nicht ohne Weiteres entfernen, solange die Quelle aktiv ist. Sie werden über Archivierung aus dem aktiven Verzeichnis genommen.
+
+## Best Practices
+
+- Klassifiziere Lieferanten in Stufen (Tiers): kritisch, hoch, mittel, niedrig. Daraus leitest du Review-Intervalle ab.
+- Pflege SLA- und Authentifizierungsdaten vollständig, sonst bleibt die automatische Risikobewertung lückenhaft.
+- Lade Verträge, AVV und Zertifikate als Dokumente hoch und verknüpfe sie mit dem Lieferanten. Audits sind dann in Minuten vorbereitet.
+- Markiere kritische und wichtige Funktionen über die Geschäftskritikalität. Für DORA und NIS2 ist diese Kennzeichnung entscheidend.
+- Nutze Fragebögen (Survey/Questionnaire) gezielt für Onboarding und jährliche Reviews. Antworten landen versioniert beim Lieferanten.
+- Plane Offboarding bewusst: Datenrückgabe, Zugriffsentzug, Backups. Lege dafür standardisierte Aufgaben an.
+
+## Stolperfallen
+
+- Ein Lieferant ohne Verantwortliche und ohne Prüfer bekommt keine Aufmerksamkeit. Beide Rollen früh setzen.
+- "Überprüft" ohne Review-Intervall führt dazu, dass der Status nicht automatisch aktualisiert wird. Intervall immer pflegen.
+- Wenn du sensible Datenkategorien (PII, ePHI) markierst, aber keinen AVV verknüpfst, fehlt der Nachweis. Beides gehört zusammen.
+- Manuelle Duplikate entstehen, wenn der gleiche Lieferant aus Discovery und manueller Anlage existiert. Vor manueller Anlage suchen.
+- Internationale Transfers ohne Transfermechanismus sind ein Audit-Befund. Aktiviere den Schalter nur, wenn auch der Mechanismus dokumentiert ist.
+- Archivierte Lieferanten verschwinden aus dem aktiven Verzeichnis. Zugriffe und Daten sollten vor dem Archivieren bereinigt werden.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wie unterscheiden sich Status und Risikobewertung?">
+Der Status spiegelt den Prozesszustand, also ob der Lieferant aktuell überprüft, in Bearbeitung oder archiviert ist. Die Risikobewertung beschreibt das Sicherheitsrisiko anhand von SLA, Authentifizierung und Datenspeicherung. Beide laufen unabhängig.
+</Accordion>
+<Accordion title="Wann wird ein Lieferant kritisch oder wichtig im Sinne von DORA?">
+Setze die Geschäftskritikalität auf "Hoch" oder "Sehr Hoch", wenn der Lieferant eine wesentliche Funktion bereitstellt, deren Ausfall den Geschäftsbetrieb erheblich stört oder regulatorische Anforderungen berührt.
+</Accordion>
+<Accordion title="Kann ich Reviews für mehrere Lieferanten gleichzeitig erledigen?">
+Ja. In der Liste markierst du mehrere Einträge und nutzt die Bulk-Aktion "Review erledigt". Voraussetzung ist ein gesetztes Überprüfungsintervall pro Lieferant.
+</Accordion>
+<Accordion title="Was passiert beim Archivieren?">
+Archivierte Lieferanten erscheinen im Archiv-Tab. Sie zählen nicht mehr in aktiven Auswertungen, lassen sich aber wiederherstellen. Vor dem Archivieren sollten Zugriffe entzogen und Daten überführt sein.
+</Accordion>
+<Accordion title="Wie hängen Lieferanten und Verarbeitungstätigkeiten zusammen?">
+Ein Auftragsverarbeiter im VVT ist in Kopexa ein Lieferant. Du verknüpfst die Verarbeitungstätigkeit mit dem Lieferanten, damit das VVT direkt aus dem Lieferantenverzeichnis konsistent bleibt.
+</Accordion>
+<Accordion title="Was bedeutet die automatische Discovery von Lieferanten?">
+Wenn du eine Integration aktivierst, erkennt Kopexa anhand von Domains und Konten, welche Lieferanten in deiner Umgebung im Einsatz sind, und legt sie an. Du ergänzt anschließend SLA, Verantwortliche und Datenschutzangaben.
+</Accordion>
+<Accordion title="Wie pflege ich Subprozessoren für das Trust Center?">
+Über die Verknüpfung "Subprozessor" markierst du, dass ein Lieferant für externe Transparenz relevant ist. Aus diesen Daten speist sich die Subprozessoren-Liste im Trust Center.
+</Accordion>
+</Accordions>
