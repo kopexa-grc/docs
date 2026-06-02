@@ -1,6 +1,160 @@
 ---
 title: API-Tokens
-description: Inhalt folgt.
+description: Programmatischen Zugriff auf einen Space sicher erteilen, begrenzen und widerrufen.
 ---
 
-Inhalt folgt.
+API-Tokens sind die Schlüssel, mit denen externe Tools, Skripte und Automatisierungen auf einen Space zugreifen. Jeder Token gehört genau einem Space, wird einmalig im Klartext angezeigt und sollte wie ein Passwort behandelt werden. Im Bereich API-Tokens legst du neue Tokens an, siehst, wie oft sie genutzt werden, und widerrufst sie, wenn sie nicht mehr gebraucht oder kompromittiert sind.
+
+<Callout type="warn">
+Ein API-Token gewährt vollen Zugriff im Rahmen seiner Scopes. Behandle ihn wie ein Passwort: nicht im Code committen, nicht in Tickets posten, nicht per Chat weitergeben. Wenn du Zweifel hast, ob ein Token noch sicher ist, widerrufe ihn sofort und erstelle einen neuen.
+</Callout>
+
+## Worum geht's
+
+Wenn dein Team Daten aus Kopexa exportiert, Aufgaben aus einem anderen System spiegelt oder Compliance-Daten in eigene Reports zieht, brauchst du einen sauberen Weg, das System zu authentifizieren. API-Tokens sind dieser Weg: pro Space ein eigener Token, mit klarer Beschreibung, einem optionalen Ablaufdatum und der Möglichkeit, ihn jederzeit zu deaktivieren oder zu widerrufen.
+
+## Wann nutzt du es
+
+- Du verbindest ein Ticketsystem, das Aufgaben aus Kopexa abrufen soll.
+- Du baust einen Export, der einmal pro Woche Berichte aus Kopexa zieht.
+- Du verbindest deine Compliance-Plattform mit einer eigenen BI-Lösung.
+- Eine Automatisierung in einer Cloud-Plattform muss Inhalte in Kopexa anlegen oder lesen.
+- Ein Token wurde versehentlich geteilt und muss widerrufen werden.
+
+## Das Wichtigste in Kürze
+
+- **Klartext nur einmal**: Der Token wird beim Erstellen genau einmal angezeigt. Kopiere ihn sofort an einen sicheren Ort, etwa einen Secrets-Manager.
+- **Ein Token gehört zu einem Space**: Wer auf mehrere Spaces zugreifen muss, braucht pro Space einen eigenen Token.
+- **Ablauf optional**: Du kannst zwischen 7 Tagen, 30, 60, 90 Tagen, einem Jahr oder "Unbegrenzt" wählen. Ein Ablauf ist die wirksamste Maßnahme gegen vergessene Tokens.
+- **Deaktivieren und Widerrufen sind unterschiedlich**: Deaktivieren ist eine sanfte Pause, Widerrufen ist endgültig.
+- **Letzte Nutzung sichtbar**: Du siehst pro Token, wann er das letzte Mal verwendet wurde. So erkennst du verwaiste Tokens schnell.
+
+## Typischer Ablauf
+
+1. **Token anlegen**: In Einstellungen, API-Tokens auf "Token erstellen" klicken.
+2. **Name und Beschreibung pflegen**: Wer nutzt den Token, wofür, ab wann. Eine gute Beschreibung erleichtert spätere Audits enorm.
+3. **Ablauf wählen**: Im Zweifel kürzer als länger. Ein Token, der zu Quartalsende abläuft, zwingt zur Rotation.
+4. **Token kopieren und sicher ablegen**: Der Klartext erscheint nur einmal. Im Secrets-Manager der eigenen Plattform speichern.
+5. **In der externen Anwendung hinterlegen**: Token als Bearer einsetzen oder im Konfigurationsfile der Integration.
+6. **Nutzung beobachten**: In der Liste prüfen, ob der Token regelmäßig "Zuletzt genutzt" zeigt.
+7. **Bei Verdacht oder Wechsel widerrufen**: Token sofort widerrufen, neuen anlegen, in der Zielanwendung tauschen.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Anwendung braucht Zugriff] --> B[Token anlegen mit Name, Beschreibung, Ablauf]
+    B --> C[Klartext nur einmal sichtbar]
+    C --> D[In Secrets-Manager der Anwendung speichern]
+    D --> E[Anwendung nutzt Token]
+    E --> F{Token noch gebraucht?}
+    F -- Ja --> G{Ablauf nähert sich?}
+    G -- Ja --> H[Neuen Token anlegen, alten widerrufen]
+    G -- Nein --> E
+    F -- Nein --> I[Token widerrufen]
+    H --> E
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Eindeutige Kurzbezeichnung pro Space, etwa "Zammad Sync" oder "AWS Compliance Export". |
+| Beschreibung | Empfohlen | Warum gibt es diesen Token, welche Anwendung nutzt ihn, wer hat ihn angefordert. |
+| Gültig für | Ja | Ablaufzeitraum: 7 Tage, 30, 60, 90 Tage, 1 Jahr oder unbegrenzt. |
+| Scopes | Optional | Erlaubte Aktionen pro Entität (z. B. "kpi:read"). Wenn leer, gilt der Token im Rahmen der Standard-Berechtigungen seines Spaces. |
+| Aktiv | Automatisch | Schaltet den Token an oder aus. Deaktivierte Tokens werden nicht mehr akzeptiert. |
+| Zuletzt genutzt | Anzeige | Wird automatisch gesetzt, sobald der Token einen Aufruf macht. |
+| Widerrufen am | Anzeige | Datum des Widerrufs. Widerrufene Tokens lassen sich nicht reaktivieren. |
+| Widerrufen von | Anzeige | Person, die den Widerruf ausgelöst hat. |
+| Widerrufsgrund | Anzeige | Begründung für den Widerruf, etwa "rotation", "compromised" oder "no longer needed". |
+
+### Statusbild
+
+| Status | Bedeutung |
+|---|---|
+| Aktiv | Token funktioniert und kann Aufrufe machen. |
+| Inaktiv | Token ist temporär deaktiviert, lässt sich aber wieder aktivieren. |
+| Abgelaufen | Ablaufdatum überschritten, Token wird abgelehnt. Kein Reaktivieren möglich, nur neuer Token. |
+| Widerrufen | Manuell widerrufen, endgültig ungültig. |
+
+## Was im Hintergrund passiert
+
+- **Klartext wird nicht gespeichert**: Kopexa legt nur einen SHA-256-Hash ab. Selbst Admins können den Originaltoken nicht nachträglich einsehen.
+- **Service-Identität statt Person**: Jeder Token erhält eine eigene technische Identität im Berechtigungssystem. Aktionen werden klar als API-Zugriff markiert, nicht als persönlicher Zugriff.
+- **Letzte Nutzung wird asynchron geschrieben**: Bei jedem erfolgreichen Aufruf wird "last_used_at" aktualisiert. So lassen sich verwaiste Tokens erkennen.
+- **Ablauf wird hart durchgesetzt**: Nach Ablaufdatum lehnt Kopexa den Token sofort ab, auch wenn er noch aktiv markiert ist.
+- **Widerrufene Tokens bleiben sichtbar**: Sie tauchen mit Datum, Person und Grund in der Liste auf. So entsteht ein Audit-Trail.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Mitglieder"
+    description="Persönliche Zugriffe laufen über Mitgliedschaften, nicht über Tokens."
+    href="/docs/platform/space/einstellungen/users"
+    color="blue"
+  />
+  <FeatureCard
+    title="Integrationen"
+    description="Vorgefertigte Anbindungen nutzen die gleichen Tokens unter der Haube."
+    href="/docs/platform/space/integrationen"
+    color="purple"
+  />
+  <FeatureCard
+    title="Allgemein"
+    description="Tokens sind an den Space gebunden, in dem sie erstellt wurden."
+    href="/docs/platform/space/einstellungen/allgemein"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Tokens anlegen, beschreiben, deaktivieren, widerrufen |
+| Organisations-Owner | Tokens aller Spaces einsehen, widerrufen |
+| Mitglied | Tokens-Liste lesen, keine Aktionen |
+| Viewer | Tokens-Liste lesen, keine Aktionen |
+
+## Best Practices
+
+- **Pro Anwendung ein Token**: Niemals den gleichen Token in mehreren Systemen hinterlegen. Bei einem Leak musst du sonst überall gleichzeitig austauschen.
+- **Regelmäßig rotieren**: Plane Token-Rotation als wiederkehrende Aufgabe, etwa quartalsweise oder halbjährlich.
+- **Ablaufdatum ist Pflicht**: "Unbegrenzt" nur ausnahmsweise und mit gutem Grund vergeben.
+- **Sichere Aufbewahrung**: Tokens gehören in einen Secrets-Manager, nicht in Konfigurationsdateien im Git und nicht in Tickets.
+- **Naming-Konvention**: Ein klares Schema wie "{System}-{Zweck}-{Datum}" hilft beim Aufräumen alter Tokens.
+- **Alte Tokens aktiv aufräumen**: Wenn die Spalte "Zuletzt genutzt" leer bleibt oder mehrere Wochen alt ist, widerrufen.
+
+## Stolperfallen
+
+- **Klartext verloren**: Es gibt keinen Weg, einen Token nachträglich auszulesen. Wer den Klartext verliert, muss einen neuen erzeugen.
+- **Token im Code-Repository**: Schon ein einziger Commit kann den Token öffentlich machen. Bei Verdacht sofort widerrufen.
+- **Ablauf vergessen**: Wenn ein Token plötzlich abläuft, fallen externe Systeme aus. Frühzeitig erneuern und tauschen, statt am Stichtag in Hektik zu geraten.
+- **Verwaiste Tokens**: Tokens, die seit Wochen keine Aktivität zeigen, sind verdächtig. Entweder sind sie nicht mehr in Gebrauch oder eine Anwendung läuft nicht mehr.
+- **Pro Person ein Token**: Wenn ein Mensch einen Token nutzt, ist das ein Warnsignal. Tokens sind für Anwendungen, nicht für Menschen. Persönliche Zugriffe gehören über die Anmeldung mit Mitgliedschaft.
+- **Falscher Space**: Ein Token gilt nur für den Space, in dem er erstellt wurde. Wer auf mehrere Spaces zugreifen muss, braucht mehrere Tokens.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Was kann jemand mit einem geleakten Token tun?">
+    Genau das, was die Anwendung damit tun darf. Bei einem Token ohne Scopes-Einschränkung sind das alle Aktionen, die deine Rolle im Space erlaubt. Sofort widerrufen.
+  </Accordion>
+  <Accordion title="Kann ich denselben Token in mehreren Spaces nutzen?">
+    Nein. Jeder Token ist an genau einen Space gebunden. Für jeden weiteren Space brauchst du einen eigenen Token.
+  </Accordion>
+  <Accordion title="Was ist der Unterschied zwischen deaktivieren und widerrufen?">
+    Deaktivieren pausiert den Token, lässt sich aber rückgängig machen. Widerrufen ist endgültig und dokumentiert, wer wann mit welchem Grund widerrufen hat.
+  </Accordion>
+  <Accordion title="Was passiert, wenn ein Token abläuft?">
+    Der Token wird abgelehnt. Eine laufende Anwendung erhält Fehler. Plane den Tausch vorher ein und überlappe alt und neu, falls möglich.
+  </Accordion>
+  <Accordion title="Kann ich einen Token nach dem Erstellen noch ansehen?">
+    Nein. Aus Sicherheitsgründen wird der Klartext nicht gespeichert. Nur der Hash bleibt erhalten. Wenn du den Klartext verlierst, hilft nur ein neuer Token.
+  </Accordion>
+  <Accordion title="Wie erkenne ich verwaiste Tokens?">
+    Sortiere die Liste nach "Zuletzt genutzt". Wer seit Wochen oder Monaten keine Aktivität zeigt, ist ein Kandidat für den Widerruf.
+  </Accordion>
+</Accordions>
