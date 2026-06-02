@@ -1,6 +1,110 @@
 ---
 title: Programme
-description: Inhalt folgt.
+description: Compliance-Initiativen wie Zertifizierungen, Audits oder Gap-Analysen über einen festen Zeitraum strukturieren und steuern.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Ein Programm bündelt alles, was zu einer größeren Compliance-Initiative gehört: einen Standard wie ISO 27001 oder SOC 2, einen klaren Zeitraum, eine verantwortliche Person und die Kontrollen, die ihr in diesem Zeitraum bearbeitet. Mit Programmen steuerst du Vorhaben, die sich über mehrere Wochen oder Monate ziehen und an denen mehrere Personen mitarbeiten. Sie geben dir einen festen Anker, um Fortschritt, offene Aufgaben und Bereitschaft für einen Auditor an einem Ort sichtbar zu machen.
+
+## Wann nutzt du es
+
+- Ihr bereitet euch auf eine Erstzertifizierung wie ISO 27001 oder SOC 2 vor.
+- Ein jährliches Surveillance-Audit oder eine Rezertifizierung steht an.
+- Ihr macht eine Gap-Analyse gegen einen Standard, ohne sofort zu zertifizieren.
+- Ihr fahrt parallel mehrere Frameworks und braucht eine saubere Trennung pro Zielbild.
+- Ein Vorhaben hat ein klares Enddatum und eine eindeutige verantwortliche Person.
+
+## Das Wichtigste in Kürze
+
+- Ein Programm gehört immer zu einem Space und basiert wahlweise auf einem Framework, einer Gap-Analyse, einer Risikoanalyse oder einem eigenen Typ.
+- Status, Zeitraum und verantwortliche Person halten fest, wo das Programm steht und wer es trägt.
+- Kontrollen werden dem Programm zugeordnet, ihr Fortschritt fliesst in die Übersicht ein.
+- Eine Statement of Applicability lässt sich pro Programm exportieren, sobald die Kontrollen gepflegt sind.
+- Programme können verarbeitete Tätigkeiten, Dokumente und Diskussionen direkt verknüpfen.
+
+## Typischer Ablauf
+
+1. Programm anlegen über "Programm erstellen" und Namen sowie Beschreibung pflegen.
+2. Programmtyp wählen, etwa Framework, Gap-Analyse oder Risikoanalyse.
+3. Bei Framework-Typ einen Standard auswählen, damit die Kontrollen automatisch zugeordnet werden.
+4. Zeitraum festlegen mit Start- und Enddatum.
+5. Verantwortliche Person setzen, die das Programm steuert.
+6. Kontrollen pflegen, Aufgaben verteilen und Nachweise sammeln.
+7. Status pflegen, bis das Programm "Bereit für Auditor" oder "Abgeschlossen" ist.
+
+<Mermaid chart={`flowchart LR
+  A[Noch nicht gestartet] --> B[In Bearbeitung]
+  B --> C[Handlung erforderlich]
+  C --> B
+  B --> D[Bereit für Auditor]
+  D --> E[Abgeschlossen]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Name des Programms | Aussagekräftige Bezeichnung der Initiative | Pflicht | Darf nicht leer sein | Standard und Zeitraum mit aufnehmen, zum Beispiel "ISO 27001 Audit 2025". |
+| Beschreibung | Kurzer Kontext zum Programm | Optional | Freitext | Den Scope und die wichtigsten Beteiligten in wenigen Sätzen festhalten. |
+| Programmtyp | Framework, Gap-Analyse, Risikoanalyse oder Anderer Typ | Pflicht | Standardwert "Framework" | Framework wählen, sobald ein Standard wie ISO 27001 hinterlegt werden soll. |
+| Framework | Standard, auf dem das Programm beruht | Optional | Muss im Space verfügbar sein | Nur ein Framework pro Programm wählen, sonst kippt der Scope. |
+| Status | Aktueller Zustand des Programms | Pflicht | Standardwert "Noch nicht gestartet" | Erst bei echtem Arbeitsbeginn auf "In Bearbeitung" wechseln. |
+| Startdatum | Beginn des Programms | Optional | Datum | Beginn realistisch ansetzen, damit der Fortschritt belastbar bleibt. |
+| Enddatum | Geplanter Abschluss des Programms | Optional | Datum, idealerweise nach dem Startdatum | Audit-Termin minus Puffer wählen, damit Nachweise rechtzeitig fertig sind. |
+| Verantwortlich | Person, die das Programm trägt | Optional | Mitglied des Space | Genau eine Person als Verantwortliche festlegen, nicht ein ganzes Team. |
+
+## Was im Hintergrund passiert
+
+- Beim Anlegen eines Programms mit Framework-Typ werden die Kontrollen des gewählten Standards mit dem Programm verknüpft und tauchen in der Kontrollübersicht auf.
+- Der Fortschritt im Programm-Dashboard wird aus dem Status der zugeordneten Kontrollen berechnet, du musst ihn nicht manuell pflegen.
+- Aufgaben, die an Kontrollen des Programms hängen, erscheinen im Programm unter "Offene Aufgaben". So bleibt sichtbar, was vor dem Audit noch zu tun ist.
+- Beim Löschen eines Programms entscheidest du, ob die zugeordneten Kontrollen mitgelöscht werden. Kontrollen, die in anderen Programmen oder einem eigenen Framework genutzt werden, bleiben erhalten.
+- Eine Statement of Applicability lässt sich pro Programm exportieren, sobald die Kontrollen einen finalen Status haben.
+
+## Verknüpfungen
+
+- [Kontrollen](/platform/space/compliance/controls) bilden die Anforderungen des Programms ab.
+- [Maßnahmen](/platform/space/compliance/measures) setzen die Kontrollen um.
+- [Aufgaben](/platform/space/issues) verteilen die operative Arbeit eines Programms.
+- [Frameworks](/platform/space/compliance/frameworks) liefern die Kontrollbibliothek für Framework-Programme.
+- [Stakeholder](/platform/space/governance/stakeholders) liefern die Anforderungen, aus denen ein Programm oft entsteht.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Programme. Programme anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Die als verantwortlich gesetzte Person darf "ihr" Programm jederzeit pflegen, auch wenn sie sonst nur Leserechte hätte. Programme löschen dürfen nur Admins des Space. Der Statement-of-Applicability-Export ist für alle Lesenden des Programms verfügbar.
+
+## Best Practices
+
+- Ein Programm pro Standard und Zeitraum, nicht ein Sammelprogramm für mehrere Audits.
+- Die verantwortliche Person früh festlegen, am besten vor dem ersten Statuswechsel auf "In Bearbeitung".
+- Realistische Zeiträume planen, bei Erstzertifizierungen lieber großzügig als knapp.
+- Statuswechsel als Ritual: Erst wenn alle Kontrollen einen klaren Stand haben, geht das Programm auf "Bereit für Auditor".
+- Nach dem Audit das Programm sauber abschließen, statt es offen liegenzulassen. Das nächste Jahr beginnt mit einem neuen Programm.
+
+## Stolperfallen
+
+- Programme ohne Enddatum verlieren ihren Steuerungswert. Setze ein Zieldatum, auch wenn es später angepasst wird.
+- Ohne verantwortliche Person bleibt unklar, wer den Status pflegt. Lege die Verantwortlichkeit fest, sobald das Programm angelegt ist.
+- Wer das Framework nachträglich wechselt, verliert den sauberen Kontrollscope. Lege im Zweifel ein neues Programm an.
+- Beim Löschen ohne Häkchen bei "Kontrollen ebenfalls löschen" bleiben verwaiste Kontrollen zurück, wenn sie nirgends sonst genutzt werden. Prüfe das vorher.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Programm und Framework?">
+Das Framework ist die Kontrollbibliothek, etwa ISO 27001 mit ihren Anforderungen. Das Programm ist die Initiative, mit der ihr ein Framework über einen definierten Zeitraum umsetzt oder pflegt.
+</Accordion>
+<Accordion title="Kann ein Programm mehrere Frameworks abdecken?">
+Pro Programm wird ein Framework hinterlegt. Wer mehrere Standards parallel umsetzen will, legt pro Standard ein eigenes Programm an. Überlappende Kontrollen erkennt Kopexa und schlägt sie für die Wiederverwendung vor.
+</Accordion>
+<Accordion title="Was passiert mit den Kontrollen, wenn ich ein Programm lösche?">
+Du entscheidest beim Löschen, ob die zugeordneten Kontrollen mitgelöscht werden. Kontrollen, die in einem anderen Programm oder einem eigenen Framework verwendet werden, bleiben in jedem Fall erhalten.
+</Accordion>
+<Accordion title="Wie wird der Gesamtfortschritt berechnet?">
+Aus dem Status der zugeordneten Kontrollen. Vollständig umgesetzte Kontrollen zählen als erledigt, teilweise umgesetzte fliessen anteilig ein. Nicht-anwendbare Kontrollen werden aus der Berechnung herausgenommen.
+</Accordion>
+<Accordion title="Wann setze ich ein Programm auf 'Bereit für Auditor'?">
+Wenn alle Kontrollen einen finalen Status haben, die Nachweise gepflegt sind und keine offenen Aufgaben mehr im Programm liegen. Der Status signalisiert dem Team, dass keine inhaltlichen Änderungen mehr erwartet sind.
+</Accordion>
+</Accordions>
