@@ -1,6 +1,116 @@
 ---
 title: Partner
-description: Inhalt folgt.
+description: Externe Berater und Dienstleister an deine Organisation anbinden
 ---
 
-Inhalt folgt.
+Der Bereich **Partner** zeigt dir alle externen Organisationen, die deine Compliance-Arbeit unterstützen. Du findest ihn auf Organisations-Ebene unter `/o/{slug}/partners/`.
+
+## Worum geht's
+
+Partner sind externe Berater wie Datenschutzbeauftragte, Informationssicherheitsbeauftragte oder Qualitätsmanager, die in deiner Organisation mitarbeiten dürfen. Du nimmst Partner-Anfragen an, behältst aktive Partnerschaften im Blick und kannst sie bei Bedarf wieder beenden. Eine Partnerschaft regelt klar, auf welche Spaces der Partner zugreifen darf und in welcher Rolle.
+
+## Wann nutzt du es
+
+- Ein externer Berater hat dir eine Anfrage geschickt.
+- Du willst sehen, welche Partner aktuell mit deiner Organisation arbeiten.
+- Du möchtest eine Partnerschaft beenden, weil das Mandat ausläuft.
+- Du suchst neue Partner über den Marktplatz.
+
+## Das Wichtigste in Kürze
+
+- Partner stellen die Anfrage, du nimmst sie an oder lehnst sie ab.
+- Beim Annehmen bestätigst du, dass ein Auftragsverarbeitungsvertrag mit dem Partner besteht oder keine personenbezogenen Daten geteilt werden.
+- Der Partner sieht nur die Spaces, die du freigibst, und nur in der vereinbarten Zugriffsebene.
+- Du kannst eine aktive Partnerschaft jederzeit beenden.
+
+## Typischer Ablauf
+
+1. Der Partner sendet dir eine Verbindungsanfrage. Sie erscheint unter **Ausstehende Anfragen**.
+2. Du prüfst Rolle, Zugriffsbereich und Zugriffsebene.
+3. Du bestätigst, dass eine Auftragsverarbeitungsvereinbarung vorliegt oder keine personenbezogenen Daten betroffen sind.
+4. Du nimmst die Anfrage an. Die Partnerschaft wird aktiv.
+5. Der Partner erhält Zugriff auf die freigegebenen Spaces in der vereinbarten Rolle.
+6. Bei Bedarf beendest du die Partnerschaft später.
+
+<Mermaid chart={`
+graph LR
+    A[Partner sendet Anfrage] --> B[Ausstehende Anfrage]
+    B --> C{Du prüfst}
+    C -->|annehmen| D[Aktive Partnerschaft]
+    C -->|ablehnen| E[Abgelehnt]
+    D --> F[Partner arbeitet in Spaces]
+    D -->|beenden| G[Beendet]
+    style D fill:#e8f5e8
+    style E fill:#ffebee
+    style G fill:#f3e5f5
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung |
+|---|---|
+| Partner | Name der Partner-Organisation. |
+| Rolle | Funktion des Partners: Allgemeiner Berater, DSB, ISB, Qualitätsmanagement oder Regulatory Affairs. |
+| Zugriffsebene | Nur Ansicht, eingeschränkt oder Vollzugriff. |
+| Zugriffsbereich | Alle Spaces oder nur ausgewählte. |
+| Status | Ausstehend, Aktiv, Gesperrt, Beendet oder Abgelehnt. |
+| Verbunden seit | Datum, an dem die Partnerschaft aktiv wurde. |
+| AVV-Bestätigung | Pflichtfeld beim Annehmen. Bestätigt, dass ein AVV vorliegt oder keine personenbezogenen Daten geteilt werden. |
+
+## Was im Hintergrund passiert
+
+- Beim Annehmen erhalten die Mitglieder des Partners Zugriff auf die freigegebenen Spaces.
+- Beim Ablehnen oder Beenden wird der Zugriff sofort entzogen.
+- Die Verbindung bleibt zur Nachvollziehbarkeit in der Liste sichtbar.
+- Wenn der Partner einen Vermittlungsvertrag mit Kopexa hat, werden im Hintergrund Provisionsereignisse erzeugt. Die siehst du nicht. Sie laufen direkt zwischen Kopexa und dem Partner.
+
+## Verknüpfungen
+
+- [Kunden](../customers/) zeigt die Gegenseite: Wenn deine Organisation selbst Partner ist, verwaltest du dort deine Mandate.
+- [Spaces](../../space/) sind die Arbeitsbereiche, die du freigibst.
+- [Organisations-Einstellungen](../einstellungen/) für Mitglieder, Domains und Profil deiner Organisation.
+
+## Berechtigungen
+
+- **Inhaber und Admin**: Anfragen annehmen, ablehnen, Partnerschaften beenden.
+- **Mitglied**: Liste einsehen.
+- **Betrachter**: Liste einsehen.
+
+## Best Practices
+
+- Prüfe vor dem Annehmen, ob die angefragte Rolle und die Zugriffsebene zu eurer Vereinbarung passen.
+- Schließe vor der Annahme einen Auftragsverarbeitungsvertrag, wenn personenbezogene Daten im Spiel sind.
+- Gib nur die Spaces frei, die der Partner wirklich braucht.
+- Dokumentiere intern, welcher Partner für welches Mandat zuständig ist.
+- Beende Partnerschaften zeitnah, wenn das Mandat endet.
+
+## Stolperfallen
+
+- Ohne deine Annahme bleibt die Anfrage **Ausstehend**. Der Partner kann noch nichts sehen.
+- Die AVV-Bestätigung ist ein Pflichtfeld. Setze sie nicht leichtfertig, wenn personenbezogene Daten geteilt werden.
+- Bei **Vollzugriff** kann der Partner Inhalte verändern. Achte bewusst auf die Zugriffsebene.
+- Beenden ist sofort wirksam. Sprich dich vorher mit dem Partner ab.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wer schickt die Anfrage, ich oder der Partner?">
+Der Partner stellt die Anfrage. Du nimmst sie an oder lehnst sie ab. Falls dein Partner Kopexa noch nicht kennt, kannst du ihn auf den Marktplatz hinweisen.
+</Accordion>
+
+<Accordion title="Was bedeutet die AVV-Bestätigung beim Annehmen?">
+Wenn ein Partner Zugriff auf Daten in deinen Spaces erhält und dabei personenbezogene Daten verarbeitet, brauchst du in der Regel einen Auftragsverarbeitungsvertrag (AVV). Mit der Bestätigung erklärst du, dass entweder ein AVV vorliegt oder keine personenbezogenen Daten geteilt werden.
+</Accordion>
+
+<Accordion title="Kann ich die Rolle eines Partners nachträglich ändern?">
+Nicht direkt. Beende die bestehende Partnerschaft und lass den Partner eine neue Anfrage mit der angepassten Rolle stellen.
+</Accordion>
+
+<Accordion title="Sehe ich, was der Partner in meinen Spaces macht?">
+Aktionen im Space sind dort nachvollziehbar, wo sie passieren (Kommentare, Änderungen). Aktivitäten und Verlauf findest du direkt im jeweiligen Space.
+</Accordion>
+
+<Accordion title="Was passiert mit den Inhalten, die ein Partner erstellt hat, wenn die Partnerschaft endet?">
+Die Inhalte bleiben in deinem Space. Nur der Zugriff des Partners wird entzogen.
+</Accordion>
+</Accordions>
