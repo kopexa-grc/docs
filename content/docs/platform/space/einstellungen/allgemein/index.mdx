@@ -1,6 +1,156 @@
 ---
 title: Allgemein
-description: Inhalt folgt.
+description: Name, Sprache, Farbe und Lebenszyklus eines Spaces zentral verwalten.
 ---
 
-Inhalt folgt.
+Im Bereich Allgemein steuerst du die Grundeinstellungen deines Spaces: wie er heißt, in welcher Sprache er Standardinhalte erzeugt, mit welcher Farbe er in Listen erscheint und wie du ihn am Ende sauber wieder schließt. Diese Einstellungen wirken sich auf alle Module dieses Spaces aus.
+
+<Callout type="info">
+Ein Space ist deine Arbeitsumgebung für ein Thema, eine Abteilung, ein Projekt oder einen Standort. Was du hier einstellst, betrifft alle Mitglieder und alle Inhalte in diesem Space.
+</Callout>
+
+## Worum geht's
+
+Spaces bündeln Compliance-, Risiko- und Datenschutzthemen für einen klar abgegrenzten Bereich. Damit die Zusammenarbeit funktioniert, brauchst du einen verständlichen Namen, eine eindeutige Sprache für Standardinhalte und eine Farbe, die den Space in der Navigation wiedererkennbar macht. Im Bereich Allgemein pflegst du diese Stammdaten und kannst den Space am Ende seines Lebenszyklus sicher löschen.
+
+## Wann nutzt du es
+
+- Du legst einen neuen Space an und willst Name, Beschreibung und Sprache sauber setzen.
+- Der Space heißt nicht mehr passend, weil sich Projekt, Abteilung oder Standort verändert haben.
+- Du willst die Farbe ändern, um Spaces im Wechsler besser auseinanderzuhalten.
+- Ein Space wird nicht mehr gebraucht und soll endgültig gelöscht werden.
+- Du musst nachvollziehen, wer den Space wann erstellt hat.
+
+## Das Wichtigste in Kürze
+
+- **Name und Beschreibung jederzeit änderbar**: Beides hilft den Mitgliedern, den Zweck des Spaces zu verstehen.
+- **Sprache prägt Standardinhalte**: Beim ersten Anlegen erzeugt Kopexa Vorlagen wie Vorfalltypen, betroffene Parteien oder Dokumentenkategorien in der gewählten Sprache. Ein späterer Sprachwechsel ändert vorhandene Inhalte nicht, dient aber als Standardfilter für Vorlagen.
+- **Farbe nur kosmetisch**: Sie taucht im Space-Wechsler und in Listen auf, hat keine fachliche Wirkung.
+- **Löschen braucht zwei Schritte**: Eine Löschungsanfrage geht per E-Mail, du bestätigst sie mit einem 2FA-Code. So vermeidet Kopexa Versehen.
+- **Nur Organisations-Owner dürfen löschen**: Die Löschung erfolgt aus der Space-Übersicht der Organisation, nicht aus dem Space selbst.
+
+## Typischer Ablauf
+
+1. **Space öffnen**: Auf Einstellungen, Allgemein gehen.
+2. **Name und Beschreibung pflegen**: Klare Bezeichnung wählen, Zweck in wenigen Sätzen beschreiben.
+3. **Sprache prüfen**: Sicherstellen, dass die Standardsprache zum Team und zu den Vorlagen passt.
+4. **Farbe wählen**: Eine Farbe, die sich von anderen Spaces der Organisation unterscheidet.
+5. **Speichern**: Änderungen werden sofort übernommen.
+6. **Bei Bedarf löschen**: In die Space-Übersicht der Organisation wechseln, Löschung anfordern, E-Mail bestätigen, 2FA-Code eingeben.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Space anlegen] --> B[Name, Sprache, Farbe setzen]
+    B --> C[Standardinhalte werden in dieser Sprache erzeugt]
+    C --> D[Space wird produktiv genutzt]
+    D --> E{Space noch gebraucht?}
+    E -- Ja --> F[Stammdaten pflegen]
+    F --> D
+    E -- Nein --> G[Löschung anfordern]
+    G --> H[Bestätigungs-E-Mail]
+    H --> I[2FA-Code eingeben]
+    I --> J[Space endgültig gelöscht]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Der angezeigte Name des Spaces. Sollte den Zweck klar erkennen lassen. |
+| Beschreibung | Nein | Kurzer Text, der den Zweck des Spaces erläutert. Hilft neuen Mitgliedern bei der Orientierung. |
+| Sprache | Ja | Standardsprache für Vorlagen und Kataloge. Voreinstellung ist Deutsch. |
+| Farbe | Nein | Akzentfarbe in Listen und im Space-Wechsler. |
+| Typ | Ja (bei Anlage) | Organisation, Projekt, Abteilung, Standort, Team, Produkt, Prozess, Asset-Gruppe, Kunde, Lieferant. Nicht mehr änderbar nach dem Anlegen. |
+| Slug | Automatisch | Technische Kurz-ID, wird aus dem Namen abgeleitet, von Kopexa vergeben. |
+
+### Schutzbedarf: Dimension Authentizität
+
+In den erweiterten Space-Einstellungen lässt sich zusätzlich steuern, ob die Dimension "Authentizität" in Schutzbedarfsanalysen geführt wird. Standardmäßig ist sie aus. Aktiviere sie, wenn dein Schutzbedarfsschema neben Vertraulichkeit, Integrität und Verfügbarkeit auch Authentizität bewertet.
+
+| Feld | Bedeutung |
+|---|---|
+| Authentizität in Schutzbedarf | Wenn aktiv, erscheint die Dimension Authentizität in jeder Schutzbedarfsanalyse dieses Spaces. |
+
+## Was im Hintergrund passiert
+
+- **Standardinhalte werden einmalig erzeugt**: Beim ersten Anlegen eines Spaces legt Kopexa Vorfalltypen, Identifikationsmethoden, Ablehnungsgründe, Dokumentenkategorien und ähnliche Kataloge in der gewählten Sprache an. Diese kannst du danach frei anpassen.
+- **Sprache wirkt als Filter**: Spätere Vorlagenimporte oder Katalogeinträge schlagen Inhalte in der Space-Sprache vor.
+- **Löschung läuft asynchron**: Ein Löschauftrag erzeugt einen eigenen Eintrag mit Status, Ablaufdatum und Bestätigungstoken. Solange du nicht bestätigst, bleibt der Space erhalten. Bestätigte Löschungen entfernen alle Daten endgültig.
+- **Cascade-Löschung über alle Module**: Mit dem Space werden Risiken, Dokumente, Kontrollen, Vorfälle, Verarbeitungstätigkeiten, Stammdaten und alle weiteren Inhalte unwiderruflich gelöscht.
+- **Erstellungs-Metadaten**: Kopexa speichert, wer den Space angelegt hat und wann. Diese Informationen erscheinen in der Allgemein-Ansicht.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Mitglieder"
+    description="Wer auf den Space zugreift und mit welcher Rolle."
+    href="/docs/platform/space/einstellungen/users"
+    color="blue"
+  />
+  <FeatureCard
+    title="API-Tokens"
+    description="Programmatischer Zugriff auf diesen Space."
+    href="/docs/platform/space/einstellungen/api-tokens"
+    color="purple"
+  />
+  <FeatureCard
+    title="Organisation"
+    description="Spaces gehören zu einer Organisation. Löschen erfolgt aus der Organisation."
+    href="/docs/platform/organisation"
+    color="green"
+  />
+  <FeatureCard
+    title="Trust Center"
+    description="Wenn der Space ein öffentliches Trust Center hat, erbt es Name und Branding."
+    href="/docs/platform/space/trust-center"
+    color="orange"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Organisations-Owner | Spaces anlegen, umbenennen, Sprache und Farbe ändern, löschen |
+| Space-Admin | Name, Beschreibung, Sprache und Farbe pflegen, erweiterte Einstellungen anpassen |
+| Mitglied | Allgemein-Einstellungen lesen, keine Änderungen |
+| Viewer | Allgemein-Einstellungen lesen, keine Änderungen |
+
+## Best Practices
+
+- **Sprechende Namen wählen**: "Datenschutz Deutschland 2026" sagt mehr als "DS 2026".
+- **Beschreibung nicht leer lassen**: Ein bis zwei Sätze reichen, machen aber den Unterschied für neue Mitglieder.
+- **Farben konsistent vergeben**: Innerhalb einer Organisation lohnt sich ein Farbschema, etwa pro Region oder pro Geschäftsbereich.
+- **Sprache vor der ersten Nutzung festlegen**: Standardinhalte werden einmal erzeugt. Eine spätere Sprachänderung ändert die bereits angelegten Kataloge nicht mehr.
+- **Vor dem Löschen exportieren**: Wichtige Dokumente und Nachweise vorher sichern. Nach der Löschung sind sie nicht wiederherstellbar.
+
+## Stolperfallen
+
+- **Sprache zu spät ändern**: Wenn die Kataloge erst einmal auf Englisch angelegt wurden, hilft eine Sprachumstellung in Bestandsspaces nicht mehr nach.
+- **Typ verwechseln**: Der Space-Typ ist nach der Anlage gesetzt und nicht änderbar. Wähle bewusst zwischen Organisation, Abteilung, Projekt und den weiteren Typen.
+- **Löschung versehentlich starten**: Eine Bestätigungs-E-Mail genügt zwar nicht zum Löschen, aber sie löst Verwirrung im Team aus. Plane Löschungen mit den Inhabenden ab.
+- **2FA-Code zur Hand haben**: Ohne aktive Zwei-Faktor-Authentifizierung lässt sich keine Löschung bestätigen.
+- **Cascade unterschätzen**: Mit dem Space sind sofort alle Risiken, Vorfälle, Verarbeitungstätigkeiten, Dokumente und Kontrollen weg.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Kann ich einen Space umbenennen, ohne Verknüpfungen zu verlieren?">
+    Ja. Name und Beschreibung sind frei änderbar. IDs und Verknüpfungen bleiben bestehen.
+  </Accordion>
+  <Accordion title="Was passiert, wenn ich die Sprache nachträglich ändere?">
+    Bereits erzeugte Standardinhalte bleiben in ihrer ursprünglichen Sprache. Neue Vorlagen, Importe und Vorschläge orientieren sich danach an der neuen Sprache.
+  </Accordion>
+  <Accordion title="Wer kann den Space löschen?">
+    Nur Organisations-Owner und nur aus der Space-Übersicht der Organisation heraus. Im Space selbst gibt es kein Löschen.
+  </Accordion>
+  <Accordion title="Wie lange ist eine Löschungsanfrage gültig?">
+    24 Stunden. Wird sie nicht bestätigt, läuft sie ab und der Space bleibt erhalten.
+  </Accordion>
+  <Accordion title="Kann ich eine bestätigte Löschung rückgängig machen?">
+    Nein. Nach der Bestätigung mit 2FA-Code werden alle Daten endgültig gelöscht. Eine Wiederherstellung ist nicht möglich.
+  </Accordion>
+</Accordions>
