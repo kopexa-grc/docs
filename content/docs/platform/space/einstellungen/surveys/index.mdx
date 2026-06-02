@@ -1,6 +1,202 @@
 ---
 title: Umfragen
-description: Inhalt folgt.
+description: Bewertungen, Mitarbeiterfeedback und Lieferanten-Assessments mit Fragebögen erheben und auswerten.
 ---
 
-Inhalt folgt.
+Umfragen sind strukturierte Fragebögen, mit denen du gezielt Informationen einholst: Lieferanten-Assessments, Risikobewertungen, Mitarbeiter-Feedback oder Kundenzufriedenheit. Jede Umfrage besteht aus Fragen, optionalen Bewertungsregeln und einer klar definierten Zielgruppe. Antworten fließen in andere Module zurück, etwa als Eingangswert für Risiken oder als Nachweis für Kontrollen.
+
+<Callout type="info">
+Eine Umfrage ist kein einfacher Newsletter, sondern ein strukturierter Vorgang mit Status, optionalen Bewertungen und nachvollziehbarer Auswertung. Plane Fragen, Sprache und Zielgruppe vor dem Start sauber durch.
+</Callout>
+
+## Worum geht's
+
+Im Kern decken Umfragen vier Aufgaben ab:
+
+- **Externe Erhebung**, etwa bei Lieferanten zur Risikoeinschätzung.
+- **Interne Erhebung**, etwa Mitarbeiterumfragen oder Standortbewertungen.
+- **Wiederverwendbare Vorlagen**, damit ein Lieferanten-Assessment in der gleichen Form für viele Lieferanten läuft.
+- **Strukturierte Auswertung**, etwa mit Bewertungsregeln, Knockout-Werten und Antwortanalyse.
+
+Du baust die Umfrage einmal sauber auf, veröffentlichst sie und schickst sie an die richtige Zielgruppe. Antworten kommen in Kopexa zurück und stehen für die Auswertung bereit.
+
+## Wann nutzt du es
+
+- Du brauchst ein Lieferanten-Assessment, das du immer wieder versendest.
+- Du willst ein internes Self-Assessment zur Sicherheit oder zum Datenschutz durchführen.
+- Eine Risikobewertung soll mehrere Verantwortliche befragen.
+- Du brauchst Kunden- oder Mitarbeiterfeedback in strukturierter Form.
+- Eine Bewertung soll automatisch Knockout-Kriterien erkennen, etwa wenn ein Lieferant eine kritische Frage falsch beantwortet.
+
+## Das Wichtigste in Kürze
+
+- **Status steuert den Lebenszyklus**: Entwurf, In Bearbeitung, Abgeschlossen. Vor dem Versand muss eine Umfrage veröffentlicht sein.
+- **Vorlagen sparen Arbeit**: Markiere eine Umfrage als Vorlage, dann lässt sie sich beliebig kopieren. Bereits veröffentlichte Umfragen mit Antworten können nicht mehr zur Vorlage werden.
+- **Mehrere Sprachen pro Umfrage**: Du wählst eine Standardsprache und kannst weitere Sprachen für die Übersetzung hinterlegen.
+- **Fragetypen**: Einzelauswahl, Mehrfachauswahl, Bewertung, NPS, Boolean, Freitext, Zustimmung, Abschnitt. Pro Frage konfigurierst du Gewichtung, maximale Punktzahl und ob die Frage erforderlich ist.
+- **Bewertungslogik**: Antworten lassen sich punktgenau bewerten, inklusive Knockout-Werten für rote Flaggen.
+- **Wiederkehrend möglich**: Über die Standard-Rekurrenz von 6 Monaten lässt sich eine periodische Wiederholung einrichten.
+
+## Typischer Ablauf
+
+1. **Umfrage planen**: Zweck, Zielgruppe, Fristen und Auswertungsziel klären.
+2. **Umfrage anlegen**: Von Grund auf oder aus einer Vorlage kopieren.
+3. **Fragen erstellen**: Pro Frage Typ wählen, Überschrift formulieren, Beschreibung und ggf. Optionen ergänzen.
+4. **Bewertung definieren**: Pro Frage Gewichtung und maximale Punktzahl setzen, bei kritischen Fragen Knockout aktivieren.
+5. **Willkommens- und Abschlusskarte gestalten**: Begrüßung und nächste Schritte mit Aktionsschaltflächen.
+6. **Sprachen pflegen**: Standardsprache wählen, weitere Sprachen aktivieren und übersetzen.
+7. **Vorschau prüfen**: Umfrage durchklicken, Fragen-Logik testen.
+8. **Veröffentlichen**: Status auf veröffentlicht setzen. Ab jetzt sind keine zerstörerischen Änderungen mehr möglich.
+9. **Verteilen**: An Lieferanten, Mitarbeitende oder Kunden senden, etwa als Teil eines Lieferanten-Assessments.
+10. **Auswerten**: Antworten in Tabellen, Charts oder Exporten (CSV, Excel, PDF) auswerten.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Umfrage planen] --> B[Anlegen oder aus Vorlage kopieren]
+    B --> C[Fragen, Bewertung, Sprachen pflegen]
+    C --> D[Vorschau und Test]
+    D --> E[Veröffentlichen]
+    E --> F[An Zielgruppe senden]
+    F --> G[Antworten kommen zurück]
+    G --> H[Auswertung, Export, Nachbesserung]
+    H --> I{Wiederholen?}
+    I -- Ja --> F
+    I -- Nein --> J[Abschluss]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Titel | Ja | Klare Bezeichnung, etwa "Jährliche Risikobewertung 2026". |
+| Beschreibung | Empfohlen | Wofür ist die Umfrage, was passiert mit den Antworten. |
+| Typ | Empfohlen | Kundenzufriedenheit, Mitarbeiterfeedback, Risikobewertung, Lieferanten-Risikobewertung, Benutzerdefiniert. Nach Veröffentlichung gesperrt. |
+| Status | Automatisch | Entwurf, In Bearbeitung, Abgeschlossen. |
+| Als Vorlage markiert | Optional | Wenn aktiv, erscheint die Umfrage unter Vorlagen und kann kopiert werden. |
+| Sprachen | Ja | Liste der aktiven Sprachen. Mindestens die Standardsprache. |
+| Standardsprache | Ja | Sprache, in der die Umfrage zuerst angezeigt wird. |
+| Standard-Rekurrenz (Monate) | Optional | Vorgabe für die periodische Wiederholung, Standard 6 Monate. |
+| Standard-Überfälligkeit (Tage) | Optional | Wann gilt eine Umfrage als überfällig, Standard 30 Tage. |
+| Willkommenskarte | Optional | Überschrift und Begrüßungstext für die Teilnehmenden. |
+| Abschlusskarte | Optional | Abschlussnachricht und Schaltflächen, etwa "Bewertung herunterladen". |
+| Tags | Optional | Schlagworte für die Kategorisierung. |
+
+### Fragetypen
+
+| Typ | Anwendung |
+|---|---|
+| Einzelauswahl | Eine Option aus mehreren wählen. |
+| Mehrfachauswahl | Mehrere Optionen wählen. |
+| Bewertung | Skala von 1 bis n, als Stern, Smiley oder Zahl. |
+| NPS | Net Promoter Score von 0 bis 10. |
+| Boolean | Ja oder Nein. |
+| Freitext | Offene Antwort, optional als E-Mail, URL, Telefon oder Zahl. |
+| Zustimmung | Checkbox zur Einwilligung in eine Aussage. |
+| Abschnitt | Gruppierende Überschrift, wird nicht bewertet. |
+
+### Bewertungsoptionen pro Frage
+
+| Feld | Wirkung |
+|---|---|
+| Gewichtung | Multipliziert die Punkte dieser Frage in der Gesamtsumme. Kritisch (×3), Hoch (×2), Mittel (×1) oder Nicht bewertet. |
+| Maximale Punktzahl | Obergrenze pro Frage. |
+| Knockout / Red Flag | Markiert Antwortwerte, die die gesamte Bewertung als kritisches Risiko einstufen. |
+
+### Status im Lebenszyklus
+
+| Status | Bedeutung |
+|---|---|
+| Entwurf | Wird noch erstellt, keine Antworten möglich. Beliebig editierbar. |
+| In Bearbeitung | Veröffentlicht, Antworten laufen ein. Strukturänderungen sind eingeschränkt. |
+| Abgeschlossen | Antwortfenster geschlossen, Auswertung steht. |
+
+## Was im Hintergrund passiert
+
+- **Vorlagen-Schutz**: Eine veröffentlichte Umfrage oder eine mit bereits erfassten Antworten lässt sich nicht mehr in eine Vorlage umwandeln.
+- **Antworten zählen pro Frage**: Pro Frage werden Antworten gespeichert, bewertet und für Aggregationen herangezogen.
+- **Bewertungs-Engine**: Wenn Punkte und Gewichtung gesetzt sind, berechnet Kopexa Endpunktzahlen, etwa für Lieferanten-Scoring.
+- **Knockout schaltet auf rot**: Sobald ein Knockout-Wert ausgewählt wird, wird die Auswertung als kritisches Risiko eingestuft.
+- **Mehrsprachige Speicherung**: Fragen, Optionen und Hinweistexte werden je Sprache abgelegt.
+- **Validierung vor Veröffentlichung**: Vor dem Veröffentlichen prüft Kopexa, ob Überschriften vorhanden sind, ob Auswahlfragen genug Optionen haben und ob alle Sprachen vollständig sind.
+- **Export in mehreren Formaten**: Antworten lassen sich als CSV, Excel und PDF herunterladen.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Lieferanten"
+    description="Lieferanten-Assessments verwenden Umfragen als Erhebungswerkzeug."
+    href="/docs/platform/space/vendor"
+    color="blue"
+  />
+  <FeatureCard
+    title="Risiken"
+    description="Risikoumfragen liefern Eingangsdaten für die Risikobewertung."
+    href="/docs/platform/space/governance/risks"
+    color="purple"
+  />
+  <FeatureCard
+    title="Compliance"
+    description="Self-Assessments speisen Compliance-Nachweise und Kontrollen."
+    href="/docs/platform/space/compliance"
+    color="green"
+  />
+  <FeatureCard
+    title="Aufgaben"
+    description="Aus Umfrageergebnissen entstehen Folgeaufgaben."
+    href="/docs/platform/space/issues"
+    color="orange"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Umfragen erstellen, bearbeiten, veröffentlichen, löschen, Vorlagen pflegen |
+| Mitglied | Umfragen erstellen und bearbeiten, soweit es die Berechtigungen erlauben |
+| Viewer | Umfragen und Antworten lesen, keine Bearbeitung |
+| Teilnehmende (extern) | Umfragen ausfüllen, eigene Antworten ergänzen |
+
+## Best Practices
+
+- **Mit Zweck starten**: Was sollen die Antworten dir am Ende sagen? Wenn die Frage am Schluss nichts entscheidet, weglassen.
+- **Fragen kurz und konkret**: Eine Frage = ein Gedanke. Lange Schachtelsätze vermeiden.
+- **Knockout sparsam einsetzen**: Knockout ist mächtig, aber unflexibel. Nur für wirklich kritische Antworten verwenden.
+- **Erst mit Vorschau testen**: Die Vorschau zeigt die Umfrage so, wie Teilnehmende sie sehen. Logiksprünge und Mehrsprachigkeit unbedingt testen.
+- **Vorlagen pflegen**: Wenn du ein Assessment immer wieder versendest, pflege eine Vorlage und kopiere von dort. Spart Zeit und sorgt für Vergleichbarkeit.
+- **Frist und Erinnerung planen**: Eine Umfrage ohne Frist bleibt liegen. Setze Überfälligkeit und denke an Erinnerungen.
+- **Antwortauswertung vorbereiten**: Plane bereits beim Bau, wie die Antworten in andere Module zurückfließen.
+
+## Stolperfallen
+
+- **Typ nach Veröffentlichung sperren**: Der Umfragetyp ist nach dem Veröffentlichen nicht mehr änderbar. Wer den Typ ändern möchte, muss eine neue Umfrage anlegen.
+- **Strukturänderungen nach Antworten**: Wenn schon Antworten da sind, sind Fragen-Löschungen problematisch. Plane die Struktur vorher sauber.
+- **Bewertung ohne Test**: Komplexe Knockout- und Gewichtungslogik solltest du mit einer Testantwort durchspielen, bevor die Umfrage rausgeht.
+- **Sprachen unvollständig**: Eine Frage ohne Übersetzung in einer aktiven Sprache blockiert die Veröffentlichung. Nur die Sprachen aktivieren, die du wirklich pflegen willst.
+- **Fragen-Wildwuchs**: Lange Umfragen senken die Antwortquote. Lieber 15 gute Fragen als 60 mittelmäßige.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Kann ich eine Umfrage nach der Veröffentlichung noch ändern?">
+    Du kannst Beschriftungen und Übersetzungen anpassen. Strukturelle Änderungen wie das Löschen von Fragen, wenn schon Antworten vorhanden sind, sind aus Konsistenzgründen blockiert.
+  </Accordion>
+  <Accordion title="Wie funktioniert das Knockout-Kriterium genau?">
+    Pro Frage wählst du Antwortwerte aus, die als Knockout gelten. Wählt ein Teilnehmer einen solchen Wert, wird die gesamte Bewertung als kritisches Risiko markiert, unabhängig von der Gesamtpunktzahl.
+  </Accordion>
+  <Accordion title="Was passiert, wenn ich eine Umfrage in eine Vorlage umwandeln möchte, die bereits Antworten hat?">
+    Das wird blockiert. Vorlagen entstehen aus sauberen, leeren Umfragen. Erstelle stattdessen eine Kopie ohne Antworten und markiere diese als Vorlage.
+  </Accordion>
+  <Accordion title="Kann ich Umfragen exportieren?">
+    Ja. Die Definition lässt sich als YAML oder JSON exportieren, Antworten als CSV, Excel oder PDF.
+  </Accordion>
+  <Accordion title="Wie funktioniert die Nachbesserung bei einem Lieferanten-Assessment?">
+    Wenn eine Prüferin Änderungen verlangt, wird der Vorgang in den Status Nachbesserung gesetzt. Die Lieferantin sieht die kommentierten Fragen, ergänzt oder ändert ihre Antworten und reicht erneut ein.
+  </Accordion>
+  <Accordion title="Kann ich eine Umfrage wiederkehrend einplanen?">
+    Ja. Über die Standard-Rekurrenz in Monaten und die Standard-Überfälligkeit in Tagen lassen sich periodische Wiederholungen vorbereiten.
+  </Accordion>
+</Accordions>
