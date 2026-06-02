@@ -1,6 +1,197 @@
 ---
 title: Verarbeitungstätigkeiten
-description: Inhalt folgt.
+description: Das Verzeichnis von Verarbeitungstätigkeiten nach Art. 30 DSGVO zentral, vollständig und auditfest führen.
 ---
 
-Inhalt folgt.
+Verarbeitungstätigkeiten beschreiben, wie deine Organisation personenbezogene Daten verarbeitet. Nach Art. 30 DSGVO ist jede verantwortliche Stelle verpflichtet, ein Verzeichnis dieser Tätigkeiten zu führen. Das Modul Verarbeitungstätigkeiten ist dein zentrales Verzeichnis, in dem Zweck, Rechtsgrundlage, beteiligte Daten und Schutzmaßnahmen pro Tätigkeit dokumentiert sind.
+
+<Callout type="info">
+Ohne aktuelles Verarbeitungsverzeichnis lassen sich Betroffenenanfragen, Datenpannen und Audits kaum sauber bearbeiten. Es ist die Grundlage für nahezu alle weiteren Datenschutzpflichten.
+</Callout>
+
+## Worum geht's
+
+Jede Verarbeitungstätigkeit ist ein in sich geschlossener Vorgang, z. B. "Bewerbermanagement", "Newsletter-Versand" oder "Lohnabrechnung". Du beschreibst Zweck, Datenarten, Empfänger, Speicherdauer und Maßnahmen. Aus dem Bestand dieser Tätigkeiten ergibt sich das Verzeichnis nach Art. 30 DSGVO, das du der Aufsichtsbehörde auf Verlangen vorlegen musst.
+
+## Wann nutzt du es
+
+- Du legst ein neues Verfahren auf, zum Beispiel eine neue Software oder einen Marketing-Kanal.
+- Du musst das Verzeichnis nach Art. 30 DSGVO aufstellen oder aktualisieren.
+- Eine Betroffenenanfrage ist eingegangen und du brauchst einen Überblick, wo Daten der Person verarbeitet werden.
+- Eine Datenschutz-Folgenabschätzung (DSFA) nach Art. 35 DSGVO steht an.
+- Bei Audits, Aufsichtsanfragen oder TISAX/ISO-27701-Prüfungen.
+- Beim Wechsel eines Auftragsverarbeiters oder bei Einbindung eines neuen Dienstleisters.
+
+## Das Wichtigste in Kürze
+
+- **Pflichtangaben nach Art. 30 DSGVO**: Zweck, Datenkategorien, Kategorien betroffener Personen, Empfänger, Drittlandsübermittlungen, Löschfristen, technische und organisatorische Maßnahmen.
+- **Rechtsgrundlage explizit nennen**: Pro Tätigkeit hinterlegst du, auf welche Grundlage nach Art. 6 DSGVO die Verarbeitung gestützt wird.
+- **DSFA-Flag**: Du markierst, ob für die Tätigkeit eine Datenschutz-Folgenabschätzung erforderlich ist.
+- **Statusbasierter Lebenszyklus**: Entwurf, In Überprüfung, Änderungen erforderlich, Genehmigt, Veröffentlicht.
+- **Verknüpft mit Kontrollen, Risiken, Vendoren und Assets**: So entsteht eine vollständige Sicht von rechtlichem Rahmen bis zu technischen Schutzmaßnahmen.
+
+## Typischer Ablauf
+
+1. **Verarbeitungstätigkeit anlegen**: Titel, Zweck und Umfang in eigenen Worten beschreiben.
+2. **Rechtsgrundlage wählen**: Eine oder mehrere Grundlagen nach DSGVO auswählen und begründen, warum sie greifen.
+3. **Daten und betroffene Personen erfassen**: Welche Datenkategorien fließen, von welchen Personenkategorien?
+4. **Empfänger und Auftragsverarbeiter zuordnen**: Wer erhält Daten? Sind Dienstleister beteiligt, an wen werden sie weitergegeben?
+5. **Schutzmaßnahmen verknüpfen**: Kontrollen, Maßnahmen oder Assets aus dem Bereich anhängen.
+6. **DSFA-Bedarf prüfen**: Ist die Verarbeitung risikoreich? Dann DSFA-Flag setzen und Folgenabschätzung anstoßen.
+7. **Überprüfung anstoßen**: Status auf "In Überprüfung" setzen, Verantwortliche oder Genehmigende informieren.
+8. **Veröffentlichen**: Nach Freigabe Status auf "Veröffentlicht" setzen. Damit ist die Tätigkeit Teil des aktiven Verzeichnisses.
+9. **Regelmäßig prüfen**: Mindestens jährlich oder bei jeder relevanten Änderung erneut bewerten.
+
+<Mermaid
+  chart={`
+graph TD
+    A[Entwurf anlegen] --> B[Pflichtangaben ausfüllen]
+    B --> C[Rechtsgrundlage und Begründung]
+    C --> D[Daten, Personenkategorien, Empfänger]
+    D --> E[Kontrollen und Auftragsverarbeiter verknüpfen]
+    E --> F{DSFA erforderlich?}
+    F -- Ja --> G[Folgenabschätzung durchführen]
+    F -- Nein --> H[In Überprüfung]
+    G --> H
+    H --> I{Freigabe?}
+    I -- Nein --> J[Änderungen einarbeiten]
+    J --> H
+    I -- Ja --> K[Genehmigt und Veröffentlicht]
+    K --> L[Regelmäßige Überprüfung]
+    L --> H
+`}
+/>
+
+## Felder & Eingaben
+
+### Allgemein
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Titel | Ja | Kurzer, beschreibender Name, z. B. "Bewerbermanagement" |
+| Zweck und Umfang | Empfohlen | Beschreibung des Verarbeitungsverfahrens in eigenen Worten |
+| Status | Automatisch | Entwurf, In Überprüfung, Änderungen erforderlich, Genehmigt, Veröffentlicht |
+| Externe ID | Optional | Aktenzeichen oder Referenz aus einem anderen System |
+| Verantwortlich | Empfohlen | Fachverantwortliche Person für die Tätigkeit |
+| Genehmigung | Empfohlen | Person, die die Tätigkeit freigibt |
+
+### Rechtsgrundlage und Begründung
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Rechtsgrundlagen nach DSGVO | Ja | Auswahl der Grundlagen nach Art. 6 DSGVO, z. B. Einwilligung, Vertrag, rechtliche Verpflichtung, berechtigtes Interesse |
+| Begründung der Rechtsgrundlage | Empfohlen | Warum greift die gewählte Grundlage für genau diese Tätigkeit? |
+| Einwilligung erforderlich | Nein | Markieren, wenn die Verarbeitung nur mit ausdrücklicher Einwilligung erfolgt |
+| Beschreibung der Einwilligung | Bedingt | Wie wird die Einwilligung eingeholt, dokumentiert und widerrufen? |
+
+### Bereitstellung (Art. 13 Abs. 2 lit. e DSGVO)
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Verpflichtend zur Bereitstellung | Nein | Markieren, wenn ohne diese Verarbeitung der Dienst nicht erbracht werden kann |
+| Gesetzlich vorgeschrieben | Nein | Markieren, wenn eine gesetzliche Pflicht besteht |
+| Konsequenzen bei Nichtbereitstellung | Bedingt | Beschreibung der Folgen, falls die betroffene Person die Daten nicht bereitstellt |
+
+### Besondere Konstellationen
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Kinder betroffen (Art. 8 DSGVO) | Nein | Markieren, wenn Personen unter 16 Jahren betroffen sind |
+| Automatisierte Entscheidung (Art. 22 DSGVO) | Nein | Markieren bei vollautomatisierten Entscheidungen einschließlich Profiling |
+| Beschreibung der automatisierten Entscheidung | Bedingt | Ablauf, Kriterien und Auswirkungen der automatisierten Entscheidung |
+| Privacy by Design / Default (Art. 25 DSGVO) | Empfohlen | Markieren und beschreiben, wie Datenschutz durch Technik und Voreinstellung umgesetzt wird |
+| DSFA erforderlich (Art. 35 DSGVO) | Empfohlen | Markieren, wenn eine Datenschutz-Folgenabschätzung notwendig ist |
+| Ausführung für Auftraggeber | Nein | Markieren, wenn die Tätigkeit im Auftrag eines Kunden erfolgt (Auftragsverarbeitung) |
+
+### Verknüpfte Objekte
+
+| Verknüpfung | Zweck |
+|---|---|
+| Kontrollen | Technische und organisatorische Maßnahmen, die diese Tätigkeit absichern |
+| Risiken | Datenschutzrisiken, die mit der Tätigkeit verbunden sind |
+| Auftragsverarbeiter / Vendoren | Externe Stellen, an die Daten weitergegeben werden |
+| Geschäftsbereiche | Welche Einheiten die Tätigkeit durchführen |
+| Assets und Informationsobjekte | Daten und Systeme, die verarbeitet werden |
+| Dokumente | Verträge, Auftragsverarbeitungsverträge, technische Konzepte |
+| Programme | Compliance-Programme, in denen die Tätigkeit Bestandteil ist |
+
+## Was im Hintergrund passiert
+
+- **Zusammenfassung wird gepflegt**: Nach inhaltlichen Änderungen wird eine kurze Zusammenfassung der Tätigkeit aktualisiert. Sie hilft beim schnellen Überblick in Listen und Berichten.
+- **Verknüpfung mit Betroffenenanfragen**: Wird eine Tätigkeit mit einer Betroffenenanfrage verbunden, entsteht für jeden Anfragetyp automatisch ein Bearbeitungsstand. Du dokumentierst pro Anfragetyp und Tätigkeit das Ergebnis.
+- **Aufräumen bei Entfernen**: Wird die Verknüpfung zu einer Anfrage aufgehoben, werden die zugehörigen Bearbeitungsstände automatisch entfernt.
+- **Lebenszyklus mit Überprüfung**: Der Statuswechsel von Entwurf bis Veröffentlicht spiegelt einen klassischen Freigabeprozess wider und sichert, dass nur freigegebene Tätigkeiten ins offizielle Verzeichnis fließen.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Betroffenenanfragen"
+    description="Welche Daten verarbeitet ihr von dieser Person? Hier startet die Recherche."
+    href="/docs/platform/space/datenschutz/data-subject-requests"
+    color="purple"
+  />
+  <FeatureCard
+    title="Risiken"
+    description="Verarbeitungstätigkeiten sind eine zentrale Quelle für Datenschutzrisiken."
+    href="/docs/platform/space/compliance/risks"
+    color="orange"
+  />
+  <FeatureCard
+    title="Kontrollen"
+    description="Technische und organisatorische Maßnahmen pro Tätigkeit hinterlegen."
+    href="/docs/platform/space/compliance/controls"
+    color="blue"
+  />
+  <FeatureCard
+    title="Vendoren"
+    description="Auftragsverarbeiter und externe Empfänger verwalten."
+    href="/docs/platform/space/compliance/vendors"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Datenschutzbeauftragte:r, Admin | Anlegen, bearbeiten, freigeben, veröffentlichen, löschen. |
+| Fachverantwortliche (Owner) | Inhalte pflegen, Status auf "In Überprüfung" setzen. |
+| Reviewer / Genehmigende | Überprüfen, freigeben oder Änderungen anfordern. |
+| Mitwirkende | Lesezugriff und Kommentare, je nach Bereichsrolle. |
+
+## Best Practices
+
+- **Klare Schnitte pro Tätigkeit**: Eine Tätigkeit beschreibt einen klar abgrenzbaren Zweck. Lieber zwei eigenständige Tätigkeiten als eine, die alles vermischt.
+- **Sprache der Fachabteilung**: Schreibe so, dass auch die Fachseite und Auditoren den Zweck verstehen.
+- **Rechtsgrundlage begründen, nicht nur ankreuzen**: Die Begründung ist im Streitfall entscheidend.
+- **Auftragsverarbeiter aktiv pflegen**: Wechselt ein Dienstleister, aktualisiere die Tätigkeit sofort. Ohne aktuellen Stand droht eine Lücke im Verzeichnis.
+- **Mindestens einmal jährlich überprüfen**: Setze einen festen Überprüfungsrhythmus und nutze den Status "In Überprüfung" als Auslöser.
+
+## Stolperfallen
+
+- **Verzeichnis als einmaliges Projekt sehen**: Das Verzeichnis lebt mit den Prozessen. Ohne laufende Pflege wird es unbrauchbar.
+- **Rechtsgrundlage pauschal "Berechtigtes Interesse"**: Ohne saubere Abwägung trägt das nicht. Begründe pro Tätigkeit.
+- **Auftragsverarbeiter vergessen**: Externe Dienstleister sind häufig der blinde Fleck. Vendoren aktiv verknüpfen.
+- **DSFA nur theoretisch markieren**: Wenn die Tätigkeit eine DSFA erfordert, muss sie auch wirklich durchgeführt und dokumentiert werden.
+- **Kein Bezug zu Kontrollen**: Ohne verknüpfte Schutzmaßnahmen ist die Tätigkeit ein Papiertiger. Mindestens die wesentlichen technischen und organisatorischen Maßnahmen anhängen.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Brauchen wir wirklich ein Verzeichnis von Verarbeitungstätigkeiten?">
+    Ja, sobald regelmäßig personenbezogene Daten verarbeitet werden. Die Ausnahmen in Art. 30 Abs. 5 DSGVO sind sehr eng und gelten in der Praxis fast nie.
+  </Accordion>
+  <Accordion title="Was gehört nach Art. 30 DSGVO mindestens hinein?">
+    Name und Kontakt der verantwortlichen Stelle, Zwecke der Verarbeitung, Kategorien betroffener Personen und Daten, Empfängerkategorien, Drittlandsübermittlungen, Löschfristen und eine allgemeine Beschreibung der technischen und organisatorischen Maßnahmen.
+  </Accordion>
+  <Accordion title="Wann ist eine Datenschutz-Folgenabschätzung Pflicht?">
+    Wenn die Verarbeitung voraussichtlich ein hohes Risiko für die Rechte und Freiheiten betroffener Personen birgt. Typische Fälle sind systematische Profilbildungen, umfangreiche Verarbeitung besonderer Kategorien oder umfassende öffentliche Überwachung.
+  </Accordion>
+  <Accordion title="Wie unterscheide ich Verantwortlicher und Auftragsverarbeiter?">
+    Verantwortlich ist, wer über Zwecke und Mittel der Verarbeitung entscheidet. Auftragsverarbeiter verarbeiten Daten in deinem Auftrag und nach deinen Weisungen. Die Markierung "Ausführung für Auftraggeber" hilft, beide Rollen sauber zu trennen.
+  </Accordion>
+  <Accordion title="Wie oft soll ich Tätigkeiten überprüfen?">
+    Mindestens einmal jährlich und immer dann, wenn sich der Zweck, der Datenumfang, Empfänger oder eingesetzte Systeme ändern.
+  </Accordion>
+</Accordions>
