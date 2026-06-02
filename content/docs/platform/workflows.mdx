@@ -1,59 +1,174 @@
 ---
 title: Workflows
-description: Typische Arbeitsabläufe in Kopexa
+description: Typische modulübergreifende Arbeitsabläufe in Kopexa
 ---
 
-## Risiko-Workflow
+Diese Seite zeigt dir die wichtigsten End-to-End-Abläufe in Kopexa. Sie verbinden mehrere Module miteinander und bilden den Alltag eines ISMS, einer Datenschutz-Organisation oder eines Audit-Programms ab. Pro Workflow findest du die beteiligten Module und ein Ablauf-Diagramm.
 
-1. **Risiko anlegen** – Risks → New Risk
-2. **Bewerten** – Impact × Likelihood, Risikomatrix
-3. **Maßnahmen planen** – Work Items erstellen
-4. **Kontrollen zuweisen** – Verknüpfung mit Framework-Anforderungen
-5. **Nachweise sammeln** – Nachweis anhängen
-6. **Review** – Regelmäßige Neubewertung
+## Risiko-Lebenszyklus
 
-→ [Risiken](./compliance/risks/index.mdx)
+Vom identifizierten Risiko bis zum Nachweis im Audit.
 
-## Dokument-Workflow
+<Mermaid chart={`
+flowchart LR
+  R[Risiko anlegen] --> B[Bewerten]
+  B --> M[Maßnahmen festlegen]
+  M --> K[Kontrollen verknüpfen]
+  K --> N[Nachweise sammeln]
+  N --> RE[Regelmäßig überprüfen]
+  RE --> B
+`} />
 
-1. **Draft** – Documents → New Document, Inhalt schreiben
-2. **Review** – Reviewer zuweisen, Freigabe anfordern
-3. **Published** – Verbindliche Version
-4. **Mapping** – Mit Kontrollen, Assets, Risiken verknüpfen
-5. **Reviewzyklus** – Automatische Erinnerung, neue Version bei Änderungen
+<Steps>
+<Step>**Risiko anlegen**: Du erfasst ein Risiko mit Titel, Beschreibung und Bezug (Asset, Prozess oder Lieferant).</Step>
+<Step>**Bewerten**: Du bewertest Auswirkung und Eintrittswahrscheinlichkeit. Die Risikomatrix zeigt dir die Kritikalität.</Step>
+<Step>**Maßnahmen festlegen**: Du entscheidest, ob du das Risiko reduzierst, übernimmst, überträgst oder vermeidest.</Step>
+<Step>**Kontrollen verknüpfen**: Du verknüpfst das Risiko mit passenden Kontrollen aus deinen Frameworks.</Step>
+<Step>**Nachweise sammeln**: An Kontrollen und Maßnahmen hängst du Belege wie Reports, Verträge oder Konfigurations-Auszüge.</Step>
+<Step>**Regelmäßig überprüfen**: Zum festgelegten Termin prüfst oder eine Reviewerin das Risiko erneut.</Step>
+</Steps>
 
-→ [Dokumente & Policies](./compliance/documents/index.mdx)
+Beteiligte Module: [Risiken](/platform/space/compliance/risks), [Kontrollen](/platform/space/compliance/controls), [Maßnahmen](/platform/space/compliance/measures), [Assets](/platform/space/organisation/assets).
 
-## Kontroll-Workflow
+## Lieferanten-Onboarding
 
-1. **Framework aktivieren** – Settings → Frameworks
-2. **Kontrollen sichten** – Anforderungen durchgehen
-3. **Owner zuweisen** – Verantwortlichkeiten festlegen
-4. **Status setzen** – Implemented, Partially, Not Implemented
-5. **Nachweis pinnen** – Nachweise anhängen
-6. **Bewerten** – Wirksamkeit prüfen
+Vom ersten Kontakt mit einem Dienstleister bis zur fortlaufenden Überwachung.
 
-→ [Kontrollen](./compliance/controls/index.mdx)
+<Mermaid chart={`
+flowchart LR
+  L[Lieferant anlegen] --> B[Risiko bewerten]
+  B --> V[Verträge & TOMs ablegen]
+  V --> A[Auftragsverarbeitung]
+  A --> P[Prüfen & Freigeben]
+  P --> Z[Reviewzyklus aktivieren]
+`} />
 
-## Audit-Workflow
+<Steps>
+<Step>**Lieferant anlegen**: Stammdaten, Kontakt, Dienstleistung.</Step>
+<Step>**Risiko bewerten**: Lieferantenrisiko nach Kritikalität und Datenarten.</Step>
+<Step>**Verträge und Nachweise**: Auftragsverarbeitungsvertrag, technische und organisatorische Maßnahmen, Zertifikate hinterlegen.</Step>
+<Step>**Auftragsverarbeitung**: Wenn personenbezogene Daten verarbeitet werden, verknüpfst du die Verarbeitungstätigkeit.</Step>
+<Step>**Prüfen und Freigeben**: Owner und Reviewer geben den Lieferanten frei.</Step>
+<Step>**Reviewzyklus**: Regelmäßige Überprüfung, etwa jährlich.</Step>
+</Steps>
 
-1. **Kontrollen prüfen** – Status und Nachweis durchgehen
-2. **Lücken identifizieren** – Fehlende Nachweise, offene Kontrollen
-3. **Work Items erstellen** – Maßnahmen für Lücken
-4. **Report erstellen** – Exportieren oder teilen
+Beteiligte Module: [Lieferanten](/platform/space/organisation/vendors), [Risiken](/platform/space/compliance/risks), [Verarbeitungstätigkeiten](/platform/space/datenschutz/processing-activities), [Dokumente](/platform/space/documents).
 
-## Incident-Workflow
+## Dokumenten-Lebenszyklus
 
-1. **Incident melden** – Incidents → New Incident
-2. **Klassifizieren** – Schweregrad, Kategorie
-3. **Untersuchen** – Root Cause Analysis
-4. **Maßnahmen** – Work Items, Lessons Learned
-5. **Abschließen** – Dokumentation, ggf. Meldepflichten
+Von der ersten Fassung einer Richtlinie bis zur regelmäßigen Überprüfung.
 
-## DSAR-Workflow
+<Mermaid chart={`
+flowchart LR
+  E[Entwurf] --> P[In Überprüfung]
+  P --> F[Freigegeben]
+  F --> V[Verteilt & Akzeptiert]
+  V --> RE[Erinnerung zur Überprüfung]
+  RE --> P
+`} />
 
-1. **Anfrage erfassen** – DSAR → New Request
-2. **Identität prüfen** – Antragsteller verifizieren
-3. **Daten sammeln** – Aus relevanten Systemen
-4. **Antwort erstellen** – Fristgerecht
-5. **Dokumentieren** – Für Nachweispflicht
+<Steps>
+<Step>**Entwurf**: Du legst ein Dokument an und schreibst den Inhalt.</Step>
+<Step>**In Überprüfung**: Du weist Reviewer zu und schickst das Dokument zur Überprüfung.</Step>
+<Step>**Freigegeben**: Nach Freigabe wird das Dokument zur verbindlichen Version.</Step>
+<Step>**Verteilt und akzeptiert**: Betroffene Mitarbeiterinnen und Mitarbeiter bestätigen Kenntnisnahme.</Step>
+<Step>**Erinnerung zur Überprüfung**: Kopexa erinnert dich rechtzeitig vor Ablauf des Reviewzyklus.</Step>
+</Steps>
+
+Beteiligte Module: [Dokumente](/platform/space/documents), [Kontrollen](/platform/space/compliance/controls).
+
+## Audit-Zyklus
+
+Von der Vorbereitung über die Durchführung bis zu den Maßnahmen.
+
+<Mermaid chart={`
+flowchart LR
+  V[Vorbereitung] --> S[Scope festlegen]
+  S --> D[Durchführung]
+  D --> F[Feststellungen]
+  F --> M[Maßnahmen ableiten]
+  M --> AB[Abschluss-Report]
+`} />
+
+<Steps>
+<Step>**Vorbereitung**: Du legst ein Audit an mit Zeitraum, Auditteam und Scope.</Step>
+<Step>**Scope festlegen**: Welche Kontrollen, welche Spaces, welcher Geltungsbereich.</Step>
+<Step>**Durchführung**: Während des Audits dokumentierst du Beobachtungen direkt an den geprüften Kontrollen.</Step>
+<Step>**Feststellungen**: Abweichungen, Empfehlungen und Stärken werden als Feststellungen festgehalten.</Step>
+<Step>**Maßnahmen ableiten**: Aus Feststellungen entstehen konkrete Maßnahmen mit Owner und Fälligkeit.</Step>
+<Step>**Abschluss**: Du erstellst den Audit-Report und schließt das Audit ab.</Step>
+</Steps>
+
+Beteiligte Module: [Audits](/platform/space/compliance/audits), [Feststellungen](/platform/space/compliance/findings), [Kontrollen](/platform/space/compliance/controls), [Maßnahmen](/platform/space/compliance/measures).
+
+## Vorfall-Bearbeitung
+
+Vom Eingang einer Meldung bis zum abgeschlossenen Vorfall.
+
+<Mermaid chart={`
+flowchart LR
+  E[Meldung eingegangen] --> K[Klassifizieren]
+  K --> U[Untersuchen]
+  U --> M[Maßnahmen ergreifen]
+  M --> ME[Meldepflichten prüfen]
+  ME --> AB[Abschluss & Lessons Learned]
+`} />
+
+<Steps>
+<Step>**Meldung**: Eingang als Vorfall in Kopexa, manuell oder über eine Integration.</Step>
+<Step>**Klassifizieren**: Art, Schweregrad, betroffene Assets und Daten.</Step>
+<Step>**Untersuchen**: Ursache analysieren, Ausmaß bewerten.</Step>
+<Step>**Maßnahmen**: Sofortmaßnahmen und Folgemaßnahmen anlegen.</Step>
+<Step>**Meldepflichten**: Prüfen, ob Behörden oder Betroffene informiert werden müssen (zum Beispiel DSGVO Art. 33, NIS2).</Step>
+<Step>**Abschluss**: Dokumentation und Lessons Learned. Bei Bedarf passt du Kontrollen oder Dokumente an.</Step>
+</Steps>
+
+Beteiligte Module: [Vorfälle](/platform/space/compliance/incidents), [Maßnahmen](/platform/space/compliance/measures), [Kontrollen](/platform/space/compliance/controls), [Behörden](/platform/space/einstellungen/authorities).
+
+## Betroffenenanfrage (DSAR)
+
+Vom Eingang einer DSGVO-Anfrage bis zur dokumentierten Antwort.
+
+<Mermaid chart={`
+flowchart LR
+  E[Anfrage eingegangen] --> I[Identität prüfen]
+  I --> D[Daten sammeln]
+  D --> P[Prüfen & Aufbereiten]
+  P --> A[Antworten]
+  A --> DO[Dokumentieren]
+`} />
+
+<Steps>
+<Step>**Anfrage eingegangen**: Du legst eine Betroffenenanfrage an. Frist 1 Monat, in komplexen Fällen verlängerbar um 2 Monate.</Step>
+<Step>**Identität prüfen**: Du bestätigst die Identität der anfragenden Person.</Step>
+<Step>**Daten sammeln**: Über die verknüpften Verarbeitungstätigkeiten siehst du, wo personenbezogene Daten verarbeitet werden.</Step>
+<Step>**Prüfen und Aufbereiten**: Du prüfst, was offengelegt werden darf, und bereitest die Antwort auf.</Step>
+<Step>**Antworten**: Du sendest die Auskunft an die betroffene Person.</Step>
+<Step>**Dokumentieren**: Du schließt die Anfrage in Kopexa ab. Damit ist die Erfüllung nachgewiesen.</Step>
+</Steps>
+
+Beteiligte Module: [Betroffenenanfragen](/platform/space/datenschutz/data-subject-requests), [Verarbeitungstätigkeiten](/platform/space/datenschutz/processing-activities), [Personen](/platform/space/organisation/people).
+
+## Trust Center veröffentlichen
+
+Vom Sicherheits-Status deiner Organisation zum einsehbaren Trust Center für Kunden und Partner.
+
+<Mermaid chart={`
+flowchart LR
+  I[Inhalte zusammenstellen] --> Z[Zertifikate hinterlegen]
+  Z --> R[Richtlinien verlinken]
+  R --> F[Freigabe]
+  F --> V[Veröffentlichen]
+  V --> AK[Aktualisieren]
+`} />
+
+<Steps>
+<Step>**Inhalte zusammenstellen**: Welche Frameworks, Zertifikate und Richtlinien möchtest du zeigen?</Step>
+<Step>**Zertifikate hinterlegen**: Lade aktuelle Zertifikate (ISO 27001, SOC 2 und ähnliches) hoch.</Step>
+<Step>**Richtlinien verlinken**: Öffentlich freigegebene Richtlinien wirst du im Trust Center anzeigen.</Step>
+<Step>**Freigabe**: Die zuständige Person (zum Beispiel Geschäftsführung oder Datenschutzbeauftragte) gibt die Veröffentlichung frei.</Step>
+<Step>**Veröffentlichen**: Du machst das Trust Center entweder öffentlich oder mit Zugangsschutz verfügbar.</Step>
+<Step>**Aktualisieren**: Halte Inhalte und Zertifikate aktuell. Kopexa erinnert dich an Zertifikatsabläufe.</Step>
+</Steps>
+
+Beteiligte Module: [Trust Center](/platform/space/trust-center), [Dokumente](/platform/space/documents), [Frameworks](/platform/space/compliance/frameworks).
