@@ -1,75 +1,56 @@
 ---
 title: Konzepte
-description: Organization, Spaces und Module in Kopexa
+description: Organisation, Space und Module verstehen
 ---
 
-Kopexa organisiert Compliance-Arbeit in zwei Ebenen: **Organization** (Mandant) und **Spaces** (Arbeitsbereiche).
+Kopexa ist nach drei Ebenen aufgebaut: deine **Organisation**, die darin enthaltenen **Spaces** und die **Module** innerhalb eines Space. Wenn du diese drei Begriffe verstehst, findest du dich in Kopexa zurecht.
 
-## Organization
+## Organisation
 
-Die Organization ist dein Top-Level-Container.
+Die Organisation ist die oberste Ebene. Sie steht für dein Unternehmen oder deinen Mandanten. Hier werden Benutzer angelegt, Anmeldewege wie Single Sign-On eingerichtet und übergreifende Einstellungen gepflegt. Eine Organisation kann mehrere Spaces enthalten.
 
-| Funktion | Beschreibung |
-|----------|--------------|
-| Domains & SSO | SAML-Provider einrichten, Domain verifizieren |
-| Nutzer | Einladen, Spaces zuweisen |
-| Abrechnung | Plan, Zahlungsmethode |
-| Einstellungen | Globale Security-Policies |
+## Space
 
-→ [Organization einrichten](./quickstart/organization/domains/index.mdx)
+Ein Space ist ein abgegrenzter Arbeitsbereich innerhalb der Organisation. Inhalte aus unterschiedlichen Spaces sind voneinander getrennt. Das ist nützlich, wenn du zum Beispiel mehrere Tochtergesellschaften, getrennte Audit-Bereiche oder unterschiedliche Geltungsbereiche eines ISMS abbildest.
 
-## Spaces
+Typische Beispiele:
 
-Spaces sind isolierte Arbeitsbereiche innerhalb der Organization.
-
-- Ein Space pro Team, Projekt oder Business Unit
-- Daten zwischen Spaces sind strikt getrennt
-- Jeder Space hat eigene Module
-
-**Beispiel:** Hauptunternehmen = Space 1, Tochtergesellschaft = Space 2.
-
-→ [Spaces](./quickstart/spaces.mdx)
+- Mutter- und Tochtergesellschaft als jeweils eigener Space
+- ein Space je Geltungsbereich (zum Beispiel "Hauptstandort" und "Werk Süd")
+- ein Space je Beratungsmandat
 
 ## Module
 
-Innerhalb eines Spaces:
+Innerhalb eines Space arbeitest du in Modulen. Die Module sind in folgende Bereiche gegliedert:
 
-| Modul | Funktion |
-|-------|----------|
-| **Inventory** | Assets, Lieferanten, Personen |
-| **Risks** | Risikobewertung, Maßnahmen |
-| **Kontrollen** | Framework-Anforderungen |
-| **Documents** | Policies, Prozesse |
-| **Nachweis** | Nachweise |
-| **Work Items** | Aufgaben |
-| **VVT** | Verarbeitungstätigkeiten (DSGVO) |
-| **Incidents** | Sicherheitsvorfälle |
-| **DSAR** | Betroffenenanfragen |
+- **Governance**: Programme, Stakeholder, Ziele
+- **Compliance**: Frameworks, Kontrollen, Maßnahmen, Risiken, Vorfälle, Feststellungen, Audits
+- **Organisation**: Assets, Informationswerte, Prozesse, Lieferanten, Organisationseinheiten, Personen, Domains
+- **Datenschutz**: Betroffenenanfragen, Verarbeitungstätigkeiten
+- **Einstellungen**: Konfiguration des Space, Benutzerverwaltung, Integrationen
 
-## Beziehungen
+Eine vollständige Übersicht findest du im Bereich [Space](/platform/space).
 
-Alle Module sind verknüpft:
+## Berechtigungen
 
-<Mermaid
-  chart={`
-graph LR
-    A[Asset] --> R[Risk]
-    R --> C[Kontrolle]
-    C --> E[Nachweis]
-    D[Document] --> C
-    D --> E
-`}
-/>
+Wer was sehen und ändern darf, wird über Rollen gesteuert. Üblicherweise gibt es drei Stufen:
 
-Asset → Risiko → Kontrolle → Nachweis. Dokumente verknüpfen mit Kontrollen und Nachweis.
+- **Owner**: voller Zugriff auf den Space oder ein Objekt
+- **Editor**: darf Inhalte anlegen und ändern
+- **Viewer**: darf Inhalte lesen, aber nichts ändern
 
-## Frameworks
+Berechtigungen werden pro Objekt geprüft. Das heißt: nur weil du im Space etwas sehen darfst, heißt das nicht automatisch, dass du jedes einzelne Risiko oder Dokument bearbeiten darfst. Wenn dir Berechtigungen fehlen, wende dich an deinen Administrator.
 
-Aktivierbare Kataloge:
+## Wie alles zusammenhängt
 
-- **ISO 27001** – ISMS, Annex A
-- **NIS2** – EU-Sicherheit
-- **DSGVO** – Datenschutz
-- **TISAX®** – Automotive
+<Mermaid chart={`
+flowchart TD
+  Org[Organisation] --> S1[Space A]
+  Org --> S2[Space B]
+  S1 --> Gov[Governance]
+  S1 --> Comp[Compliance]
+  S1 --> OrgM[Organisation]
+  S1 --> DS[Datenschutz]
+`} />
 
-→ [Frameworks & Kataloge](../catalogs/index.mdx)
+Die Organisation ist das Dach. Darunter liegen ein oder mehrere Spaces. In jedem Space arbeitest du mit den Modulgruppen Governance, Compliance, Organisation und Datenschutz. Inhalte aus den Modulen verweisen häufig aufeinander, ein Risiko kann zum Beispiel an einen Asset, eine Kontrolle und ein Dokument geknüpft sein.
