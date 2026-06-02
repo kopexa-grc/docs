@@ -1,6 +1,114 @@
 ---
 title: Trust Center
-description: Inhalt folgt.
+description: Eine öffentliche Vertrauensseite, die Sicherheitslage, Zertifikate und Dokumente transparent zeigt.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Das Trust Center ist deine öffentliche Vertrauensseite. Du zeigst Kunden, Partnern und Interessenten transparent, welche Sicherheitsmaßnahmen du umsetzt, welche Zertifikate du besitzt und welche Dokumente du auf Anfrage bereitstellst. Inhalte ziehst du direkt aus deinem Space, etwa veröffentlichte Maßnahmen oder freigegebene Dokumente. Eine eigene Domain, Branding und feingranulare Sichtbarkeitsregeln sorgen dafür, dass das Trust Center wirkt wie dein eigenes Produkt.
+
+## Wann nutzt du es
+
+- Du willst wiederkehrende Sicherheitsfragen aus Vertriebsprozessen schneller beantworten.
+- Kunden fragen regelmäßig nach Zertifikaten, Auditberichten oder Datenschutzunterlagen.
+- Du brauchst eine zentrale Stelle für FAQs, Unterauftragsverarbeiter und Sicherheitsmaßnahmen.
+- Du möchtest sensible Dokumente nur nach E-Mail-Verifizierung oder NDA freigeben.
+- Du willst Vertrauen aufbauen, bevor Interessenten Kontakt aufnehmen.
+
+## Das Wichtigste in Kürze
+
+- Pro Space gibt es ein Trust Center, erreichbar über eine eigene URL.
+- Inhalte gliedern sich in Übersicht, Branding, Compliance, Dokumente, Inhalte und Zugriffsanfragen.
+- Dokumente können öffentlich, per E-Mail-Verifizierung oder erst nach NDA freigegeben werden.
+- Compliance-Badges und Sicherheitsmaßnahmen lassen sich direkt aus deinen veröffentlichten Maßnahmen ziehen.
+- Wasserzeichen schützen heruntergeladene Dokumente individuell pro Besucher.
+- Änderungen sind erst nach aktivem Veröffentlichen außen sichtbar, du arbeitest immer an einem Entwurfsstand.
+
+## Typischer Ablauf
+
+1. Trust Center einrichten, dabei Slug für die öffentliche URL wählen und prüfen, ob sie verfügbar ist.
+2. Branding pflegen: Logo, Favicon, Bannerbild, Farbschema und Kontaktangaben hinterlegen.
+3. Compliance-Badges hinzufügen, etwa ISO 27001 oder SOC 2, und Status pro Zertifikat angeben.
+4. Sicherheitsmaßnahmen aus dem Space verknüpfen, veröffentlichte Maßnahmen erscheinen automatisch.
+5. Dokumente hochladen, Sichtbarkeit festlegen, optional Wasserzeichen aktivieren und Kategorie zuordnen.
+6. Inhalte ergänzen: FAQs, Entitäten, Unterauftragsverarbeiter und Kontakte.
+7. NDA-Text und Wasserzeichen-Einstellungen konfigurieren, wenn du sensible Dokumente schützt.
+8. Veröffentlichen, danach Änderungen im Entwurfsmodus pflegen und Zugriffsanfragen über die eingebaute Übersicht bearbeiten.
+
+<Mermaid chart={`flowchart LR
+  A[Trust Center erstellen] --> B[Branding & Inhalte pflegen]
+  B --> C[Dokumente & Sichtbarkeit]
+  C --> D[Veröffentlichen]
+  D --> E[Besucher: E-Mail oder NDA]
+  E --> F[Zugriff auf Dokumente]
+  D --> G[Anfragen verwalten]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| URL-Slug | Adresse, unter der das Trust Center erreichbar ist | Pflicht | 3 bis 64 Zeichen, nur Kleinbuchstaben, Zahlen und Bindestriche | Vor dem Teilen mit Kunden festlegen, denn eine Änderung bricht bestehende Links. |
+| Titel | Anzeigename des Trust Centers | Pflicht | Maximal 160 Zeichen | Klarer Bezug zum Unternehmensnamen, etwa "Trust Center der Beispiel GmbH". |
+| Sichtbarkeit pro Dokument | Entwurf, öffentlich, E-Mail erforderlich oder NDA erforderlich | Pflicht | Eingabefeld | Sensible Berichte mindestens hinter E-Mail-Verifizierung, vertrauliche hinter NDA. |
+| Wasserzeichen | Schützt heruntergeladene PDFs individuell | Optional | Pro Dokument aktivierbar | Für Auditberichte und Pentests aktivieren, schreckt Weitergabe ab. |
+| NDA-Text | Klickwrap-Text, den Besucher akzeptieren müssen | Optional, Pflicht bei NDA-Dokumenten | Freitext mit einfacher Formatierung | Mit der Rechtsabteilung abstimmen, kurze und klare Formulierung. |
+| Compliance-Badge | Zertifizierung mit Status, Gültigkeit und Logo | Optional | Status aus Erreicht, In Bearbeitung, Geplant oder Nicht zutreffend | Status realistisch wählen, "Geplant" für angekündigte Zertifizierungen reicht. |
+| FAQ | Frage und Antwort, optional gruppiert | Optional | Gruppe und Frage als Freitext | Antworten kurz halten, bei Bedarf auf Dokumente verlinken. |
+
+## Was im Hintergrund passiert
+
+- Sobald du ein Dokument mit aktiviertem Wasserzeichen hochlädst, wird das PDF im Hintergrund individuell mit dem konfigurierten Wasserzeichen versehen, das Original bleibt separat gespeichert.
+- Verlangst du E-Mail-Verifizierung, erhält die Besucherin einen Bestätigungslink, erst danach ist das Dokument freigeschaltet.
+- NDA-Anfragen werden gesammelt und müssen von dir oder einer Verantwortlichen aktiv genehmigt oder abgelehnt werden. Die Besucherin wird automatisch per E-Mail informiert.
+- Status veröffentlichter Maßnahmen wird automatisch übernommen. Wird eine Maßnahme im Space zurückgezogen, verschwindet sie auch aus dem öffentlichen Trust Center.
+- Änderungen am Trust Center sammelst du in einem Entwurfsstand. Erst beim Veröffentlichen werden die Änderungen live, vorher siehst nur du als Admin den aktuellen Zustand.
+- Eine Änderung des Slugs bricht bestehende Links. Kopexa warnt dich vorher und verlangt eine ausdrückliche Bestätigung.
+
+## Verknüpfungen
+
+- [Dokumente](/platform/space/documents) liefern die Inhalte, die im Trust Center bereitgestellt werden.
+- [Maßnahmen](/platform/space/compliance) erscheinen automatisch im Bereich Sicherheitsmaßnahmen, sobald sie veröffentlicht sind.
+- [Lieferanten](/platform/space/governance) lassen sich als Unterauftragsverarbeiter darstellen.
+- [Organisation](/platform/space/organisation) liefert Firmenname, Domain und Kontaktdaten.
+- [Aufgaben](/platform/space/issues) eignen sich, um die Pflege des Trust Centers im Team zu steuern.
+
+## Berechtigungen
+
+Das Trust Center wird im Space verwaltet, du brauchst dafür Editor-Rechte. Einrichten, Slug ändern, Branding und Inhalte pflegen sowie veröffentlichen dürfen Admins des Space. Mitglieder mit Editor-Rechten können Inhalte ergänzen und Anfragen bearbeiten, aber nicht veröffentlichen. NDA-Anfragen genehmigen oder ablehnen ist auf Admins und ausdrücklich benannte Verantwortliche begrenzt. Besucher von außen sehen nur das, was du veröffentlicht hast, und nur die Dokumente, deren Sichtbarkeitsregel sie erfüllen.
+
+## Best Practices
+
+- Slug einmal sorgfältig wählen und danach möglichst nicht mehr ändern, sonst musst du alle geteilten Links nachziehen.
+- Mit drei bis fünf gut gepflegten Compliance-Badges starten und erst dann erweitern.
+- Sensible Berichte standardmäßig hinter E-Mail-Verifizierung oder NDA legen, statt sie öffentlich anzubieten.
+- Wasserzeichen für alle vertraulichen PDFs aktivieren, das senkt das Risiko unkontrollierter Weitergabe.
+- FAQs aus den häufigsten Vertriebsfragen speisen, das spart deinem Team Antwortzeit.
+
+## Stolperfallen
+
+- Slug-Wechsel bricht alle bisherigen Links zu deinem Trust Center, plane das wie ein kleines Release.
+- Dokumente bleiben unsichtbar, solange ihr Sichtbarkeitsstatus auf Entwurf steht, auch wenn das Trust Center veröffentlicht ist.
+- Wasserzeichen brauchen ein paar Sekunden Verarbeitung, in dieser Zeit zeigt der Status "Wird erstellt". Erst danach ist der Download verfügbar.
+- Ohne NDA-Text lassen sich NDA-geschützte Dokumente nicht freischalten, Besucher sehen sonst nur eine leere Seite.
+- Wenn du im Trust Center vergisst zu veröffentlichen, sehen Besucher weiterhin den alten Stand. Achte auf den Status "Unveröffentlichte Änderungen".
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was sehen Besucher, bevor sie eine E-Mail oder NDA bestätigen?">
+Sie sehen die öffentlichen Bereiche, also Übersicht, Branding, Compliance-Badges, veröffentlichte Sicherheitsmaßnahmen und FAQs. Geschützte Dokumente sind sichtbar gelistet, aber erst nach Verifizierung oder NDA-Freigabe abrufbar.
+</Accordion>
+<Accordion title="Kann ich eine eigene Domain für das Trust Center nutzen?">
+Standardmäßig läuft das Trust Center auf einer Kopexa-Adresse mit deinem Slug. Eine eigene Domain lässt sich auf Anfrage einrichten, wende dich dafür an deine Ansprechpartnerin bei Kopexa.
+</Accordion>
+<Accordion title="Wie schütze ich heruntergeladene PDFs vor Weitergabe?">
+Aktiviere das Wasserzeichen pro Dokument und konfiguriere den Text, etwa "Vertraulich, geteilt mit [E-Mail]". Beim Download wird das PDF individuell beschriftet, das schreckt Weitergabe ab.
+</Accordion>
+<Accordion title="Was passiert mit Anfragen, die ich ablehne?">
+Die Besucherin wird automatisch per E-Mail informiert und erhält keinen Zugriff auf NDA-geschützte Dokumente. Du kannst dieselbe Anfrage später trotzdem noch genehmigen, falls sich die Situation klärt.
+</Accordion>
+<Accordion title="Müssen Maßnahmen veröffentlicht sein, damit sie im Trust Center erscheinen?">
+Ja. Nur veröffentlichte Maßnahmen werden öffentlich gezeigt. Andere kannst du bereits vormerken, sie erscheinen aber erst nach Veröffentlichung in deinem Space im Trust Center.
+</Accordion>
+</Accordions>
