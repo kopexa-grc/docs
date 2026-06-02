@@ -1,6 +1,132 @@
 ---
-title: Betroffenengruppen
-description: Inhalt folgt.
+title: Betroffene Parteien
+description: Personengruppen wie Beschäftigte, Kundinnen oder Bewerber zentral pflegen und in anderen Modulen wiederverwenden.
 ---
 
-Inhalt folgt.
+Betroffene Parteien sind die Personenkreise, deren Daten du in deiner Organisation verarbeitest: Beschäftigte, Kundinnen, Bewerber, Lieferantenkontakte und ähnliche Gruppen. In dieser Liste pflegst du sie einmal zentral und nutzt sie überall, wo sie gebraucht werden, vor allem in Verarbeitungstätigkeiten, Vorfällen und Datenpannen.
+
+<Callout type="info">
+Diese Liste ist eine Konfigurationsliste. Sie bringt selbst keinen Workflow mit, sondern liefert Auswahlwerte für andere Module. Halte sie schlank und sprechend.
+</Callout>
+
+## Worum geht's
+
+DSGVO-konformes Arbeiten setzt voraus, dass du benennst, wessen Daten du verarbeitest. Betroffene Parteien sind die strukturierte Antwort darauf. Sie tauchen in Verarbeitungstätigkeiten als "Wessen Daten?", in Datenpannen als "Wer ist betroffen?" und in Informationswerten als "Welche Personenkreise stecken da drin?" auf. Eine gute Liste reduziert Mehrfacharbeit und sichert konsistente Berichte gegenüber der Aufsichtsbehörde.
+
+## Wann nutzt du es
+
+- Du legst eine neue Verarbeitungstätigkeit an und musst die Personenkreise benennen.
+- Ein Vorfall betrifft Kundendaten und Beschäftigtendaten zugleich.
+- Du willst nachvollziehen, welche Verarbeitungen einen bestimmten Personenkreis betreffen.
+- Eine neue Gruppe wird relevant, etwa "Praktikanten" oder "Newsletter-Abonnenten".
+- Eine bestehende Gruppe ist veraltet und soll ersetzt oder zusammengeführt werden.
+
+## Das Wichtigste in Kürze
+
+- **Reine Konfigurationsliste**: Name und Beschreibung. Mehr braucht es nicht.
+- **Eindeutig pro Space**: Innerhalb eines Spaces darf jeder Name nur einmal vorkommen.
+- **Standardwerte bei neuer Space-Anlage**: Beim Erstellen eines Spaces legt Kopexa typische Personenkreise wie Beschäftigte, Kundinnen und Bewerber automatisch an. Du passt sie nach Bedarf an.
+- **Wird von mehreren Modulen genutzt**: Verarbeitungstätigkeiten, Vorfälle, Betroffenenanfragen, Informationswerte.
+- **Löschen prüft Verwendung**: Wer eine Gruppe entfernen will, sollte vorher prüfen, wo sie verknüpft ist. Nicht mehr existierende Gruppen können in Berichten Lücken erzeugen.
+
+## Typischer Ablauf
+
+1. **Bereich öffnen**: In den Space-Einstellungen die Liste der betroffenen Parteien öffnen.
+2. **Bestand prüfen**: Welche Gruppen sind vorhanden, welche fehlen, welche sind nicht mehr aktuell.
+3. **Neue anlegen**: Klarer Name, kurze Beschreibung. Pro Gruppe ein Eintrag.
+4. **In anderen Modulen nutzen**: In Verarbeitungstätigkeiten, Vorfällen und Co. aus der Liste auswählen.
+5. **Pflegen**: Beschreibung schärfen, Gruppen zusammenführen, veraltete Einträge entfernen.
+
+<Mermaid
+  chart={`
+graph LR
+    A[Betroffene Parteien Liste] --> B[Verarbeitungstätigkeiten]
+    A --> C[Vorfälle]
+    A --> D[Datenpannen]
+    A --> E[Betroffenenanfragen]
+    A --> F[Informationswerte]
+    A --> G[Assets]
+`}
+/>
+
+## Felder & Eingaben
+
+| Feld | Pflicht | Beschreibung |
+|---|---|---|
+| Name | Ja | Klare Bezeichnung der Gruppe, etwa "Beschäftigte", "Kundinnen", "Bewerber". |
+| Beschreibung | Empfohlen | Was umfasst diese Gruppe konkret. Hilft, Mehrdeutigkeiten zu vermeiden. |
+
+## Was im Hintergrund passiert
+
+- **Standard-Set bei Space-Anlage**: Neue Spaces bekommen typische Personenkreise vorbelegt, abhängig von der gewählten Standardsprache.
+- **Eindeutigkeit pro Space**: Doppelte Namen sind innerhalb eines Spaces nicht erlaubt.
+- **Verknüpfungen werden gepflegt**: Wenn eine Gruppe in einem Modul ausgewählt wird, entsteht eine Beziehung. Listen und Auswertungen filtern darüber.
+- **Soft-Delete**: Gelöschte Einträge sind gemarkert, nicht physisch entfernt. So bleiben Berichte konsistent.
+
+## Verknüpfungen
+
+<FeatureCards columns={2}>
+  <FeatureCard
+    title="Verarbeitungstätigkeiten"
+    description="Hier benennst du die Personenkreise pro Verarbeitung."
+    href="/docs/platform/space/datenschutz/processing-activities"
+    color="purple"
+  />
+  <FeatureCard
+    title="Betroffenenanfragen"
+    description="Pro Anfrage prüfst du, welche Personenkreise betroffen sein können."
+    href="/docs/platform/space/datenschutz/data-subject-requests"
+    color="blue"
+  />
+  <FeatureCard
+    title="Vorfälle"
+    description="Vorfälle und Datenpannen werden mit den betroffenen Personenkreisen verknüpft."
+    href="/docs/platform/space/governance/incidents"
+    color="orange"
+  />
+  <FeatureCard
+    title="Informationswerte"
+    description="Informationswerte halten fest, welche Personenkreise sie enthalten."
+    href="/docs/platform/space/governance/information-assets"
+    color="green"
+  />
+</FeatureCards>
+
+## Berechtigungen
+
+| Rolle | Darf |
+|---|---|
+| Space-Admin | Anlegen, bearbeiten, löschen |
+| Mitglied | Lesen, in Modulen auswählen |
+| Viewer | Lesen |
+
+## Best Practices
+
+- **Konsistente Begriffe**: "Kundinnen", "Kunden", "Kundschaft" sollten nicht parallel existieren. Eine Schreibweise wählen und durchhalten.
+- **Spezifisch genug**: "Externe" ist zu unspezifisch. Lieber "Lieferantenkontakte" und "Beratungsdienstleister" trennen, wenn das fachlich Sinn ergibt.
+- **Beschreibung als Mini-Definition**: Zwei Sätze, die das Abgrenzungsproblem lösen.
+- **Periodisch ausmisten**: Einmal pro Jahr durchgehen. Nicht mehr genutzte Gruppen aussortieren oder zusammenführen.
+
+## Stolperfallen
+
+- **Zu viele ähnliche Gruppen**: "Beschäftigte", "Mitarbeitende", "Personal" parallel anzulegen erzeugt Berichts-Chaos.
+- **Zu allgemeine Gruppen**: "Personen" als Sammelposten verfehlt den Zweck der DSGVO-konformen Dokumentation.
+- **Löschen mit aktiven Verknüpfungen**: Eine genutzte Gruppe zu löschen erzeugt Lücken in Berichten und in der Verarbeitungstätigkeitendokumentation. Vorher ersetzen.
+- **Sprache vermischen**: Innerhalb eines Spaces eine Sprache wählen und durchhalten. Mischformen erschweren Audits.
+
+## FAQ
+
+<Accordions>
+  <Accordion title="Sind betroffene Parteien dasselbe wie betroffene Personen aus der DSGVO?">
+    Sie sind die Kategorien dieser Personen. Eine konkrete Person taucht in deiner Betroffenenanfrage auf. Die Gruppe, zu der sie gehört, etwa "Kundinnen", steht in dieser Liste.
+  </Accordion>
+  <Accordion title="Kann ich Gruppen importieren?">
+    Die Standardgruppen werden beim Anlegen eines Spaces automatisch erzeugt. Eigene Gruppen pflegst du danach manuell.
+  </Accordion>
+  <Accordion title="Was passiert mit Verknüpfungen, wenn ich eine Gruppe lösche?">
+    Verknüpfungen werden mit der Gruppe entfernt. Die betroffenen Module zeigen die Gruppe danach nicht mehr in ihren Listen. Plane Ersatz oder Migration, bevor du löschst.
+  </Accordion>
+  <Accordion title="Wieso ist die Liste pro Space, nicht pro Organisation?">
+    Spaces können unterschiedliche Geschäftsbereiche, Länder oder Tochtergesellschaften abbilden. Eine pro-Space-Liste lässt jedem Bereich Spielraum für eigene Personenkreise.
+  </Accordion>
+</Accordions>
