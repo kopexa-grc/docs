@@ -1,6 +1,129 @@
 ---
 title: Ziele
-description: Inhalt folgt.
+description: Strategische Vorgaben definieren, mit messbaren KPIs hinterlegen und über den gesamten Lebenszyklus steuern.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Ziele sind die messbaren Vorgaben, an denen ihr eure Compliance- und Sicherheitsarbeit ausrichtet. In einem Ziel hältst du fest, was bis wann erreicht sein soll, wer dafür verantwortlich ist und welche Kennzahlen den Fortschritt belegen. Aus den verknüpften KPIs ergibt sich automatisch, ob ein Ziel auf Kurs ist, gefährdet ist oder bereits erreicht wurde. So wird aus einem Wunsch eine prüfbare Vorgabe, die du im Management-Review belegen und im Audit nachweisen kannst.
+
+## Wann nutzt du es
+
+- Ihr wollt Stakeholder-Anforderungen in messbare Vorgaben übersetzen, statt sie nur zu dokumentieren.
+- Eine Sicherheits- oder Compliance-Investition braucht einen klaren Zielwert, an dem der Erfolg gemessen wird.
+- Risiken sollen einen Bezugswert bekommen, damit Abweichungen sichtbar werden.
+- Im Management-Review soll der Fortschritt belastbar berichtet werden, nicht nur erzählt.
+- Ein Ziel aus einer Policy oder Strategie soll operationalisiert werden.
+
+## Das Wichtigste in Kürze
+
+- Ziele gehören immer zu einem Space und haben einen klaren Status von Entwurf bis Erreicht oder Verfehlt.
+- Pro Ziel können mehrere KPIs hinterlegt werden, die den Fortschritt liefern.
+- KPIs lassen sich manuell pflegen oder automatisch über externe Datenquellen wie APIs und Webhooks aktualisieren.
+- Aus dem Stand der KPIs wertet Kopexa automatisch, ob das Ziel auf Kurs, gefährdet, erreicht oder verfehlt ist.
+- Ziele lassen sich mit Stakeholdern, Risiken, Dokumenten und Aufgaben verknüpfen.
+
+## Typischer Ablauf
+
+1. Ziel anlegen über "Neues Ziel" und Namen mit klarem Bezug zum Ergebnis pflegen.
+2. Beschreibung ergänzen mit dem strategischen Kontext, also welche Stakeholder-Erwartung oder Strategie dahintersteht.
+3. Zieldatum setzen, an dem das Ziel überprüft werden soll.
+4. Verantwortliche Person setzen, optional eine Vertretung.
+5. Mindestens einen KPI definieren mit Name, Zielwert, Einheit und Bewertungslogik.
+6. Datenquelle des KPI festlegen, also manuelle Pflege, interne Metrik, externe API oder Webhook.
+7. Aktuellen KPI-Wert pflegen oder über die Automatisierung speisen lassen.
+8. Status auf "Aktiv" wechseln, sobald das Ziel beschlossen und verbindlich ist.
+
+<Mermaid chart={`flowchart LR
+  A[Entwurf] --> B[Aktiv]
+  B --> C[Gefährdet]
+  C --> B
+  B --> D[Erreicht]
+  B --> E[Verfehlt]
+  C --> D
+  C --> E
+  B --> F[Aufgegeben]
+  C --> F
+`} />
+
+## Felder & Eingaben
+
+### Ziel
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Name | Aussagekräftige Bezeichnung des Ziels | Pflicht | Maximal 150 Zeichen, eindeutig pro Space | Den Zielwert mit aufnehmen, etwa "Phishing-Klickrate unter 3 % bis Q4". |
+| Beschreibung | Strategischer Kontext und Herkunft | Optional | Freitext | Stakeholder-Bezug und Quelle der Anforderung festhalten. |
+| Zieldatum | Termin, an dem das Ziel überprüft wird | Optional | Datum | Realistisch wählen, an Management-Review-Zyklus koppeln. |
+| Status | Lebenszyklus des Ziels | Pflicht | Standardwert "Entwurf" | Erst auf "Aktiv" wechseln, wenn KPI und Verantwortliche stehen. |
+| Verantwortlich | Person, die das Ziel trägt | Optional | Mitglied des Space | Genau eine Person, keine geteilten Verantwortlichkeiten. |
+| Vertretung | Stellvertretung für Reviews und Eskalation | Optional | Mitglied des Space | Bei strategischen Zielen immer eine Vertretung hinterlegen. |
+
+### KPI
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Name | Bezeichnung der Kennzahl | Pflicht | Maximal 100 Zeichen | Konkret formulieren, etwa "Phishing-Klickrate" statt "Sicherheitsniveau". |
+| Topic | Eindeutiger Schlüssel pro Space für Automatisierung | Pflicht | Eindeutig pro Space, nicht änderbar | Sprechenden Schlüssel verwenden, etwa "kpi.topic.phishing-rate". |
+| Beschreibung | Erläuterung zur Kennzahl | Optional | Freitext | Datenquelle und Berechnungslogik kurz erklären. |
+| Zielwert | Numerischer Schwellenwert | Pflicht | Zahl | Bewusst als Risikoappetit setzen, nicht aus dem Bauch. |
+| Aktueller Wert | Aktueller Stand der Kennzahl | Wird gepflegt oder automatisch geschrieben | Zahl, Standardwert 0 | Automatisierung bevorzugen, manuelle Pflege bricht meist nach Monaten ab. |
+| Einheit | Anzeigeeinheit in der Oberfläche | Optional | Maximal 50 Zeichen | Verständlich halten, etwa "%", "Stunden", "Tage". |
+| Bewertungslogik | Mehr ist besser, weniger ist besser oder exakte Übereinstimmung | Pflicht | Standardwert "Mehr ist besser" | Bei Fehler- oder Vorfallszahlen "Weniger ist besser" wählen. |
+| Datenquelle | Manuell, Interne Metrik, Externe API oder Webhook | Pflicht | Standardwert "Manuell" | Erst die Quelle klären, dann den KPI anlegen. |
+
+## Was im Hintergrund passiert
+
+- Sobald sich ein KPI-Wert ändert, prüft Kopexa, ob das Ziel auf Kurs ist. Bei deutlicher Abweichung wird das Ziel automatisch auf "Gefährdet" gesetzt.
+- Bei Bewertungslogik "Mehr ist besser" gilt das Ziel als erreicht, sobald der aktuelle Wert den Zielwert erreicht oder überschreitet. Bei "Weniger ist besser" umgekehrt. Bei "Exakte Übereinstimmung" muss der Wert exakt dem Zielwert entsprechen.
+- Externe Systeme können KPI-Werte direkt über die Plattform-API aktualisieren. Der Topic-Schlüssel des KPI dient dabei als eindeutige Adresse pro Space.
+- Verfehlte und erreichte Ziele bleiben im Verlauf erhalten und sind für das Audit nachvollziehbar.
+- Ziele lassen sich nicht endgültig löschen, sondern werden über den Status auf "Aufgegeben" gesetzt, wenn sie nicht weiter verfolgt werden.
+
+## Verknüpfungen
+
+- [Stakeholder](/platform/space/governance/stakeholders) liefern die Quelle, aus der ein Ziel entsteht.
+- [Risiken](/platform/space/compliance/risks) lassen sich an Ziele koppeln, damit Abweichungen vom Ziel als Risiko sichtbar werden.
+- [Aufgaben](/platform/space/issues) verteilen die operative Arbeit, mit der ein Ziel erreicht wird.
+- [Dokumente](/platform/space/documents) wie Policies oder Management-Reviews lassen sich anhängen, damit die Herkunft des Ziels nachvollziehbar bleibt.
+- [Programme](/platform/space/governance/programs) bündeln Initiativen, in denen mehrere Ziele zusammenwirken.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Ziele und KPIs. Ziele anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Die als verantwortlich gesetzte Person darf "ihr" Ziel jederzeit pflegen, auch ohne sonstige Editor-Rechte. KPIs werden gemeinsam mit ihrem Ziel berechtigt, wer das Ziel pflegen darf, darf auch dessen KPIs anlegen und aktualisieren. Ziele löschen dürfen nur Admins des Space.
+
+## Best Practices
+
+- Drei bis fünf aktive Ziele pro Space und Quartal reichen aus, mehr signalisiert fehlende Priorisierung.
+- Datenquelle für den KPI klären, bevor das Ziel angelegt wird. Ein KPI ohne pflegbare Datenquelle bleibt leer.
+- KPIs automatisieren, sobald möglich, manuelle Pflege bricht erfahrungsgemäss nach drei Monaten ab.
+- Verfehlte Ziele ehrlich dokumentieren, die Ursache in zwei Sätzen festhalten und das nächste Ziel daraus ableiten.
+- Ziele und Maßnahmen sauber trennen. "Endpoint-Protection ausrollen" ist eine Maßnahme. "Erkennungsquote über 99,5 %" ist ein Ziel.
+
+## Stolperfallen
+
+- KPIs ohne klare Datenquelle wirken im Reporting professionell, sind aber wertlos, wenn niemand sie pflegt.
+- Zu viele aktive Ziele zerstreuen den Fokus. Lieber wenige Ziele wirklich bewegen als viele liegenlassen.
+- Wer Ziel und KPI verwechselt, formuliert keine prüfbaren Vorgaben. "Sicherheit erhöhen" ist kein Ziel ohne Zielwert.
+- Der Topic eines KPI ist nach dem Anlegen nicht mehr änderbar. Sprechenden Schlüssel von Anfang an wählen.
+- Verfehlte Ziele umzudeuten zerstört das Lernpotenzial. Status auf "Verfehlt" setzen und Ursache dokumentieren.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Wie viele Ziele sollte ein Space haben?">
+Drei bis fünf aktive Ziele pro Quartal sind ein guter Richtwert. Mehr deutet auf fehlende Priorisierung hin, weniger ist oft sinnvoll. Ein scharfes Ziel, das bewegt wird, ist besser als fünf unklare Ziele, die ruhen.
+</Accordion>
+<Accordion title="Was ist der Unterschied zwischen einem Ziel und einem Programm?">
+Ein Programm ist eine größere Initiative mit Zeitraum und Kontrollscope, etwa eine ISO-27001-Zertifizierung. Ein Ziel ist eine messbare Vorgabe mit KPI und Zielwert. Programme koordinieren Arbeit, Ziele steuern den Erfolg dieser Arbeit.
+</Accordion>
+<Accordion title="Kann ein KPI automatisch aktualisiert werden?">
+Ja. Über die Datenquelle "Externe API" oder "Webhook" können externe Systeme den aktuellen Wert direkt an Kopexa schicken. Der Topic-Schlüssel des KPI ist die eindeutige Adresse dafür.
+</Accordion>
+<Accordion title="Was passiert mit einem verfehlten Ziel?">
+Der Status wird auf "Verfehlt" gesetzt, die Ursache in der Beschreibung festgehalten. Das Ziel bleibt im Verlauf sichtbar und ist auditfähig. Aus der Ursache kann ein Folgeziel oder eine Maßnahme abgeleitet werden.
+</Accordion>
+<Accordion title="Was bedeutet die Bewertungslogik 'Exakte Übereinstimmung'?">
+Sie passt für KPIs, bei denen ein bestimmter Wert erreicht werden muss, etwa ein Zertifizierungsstatus oder die Anzahl bestandener Audits. Das Ziel gilt nur dann als erreicht, wenn der aktuelle Wert dem Zielwert exakt entspricht.
+</Accordion>
+</Accordions>
