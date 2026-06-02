@@ -1,6 +1,132 @@
 ---
 title: Feststellungen
-description: Inhalt folgt.
+description: Feststellungen aus Audits, Prüfungen und Scans erfassen und nachverfolgen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Eine Feststellung ist ein dokumentiertes Ergebnis aus einer Prüfung. Sie hält fest, was beobachtet wurde, gegen welche Anforderung es verstößt oder welche Verbesserungsmöglichkeit sich ergibt, und in welchem Schweregrad. Im Feststellungen-Bereich sammelst du diese Ergebnisse aus internen Audits, externen Zertifizierungen, Inspektionen und automatisierten Prüfungen an einem Ort und arbeitest sie strukturiert ab.
+
+Feststellungen sind der Brückenpunkt zwischen Bewertung und Handeln. Aus jeder Feststellung kann eine Maßnahme entstehen, die Wirksamkeit der Maßnahme zeigt sich wiederum, wenn die Feststellung sauber abgeschlossen wird.
+
+## Wann nutzt du es
+
+- Ein Audit hat eine Abweichung gegen eine Norm oder eine eigene Vorgabe entdeckt.
+- Ein:e Auditor:in hat eine Verbesserungsmöglichkeit oder eine bemerkenswerte Stärke beobachtet.
+- Ein automatisierter Scan (etwa Schwachstellenscan) hat ein Problem gemeldet, das du steuern willst.
+- Eine Inspektion vor Ort hat etwas dokumentiert, das du nachhalten musst.
+- Du willst Feststellungen über Audits hinweg vergleichen, etwa um Trends zu erkennen.
+
+## Das Wichtigste in Kürze
+
+- Jede Feststellung gehört zu einem Space und hat Titel, Typ, Schweregrad, Status, Quelle und optional eine zuständige Person.
+- Typen unterscheiden zwischen Abweichung, Verbesserungsmöglichkeit, Beobachtung, Schwachstelle und Best Practice.
+- Der Schweregrad bei einer Abweichung wird in der Auswertung als Major, Minor oder Observation übersetzt.
+- Status reicht von "Offen" über "In Bearbeitung" und "In Prüfung" bis "Behoben", "Akzeptiertes Risiko" oder "Fehlalarm".
+- Feststellungen können mit Audits, Kontrollbewertungen, Assets, Kontrollen, Risiken, Aufgaben und Dokumenten verknüpft sein.
+- Automatisierte Feststellungen werden anhand eines Fingerabdrucks dedupliziert, damit derselbe Befund nicht mehrfach in der Liste landet.
+
+## Typischer Ablauf
+
+1. Feststellung anlegen, entweder manuell über "Finding erstellen" oder automatisch aus einem Audit oder Scan.
+2. Typ wählen (Abweichung, Verbesserungsmöglichkeit, Beobachtung, Schwachstelle, Best Practice) und Schweregrad setzen.
+3. Beschreibung, Nachweis und betroffenes Kriterium (verletzte Anforderung) erfassen.
+4. Bezug herstellen: Audit, Kontrolle, Asset, Risiko oder verantwortliche Person verknüpfen.
+5. Maßnahmen und Aufgaben ableiten, um die Feststellung zu beheben.
+6. Ursachenanalyse dokumentieren, sobald die Wurzel des Problems klar ist.
+7. Status pflegen über "In Bearbeitung" und "In Prüfung" bis zum Abschluss.
+8. Feststellung schließen, wenn sie behoben, als akzeptiertes Risiko eingestuft oder als Fehlalarm geklärt ist.
+
+<Mermaid chart={`flowchart LR
+  A[Offen] --> B[In Bearbeitung]
+  B --> C[In Prüfung]
+  C --> D[Behoben]
+  B --> E[Akzeptiertes Risiko]
+  A --> F[Fehlalarm]
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Kurze Bezeichnung der Feststellung | Pflicht | Nicht leer | Sachlich formulieren, etwa "Kein Vier-Augen-Prinzip in Produktivumgebung". |
+| Beschreibung | Was wurde beobachtet, in welchem Kontext | Optional | Freitext | Beschreibe die Situation, nicht die Schuld. |
+| Nachweis | Belege für die Feststellung | Optional | Freitext oder verknüpfte Dokumente | Konkrete Quellen nennen, etwa Logs, Screenshots, Interviewpartner. |
+| Kriterium | Welche Anforderung wurde verletzt oder geprüft | Optional | Freitext | Bei Norm-Audits die genaue Klausel referenzieren, etwa "ISO 27001 A.5.1". |
+| Typ | Abweichung, Verbesserungsmöglichkeit, Beobachtung, Schwachstelle, Best Practice | Pflicht | Eingabefeld | Eine Abweichung erfordert immer eine Korrekturmaßnahme. |
+| Schweregrad | Kritisch, Hoch, Mittel, Niedrig, Info | Pflicht | Eingabefeld | Bei Abweichungen entscheidet der Schweregrad über Major / Minor / Observation. |
+| Status | Offen, In Bearbeitung, In Prüfung, Behoben, Akzeptiertes Risiko, Fehlalarm | Pflicht | Workflow-gesteuert | "Akzeptiertes Risiko" nur mit dokumentierter Begründung. |
+| Quelle | Manuelles Audit, Ad-hoc, Automatisiert | Pflicht | Eingabefeld | Wird bei automatisierten Feststellungen automatisch gesetzt. |
+| Zuständig | Person, die die Feststellung bearbeitet | Optional | Mitglied des Space | Eine Hauptverantwortliche, sonst zerfasert die Verfolgung. |
+| Ursachenanalyse | Warum ist die Feststellung entstanden | Optional | Freitext | Pflicht für hohe Schweregrade, sonst fehlt im Audit die Tiefe. |
+| Geschlossen am | Zeitpunkt des Abschlusses | Wird automatisch gesetzt | Datum/Uhrzeit | Sichtbar in der Detailansicht. |
+| Schlagwörter | Freie Tags zur Kategorisierung | Optional | Mehrfachauswahl | Sparsam einsetzen, sonst leidet die Übersicht. |
+| Fingerabdruck | Technischer Schlüssel für Deduplizierung | Automatisch | Pro Space eindeutig | Wird bei automatisierten Feststellungen gesetzt, manuelle haben keinen. |
+
+## Was im Hintergrund passiert
+
+- **Deduplizierung:** Automatisierte Feststellungen tragen einen Fingerabdruck. Erscheint derselbe Befund erneut, aktualisiert Kopexa nur das Datum "Zuletzt gesehen", statt einen neuen Eintrag anzulegen.
+- **Status-Übergänge:** Statuswechsel folgen dem Workflow. Geschlossene Feststellungen (Behoben, Akzeptiertes Risiko, Fehlalarm) bekommen automatisch ein Abschlussdatum.
+- **Wirkung auf Audits:** Offene Abweichungen mit Schweregrad Kritisch oder Hoch ziehen die Wirksamkeitsbewertung eines Audits automatisch auf "Unwirksam". Offene geringfügige Abweichungen ergeben "Begrenzte Wirksamkeit". Behobene, akzeptierte oder als Fehlalarm geklärte Feststellungen zählen nicht in diese Bewertung.
+- **Unveränderlichkeit:** Aus einem abgeschlossenen Audit erzeugte Feststellungen sind nach Abschluss nicht mehr veränderbar. Du legst dann eine Folgemaßnahme oder ein neues Risiko an, statt die Feststellung umzuschreiben.
+- **Benachrichtigungen:** Verantwortliche und Mitlesende werden bei neuen Feststellungen, Statuswechseln und Kommentaren informiert.
+
+## Verknüpfungen
+
+- [Audits](/platform/space/compliance/audits) sind die häufigste Quelle für Feststellungen.
+- [Maßnahmen](/platform/space/compliance/measures) und [Aufgaben](/platform/space/issues) setzen die Behebung um.
+- [Kontrollen](/platform/space/compliance/controls) zeigen, welche Vorgabe verletzt wurde.
+- [Risiken](/platform/space/compliance/risks) werden aus Feststellungen abgeleitet, wenn das Problem grundsätzlicher Natur ist.
+- [Assets](/platform/space/governance) sind oft die konkreten Objekte, an denen die Feststellung getroffen wurde.
+- [Dokumente](/platform/space/documents) belegen Nachweise und Behebungsschritte auditfest.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch die Feststellungen. Feststellungen anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten. Innerhalb eines laufenden Audits gelten zusätzlich die Audit-Rollen, das heißt Auditor:innen können während des Audits Feststellungen erfassen, Audit Client und Lead Auditor steuern die Bewertung. Nach Abschluss eines Audits sind die zugehörigen Feststellungen unveränderlich. Löschen ist Admins des Space vorbehalten.
+
+## Best Practices
+
+- Beschreibe die Beobachtung sachlich und trenne sie von der Bewertung. Die Bewertung gehört in den Schweregrad und in das Kriterium.
+- Verknüpfe jede Feststellung mit der Kontrolle oder Anforderung, gegen die sie geht. So ist im Audit der Bezug sofort klar.
+- Dokumentiere die Ursachenanalyse, bevor du eine Maßnahme planst. Wer das überspringt, behandelt nur Symptome.
+- Halte den Status sauber. Eine Feststellung "In Prüfung" verlangt eine konkrete prüfende Person.
+- Schließe als "Akzeptiertes Risiko" nur mit dokumentierter Begründung und Frist. Das Restrisiko gehört dann ins Risikoregister.
+- Nutze "Fehlalarm" nur für nachweislich falsche Befunde, nicht als bequemen Ausweg.
+
+## Best Practice: Typen nutzen
+
+| Typ | Wofür | Beispiel |
+|---|---|---|
+| Abweichung | Klare Verletzung einer Anforderung | "Backup-Test nicht durchgeführt" |
+| Verbesserungsmöglichkeit | Vorschlag über die Anforderung hinaus | "Backup-Test auch für sekundäre Systeme empfohlen" |
+| Beobachtung | Sachverhalt ohne direkte Bewertung | "Wechsel der Backup-Software steht im nächsten Quartal an" |
+| Schwachstelle | Technische oder organisatorische Schwäche | "Veraltete TLS-Version in einem internen Service" |
+| Best Practice | Erkannte Stärke der Organisation | "Sehr ausführliche Notfalldokumentation" |
+
+## Stolperfallen
+
+- Feststellungen ohne verknüpfte Kontrolle oder Anforderung sind im Audit schwer einzuordnen. Setze die Verknüpfung sofort.
+- Eine offene Abweichung mit hohem Schweregrad zieht die Wirksamkeit des Audits nach unten. Behebung oder Reklassifizierung sollten schnell folgen.
+- Wenn du eine geschlossene Feststellung nachträglich ändern willst, geht das in der Regel nicht. Lege bei Bedarf eine neue Feststellung an.
+- Automatisierte Feststellungen mit identischem Fingerabdruck werden zusammengeführt. Wundere dich nicht, wenn ein neuer Scan keine zusätzliche Zeile erzeugt.
+- Schlagwörter sind freier Wildwuchs. Definiere ein kleines Set im Team und halte dich daran.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen einer Feststellung und einem Vorfall?">
+Eine Feststellung dokumentiert das Ergebnis einer Prüfung. Sie sagt: "So ist der Zustand und so weicht er ab." Ein Vorfall ist ein eingetretenes Ereignis, das deinen Betrieb stört. Aus einer Feststellung kann ein Risiko, aus einem Vorfall meist eine Feststellung werden.
+</Accordion>
+<Accordion title="Wann nutze ich 'Akzeptiertes Risiko' als Status?">
+Wenn dein Team sich bewusst entscheidet, die Abweichung nicht zu beheben, sondern das Restrisiko zu tragen. Begründung und Frist dokumentierst du in der Feststellung. Lege gleichzeitig ein Risiko mit der Strategie "Akzeptieren" an, damit das Restrisiko im Register sichtbar bleibt.
+</Accordion>
+<Accordion title="Wie wirken Feststellungen auf die Wirksamkeitsbewertung eines Audits?">
+Offene Abweichungen mit Schweregrad Kritisch oder Hoch ziehen die Wirksamkeit auf "Unwirksam". Offene mittlere oder niedrige Abweichungen ergeben "Begrenzte Wirksamkeit". Geschlossene Feststellungen (Behoben, Akzeptiertes Risiko, Fehlalarm) zählen nicht in diese Bewertung. Wenn keine offenen Abweichungen vorliegen, entscheidet die Quote konformer Kontrollen über die Wirksamkeit.
+</Accordion>
+<Accordion title="Kann ich Feststellungen aus automatisierten Quellen einspielen?">
+Ja. Automatisierte Feststellungen tragen die Quelle "Automatisiert" und einen Fingerabdruck. Erkennt der nächste Scan denselben Befund, wird "Zuletzt gesehen" aktualisiert, statt eine neue Zeile anzulegen.
+</Accordion>
+<Accordion title="Was passiert mit Feststellungen, wenn das Audit geschlossen wird?">
+Sie werden eingefroren und sind nach Abschluss nicht mehr veränderbar. Behebungsschritte verfolgst du danach über verknüpfte Maßnahmen und Aufgaben, nicht durch direkte Änderung der Feststellung.
+</Accordion>
+</Accordions>
