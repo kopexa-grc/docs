@@ -1,6 +1,114 @@
 ---
 title: Dokumente
-description: Inhalt folgt.
+description: Richtlinien, Nachweise und Verfahren versioniert verwalten und gemeinsam freigeben.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Dokumente sind dein zentraler Ort für Richtlinien, Verfahren, Nachweise und Berichte. Du kannst sie direkt im Browser als Rich-Text-Dokument schreiben oder als Datei hochladen. Jedes Dokument bekommt eine eigene Versionshistorie, eine klare Freigabe und feste Reviewer. So weisen wir Auditoren nach, dass dein Unternehmen seine Vorgaben kennt, regelmäßig überprüft und gelebt hat.
+
+## Wann nutzt du es
+
+- Du brauchst eine ISMS-Leitlinie, eine Zugriffsrichtlinie oder eine Datenschutzvorgabe.
+- Eine Maßnahme verlangt einen dokumentierten Nachweis, zum Beispiel ein Schulungsprotokoll.
+- Ein bestehendes Dokument muss überarbeitet und neu freigegeben werden.
+- Du möchtest Inhalte für ein Audit gebündelt bereitstellen.
+- Externe Berichte oder Zertifikate sollen revisionssicher abgelegt werden.
+
+## Das Wichtigste in Kürze
+
+- Zwei Typen: Rich-Text-Dokumente entstehen direkt in Kopexa, Datei-Uploads bringen bestehende PDFs, Word- oder Excel-Dateien ein.
+- Jede Änderung erzeugt eine neue Version, die alten bleiben einsehbar und exportierbar.
+- Status reichen von Entwurf über Überprüfung bis Veröffentlicht, nur veröffentlichte Versionen gelten als wirksam.
+- Reviewer werden pro Version zugewiesen und müssen aktiv freigeben oder Änderungen anfordern.
+- Dokumente lassen sich Ordnern, Kategorien und Vertraulichkeitsstufen zuordnen und mit Maßnahmen, Risiken, Assets und weiteren Objekten verknüpfen.
+- Ein Reviewzyklus erinnert dich automatisch daran, Inhalte regelmäßig zu überprüfen.
+
+## Typischer Ablauf
+
+1. Dokument anlegen über "Dokument erstellen", Titel, Kategorie und Vertraulichkeit setzen und entscheiden, ob du Rich Text schreibst oder eine Datei hochlädst.
+2. Inhalt verfassen oder Datei hochladen, dabei wird automatisch eine Entwurfsversion erzeugt.
+3. Reviewer zuweisen und das Dokument zur Überprüfung einreichen.
+4. Reviewer prüfen den Inhalt, geben frei oder fordern Änderungen an.
+5. Sobald alle Reviewer freigegeben haben, kannst du das Dokument veröffentlichen, es gilt damit als aktuell und wirksam.
+6. Reviewzyklus läuft, am nächsten Fälligkeitsdatum erinnert dich Kopexa und du startest eine neue Version oder bestätigst die bestehende.
+
+<Mermaid chart={`flowchart LR
+  A[Entwurf] --> B[In Überprüfung]
+  B --> C[Änderungen erforderlich]
+  C --> B
+  B --> D[Freigegeben]
+  D --> E[Veröffentlicht]
+  E --> F[Neue Version]
+  F --> A
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Titel | Eindeutiger Name des Dokuments | Pflicht | Pro Ordner und Space einmalig | Sprechende Titel wählen, etwa "Zugriffsrichtlinie 2025". |
+| Typ | Rich Text oder Datei-Upload | Pflicht | Eingabefeld | Rich Text für eigene Inhalte, Datei-Upload für externe Berichte. |
+| Kategorie | Fachliche Einordnung wie Richtlinie, Bericht oder Zertifikat | Pflicht | Aus den im Space gepflegten Kategorien | Hilft Auditoren beim Sortieren der Nachweise. |
+| Vertraulichkeit | Schutzstufe wie öffentlich oder streng vertraulich | Optional | Aus den im Space gepflegten Stufen | Stufen vor dem Rollout abstimmen, damit alle dieselbe Skala nutzen. |
+| Ordner | Hierarchische Ablage | Optional | Ordnername je Ebene einmalig | Maximal drei Ebenen, sonst geht die Übersicht verloren. |
+| Reviewer | Personen, die freigeben müssen | Pflicht für die Überprüfung | Mitglieder des Space | Mindestens zwei Augen, idealerweise nicht der Autor selbst. |
+| Verantwortliche | Personen, die das Dokument inhaltlich pflegen | Optional | Mitglieder des Space | Eine klare Eigentümerin pro Dokument benennen. |
+| Reviewintervall | Wie oft das Dokument überprüft werden soll | Optional | Eingabefeld, Standard "jährlich" | An Audit-Zyklus oder Risiko der Inhalte anpassen. |
+
+## Was im Hintergrund passiert
+
+- Beim Erstellen wird automatisch Version 1 als Entwurf angelegt. Jede neue Version führt die Historie weiter, ohne dass du etwas ablegen musst.
+- Reichst du eine Version zur Überprüfung ein, werden die Reviewer benachrichtigt und können nur in dieser Phase freigeben.
+- Sobald alle zugewiesenen Reviewer freigegeben haben, ist die Version freigegeben. Erst beim Veröffentlichen wird sie zur aktuellen Version, die übergeordnete Maßnahmen und Nachweise sehen.
+- Ein automatischer Ablauf prüft regelmäßig, ob die Reviewfrist abgelaufen ist. Veraltete Dokumente werden auf "Überprüfung ausstehend" gesetzt und die Verantwortliche wird informiert.
+- Beim Archivieren werden verknüpfte Nachweise entfernt, verknüpfte Maßnahmen neu bewertet und der Reviewplan zurückgesetzt. Beim Wiederherstellen werden Nachweise nicht automatisch wieder angelegt.
+- Eine veröffentlichte Version lässt sich nicht löschen, sondern nur archivieren. So bleibt die Audit-Spur erhalten.
+
+## Verknüpfungen
+
+- [Maßnahmen](/platform/space/compliance) nutzen Dokumente als Nachweis ihrer Wirksamkeit.
+- [Risiken](/platform/space/governance) verweisen auf Richtlinien und Verfahren, die sie reduzieren.
+- [Aufgaben](/platform/space/issues) steuern die Bearbeitung und Freigabe einzelner Dokumente.
+- [Assets](/platform/space/governance) und [Lieferanten](/platform/space/governance) zeigen, welche Dokumente sie betreffen.
+- [Trust Center](/platform/space/trust-center) veröffentlicht ausgewählte Dokumente nach außen.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Dokumente, sofern keine strengere Vertraulichkeit gesetzt ist. Dokumente erstellen und Entwürfe bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Reviewer dürfen Dokumente, denen sie zugewiesen sind, freigeben oder Änderungen anfordern, auch ohne sonst editieren zu können. Veröffentlichen und Archivieren ist auf Verantwortliche und Admins begrenzt. Löschen ist nur für nicht-veröffentlichte Versionen möglich und auf Admins beschränkt.
+
+## Best Practices
+
+- Pro Dokument eine eindeutige Verantwortliche festlegen, damit Reviewzyklen verlässlich laufen.
+- Reviewintervall am Risiko des Themas ausrichten, kritische Richtlinien jährlich, weniger kritische alle zwei Jahre.
+- Vor der Veröffentlichung mindestens zwei Reviewer einbinden, eine aus der Fachseite, eine aus Compliance.
+- Externe Berichte als Datei hochladen, eigene Inhalte als Rich Text pflegen, das vereinfacht spätere Updates.
+- Ordnerstruktur am Anfang gemeinsam festlegen, statt sie nachträglich umzubauen.
+
+## Stolperfallen
+
+- Inhalte ändern, ohne eine neue Version anzulegen, geht nur im Entwurfsstatus. Sobald eine Version veröffentlicht ist, musst du explizit eine neue Version starten.
+- Dateinamen mit denselben Titel im gleichen Ordner werden abgelehnt. Versionierung läuft über Kopexa, nicht über Dateinamen.
+- Reviewer, die selbst Autor sind, schwächen das Vier-Augen-Prinzip. Kopexa warnt dich bei Selbstzuweisung, du kannst aber bewusst bestätigen.
+- Wer ein Dokument archiviert, verliert vorhandene Nachweisverknüpfungen. Vorher prüfen, ob ein Update sinnvoller wäre.
+- PDF-Uploads ersetzen kein Rich-Text-Dokument, wenn du den Inhalt in Kopexa weiter bearbeiten willst. Dann lieber direkt im Editor schreiben.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Freigegeben und Veröffentlicht?">
+Freigegeben bedeutet, alle Reviewer haben zugestimmt. Veröffentlicht heißt, du hast die Version aktiv geschaltet und sie ist die aktuelle, gültige Fassung des Dokuments. Erst veröffentlichte Versionen wirken auf Maßnahmen und Nachweise.
+</Accordion>
+<Accordion title="Wie ändere ich ein bereits veröffentlichtes Dokument?">
+Du erstellst eine neue Version über das Versionsmenü. Die bisherige Version bleibt als Verlauf erhalten, die neue Version startet wieder als Entwurf und durchläuft Überprüfung und Veröffentlichung.
+</Accordion>
+<Accordion title="Wer wird informiert, wenn der Reviewzyklus fällig ist?">
+Die Verantwortliche des Dokuments und die zugewiesenen Reviewer bekommen eine Benachrichtigung. Im Wochen-Digest siehst du außerdem alle Dokumente, deren Überprüfung in Kürze fällig wird.
+</Accordion>
+<Accordion title="Kann ich ein Dokument exportieren?">
+Ja. Über das Aktionsmenü stehen PDF, DOCX, HTML und direkter Druck zur Verfügung. Exportierte Datei trägt den Stand der aktuell sichtbaren Version.
+</Accordion>
+<Accordion title="Was passiert beim Archivieren?">
+Das Dokument verschwindet aus der Standardliste, bleibt aber im Archiv referenzierbar. Verknüpfte Nachweise werden entfernt, verknüpfte Maßnahmen neu bewertet und der Reviewplan zurückgesetzt. Du kannst das Dokument jederzeit wiederherstellen, musst Nachweise und Reviewplan dann aber neu aufsetzen.
+</Accordion>
+</Accordions>
