@@ -1,6 +1,112 @@
 ---
 title: Stakeholder
-description: Inhalt folgt.
+description: Erfasse Organisationen, Aufsichten und interne Gruppen, deren Anforderungen und Erwartungen euer Compliance-Bild prägen.
 ---
 
-Inhalt folgt.
+## Worum geht's
+
+Stakeholder sind die Parteien, deren Anforderungen und Erwartungen euer Geschäft beeinflussen, zum Beispiel Aufsichten, Kunden, Investoren, der Betriebsrat oder die Geschäftsführung. Im Stakeholder-Register hältst du fest, wer das ist, welche Forderungen und welche weichen Erwartungen die Stakeholder an euch stellen, wie stark ihr Einfluss ist und wie aktiv sie eure Compliance verfolgen. Auf dieser Basis steuert Kopexa, wie eng eine Beziehung gepflegt werden muss und auf welche Forderungen Ziele und Maßnahmen einzahlen.
+
+## Wann nutzt du es
+
+- Ihr braucht den Überblick, welche Aufsichten, Kunden oder internen Gremien Anforderungen an euch stellen.
+- Eine Risikobewertung soll begründet werden, nicht nur technisch eingeordnet werden.
+- Neue Leitlinien einer Aufsicht oder Anforderungen eines Großkunden müssen sichtbar verfolgt werden.
+- Im Management-Review oder Audit muss nachvollziehbar sein, woher Ziele und Programme stammen.
+- Ihr wollt Stakeholder bewusst priorisieren, statt jeden gleichermaßen zu bedienen.
+
+## Das Wichtigste in Kürze
+
+- Stakeholder werden in drei Typen unterschieden: Regulatorisch, Extern und Intern.
+- Anforderungen sind hart und vertraglich oder regulatorisch fixiert, Erwartungen sind weich und nicht audit-relevant.
+- Aus Einfluss und Interesse leitet Kopexa automatisch eine Engagement-Strategie ab.
+- Jeder Stakeholder hat genau eine verantwortliche Person, optional zusätzlich eine Vertretung.
+- Stakeholder lassen sich mit Zielen, Risiken, Kontakten, Kommunikationskanälen, Aufgaben und Dokumenten verknüpfen.
+
+## Typischer Ablauf
+
+1. Stakeholder hinzufügen über "Stakeholder hinzufügen" und Namen mit Kontext eintragen.
+2. Typ wählen, also Regulatorisch, Extern oder Intern.
+3. Anforderungen pflegen, möglichst granular und mit Quellenangabe.
+4. Erwartungen festhalten, falls es weiche Wünsche ohne formale Grundlage gibt.
+5. Einfluss und Interesse bewerten, jeweils Niedrig oder Hoch.
+6. Verantwortliche Person setzen, Vertretung bei Bedarf hinterlegen.
+7. Kontakte, Kommunikationskanäle, Ziele und Risiken auf der Detailseite verknüpfen.
+8. Bei Bedarf neu bewerten, sobald sich die Beziehung oder die Anforderungen verändern.
+
+<Mermaid chart={`flowchart LR
+  A[Aktiv] --> B[Inaktiv]
+  A --> C[Archiviert]
+  B --> A
+  B --> C
+`} />
+
+## Felder & Eingaben
+
+| Feld | Bedeutung | Pflicht/Optional | Validierungsregel | Tipp |
+|---|---|---|---|---|
+| Name | Eindeutige Bezeichnung des Stakeholders | Pflicht | Maximal 150 Zeichen, eindeutig pro Space | Mit Kontext benennen, etwa "BaFin – Abt. IT-Aufsicht", nicht nur "BaFin". |
+| Typ | Regulatorisch, Extern oder Intern | Pflicht | Standardwert "Extern" | Aufsichten gehören in "Regulatorisch", Kunden und Partner in "Extern", eigene Gremien in "Intern". |
+| Anforderungen | Harte, oft regulatorisch oder vertraglich fixierte Forderungen | Pflicht | Darf nicht leer sein | Jede Forderung mit Quelle nennen, etwa Gesetzesartikel oder Vertragsklausel. |
+| Erwartungen | Weiche Wünsche ohne formale Grundlage | Optional | Freitext | Knapp halten, kein Ersatz für harte Anforderungen. |
+| Einfluss | Macht des Stakeholders über das Unternehmen | Pflicht | Niedrig oder Hoch | Ehrlich bewerten, nicht politisch beschönigen. |
+| Interesse | Wie aktiv der Stakeholder eure Compliance verfolgt | Pflicht | Niedrig oder Hoch | An tatsächlichem Verhalten messen, nicht an gefühlter Wichtigkeit. |
+| Engagement-Strategie | Spielmacher, Joker, Beobachter oder Statisten | Wird automatisch gesetzt | Wird aus Einfluss und Interesse abgeleitet | Manuell nicht überschreibbar, durch Neubewertung änderbar. |
+| Status | Aktiv, Inaktiv oder Archiviert | Pflicht | Standardwert "Aktiv" | Nicht löschen, sondern archivieren, sobald eine Beziehung endet. |
+| Verantwortlich | Person, die die Beziehung pflegt | Optional | Mitglied des Space | Genau eine Person mit Namen, keine generischen Postfächer. |
+| Vertretung | Stellvertretung für Reviews und Eskalation | Optional | Mitglied des Space | Bei kritischen Stakeholdern immer eine Vertretung pflegen. |
+
+## Was im Hintergrund passiert
+
+- Sobald du Einfluss oder Interesse änderst, berechnet Kopexa die Engagement-Strategie neu. Aus Hoch/Hoch wird "Spielmacher", aus Hoch/Niedrig "Joker", aus Niedrig/Hoch "Beobachter" und aus Niedrig/Niedrig "Statisten".
+- Stakeholder lassen sich nicht endgültig löschen, sondern werden archiviert. So bleibt der Audit-Trail erhalten, auch wenn eine Beziehung endet.
+- Eine Verknüpfung zu einem Ziel macht sichtbar, wessen Anforderung das Ziel adressiert. Diese Verbindung erscheint im Stakeholder ebenso wie im Ziel.
+- Kommunikationskanäle werden pro Stakeholder mit einer Frequenz hinterlegt, zum Beispiel monatlich oder ad hoc.
+
+## Verknüpfungen
+
+- [Ziele](/platform/space/governance/objectives) operationalisieren Anforderungen aus dem Stakeholder-Register.
+- [Risiken](/platform/space/compliance/risks) lassen sich an Stakeholder koppeln, damit Priorität und Geschäftsbezug zusammenpassen.
+- [Programme](/platform/space/governance/programs) bündeln Initiativen, die Stakeholder-Anforderungen abdecken.
+- [Dokumente](/platform/space/documents) wie Verträge, Meldungen und Korrespondenz lassen sich direkt anhängen.
+- [Aufgaben](/platform/space/issues) verteilen die operative Arbeit, die aus Stakeholder-Anforderungen entsteht.
+
+## Berechtigungen
+
+Wer den Space sehen darf, sieht auch dessen Stakeholder. Stakeholder anlegen und bearbeiten dürfen Mitglieder mit Editor-Rechten im Space. Die als verantwortlich gesetzte Person darf "ihren" Stakeholder jederzeit pflegen, auch ohne sonstige Editor-Rechte. Stakeholder löschen dürfen nur Admins des Space, in der Regel wird stattdessen archiviert. Die Engagement-Strategie ist als abgeleitetes Feld nicht direkt editierbar.
+
+## Best Practices
+
+- Mit den drei bis fünf regulatorischen Stakeholdern anfangen, die euer Geschäft tatsächlich prägen, und erst danach Kunden und interne Gremien ergänzen.
+- Pro Stakeholder genau eine verantwortliche Person setzen, keine geteilten Verantwortlichkeiten.
+- Anforderungen granular pflegen mit Quelle, Erwartungen knapp und in eigenen Worten.
+- Jeder Stakeholder sollte mindestens an ein Ziel oder Risiko gekoppelt sein, sonst gehört er archiviert.
+- Bewertung von Einfluss und Interesse mindestens jährlich überprüfen, bei regulatorischen Stakeholdern bei jeder relevanten Leitlinienänderung.
+
+## Stolperfallen
+
+- Anforderungen und Erwartungen vermischen führt dazu, dass weiche Wünsche im Audit als offene Punkte auftauchen. Trenne die beiden Felder strikt.
+- "Team Security" oder "Compliance" als verantwortlich zu setzen, sorgt dafür, dass sich niemand zuständig fühlt. Eine Person mit Namen.
+- Die Engagement-Strategie politisch zu beschönigen verfälscht die Steuerung. Wer euch nie anruft, ist im Tagesgeschäft kein Spielmacher.
+- Stakeholder löschen statt archivieren bricht den Audit-Trail. Setze stattdessen den Status auf "Archiviert".
+- Stakeholder ohne Verknüpfungen liefern keinen Wert. Verknüpfe konsequent mit Zielen, Risiken oder Dokumenten.
+
+## FAQ
+
+<Accordions>
+<Accordion title="Was ist der Unterschied zwischen Anforderungen und Erwartungen?">
+Anforderungen sind harte Forderungen, meist vertraglich oder regulatorisch fixiert, und audit-relevant. Erwartungen sind weiche Wünsche ohne formale Grundlage. Erwartungen werden dokumentiert, damit sie nicht verloren gehen, müssen aber nicht zwingend erfüllt werden.
+</Accordion>
+<Accordion title="Wie wird die Engagement-Strategie berechnet?">
+Aus Einfluss und Interesse. Hoch/Hoch ergibt "Spielmacher" (eng managen), Hoch/Niedrig ergibt "Joker" (zufriedenstellen), Niedrig/Hoch ergibt "Beobachter" (informiert halten) und Niedrig/Niedrig ergibt "Statisten" (nur beobachten).
+</Accordion>
+<Accordion title="Was ist der Unterschied zwischen Stakeholder und Kontakt?">
+Stakeholder sind Organisationen oder Rollen wie BaFin, ein Top-Kunde oder die Geschäftsführung. Kontakte sind die konkreten Personen mit E-Mail und Telefon hinter dieser Organisation. Ein Stakeholder kann mehrere Kontakte haben.
+</Accordion>
+<Accordion title="Was passiert, wenn zwei Stakeholder widersprüchliche Anforderungen haben?">
+Den Konflikt explizit in den Anforderungen festhalten und eine Entscheidung treffen, welche Anforderung Vorrang hat. Die Entscheidung wird im Stakeholder oder in einer verknüpften Dokumentenfreigabe protokolliert.
+</Accordion>
+<Accordion title="Wie oft sollte ich Einfluss und Interesse neu bewerten?">
+Mindestens jährlich. Bei regulatorischen Stakeholdern zusätzlich, sobald eine relevante Leitlinie veröffentlicht wird. Bei externen Stakeholdern bei Vertragsverlängerung oder strategischen Wechseln.
+</Accordion>
+</Accordions>
