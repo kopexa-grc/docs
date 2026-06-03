@@ -1,30 +1,30 @@
-name: Release Pipeline
-
-on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: write
-  packages: write
-  attestations: write
-  issues: write
-
-jobs:
-  release-please:
-    name: Prepare Release (Semantic Versioning)
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: write
-    outputs:
-        release_created: ${{ steps.release.outputs.release_created }}
-        tag_name: ${{ steps.release.outputs.tag_name }}
-    steps:
-        - uses: googleapis/release-please-action@v4
-          id: release
-          with:
-            token: ${{ secrets.KOPEXA_CLOUD_REPO_ACCESS_TOKEN }}
-            release-type: node
+# name: Release Pipeline
+# 
+# on:
+#   push:
+#     branches:
+#       - main
+# 
+# permissions:
+#   contents: write
+#   packages: write
+#   attestations: write
+#   issues: write
+# 
+# jobs:
+#   release-please:
+#     name: Prepare Release (Semantic Versioning)
+#     runs-on: ubuntu-latest
+#     permissions:
+#       contents: write
+#       pull-requests: write
+#       issues: write
+#     outputs:
+#         release_created: ${{ steps.release.outputs.release_created }}
+#         tag_name: ${{ steps.release.outputs.tag_name }}
+#     steps:
+#         - uses: googleapis/release-please-action@v4
+#           id: release
+#           with:
+#             token: ${{ secrets.KOPEXA_CLOUD_REPO_ACCESS_TOKEN }}
+#             release-type: node
