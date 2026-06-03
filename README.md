@@ -1,9 +1,8 @@
 # Kopexa Docs
 
 ![PR Checks](https://github.com/kopexa-grc/docs/actions/workflows/pr.yml/badge.svg)
-![Release](https://github.com/kopexa-grc/docs/actions/workflows/release.yml/badge.svg)
+![Main Checks](https://github.com/kopexa-grc/docs/actions/workflows/main.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-[![Docker](https://img.shields.io/badge/docker-ghcr.io%2Fkopexa--grc%2Fdocs-blue)](https://github.com/orgs/kopexa-grc/packages?repo_name=docs)
 
 Public documentation for Kopexa’s ISMS/GRC platform (ISO 27001, GDPR, DORA, NIS2, …). It includes end‑user guides and developer docs. Built with Next.js App Router, Fumadocs, TypeScript, and Tailwind CSS.
 
@@ -82,9 +81,7 @@ The Docker image:
 GitHub Actions in this repo are **advisory only**. They give developers fast feedback but do not gate or trigger the production deploy (Coolify does that, see above).
 
 - PR checks: `.github/workflows/pr.yml` runs lint, typecheck and build (`.github/workflows/lint.yml`, `.github/workflows/build.yml`)
-- Release Docker image to GHCR (versioned): `.github/workflows/release.yml`, triggered when a GitHub Release is published via release-please
-- Security scan: `.github/workflows/docker-security-scan.yml`
-- Versioning: SemVer via release-please + GitHub Releases/Tags. The published image at `ghcr.io/kopexa-grc/docs:<version>` exists for downstream consumers; it is **not** what `docs.kopexa.com` runs.
+- Main checks: `.github/workflows/main.yml` runs the same lint and build jobs on every push to `main` so failures are visible immediately
 
 ## Contributing
 
