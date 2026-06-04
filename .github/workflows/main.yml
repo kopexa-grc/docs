@@ -1,0 +1,24 @@
+name: Main Checks
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Lint & Typecheck
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit
+
+  build:
+    name: Build
+    uses: ./.github/workflows/build.yml
+    secrets: inherit

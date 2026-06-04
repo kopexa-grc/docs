@@ -47,8 +47,7 @@ export function Provider({
 				hotKey: [
 					{
 						display: <ShortcutDisplay />,
-						key: (e) =>
-							(e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k",
+						key: (e) => (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k",
 					},
 				],
 			}}
