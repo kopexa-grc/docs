@@ -1,8 +1,9 @@
 {
-    "title": "Hilfe",
-    "pages": [
-        "index",
-        "faq",
-        "troubleshooting"
-    ]
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Hilfe",
+  "pages": [
+    "index",
+    "faq",
+    "troubleshooting"
+  ]
 }

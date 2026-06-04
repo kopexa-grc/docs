@@ -1,8 +1,9 @@
 {
-    "title": "Governance",
-    "pages": [
-        "programs",
-        "stakeholders",
-        "objectives"
-    ]
+  "$schema": "../../../../../.source/json-schema/docs.meta.json",
+  "title": "Governance",
+  "pages": [
+    "programs",
+    "stakeholders",
+    "objectives"
+  ]
 }

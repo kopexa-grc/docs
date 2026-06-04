@@ -1,6 +1,7 @@
 {
     "pages": [
         "platform",
+        "organisation",
         "catalogs",
         "integrations"
     ]

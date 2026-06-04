@@ -1,3 +1,4 @@
 {
-    "title": "Benutzer"
+  "$schema": "../../../../../../.source/json-schema/docs.meta.json",
+  "title": "Benutzer"
 }

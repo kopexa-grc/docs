@@ -1,7 +1,8 @@
 {
-    "title": "Datenschutz",
-    "pages": [
-        "data-subject-requests",
-        "processing-activities"
-    ]
+  "$schema": "../../../../../.source/json-schema/docs.meta.json",
+  "title": "Datenschutz",
+  "pages": [
+    "data-subject-requests",
+    "processing-activities"
+  ]
 }

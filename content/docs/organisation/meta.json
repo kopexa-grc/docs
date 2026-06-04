@@ -1,6 +1,9 @@
 {
     "title": "Organisation",
+    "description": "Verwaltung deiner Organisation in Kopexa",
+    "root": true,
     "pages": [
+        "...index",
         "customers",
         "partners",
         "dashboard",

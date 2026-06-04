@@ -1,3 +1,4 @@
 {
-    "title": "Ziele"
+  "$schema": "../../../../../../.source/json-schema/docs.meta.json",
+  "title": "Ziele"
 }

@@ -1,12 +1,13 @@
 {
-    "title": "Compliance",
-    "pages": [
-        "frameworks",
-        "controls",
-        "measures",
-        "risks",
-        "incidents",
-        "findings",
-        "audits"
-    ]
+  "$schema": "../../../../../.source/json-schema/docs.meta.json",
+  "title": "Compliance",
+  "pages": [
+    "frameworks",
+    "controls",
+    "measures",
+    "risks",
+    "incidents",
+    "findings",
+    "audits"
+  ]
 }

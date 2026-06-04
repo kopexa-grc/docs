@@ -1,20 +1,21 @@
 {
-    "title": "Space",
-    "pages": [
-        "issues",
-        "documents",
-        "trust-center",
-        "---Governance---",
-        "...governance",
-        "---Compliance---",
-        "...compliance",
-        "---Organisation---",
-        "...organisation",
-        "---Datenschutz---",
-        "...datenschutz",
-        "---Integrationen---",
-        "integrationen",
-        "---Einstellungen---",
-        "...einstellungen"
-    ]
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Space",
+  "pages": [
+    "issues",
+    "documents",
+    "trust-center",
+    "---Governance---",
+    "...governance",
+    "---Compliance---",
+    "...compliance",
+    "---Organisation---",
+    "...organisation",
+    "---Datenschutz---",
+    "...datenschutz",
+    "---Integrationen---",
+    "integrationen",
+    "---Einstellungen---",
+    "...einstellungen"
+  ]
 }

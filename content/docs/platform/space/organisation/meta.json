@@ -1,12 +1,13 @@
 {
-    "title": "Organisation",
-    "pages": [
-        "assets",
-        "information-assets",
-        "processes",
-        "vendors",
-        "business-units",
-        "people",
-        "domains"
-    ]
+  "$schema": "../../../../../.source/json-schema/docs.meta.json",
+  "title": "Organisation",
+  "pages": [
+    "assets",
+    "information-assets",
+    "processes",
+    "vendors",
+    "business-units",
+    "people",
+    "domains"
+  ]
 }
