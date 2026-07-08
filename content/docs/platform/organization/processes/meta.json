@@ -1,0 +1,8 @@
+{
+  "$schema": "../../../../../.source/json-schema/docs.meta.json",
+  "title": "Prozesse",
+  "icon": "ListTodo",
+  "pages": [
+    "bia"
+  ]
+}
