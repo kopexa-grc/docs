@@ -4,12 +4,12 @@
 	"root": true,
     "pages": [
         "...index",
-        "...was-ist-kopexa",
-        "...wie-kopexa-funktioniert",
         "---Quick Start---",
         "...quickstart",
-        "---Manage---",
-        "...governance",
-        "...compliance"
+        "---Menü---",
+        "documents",
+        "governance",
+        "compliance",
+        "organization"
     ]
 }

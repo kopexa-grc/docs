@@ -1,0 +1,10 @@
+{
+	"title": "Organisation",
+	"icon": "PackageSearch",
+	"pages": [
+		"people",
+		"vendors",
+		"processes",
+		"assets"
+	]
+}

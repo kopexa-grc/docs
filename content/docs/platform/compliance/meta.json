@@ -1,11 +1,9 @@
 {
 	"title": "Compliance",
+	"icon": "ListChecks",
 	"pages": [
 		"controls",
 		"control-implementations",
-		"documents",
-		"risks",
-		"vendors",
-		"inventory"
+		"risks"
 	]
 }

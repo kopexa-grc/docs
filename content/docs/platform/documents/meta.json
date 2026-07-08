@@ -1,0 +1,10 @@
+{
+	"title": "Dokumente",
+	"icon": "FileText",
+	"pages": [
+		"create",
+		"mapping",
+		"policies",
+		"review"
+	]
+}

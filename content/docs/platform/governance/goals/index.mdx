@@ -1,5 +1,6 @@
 ---
 title: Ziele
+icon: Target
 description: Ziele sind das Instrument, mit dem ihr "nein" zu unnötiger Arbeit sagt – und zugleich ein expliziter Risikoappetit, an dem jedes Risiko gemessen wird.
 ---
 
@@ -126,19 +127,19 @@ Automatisierung verändert die Psychologie der Zielverfolgung grundlegend. Statt
 
 #### Beispiel: MTTA-KPI aus Zammad
 
-Angenommen, ihr betreibt euren Security-Incident-Intake in **Zammad**. Eine reale Anforderung aus NIS2 lautet: Sicherheitsrelevante Incidents müssen innerhalb klar definierter Zeiten erkannt, klassifiziert und behandelt werden. Daraus leitet ihr ein Ziel ab:
+Angenommen, ihr betreibt euren Sicherheitsvorfall-Intake in **Zammad**. Eine reale Anforderung aus NIS2 lautet: Sicherheitsrelevante Vorfälle müssen innerhalb klar definierter Zeiten erkannt, klassifiziert und behandelt werden. Daraus leitet ihr ein Ziel ab:
 
-> **Ziel:** *Mean Time to Acknowledge (MTTA) für sicherheitsrelevante Incidents unter 30 Minuten – bis 2026-06-30*
+> **Ziel:** *Mean Time to Acknowledge (MTTA) für sicherheitsrelevante Vorfälle unter 30 Minuten – bis 2026-06-30*
 >
 > **Abgeleitete Stakeholder:** BSI (NIS2-Anforderung), Cyber-Versicherer (Reaktionsklausel in der Police)
 >
-> **Adressiertes Risiko:** *"Verzögerte Incident-Reaktion führt zur Ausweitung des Schadens und zur Verletzung der 24-Stunden-Meldepflicht"*
+> **Adressiertes Risiko:** *"Verzögerte Reaktion auf Sicherheitsvorfälle führt zur Ausweitung des Schadens und zur Verletzung der 24-Stunden-Meldepflicht"*
 
 Der KPI in Kopexa sieht so aus:
 
 | Feld | Wert |
 |---|---|
-| **Name** | MTTA – sicherheitsrelevante Incidents |
+| **Name** | MTTA – sicherheitsrelevante Vorfälle |
 | **Einheit** | Minuten |
 | **Zielwert** | ≤ 30 |
 | **Datenquelle** | Zammad – Ticket-Gruppe *Security*, Zeitdifferenz zwischen `created_at` und `first_response_at` |
@@ -180,7 +181,7 @@ Ab dem Moment, in dem der Flow läuft, übernimmt Kopexa den Rest: Der Wert wird
 | **Phishing-Klickrate** | KnowBe4, SoSafe | < 3 % |
 | **MFA-Abdeckung** | Entra ID, Okta, Keycloak | ≥ 99 % |
 | **Offene Security-Tickets > 30 Tage** | Zammad, Jira, ServiceNow | = 0 |
-| **SLA-Einhaltung Vendor-Response** | Ticket-System oder Vendor-Portal | ≥ 98 % |
+| **SLA-Einhaltung Lieferanten-Response** | Ticket-System oder Lieferanten-Portal | ≥ 98 % |
 | **Failed-Login-Trend** | SIEM (z. B. Wazuh, Elastic, Splunk) | Alarm bei Anstieg > 200 % |
 | **Zertifikats-Ablauf < 14 Tage** | Certificate Monitoring | = 0 |
 

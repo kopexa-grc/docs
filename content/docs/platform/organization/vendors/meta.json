@@ -1,0 +1,10 @@
+{
+	"title": "Lieferanten",
+	"icon": "Store",
+	"pages": [
+		"create",
+		"detail",
+		"review",
+		"best-practices"
+	]
+}

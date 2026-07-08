@@ -1,5 +1,5 @@
 ---
-title: Security
+title: Sicherheit
 description: Sicherheitsprinzipien, Architektur und OWASP-konforme Maßnahmen in Kopexa
 ---
 
@@ -15,7 +15,7 @@ Kopexa wurde nach dem Prinzip **Security by Design** entwickelt. Sicherheit ist 
 
 ## Features und Standards
 
-- **SSO für alle:** Jede [Organization](./index.mdx), unabhängig vom Tarif, kann [SAML](./domains/index.mdx) und OIDC nutzen. Security ist bei uns kein Enterprise-Add-on.
+- **SSO für alle:** Jede [Organisation](./index.mdx), unabhängig vom Tarif, kann [SAML](./domains/index.mdx) und OIDC nutzen. Security ist bei uns kein Enterprise-Add-on.
 - **MFA-Unterstützung:** Unterstützung für Multi-Faktor-Authentifizierung über externe IdPs.
 - **Domänen-Verifizierung:** Schutz vor Account Takeover und Phishing durch zentrale Domainverwaltung.
 - **Ende-zu-Ende-Verschlüsselung:** Alle Daten werden im Transit (TLS) und im Ruhezustand (at rest) verschlüsselt.
@@ -47,7 +47,7 @@ Diese Architektur kombiniert Sicherheit, Compliance und Ausfallsicherheit – au
 Kopexa nutzt ein **Relationship-based Access Kontrolle (ReBAC)**-Modell, implementiert mit [OpenFGA](https://openfga.dev/):
 
 - **Granulare Berechtigungen:** Zugriff basiert nicht nur auf Rollen, sondern auch auf Beziehungen und Kontext (z. B. „Benutzer ist Editor des Dokuments im Space“).
-- **Mandantenfähigkeit:** Klare Trennung und Isolation zwischen Organizations und Spaces.
+- **Mandantenfähigkeit:** Klare Trennung und Isolation zwischen Organisationen und Spaces.
 - **Dynamische Policies:** Feingranulare Regeln wie „Benutzer darf nur Nachweise sehen, die zu seinen Assets gehören“.
 - **Auditierbarkeit:** Jede Zugriffsentscheidung ist nachvollziehbar und protokollierbar.
 - **OWASP ASVS-konform:** Effektive Abwehr von Broken Access Kontrolle (OWASP A01).
@@ -72,5 +72,5 @@ Kopexa erleichtert die Einhaltung von Standards wie **ISO 27001**, **DSGVO**, **
 ## Weiterführende Links
 
 - [Domains](./domains/index.mdx) – SSO, Domain-Verifizierung und Benutzerzuordnung  
-- [Organization](./index.mdx) – Zentrale Verwaltung von Benutzern, SSO und Lizenzen  
+- [Organisation](./index.mdx) – Zentrale Verwaltung von Benutzern, SSO und Lizenzen  
 - [Spaces](../spaces.mdx) – Mandantenfähige Arbeitsumgebungen und Isolation

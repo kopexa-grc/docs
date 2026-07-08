@@ -18,18 +18,18 @@ Das bedeutet: **Verantwortlichkeiten setzen, Verknüpfungen herstellen, Reviewzy
 In der Published-Ansicht eines Dokuments kannst du folgende Relationen setzen:
 
 - **Verantwortliche (Owner):** Wer ist fachlich für Inhalt & Pflege verantwortlich?
-- **Business Units:** Welche Abteilungen/Org-Einheiten sind betroffen?
+- **Abteilungen:** Welche Abteilungen/Org-Einheiten sind betroffen?
 - **Assets:** Auf welche Systeme oder Daten bezieht sich das Dokument?
 - **Kontrollen (Kontrollen):** Welche Maßnahmen/Nachweise deckt das Dokument ab?
 - **Risiken:** Welche Risiken werden adressiert?
-- **Lieferanten (Vendors):** Falls z. B. AVVs oder Supplier-Policies betroffen sind.
+- **Lieferanten (Lieferanten):** Falls z. B. AVVs oder Supplier-Policies betroffen sind.
 
 <Mermaid
   chart={`
 graph TD
     P[Veröffentlichtes Dokument] --> M[Mapping setzen]
     M --> O[Owner]
-    M --> BU[Business Units]
+    M --> BU[Abteilungen]
     M --> AS[Assets]
     M --> CO[Kontrollen]
     M --> RI[Risiken]
@@ -113,5 +113,5 @@ Falls beim Review Änderungen notwendig sind:
 ## Verwandte Themen
 
 - [Review & Freigabeprozess](./review.mdx)
-- [Risiken & Nachweis](../risks/index.mdx)
+- [Risiken & Nachweis](../compliance/risks/index.mdx)
 - [Warum Dokumente mehr sind als Uploads](./index.mdx)

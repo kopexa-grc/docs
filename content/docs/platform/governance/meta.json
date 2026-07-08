@@ -1,6 +1,7 @@
 {
 	"title": "Governance",
 	"description": "Programme, Stakeholder und Ziele",
+	"icon": "FolderKanban",
 	"pages": [
 		"programs",
 		"stakeholders",

@@ -3,12 +3,12 @@ title: Risiko anlegen
 description: Anleitung zum Erfassen eines neuen Risikos in Kopexa
 ---
 
-Mit **Risks** identifizierst, bewertest und behandelst du Risiken in deinem Space – verknüpft mit **Assets**, **Kontrollen**, **Nachweis** und **Work Items**.  
+Mit **Risiken** identifizierst, bewertest und behandelst du Risiken in deinem Space – verknüpft mit **Assets**, **Kontrollen**, **Nachweis** und **Aufgaben**.  
 Diese Seite bündelt **Konzept**, **How-to**, **UI-Referenz** und **FAQ** auf einen Blick.
 
 > **Voraussetzungen**
 > - Du befindest dich in einem Space (`/s/{space_id}`).
-> - Im Idealfall sind bereits **Assets** im [Inventory](../inventory/index.mdx) erfasst.
+> - Im Idealfall sind bereits **Assets** im [Inventory](../../organization/assets/index.mdx) erfasst.
 
 ##  Leere Liste & CTA
 
@@ -53,7 +53,7 @@ Nach dem Speichern gelangst du in die **Detailansicht**. Hier siehst du **Bewert
 **Rechte Seite (Kontext & Aktionen)**  
 - **Status & Verantwortliche:r**  
 - **Überprüfung & Überwachung:** Intervall (z. B. jährlich/vierteljährlich), nächste/letzte Prüfung, Reviewer  
-- **Aufgaben (Work Items):** Maßnahmen planen (z. B. „TLS konfigurieren & schwache Cipher verbieten“)  
+- **Aufgaben (Aufgaben):** Maßnahmen planen (z. B. „TLS konfigurieren & schwache Cipher verbieten“)  
 - **Kontrollen:** relevante **Kontrollen** verlinken  
 - **Assets:** betroffene **Assets** referenzieren
 
@@ -75,15 +75,15 @@ Lege **sofort eine Aufgabe** an (Verantwortliche:r + Fälligkeitsdatum) und verk
 
 **Für das Beispiel „Ungepatchter VPN-Gateway“**  
 - **Treatment:** *Mitigate*  
-- **Work Item:** „TLS-Konfiguration härten: schwache Cipher deaktivieren, nur TLS ≥1.2, Forward Secrecy erzwingen“  
+- **Aufgabe:** „TLS-Konfiguration härten: schwache Cipher deaktivieren, nur TLS ≥1.2, Forward Secrecy erzwingen“  
 - **Nachweis:** „Konfig-PR #842“, „Nmap/sslyze Report nach Änderung“  
 - **Restrisiko:** nach Umsetzung neu bewerten (oft 1–2 Stufen niedriger)
 
 ## Workflow, Reviews & Rezertifizierung
 
 - **Status-Flow (empfohlen):** Draft → Assessed → Treatment Planned → In Progress → Closed  
-- **Reviews:** regelmäßige Neubewertung (z. B. quartalsweise bei High-Risks)  
-- **Rezertifizierung:** Termin im **Überprüfungsintervall** pflegen; Kopexa erinnert über Work Items
+- **Reviews:** regelmäßige Neubewertung (z. B. quartalsweise bei High-Risiken)  
+- **Rezertifizierung:** Termin im **Überprüfungsintervall** pflegen; Kopexa erinnert über Aufgaben
 
 ## FAQ & Troubleshooting
 
@@ -94,7 +94,7 @@ import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
     Priorisiere nach **Konsequenz**. Starte bei **High Konsequenz** + **Likely**.
   </Accordion>
   <Accordion title="Restrisiko bleibt unverändert.">
-    Maßnahmen (Work Items) sind ggf. noch **offen** oder **Nachweis** fehlt. Nachpflegen, dann neu bewerten.
+    Maßnahmen (Aufgaben) sind ggf. noch **offen** oder **Nachweis** fehlt. Nachpflegen, dann neu bewerten.
   </Accordion>
   <Accordion title="Unklare:r Verantwortliche:r.">
     Setze pro Risiko fest, wer **verantwortlich** ist.

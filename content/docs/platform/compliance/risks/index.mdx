@@ -1,10 +1,11 @@
 ---
-title: Risikomanagement
+title: Risiken
+icon: ShieldAlert
 description: Risiken in Kopexa identifizieren, bewerten, behandeln und nachweisen
 ---
 
 Risikomanagement ist ein **zentraler Bestandteil** jedes ISMS/DSMS und Voraussetzung für Auditfähigkeit in Normen wie ISO 27001, TISAX oder DSGVO.  
-Das **Risikomodul** von Kopexa hilft dir, Risiken **zu identifizieren**, **zu bewerten**, **zu priorisieren**, **zu behandeln** und **auditfest nachzuweisen** – verknüpft mit **Assets**, **Kontrollen**, **Nachweisen** und **Work Items**.  
+Das **Risikomodul** von Kopexa hilft dir, Risiken **zu identifizieren**, **zu bewerten**, **zu priorisieren**, **zu behandeln** und **auditfest nachzuweisen** – verknüpft mit **Assets**, **Kontrollen**, **Nachweisen** und **Aufgaben**.  
 Jeder Space in Kopexa führt seine eigenen Risiken, sodass eine klare Mandantentrennung gewährleistet ist.
 
 <Callout title="Kurzprinzip">
@@ -119,7 +120,7 @@ Typischer Ablauf:
 - **Accept** – bewusst akzeptieren (mit Begründung & Frist)  
 
 Mehrere Treatments lassen sich kombinieren.  
-**Best Practice:** Jede Behandlung erzeugt mindestens ein **Work Item** (Owner, Fälligkeit) und verlinkt **Nachweis** (z. B. Config-PR, Scan-Report). Danach **Restrisiko** neu bewerten.
+**Best Practice:** Jede Behandlung erzeugt mindestens ein **Aufgabe** (Owner, Fälligkeit) und verlinkt **Nachweis** (z. B. Config-PR, Scan-Report). Danach **Restrisiko** neu bewerten.
 
 ## Praxisbeispiel
 
@@ -127,7 +128,7 @@ Mehrere Treatments lassen sich kombinieren.
 **Kontext:** Edge-VPN `vpn-gw-01` akzeptiert schwache Cipher → Gefahr für Datenabfluss.  
 **Initial:** Likelihood _möglich_, Impact _moderat_ → Score ca. 9 (Mittel)  
 **Treatment:** Mitigate – TLS ≥ 1.2 erzwingen, schwache Cipher deaktivieren, Forward Secrecy  
-**Work Items:** „TLS-Konfiguration härten“, Owner NetSec, Due +14 Tage  
+**Aufgaben:** „TLS-Konfiguration härten“, Owner NetSec, Due +14 Tage  
 **Nachweis:** PR #842 (Config), sslyze/Nmap-Report nach Änderung  
 **Residual:** nach Umsetzung neu bewerten (i. d. R. 1–2 Stufen niedriger)
 
@@ -135,9 +136,9 @@ Mehrere Treatments lassen sich kombinieren.
 
 - **Assets:** betroffene Systeme/Daten referenzieren (Inventar)  
 - **Kontrollen:** passende Kontrollen zuordnen, Wirksamkeit prüfen  
-- **Documents & Nachweis:** Policies, Reports, Freigaben versioniert ablegen  
-- **Work Items:** Maßnahmen planen & Fortschritt im Board verfolgen  
-- **Reviews:** Überprüfungsintervall (z. B. quartalsweise bei High-Risks) setzen
+- **Dokumente & Nachweis:** Policies, Reports, Freigaben versioniert ablegen  
+- **Aufgaben:** Maßnahmen planen & Fortschritt im Board verfolgen  
+- **Reviews:** Überprüfungsintervall (z. B. quartalsweise bei High-Risiken) setzen
 
 ## Risiko anlegen (How-to)
 
