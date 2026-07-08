@@ -4,6 +4,7 @@ import type { MDXComponents } from "mdx/types";
 import { Accordion, Accordions } from "./components/accordion";
 import { FeatureCard, FeatureCards } from "./components/mdx/feature-card";
 import { Mermaid } from "./components/mdx/mermaid";
+import { Path } from "./components/mdx/path";
 import {
 	A,
 	Blockquote,
@@ -62,6 +63,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
 		// biome-ignore lint/suspicious/noExplicitAny: fumadocs
 		img: (props) => <ImageZoom {...(props as any)} />,
 		Mermaid,
+		Path,
 		Accordions,
 		Accordion,
 		FeatureCard,
