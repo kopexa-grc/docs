@@ -1,5 +1,5 @@
 {
   "$schema": "../../../../../.source/json-schema/docs.meta.json",
-  "title": "Assets",
-  "icon": "Package"
+  "title": "Domains",
+  "icon": "Globe"
 }

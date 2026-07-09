@@ -1,0 +1,49 @@
+---
+title: Domains
+icon: Globe
+description: Internet-Domains im Space, Verifizierung, DNS-Sicherheit und Domain Security als Grundlage für Nachweise
+---
+
+**Domains** erfassen die **Internet-Domains** eines **Space** und überwachen deren Erkennung, Verifizierung und Sicherheitsstatus. Sie sind ein eigener Menüpunkt unter **Organisation → Geschäftswerte**, neben [Assets](../assets), [Personen](../people) und [Lieferanten](../vendors).
+
+> **Abgrenzung zu SSO-Domains:** Die hier gepflegten Domains sind **operative Internet-Domains** im Space (z. B. `example.com` für DNS-Sicherheit und Angriffsoberfläche). Die zentralen **SSO- und Login-Domains** für Benutzerzuordnung verwaltest du dagegen auf **Organisationsebene** (siehe [Domains (SSO)](../../quickstart/organization/domains/index.mdx)).
+
+**Navigation:**
+- Domains im Space: `/s/{space_id}/domains`
+
+---
+
+## Was kann ich mit Domains machen?
+
+- **Domain hinzufügen** und ihre DNS-, DMARC- und DNSSEC-Konfiguration überwachen.
+- **Verifizieren**, um die Kontrolle über die Domain nachzuweisen (Status **Verifiziert** oder **Nicht verifiziert**).
+- **Sicherheitsstatus** je Domain verfolgen: **In Ordnung** (alle Prüfungen bestanden) oder **Handlungsbedarf** (eine oder mehrere Prüfungen erfordern Aufmerksamkeit).
+
+---
+
+## Domain Security
+
+Über **Domain Security** wird eine Domain regelmäßig gescannt und gegen Compliance-Checks bewertet:
+
+- **Hosts und Services**: Entdeckte Hosts einer Domain und die darauf laufenden Services.
+- **Domain-Checks**: Empfohlene und aktive Compliance-Checks, jeweils aktivierbar oder deaktivierbar.
+- **Compliance-Score**: Prozentualer Erfüllungsgrad der aktiven Checks.
+- **Erneut scannen**: Manueller Rescan (mit Cooldown), um den Status zu aktualisieren.
+- **Ergebnisstatus** je Test: Beobachtet, Ausnahme, Nicht zutreffend, sowie Hinweise zur **Behebung** oder **manuellen Prüfung**.
+
+---
+
+## Beziehungen zu anderen Modulen
+
+- **Risiken**: Findet ein Scan Schwachstellen, lassen sich daraus Risiken bewerten.
+- **Aufgaben & Board**: Aus Handlungsbedarf abgeleitete Maßnahmen.
+- **Dokumente & Nachweise**: Scan- und Verifizierungsergebnisse dienen als Nachweis.
+
+---
+
+## Best Practices
+
+- **Domains verifizieren**: Nur verifizierte Domains liefern belastbare Sicherheitsaussagen.
+- **Handlungsbedarf abarbeiten**: Domains mit dem Status Handlungsbedarf priorisiert prüfen.
+- **Regelmäßig scannen**: Den Sicherheitsstatus aktuell halten, statt einmalig zu bewerten.
+- **SSO sauber trennen**: Login-Domains gehören auf die Organisationsebene, nicht hierher.

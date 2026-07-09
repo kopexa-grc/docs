@@ -1,95 +1,72 @@
 ---
-title: Inventar
-icon: PackageSearch
-description: Assets, Domains & Ressourcen im Space – Grundlage für Risiko, Kontrollen und Nachweise
+title: Assets
+icon: Package
+description: Assets im Space, Arten, Klassifikation und Verknüpfungen als Grundlage für Risiko, Kontrollen und Nachweise
 ---
 
-Das **Inventory** ist die fundierende Ressource eines jeden **Space**. Hier erfassen und verwalten Teams ihre **Assets**, **Domains** und weitere Ressourcen – vollständig **isoliert pro Space**.  
-Viele Kopexa-Features bauen direkt auf dem Inventory auf (Risiken, Kontrollen, Nachweise, Aufgaben).
+**Assets** sind die betrieblichen Werte eines **Space**: Software, Hardware, physische Objekte und Services. Sie bilden die Grundlage für Risikobewertung, Kontrollen und Nachweise und werden vollständig **isoliert pro Space** verwaltet.
 
-> **Scope:** Inventory gehört zum Space (siehe [Spaces](../../quickstart/spaces.mdx)). Zentrale SSO-Domains verwaltest du auf **Organisation**-Ebene (siehe [Domains](../../quickstart/organization/domains/index.mdx)).
+> **Scope:** Assets gehören zum Space (siehe [Spaces](../../quickstart/spaces.mdx)) und stehen dort unter **Organisation → Geschäftswerte**. Sie sind ein eigener Menüpunkt neben [Domains](../domains), [Personen](../people) und [Lieferanten](../vendors).
 
----
-
-## Warum Inventory?
-
-- **Single Source of Truth:** Einheitlicher Bestand (Assets, Domains, Services) als Ausgangspunkt für Risiko- und Compliance-Arbeit.  
-- **Isolation & Compliance:** Trennung pro Space unterstützt ISO 27001, NIS2, DSGVO & TISAX.  
-- **Verknüpfbar:** Assets verbinden sich mit **Risiken**, **Kontrollen**, **Dokumente/Nachweis** und **Aufgaben**.
+**Navigation:**
+- Assets im Space: `/s/{space_id}/assets`
 
 ---
 
-## Asset-Typen
+## Asset-Arten
 
-Kopexa liefert einen praxistauglichen Satz an **Asset-Typen** (erweiterbar):
+Kopexa unterscheidet vier Asset-Arten:
 
-- **application** – Geschäftsanwendungen, interne Tools, SaaS-Applikationen  
-- **infrastructure** – Server, Cluster, Netzkomponenten, DB-Instanzen  
-- **physical** – Geräte/Hardware (z. B. Laptops, Netzwerkswitches)  
-- **data** – Datenbestände, Datasets, Datenbanken, Storage  
-- **service** – Technische Services/Plattformen (z. B. CI/CD, Messaging)  
-- **other** – Alles, was nicht in obige Kategorien passt
+- **Software**: Anwendungen, interne Tools, SaaS, technische Services auf Software-Ebene.
+- **Hardware**: Server, Endgeräte, Netzkomponenten und sonstige technische Geräte.
+- **Physisch**: Standortbezogene Objekte wie Gebäude, Räume oder Zonen, mit eigenen Feldern für Standort, Etage, Raum, Adresse und **Sicherheitszonen-Level**.
+- **Service**: Bereitgestellte Services und Plattformen.
 
-> **Personen:** Personendaten werden in Kopexa nicht mehr als Asset geführt, sondern in einer eigenen **Personen-Entität** im Inventory-Kontext verwaltet. Dies erlaubt spezifische Onboarding-Prozesse, Richtlinien und Zuweisungen, bleibt aber logisch Teil des Inventory-Bereichs.
-
-> **Hinweis:** *Internet-Domains* im Inventory sind **operativ** (z. B. `example.com` für Angriffsoberfläche, Subdomain-Scanning, Zertifikate).  
-> **SSO-Domains** für Login/Zuordnung verwaltest du auf **Organisation-Ebene** (siehe [Domains](../../quickstart/organization/domains/index.mdx)).
+Über **Sub-Assets** lassen sich Assets hierarchisch gliedern, etwa ein Service mit den darunterliegenden Systemen.
 
 ---
 
-## Asset-Modell (Überblick)
+## Asset-Modell
 
 Typische Attribute eines Assets:
 
-- **ID, Name** – eindeutige Identifikation  
-- **Typ (Kind)** – siehe Asset-Typen oben  
-- **Status** – z. B. aktiv, außer Betrieb, ausgemustert  
-- **Klassifikation** – Vertraulichkeit, Kritikalität, Sensitivität  
-- **Metadaten** – strukturierte Zusatzinfos (frei definierbar)  
-- **Abteilungen** – Zuordnung zu Organisationseinheiten  
-- **Owner** – fachlich/technisch Verantwortliche  
-- **Beziehungen** – Verweise auf Lieferanten, Risiken, Kontrollen, Dokumente/Nachweis
+- **Name** und **Art** (siehe oben) zur eindeutigen Einordnung.
+- **Status**: Entwurf, Aktiv, Handlungsbedarf, Außer Betrieb oder Entsorgt.
+- **Klassifikation** nach **CIA**: Vertraulichkeit, Integrität und Verfügbarkeit, daraus abgeleitet **Kritikalität** und Risiko-Level.
+- **Verantwortlicher** (Owner) für fachliche und technische Zuständigkeit.
+- **Datenverarbeiter** und weitere Zuordnungen, wo relevant.
+- **Sub-Assets** zur hierarchischen Strukturierung.
+- **Beziehungen** zu Lieferanten, Risiken, Kontrollen, Dokumenten und Aufgaben.
 
-Speziell bei **data-Assets**:  
-Ein strukturiertes Retention-Feld (Aufbewahrungsdauer & Kommentar) dokumentiert gesetzliche oder interne Anforderungen.  
+Bei **physischen Assets** kommen standortbezogene Felder hinzu (Standort, Etage, Raum, Gebäude, Adresse) sowie das **Sicherheitszonen-Level** (Öffentlich, Kontrolliert, Gesichert, Hochsicher, Beschränkt).
 
 ---
 
-## Domains im Inventory
+## Erfassen und importieren
 
-**Internet-Domains** werden als eigene Inventory-Objekte geführt, z. B. für:
-
-- Subdomain-Discovery und DNS-Hygiene  
-- Zertifikatsüberwachung  
-- Angriffsoberflächen-Scanning  
-
-Sie können mit **Risiken**, **Aufgaben** (Maßnahmen) und **Dokumente/Nachweis** (Nachweise) verknüpft werden.
+- **Einzeln anlegen** direkt in der Asset-Liste.
+- **Import** mehrerer Assets über den Bulk-Import (z. B. aus einer Bestandsliste), inklusive Rückmeldung zu fehlerhaften Zeilen.
 
 ---
 
 ## Beziehungen zu anderen Modulen
 
-- **Risiken:** Risiken werden häufig **an Assets** bewertet und mit **Kontrollen** verknüpft.  
-- **Kataloge & Kontrollen:** Kontrollen adressieren Anforderungen (ISO, DSGVO, TISAX) und referenzieren relevante Assets.  
-- **Dokumente & Nachweis:** Policies, Verfahren und Nachweise verweisen auf betroffene Assets.  
-- **Lieferanten:** Drittsysteme/Provider, die Assets betreiben/hosten, können verknüpft werden.  
-- **Aufgaben & Board:** Abgeleitete Maßnahmen aus Asset-Bewertungen oder Scans.
+- **Risiken**: Risiken werden häufig **an Assets** bewertet und mit Kontrollen verknüpft.
+- **Kataloge & Kontrollen**: Kontrollen adressieren Anforderungen (ISO, DSGVO, TISAX) und referenzieren betroffene Assets.
+- **Dokumente & Nachweise**: Policies, Verfahren und Nachweise verweisen auf betroffene Assets.
+- **Lieferanten**: Drittsysteme und Provider, die Assets betreiben oder hosten, lassen sich verknüpfen.
+- **Aufgaben & Board**: Abgeleitete Maßnahmen aus Asset-Bewertungen.
 
----
-
-## Datenhaltung & Sicherheit
-
-- **Isolation pro Space:** Daten und Dateien eines Spaces sind logisch getrennt.  
-- **Dedizierte Buckets pro Space:** Dateien werden je Space in eigenen Object-Storage-Buckets abgelegt, mit identischer **Verschlüsselungs- und Retention-Strategie** wie unter [Security](../../quickstart/organization/security.mdx) beschrieben.  
-- **EU-Hosting:** Datenhaltung ausschließlich in Paris und Frankfurt bei OVH, mit SSE-OMK, regelmäßigen Backups (2-stündlich, 30 Tage + 30 Tage Glacier).
+> **Abgrenzung:**
+> **Personen** sind kein Asset, sondern eine eigene Entität (siehe [Personen](../people)).
+> **Internet-Domains** werden nicht unter Assets, sondern im eigenen Menüpunkt [Domains](../domains) gepflegt.
 
 ---
 
 ## Best Practices
 
-- **Inventory zuerst pflegen:** Saubere Asset-Daten sind Voraussetzung für wirksames Risiko- und Kontrollmanagement.  
-- **Eigentümer benennen:** Für jedes Asset Owner definieren (fachlich & technisch).  
-- **Klassifikation nutzen:** Vertraulichkeit/Kritikalität pflegen – treibt Risiko, Kontrollen und Priorisierung.  
-- **Retention setzen:** Für *data*-Assets Aufbewahrungsfristen und Begründungen dokumentieren.  
-- **Domains trennen:** SSO-Domain (Org) vs. Internet-Domain (Space) klar unterscheiden.  
-- **Rezertifizierung:** Regelmäßige Überprüfung von Beständen, Eigentümern und Klassifikationen.
+- **Assets zuerst pflegen**: Saubere Asset-Daten sind Voraussetzung für wirksames Risiko- und Kontrollmanagement.
+- **Verantwortliche benennen**: Für jedes Asset einen Owner definieren.
+- **Klassifikation nutzen**: Vertraulichkeit, Integrität und Verfügbarkeit pflegen, sie treiben Kritikalität und Priorisierung.
+- **Hierarchie abbilden**: Zusammengehörige Systeme über Sub-Assets gruppieren.
+- **Rezertifizierung**: Bestände, Eigentümer und Klassifikationen regelmäßig überprüfen.
