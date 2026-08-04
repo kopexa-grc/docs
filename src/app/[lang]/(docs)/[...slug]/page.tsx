@@ -7,7 +7,6 @@ import {
 import { createRelativeLink } from "fumadocs-ui/mdx";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { LLMCopyButton, ViewOptions } from "@/components/page-actions";
 import { createMetadata } from "@/lib/metadata";
 import { source } from "@/lib/source";
 import { getMDXComponents } from "@/mdx-components";
@@ -30,13 +29,6 @@ export default async function Page({ params }: Props) {
 			<DocsDescription className="mb-0">
 				{page.data.description}
 			</DocsDescription>
-			<div className="flex flex-row gap-2 items-center border-b pt-2 pb-6">
-				<LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-				<ViewOptions
-					markdownUrl={`${page.url}.mdx`}
-					githubUrl={`https://github.com/kopexa-grc/docs/blob/main/content/docs/${page.path}`}
-				/>
-			</div>
 			<DocsBody>
 				<MDXContent
 					components={getMDXComponents({
