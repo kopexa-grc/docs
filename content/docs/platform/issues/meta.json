@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Aufgaben",
+  "description": "Maßnahmen und To-dos planen, zuweisen und wiederkehrend automatisieren",
+  "icon": "ListChecks",
+  "pages": [
+    "status",
+    "milestones",
+    "recurring-issues"
+  ]
+}
