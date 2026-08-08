@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Trust Center",
+  "description": "Deine Sicherheits- und Compliance-Nachweise öffentlich und kontrolliert mit Kunden und Interessenten teilen",
+  "icon": "ShieldCheck",
+  "pages": [
+    "branding",
+    "content",
+    "documents",
+    "requests"
+  ]
+}
