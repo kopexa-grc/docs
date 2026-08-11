@@ -3,6 +3,7 @@
 	"icon": "FileText",
 	"pages": [
 		"create",
+		"manage",
 		"mapping",
 		"policies",
 		"review"

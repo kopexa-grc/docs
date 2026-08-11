@@ -60,13 +60,55 @@ graph TD
 />
 
 
+## Freigabe erforderlich: Pflicht oder optional
+
+Nicht jedes Dokument braucht denselben Freigabegrad. In Kopexa steuerst du das über die Einstellung **„Freigabe erforderlich"**.
+
+- Ist sie **aktiv**, kann ein Dokument erst nach abgeschlossener Freigabe veröffentlicht werden. Du weist Prüfer zu, und diese müssen freigeben.
+- Ist sie **inaktiv**, ist die Freigabe optional. Ohne zugewiesene Prüfer kannst du direkt veröffentlichen. Sobald du Prüfer zuweist, gilt wieder der normale Ablauf.
+
+Standardmäßig ist **Freigabe erforderlich** für alle Dokumente aktiv. So bleibt die bisherige, sichere Praxis erhalten.
+
+### Standard je Kategorie
+
+Den Standard legst du pro **Dokumentkategorie** fest. In den Kategorie-Einstellungen siehst du für jede Kategorie auf einen Blick, ob eine Freigabe erforderlich ist.
+
+![Spalte „Freigabe erforderlich" in den Kategorie-Einstellungen](./images/document-settings-categories.png)
+
+Beim Bearbeiten einer Kategorie schaltest du „Freigabe erforderlich" ein oder aus.
+
+![Schalter „Freigabe erforderlich" beim Bearbeiten einer Kategorie](./images/category-review-required.png)
+
+### Ausnahme je Dokument
+
+Einzelne Dokumente dürfen vom Kategorie-Standard abweichen. In der Detailansicht eines Dokuments findest du dazu die Zeile **„Freigabe erforderlich"**.
+
+![Freigabe-Einstellung in der Dokument-Detailansicht](./images/document-detail-sidebar.png)
+
+Du hast drei Möglichkeiten:
+
+- **Kategorie-Einstellung übernehmen:** Das Dokument folgt dem Standard seiner Kategorie.
+- **Erforderlich:** Für dieses Dokument ist eine Freigabe Pflicht, unabhängig von der Kategorie.
+- **Optional:** Für dieses Dokument ist die Freigabe optional.
+
+Diese Ausnahme kannst du auch direkt beim Anlegen setzen, unter **„Optionale Einstellungen"**.
+
+![Freigabe-Einstellung beim Anlegen eines Dokuments](./images/create-document-review.png)
+
+<Callout title="Gut zu wissen">
+In der Detailansicht zeigt dir Kopexa per Mouseover, warum der Wert so ist: geerbt von der Kategorie, oder als Ausnahme gesetzt und von wem.
+</Callout>
+
+
 ## Rollen & Verantwortlichkeiten
 
 - **Author:** Erstellt und bearbeitet Drafts.
 - **Reviewer:** Prüft Inhalt, kann freigeben oder Änderungen anfordern.
 - **Owner:** Fachlich verantwortliche Person für das Dokument (z. B. ISB).
 
-> **Best Practice:** Jeder freigegebene Policy-Draft sollte mindestens einen Reviewer und einen Owner haben.
+<Callout title="Best Practice">
+Jeder freigegebene Entwurf sollte mindestens einen Prüfer und einen Owner haben.
+</Callout>
 
 ## Audit-Trail & Versionierung
 
@@ -78,7 +120,7 @@ graph TD
 
 Nach Freigabe wird ein Dokument als **„Published“** geführt:
 
-- Kann **gemappt** werden (Assets, Kontrollen, Risiken, Lieferanten).
+- Kann **gemappt** werden (Nachweise, Kontrollen, Findings, Assets, Risiken, Lieferanten, Prozesse und mehr).
 - Kann in Audits als **Nachweis** genutzt werden.
 - Unterliegt einem **Reviewzyklus** (siehe [Mapping & Zyklen](./mapping.mdx)).
 
