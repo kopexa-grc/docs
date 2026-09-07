@@ -2,16 +2,17 @@
 	"title": "Platform",
 	"description": "Documentation",
 	"root": true,
-    "pages": [
-        "...index",
-        "---Quick Start---",
-        "...quickstart",
-        "---Menü---",
-        "issues",
-        "documents",
-        "governance",
-        "compliance",
-        "organization",
-        "trust-center"
-    ]
+	"pages": [
+		"...index",
+		"---Quick Start---",
+		"...quickstart",
+		"---Menü---",
+		"issues",
+		"documents",
+		"governance",
+		"compliance",
+		"organization",
+		"trust-center",
+		"surveys"
+	]
 }

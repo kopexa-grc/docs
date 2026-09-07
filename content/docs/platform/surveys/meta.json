@@ -1,0 +1,11 @@
+{
+  "$schema": "../../../../../.source/json-schema/docs.meta.json",
+  "title": "Umfragen",
+  "icon": "ClipboardList",
+  "pages": [
+    "erstellen",
+    "auswerten",
+    "vorlagen",
+    "archiv"
+  ]
+}
