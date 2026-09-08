@@ -1,0 +1,84 @@
+---
+title: KPIs automatisch tracken
+description: KPI-Werte automatisch aus deinen eigenen Systemen einspielen, statt sie von Hand zu pflegen.
+---
+
+Der häufigste Grund, warum KPIs nach wenigen Monaten verwaisen, ist der manuelle Pflegeaufwand. Wer jede Woche Werte von Hand abtippt, hört irgendwann auf. Kopexa löst das über die API: Du baust einmal einen Ablauf, der den Wert aus deiner Quelle berechnet und an Kopexa schickt. Danach läuft er still im Hintergrund.
+
+Kopexa schreibt dir keine Quellsysteme vor. Du kennst deine IT-Landschaft am besten und weißt, wo die Daten liegen: in Zammad, Jira, einem eigenen Ticket-System, einem SIEM, einem Schwachstellen-Scanner oder einer Datenbank. Kopexa stellt die Schnittstelle bereit und übernimmt den Rest: Schwellwert-Überwachung, Risiko-Eskalation und Sichtbarkeit im Management-Review.
+
+So verschiebt sich die Arbeit: Statt „Ich muss den KPI pflegen" gilt „Der KPI pflegt sich selbst, ich reagiere nur noch auf Abweichungen". Erst dann funktioniert ein Frühwarnsystem wirklich.
+
+## So richtest du es ein
+
+1. Erstelle einen [API Token](/platform/quickstart/api-tokens) mit Schreibrechten für den Space.
+2. Baue einen Ablauf, der den Wert aus deiner Quelle holt und berechnet.
+3. Lass den Ablauf den Wert regelmäßig als neuen Messwert an den KPI schreiben.
+
+Die technischen Details der Schnittstelle erkundest du im [API Playground](https://api.kopexa.com/playground).
+
+<Callout title="Empfohlene Werkzeuge">
+Für die meisten Fälle reicht ein Low-Code-Workflow-Tool wie [Windmill](https://www.windmill.dev/) oder [n8n](https://n8n.io/). Beide sind selbst hostbar, haben fertige Konnektoren für gängige Systeme und lassen sich schnell anbinden. Wer es lieber skriptbasiert mag, nimmt einen Cron-Job, eine Lambda-Funktion oder einen Kubernetes-CronJob. Am Ergebnis ändert das nichts.
+</Callout>
+
+## Beispiel: MTTA aus Zammad
+
+Angenommen, du betreibst deinen Intake für Sicherheitsvorfälle in Zammad. Eine Anforderung aus NIS2 lautet: Sicherheitsrelevante Vorfälle müssen innerhalb klar definierter Zeiten erkannt, klassifiziert und behandelt werden. Daraus leitest du ein Ziel ab:
+
+> **Ziel:** Mean Time to Acknowledge (MTTA) für sicherheitsrelevante Vorfälle unter 30 Minuten, bis 2026-06-30
+>
+> **Abgeleitete Stakeholder:** BSI (NIS2-Anforderung), Cyber-Versicherer (Reaktionsklausel in der Police)
+>
+> **Adressiertes Risiko:** Eine verzögerte Reaktion auf Sicherheitsvorfälle weitet den Schaden aus und verletzt die 24-Stunden-Meldepflicht.
+
+Der KPI in Kopexa sieht so aus:
+
+| Feld | Wert |
+|---|---|
+| **Name** | MTTA, sicherheitsrelevante Vorfälle |
+| **Einheit** | Minuten |
+| **Zielwert** | ≤ 30 |
+| **Datenquelle** | Zammad, Ticket-Gruppe *Security*, Zeit zwischen Erstellung und erster Reaktion |
+| **Aktualisierung** | stündlich |
+| **Pflege** | automatisch aus einem Windmill-Flow |
+
+Der Flow läuft stündlich und besteht aus drei Schritten:
+
+1. **Zammad abfragen:** alle Tickets der Gruppe *Security* aus dem letzten Zeitfenster holen.
+2. **MTTA berechnen:** gleitender Durchschnitt der Zeit zwischen Erstellung und erster Reaktion.
+3. **An Kopexa schicken:** den aktuellen Wert über die API als Messwert auf den KPI schreiben.
+
+<Mermaid chart={`
+graph LR
+    Z[Zammad] -->|1. abfragen| W[Windmill / n8n]
+    W -->|2. MTTA berechnen| W
+    W -->|3. per API schreiben| K[Kopexa KPI]
+    K -->|Schwellwert ueberschritten| R[Risiko eskaliert]
+    R -->|sichtbar im| MR[Management-Review]
+    MR -->|Entscheidung| MA[Massnahme]
+    MA -.wirkt auf.-> Z
+`} />
+
+Sobald der Flow läuft, übernimmt Kopexa den Rest: Der Wert wird am KPI aktualisiert, Schwellwertüberschreitungen eskalieren das verknüpfte Risiko, und beim nächsten Management-Review liegt eine belastbare Datenbasis vor. Niemand muss dafür eine Tabelle anfassen.
+
+<Callout title="Du behältst die Kontrolle">
+Du entscheidest selbst, welche Tickets einbezogen werden, wie gefiltert wird, wann ein Ticket als erster Kontakt gilt und wie oft der Wert aktualisiert wird. Dein Ablauf kennt deine Systeme genau. Neue Datenquellen fügst du selbst hinzu, ohne auf ein Produktrelease zu warten.
+</Callout>
+
+## Typische Datenquellen
+
+| KPI | Quelle (Beispiel) | Beispielziel |
+|---|---|---|
+| **Mean Time to Patch** (kritische CVEs) | Qualys, Tenable, Greenbone | ≤ 7 Tage |
+| **Phishing-Klickrate** | KnowBe4, SoSafe | < 3 % |
+| **MFA-Abdeckung** | Entra ID, Okta, Keycloak | ≥ 99 % |
+| **Offene Security-Tickets > 30 Tage** | Zammad, Jira, ServiceNow | = 0 |
+| **SLA-Einhaltung Lieferanten-Antwort** | Ticket-System oder Lieferanten-Portal | ≥ 98 % |
+| **Fehlgeschlagene Logins (Trend)** | SIEM (z. B. Wazuh, Elastic, Splunk) | Alarm bei Anstieg > 200 % |
+| **Zertifikate mit Ablauf < 14 Tage** | Certificate Monitoring | = 0 |
+
+Jede Quelle bringt ihre eigene Schnittstelle mit. Der einmalige Aufwand liegt darin, den Ablauf zu bauen, der die Werte holt, aufbereitet und an Kopexa schickt. Danach läuft das System von allein.
+
+<Callout title="Automatisierung ersetzt keine Datenqualität">
+Ein automatisch gespeister KPI, der die falschen Daten einbezieht (zum Beispiel alle Tickets statt nur der sicherheitsrelevanten), ist schlechter als ein manuell gepflegter richtiger. Definiere die Filterlogik in deinem Ablauf einmal sauber. Danach läuft sie allein. Investiere die Zeit beim Bauen, nicht beim Auswerten.
+</Callout>

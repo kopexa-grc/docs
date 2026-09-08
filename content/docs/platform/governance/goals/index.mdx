@@ -75,121 +75,42 @@ Für Zertifizierungszwecke deckt Kopexa alle Anforderungen aus **Kap. 6.2** ab: 
 
 ## Ziel anlegen
 
-Unter `Governance → Ziele → Neues Ziel`:
+Ziele findest du unter **Governance → Ziele**. Ein neues Ziel legst du über **Neues Ziel** an.
+
+![Ziele-Liste mit Verantwortlichen, Status und Zieldatum](./images/ziele-liste.png)
+
+Beim Anlegen füllst du aus:
 
 | Feld | Bedeutung |
 |---|---|
 | **Name** | Kurz, handlungsorientiert, zielwertbezogen – *"Phishing-Klickrate unter 3 % bis Q4"* statt *"Bewusstsein für Phishing erhöhen"* |
 | **Beschreibung** | Warum dieses Ziel? Welche Stakeholder-Erwartung steht dahinter, welche strategische Vorgabe wird operationalisiert? |
 | **Verantwortlich** | Eine Person, die das Ziel trägt – nicht ein Team |
-| **Vertreter** | Stellvertretung für Reviews und Eskalation |
 | **Zieldatum** | Verbindlicher Termin, an dem der Erfolg gemessen wird |
-| **Status** | Entwurf → Aktiv → Erreicht / Verfehlt / Archiviert |
+| **Labels** | Freie Schlagworte zur Gruppierung und Filterung |
+
+Ein neues Ziel startet im Status **Entwurf**. Status, Vertretung und die Verknüpfungen zu KPIs, Stakeholdern, Risiken und Dokumenten pflegst du danach direkt auf der Detailseite des Ziels.
 
 <Callout type="info">
 **Namensmuster:** Ein guter Zielname enthält bereits den KPI. Vergleicht: *"Patch-Management verbessern"* versus *"Mean Time to Patch kritische CVEs unter 7 Tage bis 2026-12-31"*. Das erste ist ein Wunsch, das zweite ist ein prüfbares Versprechen – und nur das zweite hilft eurem Team, Prioritäten zu setzen.
 </Callout>
 
-## KPIs: Messgrößen, die etwas aussagen
+## KPIs: die Messgröße jedes Ziels
 
-Ein Ziel ohne KPI ist ein Wunsch. Pro Ziel gehört mindestens ein KPI, selten mehr als drei:
+Ein Ziel ohne KPI ist ein Wunsch. Pro Ziel gehört mindestens ein KPI, selten mehr als drei. Der KPI macht aus dem Ziel ein prüfbares Versprechen und ist zugleich dein Frühwarnsystem: Läuft er in die falsche Richtung, wird das Risiko sichtbar, bevor es zum Vorfall wird.
 
-- **Name** – was wird gemessen?
-- **Einheit** – Tage, Prozent, Anzahl, Euro
-- **Zielwert** – der Schwellenwert, unter bzw. über dem das Ziel erreicht gilt
-- **Aktueller Wert** – manuell gepflegt oder per GraphQL-API aus einem eigenen Workflow geschrieben
-- **Datenquelle** – woher kommt der Wert, wer pflegt ihn, in welchem Rhythmus?
+Was eine gute Kennzahl ausmacht, wie du KPIs anlegst und auswertest und wie du Werte automatisch aus deinen Systemen einspielst, liest du in der KPI-Doku:
 
-### Was einen KPI brauchbar macht
-
-| Merkmal | Schlechter KPI | Guter KPI |
-|---|---|---|
-| **Spezifität** | „Sicherheitsvorfälle reduzieren" | „Anzahl Phishing-Vorfälle mit Datenabfluss pro Quartal ≤ 1" |
-| **Datenquelle** | Geschätzt, ohne Quelle | Automatisch aus dem SIEM, wöchentlich aktualisiert |
-| **Pflegeverantwortung** | Unklar | SOC-Lead, wöchentlich |
-| **Handlungsrelevanz** | „Nice to know" | Eskaliert in ein Risiko bei Überschreitung |
-
-> **Warnung:** Definiert keinen KPI, dessen Datenquelle ihr nicht geklärt habt. Ein KPI, den niemand pflegt, ist nicht nur wertlos – er untergräbt das Vertrauen in die gesamte Zielverfolgung. Lieber ein KPI weniger als ein KPI ohne Datenbasis.
-
-### KPIs automatisch tracken
-
-<Callout>
-**Der manuelle Pflegeaufwand ist der häufigste Grund, warum Ziele in Compliance-Tools nach wenigen Monaten verwaisen.** Wer einmal pro Woche Excel-Werte abtippt, bricht das Ritual nach drei Monaten ab. Kopexa löst das über seine **GraphQL-API**: Ihr baut einmal einen Workflow, der den KPI-Wert aus eurer Quelle berechnet und an Kopexa schickt – danach läuft er stumm im Hintergrund.
-</Callout>
-
-Kopexa schreibt euch keine Quellsysteme vor. Ihr kennt eure IT-Landschaft besser als jedes Tool, und ihr wisst, wo die Daten liegen – in Zammad, Jira, einem selbstgebauten Ticket-System, einem SIEM, einem Vulnerability-Scanner oder einer Datenbank. Kopexa stellt die **GraphQL-API** bereit und übernimmt alles, was danach kommt: Schwellwert-Monitoring, Risiko-Eskalation, Sichtbarkeit im Management-Review.
-
-Automatisierung verändert die Psychologie der Zielverfolgung grundlegend. Statt *"Ich muss den KPI pflegen"* wird daraus *"Der KPI pflegt sich selbst, ich muss nur auf Abweichungen reagieren"*. Genau dieser Zustand ist Voraussetzung dafür, dass ein Frühwarnsystem tatsächlich funktioniert – und nicht nur im Soll-Prozess existiert.
-
-<Callout type="info">
-**Empfohlene Werkzeuge für den Workflow:** Für die meisten Fälle reicht ein Low-Code-Workflow-Tool wie [**Windmill**](https://www.windmill.dev/) oder [**n8n**](https://n8n.io/). Beide sind selbst hostbar, haben fertige Konnektoren für gängige Systeme und lassen sich in wenigen Minuten gegen die Kopexa-GraphQL-API konfigurieren. Wer es skriptbasiert bevorzugt, kann stattdessen einen Cron-Job, eine Lambda-Funktion oder einen Kubernetes-CronJob verwenden – am Ergebnis ändert das nichts.
-</Callout>
-
-#### Beispiel: MTTA-KPI aus Zammad
-
-Angenommen, ihr betreibt euren Sicherheitsvorfall-Intake in **Zammad**. Eine reale Anforderung aus NIS2 lautet: Sicherheitsrelevante Vorfälle müssen innerhalb klar definierter Zeiten erkannt, klassifiziert und behandelt werden. Daraus leitet ihr ein Ziel ab:
-
-> **Ziel:** *Mean Time to Acknowledge (MTTA) für sicherheitsrelevante Vorfälle unter 30 Minuten – bis 2026-06-30*
->
-> **Abgeleitete Stakeholder:** BSI (NIS2-Anforderung), Cyber-Versicherer (Reaktionsklausel in der Police)
->
-> **Adressiertes Risiko:** *"Verzögerte Reaktion auf Sicherheitsvorfälle führt zur Ausweitung des Schadens und zur Verletzung der 24-Stunden-Meldepflicht"*
-
-Der KPI in Kopexa sieht so aus:
-
-| Feld | Wert |
-|---|---|
-| **Name** | MTTA – sicherheitsrelevante Vorfälle |
-| **Einheit** | Minuten |
-| **Zielwert** | ≤ 30 |
-| **Datenquelle** | Zammad – Ticket-Gruppe *Security*, Zeitdifferenz zwischen `created_at` und `first_response_at` |
-| **Aktualisierung** | stündlich |
-| **Pflege** | automatisch per GraphQL-Mutation aus einem Windmill-Flow |
-
-Der dazugehörige Windmill-Flow (oder n8n-Workflow) besteht aus drei Schritten und läuft stündlich per Cron-Trigger:
-
-1. **Zammad abfragen** – alle Tickets der Gruppe *Security* aus dem letzten Zeitfenster abholen
-2. **MTTA berechnen** – gleitender Durchschnitt der Zeitdifferenz zwischen `created_at` und `first_response_at`
-3. **An Kopexa schicken** – per GraphQL-Mutation den aktuellen Wert auf den KPI schreiben
-
-<Mermaid chart={`
-graph LR
-    Z[Zammad<br/>Ticket-API] -->|1. fetch| W[Windmill / n8n<br/>Flow]
-    W -->|2. MTTA berechnen| W
-    W -->|3. GraphQL Mutation| K[Kopexa KPI]
-    K -->|Schwellwert ueberschritten| R[Risiko eskaliert]
-    R -->|sichtbar im| MR[Management-Review]
-    MR -->|Entscheidung| MA[Massnahme]
-    MA -.wirkt auf.-> Z
-`} />
-
-Ab dem Moment, in dem der Flow läuft, übernimmt Kopexa den Rest: Der Wert wird am KPI aktualisiert, Schwellwertüberschreitungen eskalieren automatisch das verknüpfte Risiko, und beim nächsten Management-Review liegt eine belastbare Datenbasis auf dem Tisch – ohne dass jemand eine Tabelle anfassen musste.
-
-<Callout>
-**An diesem Punkt hört Kopexa auf, ein Verwaltungstool zu sein.** Ziele werden zum operativen Steuerungsinstrument: Sie dokumentieren nicht mehr – sie greifen ein. KPI-Abweichungen eskalieren Risiken, Risiken treiben Maßnahmen, Maßnahmen verändern die Systeme, aus denen die KPIs wieder entstehen. Der Kreis schließt sich ohne manuellen Eingriff. Compliance wird damit von einer Nachweispflicht zu einem aktiven Feedback-Loop, der euer Unternehmen messbar schneller und sicherer macht.
-</Callout>
-
-<Callout type="info">
-**Warum das besser ist als eine fest eingebaute Integration:** Ihr entscheidet selbst, welche Tickets einbezogen werden, wie gefiltert wird, wann ein Ticket als „erster Kontakt" gilt und wie oft der Wert aktualisiert wird. Kopexa kennt eure Zammad-Instanz nicht – aber euer Flow kennt sie genau. Ihr müsst nie gegen ein starres Mapping kämpfen, und neue Datenquellen fügt ihr selbst hinzu, ohne auf ein Produktrelease zu warten.
-</Callout>
-
-#### Typische Datenquellen, die sich so anbinden lassen
-
-| KPI | Quelle (Beispiel) | Beispielziel |
-|---|---|---|
-| **Mean Time to Patch** (kritische CVEs) | Qualys, Tenable, Greenbone | ≤ 7 Tage |
-| **Phishing-Klickrate** | KnowBe4, SoSafe | < 3 % |
-| **MFA-Abdeckung** | Entra ID, Okta, Keycloak | ≥ 99 % |
-| **Offene Security-Tickets > 30 Tage** | Zammad, Jira, ServiceNow | = 0 |
-| **SLA-Einhaltung Lieferanten-Response** | Ticket-System oder Lieferanten-Portal | ≥ 98 % |
-| **Failed-Login-Trend** | SIEM (z. B. Wazuh, Elastic, Splunk) | Alarm bei Anstieg > 200 % |
-| **Zertifikats-Ablauf < 14 Tage** | Certificate Monitoring | = 0 |
-
-Jede dieser Quellen bringt eine eigene API mit. Der einmalige Aufwand besteht darin, den Workflow in Windmill, n8n oder einem vergleichbaren Tool zu bauen, der die Werte abholt, transformiert und per GraphQL-Mutation an Kopexa schickt. Danach läuft das System autonom.
-
-> **Warnung:** Automatisierung befreit euch vom Pflegeaufwand, nicht von der Pflicht zur Datenqualität. Ein automatisch gespeister KPI, der die falschen Tickets einbezieht (z. B. alle Tickets statt nur sicherheitsrelevante), ist schlimmer als ein manuell gepflegter richtiger. Die Filterlogik in eurem Flow gehört **einmalig sauber definiert** – danach läuft sie allein. Investiert die Zeit beim Bauen des Workflows, nicht beim Auswerten.
+<Cards>
+  <Card title="KPIs" href="/platform/governance/kpis" />
+  <Card title="KPI anlegen" href="/platform/governance/kpis/erstellen" />
+  <Card title="KPI auswerten" href="/platform/governance/kpis/auswerten" />
+  <Card title="KPIs automatisch tracken" href="/platform/governance/kpis/automatisieren" />
+</Cards>
 
 ## Verknüpfungen
+
+![Ziel-Detailseite mit KPIs, Zielerreichung und Verknüpfungen](./images/ziel-detail.png)
 
 Die Detailseite eines Ziels verknüpft mit drei Bereichen:
 
@@ -205,9 +126,10 @@ Die Detailseite eines Ziels verknüpft mit drei Bereichen:
 |---|---|---|
 | **Entwurf** | In Abstimmung, noch nicht beschlossen | Wochen |
 | **Aktiv** | Beschlossen, KPIs werden gepflegt, monatliches Review | Monate bis zu einem Jahr |
+| **Gefährdet** | Ein verknüpfter KPI liegt im Warnbereich oder verfehlt den Zielwert, das Ziel ist in Gefahr | – |
 | **Erreicht** | Zieldatum erreicht, KPI-Zielwert erfüllt | – |
 | **Verfehlt** | Zieldatum abgelaufen, Zielwert nicht erfüllt, Ursache dokumentiert | – |
-| **Archiviert** | Historisch, für Audit-Trail erhalten | dauerhaft |
+| **Aufgegeben** | Bewusst nicht weiterverfolgt, für den Audit-Trail erhalten | dauerhaft |
 
 Der Statuswechsel ist revisionssicher protokolliert. Besonders wichtig: **Verfehlt** ist keine Niederlage, sondern Input für das nächste Ziel. Die Dokumentation der Ursache ist der eigentliche Wert – sie zeigt, dass euer Management-System lernt.
 
