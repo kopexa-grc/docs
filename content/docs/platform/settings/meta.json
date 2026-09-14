@@ -1,0 +1,9 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Einstellungen",
+  "icon": "Settings",
+  "pages": [
+    "surveys",
+    "datenexport"
+  ]
+}

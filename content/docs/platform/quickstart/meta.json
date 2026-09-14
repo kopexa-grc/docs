@@ -1,6 +1,7 @@
 {
   "$schema": "../../../../.source/json-schema/docs.meta.json",
   "title": "Quickstart",
+  "icon": "Rocket",
   "description": "Erste Schritte mit Kopexa",
   "pages": [
     "...index",

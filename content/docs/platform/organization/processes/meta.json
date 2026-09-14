@@ -3,6 +3,7 @@
   "title": "Prozesse",
   "icon": "ListTodo",
   "pages": [
+    "bpmn",
     "bia"
   ]
 }
