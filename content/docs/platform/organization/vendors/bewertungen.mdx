@@ -1,7 +1,7 @@
 ---
 title: Bewertungen
 icon: ClipboardCheck
-description: Sicherheitsbewertungen an Lieferanten verschicken, deren Antworten überprüfen und freigeben oder ablehnen.
+description: Sicherheitsbewertungen an Lieferanten verschicken, nachfassen, überprüfen und abschließen.
 ---
 
 Eine **Bewertung** ist eine [Umfrage](/platform/settings/surveys) vom Typ Lieferanten-Risikobewertung, die du an einen Lieferanten verschickst. Der Lieferant füllt den Fragebogen über einen Link aus, du überprüfst die Antworten und schließt die Bewertung mit einer Entscheidung ab.
@@ -12,13 +12,13 @@ Wie du den Fragebogen aufbaust, Vorlagen pflegst, Ergebnisse auswertest und arch
 
 ## Bewertung senden
 
-Du verschickst eine Bewertung aus dem Lieferanten-Modul. Dabei gibst du an:
+Du verschickst eine Bewertung aus dem **Bewertungen**-Tab des Lieferanten. Dabei wählst du:
 
-- **Empfänger** - Name und E-Mail-Adresse der Kontaktperson beim Lieferanten.
-- **Frist** - bis wann die Bewertung ausgefüllt sein soll.
-- **Wiederholung** - optional, damit die Bewertung regelmäßig neu ausgeht.
+- **Umfrage** - den Fragebogen, den der Lieferant ausfüllen soll.
+- **Empfänger** - die Kontaktperson beim Lieferanten und die **Sprache der E-Mails** (Deutsch oder Englisch).
+- **Frist** - bis wann die Bewertung ausgefüllt sein soll: 7, 14, 30, 60 oder 90 Tage. Standard sind 14 Tage.
 
-Kopexa erzeugt einen persönlichen **Freigabelink** und verschickt ihn an den Empfänger. Über diesen Link füllt der Lieferant den Fragebogen aus, ohne ein eigenes Konto zu brauchen.
+Kopexa schickt dem Empfänger eine Einladung mit einem persönlichen **Freigabelink** und der Frist. Über den Link öffnet der Lieferant den Fragebogen, ohne ein eigenes Konto zu brauchen. Zur Sicherheit bestätigt er den Zugriff mit einem Code, den er per E-Mail bekommt.
 
 ## Versendete Bewertungen
 
@@ -26,35 +26,94 @@ Die versendeten Bewertungen findest du im **Bewertungen**-Tab des Lieferanten so
 
 ![Liste der versendeten Bewertungen mit Status](./images/bewertungen-liste.png)
 
-Jede Zeile zeigt den Lieferanten, die Kontaktperson, den Status, das Sendedatum und die Frist.
+Jede Zeile zeigt die Umfrage, die Kontaktperson, den Status, die Risikostufe, das Sendedatum und die Frist. Über das Spalten-Symbol blendest du Spalten ein und aus. Kopexa merkt sich deine Auswahl.
 
 ### Status einer Bewertung
 
 | Status | Bedeutung |
 |--------|-----------|
-| **Ausstehend** | Verschickt, aber noch nicht bearbeitet. |
-| **In Bearbeitung** | Der Lieferant füllt den Fragebogen gerade aus. |
-| **Überfällig** | Die Frist ist verstrichen, ohne dass abgeschlossen wurde. |
-| **Überprüfung nötig** | Der Lieferant hat geantwortet, du bist am Zug. |
-| **Nachbesserung** | Du hast Nachbesserung angefordert, der Lieferant bessert nach. |
+| **Ausstehend** | Verschickt, der Lieferant hat noch nicht angefangen. |
+| **In Bearbeitung** | Der Lieferant füllt den Fragebogen aus. |
+| **Überprüfung nötig** | Der Lieferant hat abgeschickt, du bist am Zug. |
+| **Nachbesserung** | Du hast Nachbesserung angefordert, der Lieferant überarbeitet einzelne Antworten. |
 | **Genehmigt** | Bewertung geprüft und freigegeben. |
 | **Abgelehnt** | Bewertung geprüft und abgelehnt. |
-| **Archiviert** | Aus dem Alltag genommen, siehe [Archiv](/platform/settings/surveys/archiv). |
+| **Zurückgezogen** | Du hast die Bewertung zurückgezogen. Der Lieferant kann nicht mehr antworten. |
+
+### Überfällige Bewertungen
+
+Überfällig ist kein eigener Status, sondern ein Hinweis für dich: Die Frist ist vorbei und die Bewertung ist noch offen (Ausstehend, In Bearbeitung oder Nachbesserung).
+
+- In der Liste ist die Frist dann **rot** markiert, darunter steht, seit wann sie überfällig ist.
+- In der Antworten-Ansicht der Umfrage filterst du mit **Überfällig** gezielt nach diesen Bewertungen.
+- Der Lieferant kann trotzdem weiter ausfüllen und abschicken. Eine verpasste Frist sperrt ihn nicht aus.
+
+So erkennst du, bei welchen Lieferanten du nachfassen solltest. Wie das geht, liest du unter [Erneut senden](#erneut-senden).
 
 ## Überprüfen
 
-Öffne eine Bewertung mit dem Status **Überprüfung nötig**. Du siehst die Antworten Frage für Frage und kannst zu einzelnen Punkten Notizen hinterlassen.
+Öffne eine Bewertung aus der Liste. Du siehst die Antworten Frage für Frage. Solange die Bewertung auf **Überprüfung nötig** steht, hinterlässt du zu einzelnen Fragen Notizen.
 
 ![Bewertung überprüfen mit Antworten und Aktionen](./images/bewertungen-pruefen.png)
 
-Zum Abschluss hast du drei Möglichkeiten:
+Über der Fragenliste grenzt du die Ansicht ein:
+
+- **Alle** - jede Frage.
+- **Aufmerksamkeit nötig** - Fragen mit auffälligen Antworten, etwa einer Ausschluss-Antwort oder einer niedrigen Punktzahl. Das setzt voraus, dass der Fragebogen eine Bewertung der Antworten hat.
+- **Kommentiert** - Fragen, zu denen du eine Notiz geschrieben hast.
+
+Rechts triffst du die **Entscheidung**:
 
 - **Genehmigen** - die Bewertung ist in Ordnung.
 - **Nachbesserung anfordern** - der Lieferant soll einzelne Punkte überarbeiten.
 - **Ablehnen** - die Bewertung erfüllt die Anforderungen nicht.
 
-Rechts findest du außerdem den **Freigabelink** und den **Token**, kannst die Bewertung **erneut senden** und siehst Frist, Sendedatum und Wiederholung.
+Darunter siehst du Empfänger, Sendedatum, Frist und Abschlussdatum. Bei offenen Bewertungen steht unter der Frist, wie viele Tage noch bleiben oder seit wann sie überfällig ist. Solange der Lieferant noch antworten kann, findest du dort auch den **Freigabelink**, bis wann er gültig ist, und die Aktionen **Erneut senden** und **Zurückziehen**.
 
-<Callout title="Archivierte Bewertungen">
-Bei einer archivierten Umfrage sind diese Aktionen eingeschränkt: Erneut senden, Freigabelink, Token und Nachbesserung entfallen, es bleiben nur Genehmigen und Ablehnen. Neue Antworten nimmt der Fragebogen dann nicht mehr an.
+## Nachbesserung anfordern
+
+Mit einer Nachbesserung bittest du den Lieferanten, einzelne Antworten zu überarbeiten, statt die Bewertung abzulehnen.
+
+1. Schreib zu den betroffenen Fragen einen Kommentar.
+2. Wähle eine **Frist** für die Nachbesserung. Ist die bisherige Frist noch mindestens eine Woche entfernt, kannst du sie beibehalten. Sonst schlägt Kopexa 14 Tage vor.
+3. Fordere die Nachbesserung an.
+
+Der Lieferant bekommt eine eigene E-Mail mit der Zahl der betroffenen Fragen und der Frist. Über seinen Link sieht er nur diese Fragen, jeweils mit deinem Kommentar. Seine übrigen Antworten bleiben erhalten. Sobald er erneut abschickt, steht die Bewertung wieder auf **Überprüfung nötig**.
+
+## Erneut senden
+
+Mit **Erneut senden** erinnerst du den Lieferanten an eine offene Bewertung. Er bekommt eine Erinnerung mit seinem Link. Hat er schon angefangen, weist die E-Mail darauf hin, dass seine Antworten gespeichert sind.
+
+Beim erneuten Senden kannst du die **Frist verlängern**. Standardmäßig bleibt sie, wie sie ist. Ist die Bewertung überfällig, setzt du mit einer neuen Frist auch den Überfällig-Hinweis zurück.
+
+Während einer Nachbesserung schickt Kopexa statt der Erinnerung noch einmal die Nachbesserungs-E-Mail.
+
+## Erinnerungen und Zusammenfassung
+
+- **An den Lieferanten:** Eine Woche und einen Tag vor Fristende erinnert Kopexa den Lieferanten automatisch per E-Mail an eine offene Bewertung, auch während einer Nachbesserung. Hast du kurz vorher selbst erneut gesendet, entfällt die nächste Erinnerung. Nach Fristende kommen keine automatischen Erinnerungen mehr. Dann entscheidest du, ob du erneut sendest.
+- **An dich:** In deiner wöchentlichen Zusammenfassung per E-Mail listet Kopexa die überfälligen Bewertungen, die du verschickt hast.
+
+## Zurückziehen
+
+Brauchst du eine Bewertung nicht mehr, etwa weil die Zusammenarbeit endet, ziehst du sie zurück. Das geht, solange sie offen ist oder auf **Überprüfung nötig** steht.
+
+- Optional gibst du einen **Grund** an. Er ist nur intern sichtbar.
+- Der Lieferant kann danach nicht mehr antworten. Öffnet er seinen Link, sieht er einen Hinweis, dass die Anfrage zurückgezogen wurde.
+- Die bisherigen Antworten bleiben erhalten. Datum und Grund siehst du rechts in der Bewertung.
+- Das Zurückziehen lässt sich nicht rückgängig machen. Brauchst du die Bewertung doch, verschickst du eine neue.
+
+<Callout title="Zurückziehen oder löschen?">
+Zurückziehen schließt die Bewertung ab und hält fest, was bis dahin passiert ist. Löschen entfernt die Bewertung samt Antworten. Für einen nachvollziehbaren Verlauf ist Zurückziehen meist die bessere Wahl.
+</Callout>
+
+## Was der Lieferant sieht
+
+- **Einladung:** eine E-Mail mit Link und Frist.
+- **Ausfüllen:** Nach dem Bestätigungscode arbeitet er den Fragebogen ab. Er kann unterbrechen und später weitermachen, auch nach Fristende.
+- **Nach dem Abschicken:** Öffnet er den Link erneut, sieht er, dass seine Antworten eingegangen sind.
+- **Nachbesserung:** nur die betroffenen Fragen, jeweils mit deinem Kommentar.
+- **Zurückgezogen:** einen Hinweis, dass die Anfrage zurückgezogen wurde.
+
+<Callout title="Archivierte Umfragen">
+Ist die zugehörige Umfrage archiviert, entfallen Erneut senden, Freigabelink und Nachbesserung. Es bleiben Genehmigen, Ablehnen und Zurückziehen. Neue Antworten nimmt der Fragebogen dann nicht mehr an.
 </Callout>
