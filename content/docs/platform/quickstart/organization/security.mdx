@@ -12,12 +12,12 @@ Kopexa wurde nach dem Prinzip **Security by Design** entwickelt. Sicherheit ist 
 - **OWASP-konform:** Wir orientieren uns am [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/).
 - **Zero Trust:** Jeder Zugriff wird authentifiziert und autorisiert, kein implizites Vertrauen.
 - **Least Privilege:** Berechtigungen werden strikt nach dem Prinzip minimaler Rechte vergeben.
-- **Security by Default:** Sicherheitsfunktionen wie SAML/OIDC-SSO und MFA sind von Anfang an verfügbar.
+- **Security by Default:** Sicherheitsfunktionen wie SAML-SSO und MFA sind von Anfang an verfügbar.
 
 ## Features und Standards
 
-- **SSO für alle:** Jede [Organisation](./index.mdx), unabhängig vom Tarif, kann [SAML](./domains/index.mdx) und OIDC nutzen. Security ist bei uns kein Enterprise-Add-on.
-- **MFA-Unterstützung:** Unterstützung für Multi-Faktor-Authentifizierung über externe IdPs.
+- **SSO für alle:** Jede [Organisation](./index.mdx), unabhängig vom Tarif, kann [SAML-SSO](./domains/index.mdx) nutzen. Security ist bei uns kein Enterprise-Add-on.
+- **MFA-Unterstützung:** Zwei-Faktor-Anmeldung per Authenticator-App direkt in Kopexa. Bei SSO übernimmt dein Identity Provider die MFA.
 - **Domänen-Verifizierung:** Schutz vor Account Takeover und Phishing durch zentrale Domainverwaltung.
 - **Ende-zu-Ende-Verschlüsselung:** Alle Daten werden im Transit (TLS) und im Ruhezustand (at rest) verschlüsselt.
 - **Audit Logging & Monitoring:** Kritische Aktionen und Anmeldeereignisse werden nachvollziehbar protokolliert.

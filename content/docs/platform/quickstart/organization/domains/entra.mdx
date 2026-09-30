@@ -4,119 +4,101 @@ icon: KeyRound
 description: Single Sign-On mit Microsoft Entra ID (Azure AD) für Kopexa einrichten
 ---
 
-Diese Anleitung zeigt dir, wie du **SAML-SSO** zwischen Kopexa und **Microsoft Entra ID (ehemals Azure AD)** einrichtest.  
-Voraussetzung ist eine **verifizierte Domain** (siehe [Setup & Verifizierung](./setup.mdx)).
+Diese Anleitung zeigt dir, wie du **SAML-SSO** zwischen Kopexa und **Microsoft Entra ID** (früher Azure AD) einrichtest.
+Voraussetzung ist eine **verifizierte Domain** (siehe [Setup](./setup.mdx)).
 
-> **Hinweis:** Jeder Tarif (Free, Lite, Pro, Enterprise) unterstützt SAML/SSO – Sicherheit ist kein Premium-Feature.
+> **Hinweis:** SSO gibt es in jedem Kopexa-Tarif ohne Aufpreis.
 
-## Gruppe in Entra ID erstellen (empfohlen)
+## 1. Gruppe in Entra ID anlegen (empfohlen)
 
-Um Benutzer sauber zuordnen zu können, empfiehlt es sich, vorab eine **Gruppe in Entra ID** für Kopexa anzulegen:
+Mit einer eigenen Gruppe steuerst du übersichtlich, wer Kopexa nutzen darf:
 
 1. Melde dich im [Microsoft Entra Admin Center](https://entra.microsoft.com) an.
-2. Navigiere zu **Identität → Gruppen → Neue Gruppe**.
-3. Wähle **Sicherheitsgruppe** als Typ aus.
-4. Gib einen eindeutigen Namen an, z. B. *Kopexa SSO Users*.
-5. Füge die Benutzer hinzu, die Zugriff auf Kopexa erhalten sollen.
+2. Gehe zu **Gruppen → Alle Gruppen → Neue Gruppe**.
+3. Wähle als Typ **Sicherheit**.
+4. Gib einen eindeutigen Namen an, zum Beispiel *Kopexa SSO Users*.
+5. Füge die Personen hinzu, die Kopexa nutzen sollen.
 
-![Screenshot: Gruppe in Entra ID erstellen](./images/entra-create-group.png)
+![Gruppe in Entra ID anlegen](./images/entra-create-group.png)
 
-Diese Gruppe weist du später deiner erstellten Kopexa-App zu.
+Die Gruppe weist du später der Kopexa-App zu. Gruppen zuweisen kannst du ab Entra ID P1. Ohne P1 weist du die Personen einzeln zu.
 
-## Kopexa-Metadata (SP) beziehen
+## 2. Kopexa-App in Entra ID anlegen
 
-Zur schnelleren und fehlerfreien Konfiguration nutze die Service-Provider-Metadaten von Kopexa:
+1. Gehe zu **Unternehmensanwendungen → Neue Anwendung**.
+2. Klicke auf **Eigene Anwendung erstellen**.
+3. Gib einen Namen an, zum Beispiel *Kopexa*, und wähle **Nicht-Katalog-Anwendung integrieren**.
 
-- **Metadata-Datei/URL (SP):**  
-  `https://id.kopexa.com/sso/saml/metadata`
-- **ACS / Reply URL (SP):**  
-  `https://id.kopexa.com/sso/saml/acs`
+![Neue Anwendung in Entra ID anlegen](./images/entra-app-registration.png)
 
-> Tipp: Entra kann die Metadata **per URL einlesen** (empfohlen) oder als **XML-Datei** hochgeladen bekommen.  
-> Dadurch werden **Entity ID/Issuer**, **ACS/Reply URL** und weitere Felder automatisch gesetzt.
+## 3. SAML in Entra einrichten
 
-![Screenshot: Metadata aus URL einbinden](./images/entra-import-metadata.png)
+Öffne in der neuen App **Einmaliges Anmelden** und wähle **SAML**.
 
+Am einfachsten übernimmst du die Daten von Kopexa aus der Metadaten-Datei:
 
-## Neue App-Registrierung in Entra ID
+1. Lade die Metadaten von Kopexa herunter: `https://id.kopexa.com/sso/saml/metadata`
+2. Klicke in Entra oben auf **Metadatendatei hochladen** und wähle die Datei aus.
+3. Entra füllt Bezeichner und Antwort-URL aus. Speichere.
 
-1. Navigiere zu **Identitätsverwaltung → Unternehmensanwendungen → Neue Anwendung**.
-2. Wähle **Eigene Anwendung erstellen** und gib einen Namen an (z. B. *Kopexa SSO*).
-3. Wähle **SAML/SSO** als Integrationsmethode.
+![Metadatendatei in Entra hochladen](./images/entra-import-metadata.png)
 
-![Screenshot: Neue App-Registrierung in Entra ID](./images/entra-app-registration.png)
+Du kannst die Werte unter **Grundlegende SAML-Konfiguration** auch von Hand eintragen:
 
-## Basis-SAML-Konfiguration
+- **Bezeichner (Entitäts-ID):** `https://id.kopexa.com/sso/saml/metadata`
+- **Antwort-URL (Assertionverbraucherdienst-URL):** `https://id.kopexa.com/sso/saml/acs`
 
-In der App wähle **Einmaliges Anmelden → SAML** und konfiguriere:
+![Grundlegende SAML-Konfiguration in Entra](./images/entra-saml-basic.png)
 
-- Nutze **„Metadaten von Datei/URL hochladen“** und gib die Kopexa-URL an:  
-  `https://id.kopexa.com/sso/saml/metadata`
-- Alternativ: Werte manuell aus der Metadata übernehmen:
-  - **Bezeichner (Entity ID / Issuer)** – aus Metadata
-  - **Antwort-URL (ACS / Reply URL)** – `https://id.kopexa.com/sso/saml/acs`
-  - **Anmelde-URL (optional)** – deine Kopexa-URL
+### Attribute und Ansprüche
 
-![Screenshot: SAML Konfiguration in Entra](./images/entra-saml-basic.png)
-{/* 
-## Benutzerattribute & Claims
+Kopexa braucht die **E-Mail-Adresse** des Nutzers. Entra schickt sie standardmäßig mit (`user.mail`). Vorname (`user.givenname`) und Nachname (`user.surname`) sind optional und werden beim ersten Login übernommen.
 
-Stelle sicher, dass folgende Claims gesetzt sind:
+> **Tipp:** Haben deine Nutzer in Entra kein E-Mail-Feld gepflegt, stelle den Anspruch für die E-Mail-Adresse auf `user.userprincipalname` um. Der Benutzerprinzipalname muss dann der E-Mail-Adresse entsprechen.
 
-- **NameID:** E-Mail-Adresse (Format: `user.userprincipalname` oder `user.mail`)
-- Optional: **Vorname** (`user.givenname`), **Nachname** (`user.surname`)
+## 4. Metadaten von Entra holen
 
-Diese Attribute werden in Kopexa für Benutzerzuordnung und Auto-Provisioning genutzt. */}
+Scrolle in derselben Ansicht zu **SAML-Zertifikate**. Dort findest du:
 
-{/* ![Screenshot: Benutzerattribute in Entra](./images/entra-claims.png) */}
+- die **App-Verbundmetadaten-URL** (empfohlen), oder
+- die **Verbundmetadaten-XML** zum Herunterladen.
 
----
+![Abschnitt SAML-Zertifikate in Entra](./images/entra-certificate.png)
 
-## SAML-Zertifikat exportieren
-
-1. Lade das **SAML-Signaturzertifikat (Base64)** aus Entra herunter.
-2. Kopiere die **SAML-Metadaten-URL** oder lade das XML herunter.
-
-Diese Informationen trägst du später in Kopexa ein.
-
-![Screenshot: Zertifikat-Download](./images/entra-certificate.png)
-
----
-
-## Werte in Kopexa eintragen
-
-In Kopexa:
-
-1. **Settings → Organisation → Domains → [Verifizierte Domain] → SSO einrichten**
-2. Aktiviere den Schalter **SSO aktivieren**.
-3. Trage **entweder** die **Metadata-URL** deines IdP **oder** das komplette **XML-Metadaten-Dokument** ein:
-
-   - **Option 1 – Metadata-URL:**  
-     Beispiel für Entra: `https://login.microsoftonline.com/<tenant-id>/federationmetadata/2007-06/federationmetadata.xml`
-   - **Option 2 – XML-Metadata:**  
-     Kopiere den Inhalt der von Entra exportierten XML-Datei in das Feld „XML Metadata“.
-
-<Callout title="Hinweis">
-Du musst **nur eine der beiden Varianten** ausfüllen – Kopexa verwendet entweder die URL oder das XML, nicht beides.
+<Callout title="Die richtigen Metadaten">
+Nimm die Metadaten **dieser App**. Die App-Verbundmetadaten-URL endet auf `?appid=…`. Die allgemeinen Metadaten deines Mandanten passen nicht, weil die App ihr eigenes Signaturzertifikat hat.
 </Callout>
 
-4. **Speichern** und **SSO-Test** ausführen, um die Konfiguration zu prüfen.
+Das Zertifikat musst du nicht extra herunterladen. Kopexa liest es aus den Metadaten.
 
-![Screenshot: SSO-Konfiguration in Kopexa mit URL- oder XML-Option](./images/kopexa-sso-config.png)
+## 5. Entra in Kopexa eintragen
 
-## Benutzerzuordnung & Test
+1. Öffne in Kopexa **Einstellungen → Domains**.
+2. Wähle im Menü deiner verifizierten Domain **SSO-Einstellungen**.
+3. Wähle die Quelle der Metadaten:
+   - **Metadata-URL:** Füge die App-Verbundmetadaten-URL aus Entra ein.
+   - **XML-Metadaten:** Füge den Inhalt der heruntergeladenen XML-Datei ein.
+4. Schalte **SSO aktivieren** ein und klicke auf **Speichern**.
 
-- Weise der Entra-App die **Gruppe _Kopexa SSO Users_** zu (oder eine eigene Gruppe).  
-- Führe den **Test-Login** in Kopexa aus.  
-- Bei Erfolg können berechtigte Nutzer der verifizierten Domain via SSO anmelden.
+![SSO-Einstellungen in Kopexa mit Metadata-URL oder XML-Metadaten](./images/kopexa-sso-config.png)
 
-## Auto-Provisioning
+Du brauchst nur eine der beiden Quellen. Stimmt etwas an den Metadaten nicht, zeigt Kopexa dir direkt am Feld, was fehlt.
 
-Aktivierbar in Kopexa: Benutzer werden beim ersten SSO-Login automatisch erstellt.  
-Stelle sicher, dass Claims für **E-Mail**, optional **Vorname/Nachname** übermittelt werden.
+<Callout title="Wichtig">
+Ab jetzt melden sich alle Nutzer mit einer E-Mail-Adresse dieser Domain nur noch über Entra an, auch bestehende Konten mit Passwort.
+</Callout>
 
-## 9. Sicherheitstipps
+## 6. Nutzer zuweisen und anmelden
 
-- **Least Privilege:** Nur benötigte Gruppen/Benutzer zuweisen  
-- **Zertifikatsrotation:** Vor Ablauf tauschen und in Kopexa aktualisieren  
-- **Audits/Logs:** Fehlversuche in Entra & Kopexa prüfen
+1. Öffne in Entra in der Kopexa-App **Benutzer und Gruppen**.
+2. Klicke auf **Benutzer/Gruppe hinzufügen** und wähle die Gruppe *Kopexa SSO Users* oder einzelne Personen.
+3. Melde dich bei Kopexa mit deiner E-Mail-Adresse an. Kopexa leitet dich zu Microsoft weiter und nach der Anmeldung zurück.
+
+Wer sich zum ersten Mal anmeldet, bekommt automatisch ein Kopexa-Konto. Ist an der Domain **Auto-Join** aktiv, kommt die Person beim SSO-Login direkt als Mitglied in deine Organisation. Sonst lädst du sie ein. Mehr dazu unter [Auto-Join](./setup.mdx#4-auto-join).
+
+## Sicherheitstipps
+
+- **MFA in Entra erzwingen:** Ein Login über SSO ersetzt die Zwei-Faktor-Abfrage von Kopexa. Richte MFA deshalb in Entra ein, zum Beispiel über bedingten Zugriff.
+- **Zugriff klein halten:** Weise nur die Gruppen und Personen zu, die Kopexa brauchen.
+- **Zertifikat rechtzeitig erneuern:** Läuft das Signaturzertifikat in Entra ab, erstellst du dort ein neues. Danach öffnest du in Kopexa die SSO-Einstellungen. Mit Metadata-URL reicht es, erneut zu speichern. Mit XML-Metadaten fügst du vorher die neue XML ein.
+- **Anmeldungen prüfen:** Fehlgeschlagene Anmeldungen siehst du in den Anmeldeprotokollen von Entra.

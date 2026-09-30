@@ -4,50 +4,37 @@ icon: Globe
 description: Verwaltung von Domains und Single Sign-On (SSO) in Kopexa
 ---
 
-
-**Domains** sind ein zentrales Element auf Organisationsebene in Kopexa. Sie ermöglichen die eindeutige Zuordnung von Benutzern und dienen als Grundlage für Sicherheitsfunktionen wie **Single Sign-On (SSO)** via **SAML** oder **OIDC**.
+**Domains** sind die E-Mail-Domains deiner Organisation, zum Beispiel `example.com`. Du legst sie auf Organisationsebene an und verifizierst sie. Danach kannst du für jede Domain **Single Sign-On (SSO)** per **SAML** einrichten und neue Nutzer automatisch in deine Organisation aufnehmen.
 
 ## Zweck und Nutzen
 
-- **Identitätszuordnung:** Verknüpfen Sie eine oder mehrere Unternehmensdomains (z. B. `example.com`), um Benutzer automatisch Ihrer Organisation zuzuordnen.
-- **Sicheres SSO:** Domains sind die Basis für die Anbindung von Identitätsanbietern (IdPs) wie Azure AD / Entra ID, Keycloak, Okta oder anderen OIDC-/SAML-Providern.
-- **OWASP-konforme Sicherheit:** Durch Domain-Verifizierung und zentrale Authentifizierung wird das Risiko von Account Takeover und Phishing gemäß [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/) reduziert.
-- **Konsistente Verwaltung:** Mehrere Spaces innerhalb einer Organisation können dieselben zentral hinterlegten Domains für Authentifizierung und Benutzerzuordnung verwenden.
+- **Nachweis der Kontrolle:** Über einen DNS-Eintrag zeigst du, dass dir die Domain gehört. Erst dann lassen sich SSO und Auto-Join aktivieren.
+- **Zentrale Anmeldung:** Mit SSO melden sich alle Nutzer dieser Domain über euren Identity Provider (IdP) an, zum Beispiel Microsoft Entra ID, Okta oder Keycloak. Jeder IdP, der SAML 2.0 unterstützt, funktioniert.
+- **Weniger Aufwand:** Mit **Auto-Join** landen Kolleginnen und Kollegen beim SSO-Login direkt in deiner Organisation.
+- **Mehrere Domains:** Hast du Tochtergesellschaften oder mehrere Marken, legst du einfach mehrere Domains an. Jede bekommt ihre eigene SSO-Konfiguration.
 
-## Kopexa & Security für alle
+## SSO in jedem Tarif
 
-Bei **Kopexa** ist Sicherheit **nicht nur Enterprise-Kunden vorbehalten**.  
-**Jede Organisation**, unabhängig von Größe oder Tarif (Free, Lite, Pro, Enterprise), erhält:
+Bei Kopexa ist SSO **kein Enterprise-Extra**. Jede Organisation kann SAML-SSO nutzen, unabhängig vom Tarif und ohne Aufpreis. Wir finden: Eine sichere Anmeldung sollte keine Frage des Budgets sein.
 
-- **SAML-SSO & OIDC-Unterstützung** ohne Aufpreis.
-- **Domain-Verifizierung** zur Sicherstellung der Kontrolle über Identitäten.
-- **Best Practices nach OWASP**, inkl. Schutz vor häufigen Schwachstellen wie unsicheren Login-Flows oder unvalidierten Weiterleitungen.
+## So läuft die Einrichtung
 
-Wir sind überzeugt, dass **Security-by-Design** und **SSO** ein Grundrecht aller Unternehmen sein sollte – nicht nur ein Premium-Feature für große Enterprises.
+Du findest alles unter **Einstellungen → Domains** deiner Organisation.
 
-## Verwaltung von Domains
+![Domain-Liste mit Status, Auto-Join und SSO](./images/domain-list.png)
 
-Domains werden **auf Organisation-Ebene** konfiguriert. Im Bereich **Settings → Domains** können Sie:
+1. **Domain hinzufügen:** Trage deine Domain ein, zum Beispiel `example.com`.
+2. **Verifizieren:** Hinterlege den angezeigten DNS-TXT-Eintrag bei deinem DNS-Anbieter.
+3. **SSO einrichten:** Verbinde die Domain mit deinem Identity Provider.
+4. **Auto-Join aktivieren (optional):** Neue Nutzer kommen beim ersten SSO-Login automatisch in die Organisation.
 
-1. **Domains hinzufügen:** Hinterlegen Sie Ihre Unternehmensdomains (z. B. `example.com`).
-2. **Verifizieren:** Fügen Sie den bereitgestellten DNS-TXT-Eintrag hinzu, um die Domainzugehörigkeit nachzuweisen.
-3. **SSO einrichten:** Verknüpfen Sie Ihre Domain mit einem SAML- oder OIDC-IdP.
-4. **Benutzerzuordnung:** Benutzer mit passenden E-Mail-Domains werden automatisch der Organisation zugeordnet oder können gezielt eingeladen werden.
-
-### Multi-Domain-Unterstützung
-
-Auch Unternehmen mit mehreren Domains (z. B. Tochtergesellschaften) können diese verknüpfen und zentral verwalten. Dies erlaubt eine einheitliche SSO-Policy für alle Spaces und Teams.
+Die Schritte im Detail: [Setup](./setup.mdx). Eine Anleitung für Microsoft: [SSO mit Entra ID](./entra.mdx).
 
 ## Beziehung zu Spaces
 
-Domains gelten **organisationsweit** und betreffen alle **Spaces** innerhalb der Organisation.  
-Zentrale Benutzer- und SSO-Verwaltung sorgt für konsistente Sicherheitsrichtlinien und verringert den administrativen Aufwand.  
+Domains gelten **für die ganze Organisation** und damit für alle Spaces darin. Anmeldung und Aufnahme in die Organisation regelst du hier an einer Stelle. Welche Spaces jemand sieht, legst du weiterhin in den Spaces selbst fest.
 
 Weitere Informationen:
-- [Organisation](../index.mdx) – Zentrale Verwaltung Ihrer Organisation und Benutzer  
-- [Spaces](../../spaces.mdx) – Eigenständige Arbeitsumgebungen in Kopexa  
-- [Security](../security.mdx) – Details zu unseren OWASP-konformen Sicherheitsmaßnahmen (folgt)
-
----
-
-Mit diesem Ansatz gewährleistet Kopexa **Enterprise-grade Sicherheit für alle**, ohne dass kleine Unternehmen auf essenzielle Sicherheitsfeatures verzichten müssen.
+- [Organisation](../index.mdx): zentrale Verwaltung deiner Organisation und Nutzer
+- [Spaces](../../spaces.mdx): eigenständige Arbeitsbereiche in Kopexa
+- [Security](../security.mdx): unsere Sicherheitsprinzipien

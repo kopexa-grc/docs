@@ -1,64 +1,93 @@
 ---
 title: Setup
 icon: Settings
-description: Organisation-Domains verifizieren und SAML-SSO vorbereiten
+description: Organisation-Domains verifizieren und SAML-SSO einrichten
 ---
 
-Über **Domains** verwaltest du auf Organisationsebene die E-Mail-Domains deiner Nutzer und bereitest **Single Sign-On (SSO)** vor.
+Unter **Einstellungen → Domains** verwaltest du auf Organisationsebene die E-Mail-Domains deiner Nutzer und richtest **Single Sign-On (SSO)** ein.
 
-> **Hinweis:** Operative Internet-Domains (z. B. für Subdomain-Scanning) gehören zum [Inventory eines Space](../../../organization/assets/index.mdx).  
-> SSO-Domains werden hier auf **Organisation-Level** gepflegt.
+> **Hinweis:** Internet-Domains, die Kopexa auf Sicherheit prüfen soll (zum Beispiel DNS und Zertifikate), gehören in die [Domains eines Space](../../../organization/domains/index.mdx).
+> Hier geht es nur um die Domains für die Anmeldung.
 
 ---
 
-## 1. Neue Domain hinzufügen
+## 1. Domain hinzufügen
 
-1. Gehe zu: **Settings → Organisation → Domains**  
-2. Klicke auf **Domain hinzufügen**  
-   ![Screenshot: Domain hinzufügen Button](./images/add-domain.png)
-3. Gib die gewünschte Domain ein (z. B. `example.com`) und speichere.
+1. Öffne die Einstellungen deiner Organisation und gehe zu **Domains**.
+2. Klicke auf **Domain hinzufügen**.
+   ![Domain hinzufügen](./images/add-domain.png)
+3. Gib deine Domain ein, zum Beispiel `example.com`, und bestätige.
+
+Die Domain erscheint in der Liste mit dem Status **Nicht verifiziert**.
 
 ---
 
 ## 2. Domain verifizieren
 
-Um zu bestätigen, dass du die Domain besitzt:
+So zeigst du, dass dir die Domain gehört:
 
-1. Kopexa zeigt dir einen **DNS TXT-Eintrag** an, der hinterlegt werden muss.  
-   ![Screenshot: DNS-Verifizierungsdetails](./images/domain-verification.png)
-2. Trage diesen TXT-Eintrag bei deinem DNS-Provider ein.
-3. Warte, bis die DNS-Änderung propagiert ist (kann bis zu 24 h dauern).
-4. Klicke auf **Verifizieren** in Kopexa – bei Erfolg wechselt der Status auf **Verifiziert**.
+1. Klappe die Domain in der Liste auf. Kopexa zeigt dir einen **DNS-TXT-Eintrag**.
+   ![DNS-TXT-Eintrag zur Verifizierung](./images/domain-verification.png)
+2. Trage diesen TXT-Eintrag bei deinem DNS-Anbieter ein.
+3. Warte, bis die Änderung sichtbar ist. Das dauert meist Minuten, im Einzelfall bis zu 24 Stunden.
+4. Kopexa prüft automatisch alle 15 Minuten. Du musst also nichts weiter tun. Wenn du nicht warten willst, klicke auf **Jetzt prüfen**.
 
-> **Tipp:** Kopexa prüft automatisch in Intervallen. Du kannst auch manuell auf „Jetzt prüfen“ klicken.
+Sobald der Eintrag gefunden ist, wechselt der Status auf **Verifiziert**.
 
 ---
 
-## 3. SAML-SSO vorbereiten
+## 3. SSO einrichten
 
-<Callout title="Vertrauen aufbauen">
-Damit dein Kopexa-Account als Service Provider eine SSO-Verbindung zu einem Identity Provider (IdP) herstellen kann, muss ein gegenseitiges Vertrauensverhältnis (Party Trust) konfiguriert werden.
+Nach der Verifizierung öffnest du über das Menü der Domain die **SSO-Einstellungen**. Solange die Domain nicht verifiziert ist, ist der Eintrag ausgegraut.
+
+### Kopexa in deinem Identity Provider eintragen
+
+Dein Identity Provider (IdP) braucht die Daten von Kopexa. Am einfachsten gibst du ihm die Metadaten-URL, dann übernimmt er alles automatisch:
+
+- **Metadaten-URL:** `https://id.kopexa.com/sso/saml/metadata`
+- **Antwort-URL (ACS):** `https://id.kopexa.com/sso/saml/acs`
+
+Kopexa braucht vom IdP die **E-Mail-Adresse** des Nutzers. Vorname und Nachname sind optional und werden beim ersten Login übernommen.
+
+### Deinen Identity Provider in Kopexa eintragen
+
+In den SSO-Einstellungen wählst du, woher Kopexa die Daten deines IdP bekommt:
+
+- **Metadata-URL:** Kopexa lädt die Metadaten einmal von dieser Adresse.
+- **XML-Metadaten:** Du fügst den Inhalt der Metadaten-Datei direkt ein.
+
+Du brauchst nur eins von beiden. Das Signaturzertifikat liest Kopexa selbst aus den Metadaten, du musst es nicht extra hochladen.
+
+Schalte **SSO aktivieren** ein und speichere. Passt etwas an den Metadaten nicht, zeigt dir Kopexa direkt am Feld, was fehlt.
+
+<Callout title="Wichtig">
+Sobald SSO aktiv ist, melden sich **alle** Nutzer mit einer E-Mail-Adresse dieser Domain nur noch über deinen Identity Provider an. Die Anmeldung mit Passwort ist für sie dann nicht mehr möglich, auch nicht für bestehende Konten. Stelle vorher sicher, dass alle, die Kopexa nutzen, im Identity Provider für die Kopexa-App freigeschaltet sind.
 </Callout>
 
-Nach erfolgreicher Verifizierung kannst du die **grundlegende SAML-SSO-Konfiguration** in Kopexa öffnen:
+Die Anleitung für Microsoft mit allen Klicks: [SSO mit Entra ID](./entra.mdx).
 
-- **Entity ID / Issuer**, **SSO URL / ACS Endpoint**, **X.509-Zertifikat** werden benötigt.
-- Diese Werte müssen zwischen Kopexa und deinem IdP (z. B. Entra ID, Okta, Keycloak) ausgetauscht werden.
+### SSO ausschalten
 
-> **Hinweis:** Die konkrete Einrichtung hängt vom genutzten IdP ab.  
-> Für eine Anleitung mit Beispielen siehe [SSO mit Entra ID einrichten](./entra.mdx).
+Du kannst SSO jederzeit über den Schalter **SSO aktivieren** wieder ausschalten. Deine Konfiguration bleibt erhalten. Wenn du SSO wieder einschaltest, musst du nichts neu eintragen.
 
 ---
 
-## 4. Benutzerzuordnung
+## 4. Auto-Join
 
-- Alle Benutzer mit einer E-Mail-Adresse unter dieser Domain können nach Abschluss der SSO-Konfiguration über SSO anmelden.
-- Optional kannst du **Auto-Provisioning** aktivieren, sodass Benutzer beim ersten Login automatisch angelegt werden.
+Mit **Auto-Join** kommen Nutzer deiner Domain automatisch in deine Organisation:
+
+- Du aktivierst Auto-Join, indem du die Domain in der Liste aufklappst und den Schalter umlegst. Das geht erst nach der Verifizierung.
+- Auto-Join greift nur beim Login über SSO. Wer sich per SSO anmeldet und noch nicht in der Organisation ist, wird als **Mitglied** aufgenommen. Beim ersten Login legt Kopexa dafür automatisch ein Konto an.
+- Ohne aktives SSO bewirkt Auto-Join nichts. Wer sich per Passwort registriert, wird nicht automatisch aufgenommen.
+- Ohne Auto-Join legt Kopexa beim ersten SSO-Login zwar ein Konto an. In die Organisation kommt der Nutzer aber erst, wenn du ihn einlädst.
+
+Welche Spaces ein Mitglied sieht, legst du weiterhin in den Spaces fest.
 
 ---
 
 ## 5. Sicherheitshinweise
 
-- Jeder Tarif (Free, Lite, Pro, Enterprise) hat Zugriff auf SAML/SSO – **Security ist kein Premium-Feature**.
-- Domain-Verifizierung schützt vor Missbrauch (Account Takeover).
-- Mehr zu unseren Sicherheitsprinzipien: [Security](../security.mdx)
+- **MFA im IdP erzwingen:** Ein Login über SSO gilt in Kopexa als vollständige Anmeldung. Die Zwei-Faktor-Abfrage von Kopexa entfällt dann. Aktiviere MFA deshalb in deinem Identity Provider.
+- **Zugriff klein halten:** Weise die Kopexa-App im IdP nur den Personen oder Gruppen zu, die Kopexa wirklich brauchen.
+- **Verifizierung schützt:** Weil nur verifizierte Domains SSO nutzen können, kann niemand fremde Domains für sich beanspruchen.
+- SSO gibt es in jedem Tarif. Mehr zu unseren Sicherheitsprinzipien: [Security](../security.mdx)
