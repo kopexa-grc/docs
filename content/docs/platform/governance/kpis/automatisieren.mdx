@@ -6,7 +6,7 @@ description: KPI-Werte automatisch aus deinen eigenen Systemen einspielen, statt
 
 Der häufigste Grund, warum KPIs nach wenigen Monaten verwaisen, ist der manuelle Pflegeaufwand. Wer jede Woche Werte von Hand abtippt, hört irgendwann auf. Kopexa löst das über die API: Du baust einmal einen Ablauf, der den Wert aus deiner Quelle berechnet und an Kopexa schickt. Danach läuft er still im Hintergrund.
 
-Kopexa schreibt dir keine Quellsysteme vor. Du kennst deine IT-Landschaft am besten und weißt, wo die Daten liegen: in Zammad, Jira, einem eigenen Ticket-System, einem SIEM, einem Schwachstellen-Scanner oder einer Datenbank. Kopexa stellt die Schnittstelle bereit und übernimmt den Rest: Schwellwert-Überwachung, Risiko-Eskalation und Sichtbarkeit im Management-Review.
+Kopexa schreibt dir keine Quellsysteme vor. Du kennst deine IT-Landschaft am besten und weißt, wo die Daten liegen: in Zammad, Jira, einem eigenen Ticket-System, einem SIEM, einem Schwachstellen-Scanner oder einer Datenbank. Kopexa stellt die Schnittstelle bereit und übernimmt den Rest: Status, Schwellwert-Überwachung und Sichtbarkeit im Management-Review.
 
 So verschiebt sich die Arbeit: Statt „Ich muss den KPI pflegen" gilt „Der KPI pflegt sich selbst, ich reagiere nur noch auf Abweichungen". Erst dann funktioniert ein Frühwarnsystem wirklich.
 
@@ -54,13 +54,13 @@ graph LR
     Z[Zammad] -->|1. abfragen| W[Windmill / n8n]
     W -->|2. MTTA berechnen| W
     W -->|3. per API schreiben| K[Kopexa KPI]
-    K -->|Schwellwert ueberschritten| R[Risiko eskaliert]
-    R -->|sichtbar im| MR[Management-Review]
+    K -->|Schwellwert ueberschritten| ZG[Ziel gefaehrdet]
+    ZG -->|sichtbar im| MR[Management-Review]
     MR -->|Entscheidung| MA[Massnahme]
     MA -.wirkt auf.-> Z
 `} />
 
-Sobald der Flow läuft, übernimmt Kopexa den Rest: Der Wert wird am KPI aktualisiert, Schwellwertüberschreitungen eskalieren das verknüpfte Risiko, und beim nächsten Management-Review liegt eine belastbare Datenbasis vor. Niemand muss dafür eine Tabelle anfassen.
+Sobald der Flow läuft, übernimmt Kopexa den Rest: Der Wert wird am KPI aktualisiert, reißt er die Warn-Schwelle oder den Zielwert, springt das verknüpfte Ziel auf **Gefährdet**, und beim nächsten Management-Review liegt eine belastbare Datenbasis vor. Niemand muss dafür eine Tabelle anfassen.
 
 <Callout title="Du behältst die Kontrolle">
 Du entscheidest selbst, welche Tickets einbezogen werden, wie gefiltert wird, wann ein Ticket als erster Kontakt gilt und wie oft der Wert aktualisiert wird. Dein Ablauf kennt deine Systeme genau. Neue Datenquellen fügst du selbst hinzu, ohne auf ein Produktrelease zu warten.

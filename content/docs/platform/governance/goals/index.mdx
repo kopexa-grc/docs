@@ -131,7 +131,7 @@ Die Detailseite eines Ziels verknüpft mit drei Bereichen:
 | **Verfehlt** | Zieldatum abgelaufen, Zielwert nicht erfüllt, Ursache dokumentiert | – |
 | **Aufgegeben** | Bewusst nicht weiterverfolgt, für den Audit-Trail erhalten | dauerhaft |
 
-Der Statuswechsel ist revisionssicher protokolliert. Besonders wichtig: **Verfehlt** ist keine Niederlage, sondern Input für das nächste Ziel. Die Dokumentation der Ursache ist der eigentliche Wert – sie zeigt, dass euer Management-System lernt.
+Besonders wichtig: **Verfehlt** ist keine Niederlage, sondern Input für das nächste Ziel. Die Dokumentation der Ursache ist der eigentliche Wert – sie zeigt, dass euer Management-System lernt.
 
 ## Best Practices
 
@@ -165,10 +165,10 @@ Verbindet Goal-Reviews mit dem Management-Review-Zyklus. Einmal pro Quartal: Wel
     Ein Programm ist eine Initiative (z. B. „ISO 27001 Erstzertifizierung") mit längerer Laufzeit und vielen Arbeitspaketen. Ein Ziel ist eine messbare Vorgabe – innerhalb oder außerhalb eines Programms – mit KPI und klarem Zielwert. Programme koordinieren, Ziele steuern. Beides gehört zusammen, aber erfüllt unterschiedliche Aufgaben.
   </Accordion>
   <Accordion title="Kann ein KPI automatisch aus einer Integration gespeist werden?">
-    Technisch ja – Kopexa unterstützt manuelle Pflege wie auch automatische Werte aus Integrationen (Vulnerability Management, SIEM, Ticket-Systeme). Bevor ihr eine Automatisierung einrichtet, stellt sicher, dass die Datenqualität der Quelle stimmt. Ein automatisch gespeister falscher KPI ist schlimmer als ein manuell gepflegter richtiger.
+    Ja, über die Kopexa API. Fertige Integrationen für KPIs gibt es nicht: Ihr baut einmal einen Ablauf, der den Wert aus eurer Quelle holt (zum Beispiel Schwachstellen-Scanner, SIEM oder Ticket-System) und als Messwert an Kopexa schickt. Wie das geht, steht unter [KPIs automatisch tracken](/platform/governance/kpis/automatisieren). Bevor ihr eine Automatisierung einrichtet, stellt sicher, dass die Datenqualität der Quelle stimmt. Ein automatisch gespeister falscher KPI ist schlimmer als ein manuell gepflegter richtiger.
   </Accordion>
   <Accordion title="Was passiert mit einem verfehlten Ziel?">
-    Status auf **Verfehlt** setzen, Ursache in der Diskussion dokumentieren, Follow-up-Ziel oder Maßnahme ableiten. Das alte Ziel bleibt archiviert als Nachweis, dass ihr gelernt habt. Das ist im Audit wertvoller als stille Umdeutungen.
+    Status auf **Verfehlt** setzen, Ursache in der Diskussion dokumentieren, Follow-up-Ziel oder Maßnahme ableiten. Das alte Ziel bleibt mit dem Status **Verfehlt** erhalten, als Nachweis, dass ihr gelernt habt. Das ist im Audit wertvoller als stille Umdeutungen.
   </Accordion>
   <Accordion title="Wie oft sollte ich ein Ziel aktualisieren?">
     KPI-Werte mindestens monatlich. Das Ziel selbst (Zielwert, Beschreibung, Stakeholder-Bezug) nur bei substanziellen Änderungen – etwa wenn sich eine Stakeholder-Anforderung verschiebt oder ein neuer Risikofaktor hinzukommt. Häufige Zieländerungen sind ein Zeichen, dass das Ziel nicht gut durchdacht war.
