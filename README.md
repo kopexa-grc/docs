@@ -116,3 +116,31 @@ Thanks to the FOSS community for making this stack possible.
 - More multi-language content
 - Additional framework guides (TISAX, ISO 27017, …)
 - Search improvements and content structure refinements
+
+
+## Kubernetes container preparation
+
+The Dockerfile builds a Next.js standalone image with Node 24 and pnpm 9.15.9.
+Standalone output is enabled only by `NEXT_OUTPUT=standalone` in the Docker build.
+Normal builds retain the `next build` / `next start` path for Coolify/Nixpacks.
+It runs as UID/GID 1000 on port 3000 and exposes `/api/health`. It is compatible
+with the shared website workload base in the infrastructure repository. Existing
+CI and release workflows are unchanged; this does not activate Kubernetes delivery.
+
+For a staging image:
+
+```sh
+docker build -t docs:staging \
+  --build-arg DEPLOYMENT_ENV=staging \
+  --build-arg NEXT_PUBLIC_DEPLOYMENT_ENV=staging \
+  --build-arg 'NEXT_PUBLIC_CONFIG_JSON={"NEXT_PUBLIC_BASE_URL":"https://docs-staging.kopexa.com"}' .
+docker run --rm -p 3000:3000 docs:staging
+```
+
+Staging sends `X-Robots-Tag: noindex, nofollow` on all paths. Public configuration
+and this header are baked into the image; runtime environment changes do not
+replace a rebuild. Use a separate production build (the default). The JSON build
+argument accepts only public `NEXT_PUBLIC_*` string values; never put secrets in it.
+The Docker context excludes Git history, so optional Git-derived last-modified
+dates are unavailable in this image. The German documentation is served at
+`/platform` (`/de/platform` redirects there); English content is not configured.

@@ -1,0 +1,10 @@
+.git
+.github
+node_modules
+.next
+.source
+.playwright-mcp
+.worktrees
+.env*
+*.tsbuildinfo
+coverage
