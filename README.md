@@ -1,7 +1,7 @@
 # Kopexa Docs
 
 ![PR Checks](https://github.com/kopexa-grc/docs/actions/workflows/pr.yml/badge.svg)
-![Main Checks](https://github.com/kopexa-grc/docs/actions/workflows/main.yml/badge.svg)
+![Website delivery](https://github.com/kopexa-grc/docs/actions/workflows/website-delivery.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 
 Public documentation for Kopexa’s ISMS/GRC platform (ISO 27001, GDPR, DORA, NIS2, …). It includes end‑user guides and developer docs. Built with Next.js App Router, Fumadocs, TypeScript, and Tailwind CSS.
@@ -78,10 +78,10 @@ The Docker image:
 
 ## CI/CD
 
-GitHub Actions in this repo are **advisory only**. They give developers fast feedback but do not gate or trigger the production deploy (Coolify does that, see above).
+GitHub Actions checks pull requests and publishes environment-specific images on main. Staging delivery dispatches the verified image digest to envs. Production cluster delivery remains disabled during migration; the existing Coolify deployment is independent of these checks.
 
 - PR checks: `.github/workflows/pr.yml` runs lint, typecheck and build (`.github/workflows/lint.yml`, `.github/workflows/build.yml`)
-- Main checks: `.github/workflows/main.yml` runs the same lint and build jobs on every push to `main` so failures are visible immediately
+- Main delivery: `.github/workflows/website-delivery.yml` runs lint/typecheck, Release Please, one environment-specific image build and container smoke tests. See Website delivery below.
 
 ## Contributing
 
@@ -124,8 +124,8 @@ The Dockerfile builds a Next.js standalone image with Node 24 and pnpm 9.15.9.
 Standalone output is enabled only by `NEXT_OUTPUT=standalone` in the Docker build.
 Normal builds retain the `next build` / `next start` path for Coolify/Nixpacks.
 It runs as UID/GID 1000 on port 3000 and exposes `/api/health`. It is compatible
-with the shared website workload base in the infrastructure repository. Existing
-CI and release workflows are unchanged; this does not activate Kubernetes delivery.
+with the shared website workload base in the infrastructure repository. Delivery uses the shared GitHub workflow described below; Argo activation is
+managed separately in the infrastructure repository.
 
 For a staging image:
 
@@ -144,3 +144,32 @@ argument accepts only public `NEXT_PUBLIC_*` string values; never put secrets in
 The Docker context excludes Git history, so optional Git-derived last-modified
 dates are unavailable in this image. The German documentation is served at
 `/platform` (`/de/platform` redirects there); English content is not configured.
+
+
+## Website delivery (GitHub)
+
+`.github/workflows/website-delivery.yml` runs lint/typecheck and the reusable
+`kopexa-grc/github-actions` Next.js delivery workflow pinned to `v0.0.4`.
+It replaces the former additional Main Checks build. PR lint/typecheck/build
+checks remain in place; pull requests do not publish staging deployments.
+
+- Ordinary main pushes build and smoke-test a staging image, then dispatch its
+  digest to the `envs` websites receiver when staging `GITOPS_ENABLED=true`.
+- Release Please starts from the existing v1.13.4 release. Merging its release PR
+  builds the production image for the new tag and skips a duplicate staging build.
+- Production `GITOPS_ENABLED=false` keeps cluster promotion disabled during the
+  Coolify migration. Production DNS remains unchanged.
+
+GitHub Environments supply `DEPLOYMENT_URL`, `NEXT_PUBLIC_CONFIG_JSON`,
+`BUILD_NODE_OPTIONS` and `GITOPS_ENABLED`. Staging uses
+`https://docs-staging.kopexa.com`; production uses `https://docs.kopexa.com`.
+The existing organization secret `KOPEXA_CLOUD_REPO_ACCESS_TOKEN` is passed only
+as the GitOps dispatch token. Release Please uses `RELEASE_PLEASE_TOKEN` when
+available, otherwise GITHUB_TOKEN (bot-created PR checks may then need a manual
+trigger). No secret values are committed or passed as public build arguments.
+
+The cluster's staging HTTPRoute requires Basic Auth; image smoke tests and Pod
+health probes use the internal container endpoint and do not need that login.
+Argo onboarding requires a real published digest and a ready website-owned TLS
+certificate before ListenerSet/route activation. The envs repository owns that
+rollout and its step-by-step runbook.

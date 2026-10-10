@@ -1,0 +1,29 @@
+name: Website delivery
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  packages: write
+concurrency:
+  group: docs-delivery
+  cancel-in-progress: false
+jobs:
+  checks:
+    name: Lint & Typecheck
+    uses: ./.github/workflows/lint.yml
+    secrets: inherit
+  delivery:
+    needs: checks
+    # Pin shared workflows so changes are adopted explicitly.
+    uses: kopexa-grc/github-actions/.github/workflows/nextjs-delivery.yml@v0.0.4
+    with:
+      dockerfile: Dockerfile
+      next-cache-target: /app/.next/cache
+      image: ghcr.io/kopexa-grc/docs
+      application: docs
+    secrets:
+      RELEASE_PLEASE_TOKEN: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+      GITOPS_TOKEN: ${{ secrets.KOPEXA_CLOUD_REPO_ACCESS_TOKEN }}
