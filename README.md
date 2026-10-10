@@ -121,6 +121,8 @@ Thanks to the FOSS community for making this stack possible.
 ## Kubernetes container preparation
 
 The Dockerfile builds a Next.js standalone image with Node 24 and pnpm 9.15.9.
+Standalone output is enabled only by `NEXT_OUTPUT=standalone` in the Docker build.
+Normal builds retain the `next build` / `next start` path for Coolify/Nixpacks.
 It runs as UID/GID 1000 on port 3000 and exposes `/api/health`. It is compatible
 with the shared website workload base in the infrastructure repository. Existing
 CI and release workflows are unchanged; this does not activate Kubernetes delivery.

@@ -10,7 +10,7 @@ ARG NODE_OPTIONS="--max-old-space-size=3072"
 ARG DEPLOYMENT_ENV=production
 ARG NEXT_PUBLIC_DEPLOYMENT_ENV=production
 ARG NEXT_PUBLIC_CONFIG_JSON={}
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_TELEMETRY_DISABLED=1 NEXT_OUTPUT=standalone
 RUN --mount=type=cache,target=/app/.next/cache,sharing=locked \
     node scripts/container-build.mjs
 

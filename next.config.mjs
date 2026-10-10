@@ -5,7 +5,8 @@ const withMDX = createMDX();
 /** @type {import('next').NextConfig} */
 const config = {
   reactStrictMode: true,
-  output: "standalone",
+  // Container builds opt in; Coolify/Nixpacks keeps the normal next start path.
+  ...(process.env.NEXT_OUTPUT === "standalone" ? { output: "standalone" } : {}),
   serverExternalPackages: ["shiki"],
   async headers() {
     return process.env.DEPLOYMENT_ENV === "staging"
