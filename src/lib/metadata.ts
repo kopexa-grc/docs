@@ -1,9 +1,10 @@
 import type { Metadata } from "next/types";
 
 export const baseUrl = new URL(
-	process.env.NODE_ENV === "production"
-		? "https://docs.kopexa.com"
-		: "http://localhost:3000",
+	process.env.NEXT_PUBLIC_BASE_URL ??
+		(process.env.NODE_ENV === "production"
+			? "https://docs.kopexa.com"
+			: "http://localhost:3000"),
 );
 
 interface CreateMetadataOptions extends Metadata {
@@ -45,7 +46,7 @@ export function createMetadata(override: CreateMetadataOptions): Metadata {
 		openGraph: {
 			title,
 			description,
-			url: "https://docs.kopexa.com",
+			url: baseUrl.toString(),
 			siteName: "Kopexa Docs",
 			type: "website",
 			images: [

@@ -7,6 +7,11 @@ const config = {
   reactStrictMode: true,
   output: "standalone",
   serverExternalPackages: ["shiki"],
+  async headers() {
+    return process.env.DEPLOYMENT_ENV === "staging"
+      ? [{ source: "/(.*)", headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }] }]
+      : [];
+  },
   async redirects() {
     // Preserve old article URLs after the IA restructure (SEO/GEO):
     // permanent (308) redirects from the pre-restructure paths to the new ones.
