@@ -42,11 +42,6 @@ const config = {
     ]);
 
     return [
-      {
-        source: "/",
-        destination: "/de/platform",
-        permanent: false,
-      },
       ...movedRedirects,
     ];
   },
