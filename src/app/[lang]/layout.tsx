@@ -1,6 +1,7 @@
 import "@/app/global.css";
 import { NextProvider } from "fumadocs-core/framework/next";
 import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
+import Script from "next/script";
 import { source } from "@/lib/source";
 import { Provider } from "./provider";
 
@@ -24,6 +25,12 @@ export default async function Layout({
 						<Provider lang={lang}>{children}</Provider>
 					</TreeContextProvider>
 				</NextProvider>
+				<Script
+					id="kopexa-rybbit"
+					src="/collect/script.js?siteId=a087211a63fa"
+					strategy="afterInteractive"
+					data-replay-mask-all-inputs="true"
+				/>
 			</body>
 		</html>
 	);

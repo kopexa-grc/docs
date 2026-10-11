@@ -27,9 +27,9 @@ export default async function proxy(
 }
 
 export const config = {
-	// Matcher ignoring `/_next/` and `/api/`
+	// Keep tracking requests out of locale redirects.
 	// You may need to adjust it to ignore static assets in `/public` folder
 	matcher: [
-		"/((?!api|_next/static|_next/image|favicon.ico|icon|sitemap.xml).*)",
+		"/((?!collect(?:/|$)|api|_next/static|_next/image|favicon.ico|icon|sitemap.xml).*)",
 	],
 };
