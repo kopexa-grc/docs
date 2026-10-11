@@ -47,6 +47,20 @@ const config = {
   },
   async rewrites() {
     return [
+      // First-party Rybbit proxy, restricted to tracking endpoints.
+      ...[
+        "script.js",
+        "replay.js",
+        "metrics.js",
+        "track",
+        "identify",
+        "session-replay/record/:siteId",
+        "site/tracking-config/:siteId",
+        "site/:siteId/feature-flags/evaluate",
+      ].map((path) => ({
+        source: `/collect/${path}`,
+        destination: `https://insights.kopexa.com/api/${path}`,
+      })),
       {
         source: "/:lang/:path*.mdx",
         destination: "/:lang/llms.mdx/:path*",
