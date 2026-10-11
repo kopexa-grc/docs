@@ -1,7 +1,7 @@
 import "@/app/global.css";
-import Script from "next/script";
 import { NextProvider } from "fumadocs-core/framework/next";
 import { TreeContextProvider } from "fumadocs-ui/contexts/tree";
+import Script from "next/script";
 import { source } from "@/lib/source";
 import { Provider } from "./provider";
 
