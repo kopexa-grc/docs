@@ -1,5 +1,7 @@
 {
     "title": "Integrationen",
+    "description": "Anbindungen an andere Systeme",
+    "icon": "Plug",
     "root": true,
     "pages": [
         "index",

@@ -1,5 +1,6 @@
 {
 	"title": "Kataloge",
-	"description": "Frameworks & Kataloge",
+	"description": "Frameworks und Kataloge",
+	"icon": "Library",
 	"root": true
 }

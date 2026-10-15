@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../.source/json-schema/docs.meta.json",
+  "title": "Workforce Hub",
+  "description": "Das Mitarbeiterportal für Admins und Beschäftigte",
+  "icon": "GraduationCap",
+  "root": true,
+  "pages": [
+    "index",
+    "---Für Admins---",
+    "...admin",
+    "---Für Beschäftigte---",
+    "...portal"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Workforce Hub",
+  "description": "Das Mitarbeiterportal zu Kopexa: Richtlinien bestätigen lassen, Wissen teilen, Meldungen empfangen",
+  "icon": "GraduationCap",
+  "pages": [
+    "einrichtung",
+    "aufgabensets",
+    "wissensdatenbank",
+    "prozesse",
+    "formulare",
+    "zugaenge",
+    "anmeldung",
+    "einstellungen"
+  ]
+}

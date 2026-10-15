@@ -1,0 +1,15 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Für Beschäftigte",
+  "pages": [
+    "index",
+    "erste-anmeldung",
+    "startseite",
+    "aufgaben",
+    "dokumente",
+    "wissen",
+    "prozesse",
+    "melden",
+    "haeufige-fragen"
+  ]
+}

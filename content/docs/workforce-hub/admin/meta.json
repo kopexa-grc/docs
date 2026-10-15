@@ -1,0 +1,14 @@
+{
+  "$schema": "../../../../.source/json-schema/docs.meta.json",
+  "title": "Für Admins",
+  "pages": [
+    "einrichtung",
+    "aufgabensets",
+    "wissensdatenbank",
+    "prozesse",
+    "formulare",
+    "zugaenge",
+    "anmeldung",
+    "einstellungen"
+  ]
+}

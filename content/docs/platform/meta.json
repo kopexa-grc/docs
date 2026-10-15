@@ -1,6 +1,7 @@
 {
 	"title": "Platform",
-	"description": "Documentation",
+	"description": "Die Kopexa-App",
+	"icon": "Layers",
 	"root": true,
 	"pages": [
 		"...index",
@@ -10,6 +11,7 @@
 		"issues",
 		"documents",
 		"trust-center",
+		"workforce-hub",
 		"governance",
 		"compliance",
 		"organization",

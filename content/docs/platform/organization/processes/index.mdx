@@ -4,7 +4,7 @@ icon: ListTodo
 description: Geschäftsprozesse erfassen, dokumentieren, verknüpfen und über BIA und BCM absichern
 ---
 
-**Prozesse** bilden die Geschäftsprozesse deiner Organisation im **Space** ab, von der Kernwertschöpfung bis zu unterstützenden Abläufen. Sie sind die Grundlage für **Business-Continuity-Management (BCM)**: Erst wenn ein Prozess erfasst und dokumentiert ist, kannst du seine Kritikalität und seine Notfallkennzahlen über eine [Business Impact Analyse](./bia) bestimmen.
+**Prozesse** bilden die Geschäftsprozesse deiner Organisation im **Space** ab, von der Kernwertschöpfung bis zu unterstützenden Abläufen. Sie sind die Grundlage für **Business-Continuity-Management (BCM)**: Erst wenn ein Prozess erfasst und dokumentiert ist, kannst du seine Kritikalität und seine Notfallkennzahlen über eine [Business Impact Analyse](./bia.mdx) bestimmen.
 
 <Callout title="Kurzprinzip">
 Ein Prozess bündelt **Verantwortlichkeit**, **Dokumentation**, **Kennzahlen** und **Verknüpfungen** an einer Stelle und dient als Anker für **Kontrollen**, **Risiken** und die **BIA**.
@@ -48,7 +48,7 @@ In der **Übersicht** enthält die Tabelle die Spalten **Name**, **Status**, **V
 
 **Reiter:** **Allgemein** (Prozesshierarchie, Zweck, Prozessdokumentation, BCM), **Ablaufplan** (das BPMN-Diagramm, siehe unten), **KPIs**, **Informationswerte**, **Assets**, **Lieferanten** und **Risiken**.
 
-**Seitenleiste:** **Details** (Status, Verantwortlich, Vertretung, Kategorie), **Aufgaben**, **Überprüfung** sowie **Verknüpfungen** zu Organisationseinheiten, Rollen, Dokumentation, Kontrollen, Verarbeitungstätigkeiten und Stakeholdern.
+**Seitenleiste:** **Details** (Status, Verantwortlich, Vertretung, Kategorie), **Aufgaben**, **Überprüfung**, **Workforce Hub** (nur wenn der Workforce Hub freigeschaltet ist) sowie **Verknüpfungen** zu Organisationseinheiten, Rollen, Dokumentation, Kontrollen, Verarbeitungstätigkeiten und Stakeholdern.
 
 ![Prozess-Detailseite](./images/process-detail.png)
 
@@ -77,12 +77,16 @@ Prozesse verbinden sich mit den übrigen Modulen und werden so zum roten Faden d
 
 ## Ablaufplan (BPMN)
 
-Zu jedem Prozess kannst du einen **Ablaufplan** als BPMN-Diagramm hinterlegen und einzelne Schritte direkt mit Dokumenten, Assets, Informationswerten, Unterprozessen und Rollen verknüpfen. Wie das funktioniert, liest du auf der Seite [Ablaufplan (BPMN)](./bpmn).
+Zu jedem Prozess kannst du einen **Ablaufplan** als BPMN-Diagramm hinterlegen und einzelne Schritte direkt mit Dokumenten, Assets, Informationswerten, Unterprozessen und Rollen verknüpfen. Wie das funktioniert, liest du auf der Seite [Ablaufplan (BPMN)](./bpmn.mdx).
+
+## Im Workforce Hub freigeben
+
+Nutzt dein Space den [Workforce Hub](/platform/workforce-hub), gibst du Prozesse für das Mitarbeiterportal frei. Deine Beschäftigten sehen dann Zweck, Geltungsbereich, Ein- und Ausgaben, den Verantwortlichen und den Ablaufplan. Die Karte **Workforce Hub** in der Seitenleiste zeigt, ob und für wen ein Prozess freigegeben ist. Wie die Freigabe funktioniert, steht unter [Workforce Hub → Prozesse](/platform/workforce-hub/prozesse).
 
 ## Business Impact Analyse (BIA)
 
 Die zentrale Fähigkeit am Prozess ist die **Business Impact Analyse**. Sie beantwortet, *wie schlimm* und *wie schnell* der Ausfall eines Prozesses wird, und leitet daraus die BCM-Kennzahlen **MTPD**, **RTO**, **RPO** und die **Kritikalität** ab, versioniert und auditfest.
 
 <Callout title="Weiter zur BIA">
-Alles zum Ablauf, zur Schadensmatrix und zur Freigabe findest du unter **[Business Impact Analyse](./bia)**.
+Alles zum Ablauf, zur Schadensmatrix und zur Freigabe findest du unter **[Business Impact Analyse](./bia.mdx)**.
 </Callout>
