@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.15.0](https://github.com/kopexa-grc/docs/compare/docs-v1.14.0...docs-v1.15.0) (2026-10-15)
+
+
+### Features
+
+* add Rybbit analytics through first-party proxy ([#415](https://github.com/kopexa-grc/docs/issues/415)) ([63a4e43](https://github.com/kopexa-grc/docs/commit/63a4e434f7d743a80648a16e61fa1f65faf9727e))
+
 ## [1.14.0](https://github.com/kopexa-grc/docs/compare/docs-v1.13.4...docs-v1.14.0) (2026-10-10)
 
 
