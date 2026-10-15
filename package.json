@@ -3,9 +3,10 @@
 	"version": "1.14.0",
 	"private": true,
 	"scripts": {
-		"build": "next build",
+		"build": "node scripts/check-icons.mjs && next build",
 		"dev": "next dev --turbo",
-		"lint": "biome check",
+		"lint": "biome check && node scripts/check-icons.mjs",
+		"check:icons": "node scripts/check-icons.mjs",
 		"typecheck": "tsc --noEmit",
 		"format": "biome format --write",
 		"start": "next start",
