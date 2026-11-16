@@ -16,6 +16,11 @@ RUN --mount=type=cache,target=/app/.next/cache,sharing=locked \
 
 FROM node:24-alpine AS runner
 WORKDIR /app
+# The server only runs `node server.js`. The npm CLI that ships with the base
+# image is never used here but carries its own vulnerable dependencies, and
+# Alpine package fixes land before the next base image release.
+RUN apk upgrade --no-cache \
+    && rm -rf /usr/local/lib/node_modules/npm /usr/local/bin/npm /usr/local/bin/npx
 ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
 COPY --from=build --chown=node:node /app/.next/standalone ./
 COPY --from=build --chown=node:node /app/.next/static ./.next/static
