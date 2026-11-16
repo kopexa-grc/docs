@@ -1,8 +1,8 @@
 // src/components/footer/index.tsx
 
-import { Github, Linkedin } from "lucide-react";
 import Link from "next/link";
 import { FOOTER_LINKS, KOPEXA_URL, SOCIALS } from "@/lib/constants";
+import { GithubIcon, LinkedinIcon } from "./brand-icons";
 import { FooterColumn } from "./footer-column";
 import { PixelAnimation } from "./pixel-animation";
 
@@ -55,7 +55,7 @@ export function Footer() {
 							className="text-primary-600 dark:text-primary-400 transition-colors hover:text-primary-800 dark:hover:text-primary-200"
 							aria-label="GitHub"
 						>
-							<Github className="size-5" />
+							<GithubIcon className="size-5" />
 						</Link>
 						<Link
 							href={SOCIALS.linkedin}
@@ -64,7 +64,7 @@ export function Footer() {
 							className="text-primary-600 dark:text-primary-400 transition-colors hover:text-primary-800 dark:hover:text-primary-200"
 							aria-label="LinkedIn"
 						>
-							<Linkedin className="size-5" />
+							<LinkedinIcon className="size-5" />
 						</Link>
 					</div>
 				</div>

@@ -4,12 +4,13 @@ import { RootProvider } from "fumadocs-ui/provider/base";
 import { type ReactNode, useEffect, useState } from "react";
 import { i18n } from "@/lib/i18n";
 
+// fumadocs-ui keys its texts by the English text plus a note on where it
+// appears; the former `search` key covered both of these.
 const { provider } = defineI18nUI(i18n, {
-	translations: {
-		de: {
-			displayName: "Deutsch",
-			search: "Suchen...",
-		},
+	de: {
+		displayName: "Deutsch",
+		"Search(search trigger)": "Suchen...",
+		"Search(search dialog)": "Suchen...",
 	},
 });
 

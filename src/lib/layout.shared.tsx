@@ -8,7 +8,6 @@ import { AppWindow } from "lucide-react";
  * Home Layout: app/(home)/layout.tsx
  * Docs Layout: app/docs/layout.tsx
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function baseOptions(_locale: string): BaseLayoutProps {
 	return {
 		nav: {
