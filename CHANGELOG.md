@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.15.1](https://github.com/kopexa-grc/docs/compare/docs-v1.15.0...docs-v1.15.1) (2026-11-16)
+
+
+### Bug Fixes
+
+* **ci:** move actions to current majors, Node 24, monthly Dependabot without auto-merge ([a4b5fbb](https://github.com/kopexa-grc/docs/commit/a4b5fbb98784fbf09efa2b8432c557651c4cadcf))
+* **deps:** update Next.js 16.4, Fumadocs 16.19, lucide 1, mermaid 12 and shiki 4 ([ddf61dd](https://github.com/kopexa-grc/docs/commit/ddf61ddcb23a2bc6b30de9cb44f5274fc0d2cb79))
+* **docker:** drop the unused npm CLI from the runtime image ([ee39fdd](https://github.com/kopexa-grc/docs/commit/ee39fdd9a44b8797c5cb9e7fc7cb037a2d916aba))
+
 ## [1.15.0](https://github.com/kopexa-grc/docs/compare/docs-v1.14.0...docs-v1.15.0) (2026-10-15)
 
 
