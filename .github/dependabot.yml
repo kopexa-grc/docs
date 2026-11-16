@@ -2,15 +2,37 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    open-pull-requests-limit: 25
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    labels:
+      - "dependencies"
+    ignore:
+      # Major versions are updated by hand, one topic at a time.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      # Biome is updated together with sight, the frontend and the backend.
+      - dependency-name: "@biomejs/biome"
+    groups:
+      minor-and-patch:
+        update-types: ["minor", "patch"]
+
   - package-ecosystem: "github-actions"
     directory: "/"
-    open-pull-requests-limit: 25
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    labels:
+      - "dependencies"
+    groups:
+      github-actions:
+        patterns: ["*"]
+
+  # Keeps the Node base image current within Node 24.
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
+    labels:
+      - "dependencies"
+    ignore:
+      - dependency-name: "node"
+        update-types: ["version-update:semver-major"]

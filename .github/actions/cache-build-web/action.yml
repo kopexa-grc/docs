@@ -7,10 +7,10 @@ runs:
   using: "composite"
   steps:
     - name: Checkout repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Cache Build
-      uses: actions/cache@v3
+      uses: actions/cache@v6
       id: cache-build
       env:
         cache-name: prod-build
@@ -27,13 +27,13 @@ runs:
       shell: bash
 
     - name: Install pnpm
-      uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4.1.0
+      uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115 # v6.1.1
       if: steps.cache-build.outputs.cache-hit != 'true'
 
-    - name: Setup Node.js 23.x
-      uses: actions/setup-node@v3
+    - name: Setup Node.js 24.x
+      uses: actions/setup-node@v7
       with:
-        node-version: 23.x
+        node-version: 24.x
         cache: pnpm
       if: steps.cache-build.outputs.cache-hit != 'true'
 
