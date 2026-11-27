@@ -1,0 +1,65 @@
+---
+title: Risiken importieren
+icon: Upload
+description: Viele Risiken auf einmal per CSV-Datei anlegen
+---
+
+Mit dem CSV-Import legst du viele Risiken in einem Schritt an, zum Beispiel wenn du ein bestehendes Risikoregister aus Excel nach Kopexa übernimmst.
+
+<Callout title="Gut zu wissen">
+Der Import legt **nur neue Risiken an**. Bestehende Risiken werden nicht geändert oder überschrieben, und Risiken, die in der Datei fehlen, bleiben erhalten. Nimm bei einem weiteren Import also nur die Risiken in die Datei, die neu dazukommen.
+</Callout>
+
+## Wo finde ich den Import?
+
+1. Öffne das **Risikoregister**.
+2. Klicke oben rechts auf das Menü **Aktionen** (die drei Punkte).
+3. Wähle **Importieren**. Es öffnet sich das Fenster **Risiken importieren**.
+
+Ist **Importieren** ausgegraut, fehlt dir die Berechtigung, Risiken anzulegen.
+
+## So läuft der Import
+
+1. **Vorlage herunterladen:** Klicke auf **CSV-Vorlage herunterladen**. Die Vorlage enthält alle Spalten, die der Import kennt.
+2. **Beispielzeile löschen:** Die zweite Zeile der Vorlage zeigt nur, welches Format und welche Werte in jede Spalte gehören. Lösche sie vor dem Hochladen, sonst schlägt der Import fehl.
+3. **Risiken eintragen:** Trage pro Zeile ein Risiko ein. Pflicht ist nur die Spalte **Title**, alle anderen Spalten kannst du leer lassen.
+4. **Datei hochladen:** Klicke auf **CSV-Datei hochladen** und wähle deine Datei. Die neuen Risiken erscheinen danach direkt in der Liste.
+
+### Häufig genutzte Spalten
+
+Die Spaltennamen und Werte sind englisch. Schreibe die Werte genau so, wie sie hier stehen.
+
+| Spalte | Inhalt | Erlaubte Werte |
+|--------|--------|----------------|
+| Title | Titel des Risikos (Pflicht) | freier Text, eindeutig im Space |
+| Description | Beschreibung | freier Text |
+| RiskType | Art des Risikos | `THREAT` (Gefahr), `OPPORTUNITY` (Chance) |
+| Status | Status | `NEEDS_ATTENTION` (Handlungsbedarf), `ONGOING` (Aktiv), `ARCHIVED` (Archiviert) |
+| RiskTreatment | Behandlung | `ACCEPT` (Akzeptieren), `AVOID` (Vermeiden), `MITIGATE` (Mindern), `TRANSFER` (Übertragen), `ENHANCE` (Verbessern), `EXPLOIT` (Ausschöpfen), `SHARE` (Teilen) |
+| ReviewInterval | Überprüfungsintervall | `NEVER` (Nie), `MONTHLY` (Monatlich), `QUARTERLY` (Vierteljährlich), `BIANNUALLY` (Zweimal jährlich), `YEARLY` (Jährlich) |
+
+Spalten, deren Name auf `ID` oder `IDs` endet (zum Beispiel **OwnerID** oder **AssetIDs**), erwarten interne Kopexa-IDs. Lass sie am besten leer und verknüpfe Verantwortliche, Assets und Kontrollen nach dem Import direkt am Risiko.
+
+## Damit der Import klappt
+
+- **Titel eindeutig:** Jeder Titel darf im Space nur einmal vorkommen. Archivierte Risiken zählen mit, gelöschte nicht.
+- **Alles oder nichts:** Gibt es einen Titel schon im Space, steht ein Titel doppelt in der Datei oder passt ein Wert nicht zum erwarteten Format, bricht der ganze Import ab. Es wird dann kein einziges Risiko angelegt. Korrigiere die Datei und lade sie erneut hoch.
+- **Excel funktioniert:** Komma, Semikolon und Tabulator als Trennzeichen erkennt Kopexa automatisch. Umlaute aus Excel-Dateien unter Windows werden richtig übernommen.
+
+<Callout title="Tipp">
+Über **Exportieren** im selben Menü lädst du deine Risiken als CSV herunter. Eine solche Datei eignet sich aber nicht, um bestehende Risiken zu aktualisieren: Ihre Titel gibt es schon, deshalb bricht der Import ab. Änderungen an bestehenden Risiken machst du direkt in Kopexa.
+</Callout>
+
+## FAQ
+
+<Accordions type="single">
+  <Accordion title="„Import fehlgeschlagen: Ein oder mehrere Einträge existieren bereits.“">
+    Mindestens ein Titel aus deiner Datei gibt es schon im Space, auch archivierte Risiken zählen. Oder ein Titel steht doppelt in der Datei. Entferne oder ändere diese Zeilen und lade die Datei erneut hoch.
+  </Accordion>
+  <Accordion title="„Import fehlgeschlagen. Bitte prüfe die CSV-Datei.“">
+    Meist steht noch die Beispielzeile aus der Vorlage in der Datei, ein Titel fehlt oder ein Wert passt nicht zu den erlaubten Werten (zum Beispiel `Aktiv` statt `ONGOING`). Prüfe diese Punkte und lade die Datei erneut hoch.
+  </Accordion>
+  <Accordion title="Kann ich bestehende Risiken per Import aktualisieren?">
+    Nein. Der Import legt nur neue Risiken an. Bestehende Risiken bearbeitest du direkt in Kopexa.
+  </Accordion>
+</Accordions>
