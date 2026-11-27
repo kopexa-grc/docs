@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.16.0](https://github.com/kopexa-grc/docs/compare/docs-v1.15.1...docs-v1.16.0) (2026-11-27)
+
+
+### Features
+
+* **risks:** document the CSV risk import ([e72176d](https://github.com/kopexa-grc/docs/commit/e72176daf1cdc0ad21b2db03ab22849b6156bfa8))
+
 ## [1.15.1](https://github.com/kopexa-grc/docs/compare/docs-v1.15.0...docs-v1.15.1) (2026-11-16)
 
 
